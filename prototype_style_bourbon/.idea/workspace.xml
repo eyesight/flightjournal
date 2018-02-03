@@ -446,15 +446,16 @@
       <option name="presentableId" value="Default" />
       <updated>1516835352069</updated>
       <workItem from="1516835353755" duration="121000" />
-      <workItem from="1516835598760" duration="28280000" />
+      <workItem from="1516835598760" duration="28734000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28401000" />
+    <option name="totallyTimeSpent" value="28855000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="6" y="23" width="1680" height="1023" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Jenkins" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />

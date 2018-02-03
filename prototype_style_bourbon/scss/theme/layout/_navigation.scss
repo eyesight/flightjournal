@@ -1,0 +1,23 @@
+.main-nav{
+
+  &__wrapper{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__link{
+    margin-left: rem-calc(22px);
+
+    a{
+      font-size: $font-s-main-nav;
+      color: $color-black;
+      text-decoration: none;
+    }
+    &:first-child{
+      margin-left:0;
+    }
+    &:after{
+
+    }
+  }
+}

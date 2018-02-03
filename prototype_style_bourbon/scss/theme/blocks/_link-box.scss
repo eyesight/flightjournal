@@ -1,0 +1,12 @@
+.link-box{
+  margin-bottom: rem-calc(100px);
+  width:100%;
+  display:inline-block;
+  height: rem-calc(200px);
+
+  &__link{
+    font-size: $font-s-anchor;
+    line-height: 2.3rem;
+    cursor: pointer;
+  }
+}

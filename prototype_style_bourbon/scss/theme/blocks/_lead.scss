@@ -1,0 +1,11 @@
+.lead{
+  font-family: $font-family-secundary;
+  font-size: $font-s-lead;
+  font-weight: 300;
+  margin-bottom: rem-calc(50px);
+  margin-top: rem-calc(200px);
+  &--bold{
+    font-family: $font-family-primary;
+    font-weight: 600;
+  }
+}

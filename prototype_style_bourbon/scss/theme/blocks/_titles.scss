@@ -1,0 +1,14 @@
+.title-h1{
+  font-family: $font-family-secundary;
+  font-size: $font-s-h1;
+  font-weight: 300;
+  &--bold{
+    font-family: $font-family-primary;
+    font-weight: 600;
+    display: block;
+  }
+}
+
+.title-h2{
+  margin-bottom: rem-calc(20px);
+}

@@ -1,0 +1,29 @@
+.header{
+  position: fixed;
+
+  z-index:10;
+  width: 100vw;
+  @include grid-container;
+
+  &__logo,
+  &__menu{
+    padding-top: rem-calc(40px);
+    padding-bottom: rem-calc(40px);
+    font-size: $font-s-logo;
+    z-index:100;
+  }
+
+  &__logo{
+    @include grid-column(11, $grid-14);
+    @include grid-shift(1, $grid-14);
+    z-index:100;
+    color: $color-white;
+  }
+
+  &__menu{
+    @include grid-column(10, $grid-14);
+    @include grid-shift(1, $grid-14);
+    @include grid-push(1, $grid-14);
+    background-color: $color-white;
+  }
+}

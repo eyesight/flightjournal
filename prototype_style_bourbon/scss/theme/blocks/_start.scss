@@ -1,0 +1,46 @@
+.start{
+
+    &__left{
+        @include grid-column(11, $grid-14);
+    }
+
+    &__right{
+            @include grid-column(10, $grid-14);
+            @include grid-shift(13, $grid-14);
+        }
+
+    &__image-wrapper{
+        position: fixed;
+        top: 0;
+        width: 50%;
+        overflow: hidden;
+        height: 100vh;
+        z-index:1;
+
+        img{
+            height:100%;
+            min-width:100%;
+        }
+    }
+
+    &__text-wrapper{
+        @include grid-push(1, $grid-14);
+        z-index:100;
+        position: fixed;
+        color: $color-white;
+        bottom:0;
+        margin-bottom: rem-calc(150px);
+    }
+
+    &__lead-wrapper{
+        margin-top: rem-calc(100px);
+
+    }
+
+    &__twocolumn{
+        column-count: 2;
+        column-gap: 100px;
+        column-rule: 1px solid $color-gray-light;
+        margin-top: rem-calc(100px);
+    }
+}

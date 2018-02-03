@@ -1,0 +1,31 @@
+{
+  "name": "Gleitflug",
+  "description": "Flightjournal",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": {
+    "name": "Claudia Friedrich"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-autoprefixer": "^1.0.1",
+    "gulp-cache": "^0.2.0",
+    "gulp-concat": "^2.3.4",
+    "gulp-imagemin": "^0.6.2",
+    "gulp-jshint": "^1.8.4",
+    "gulp-minify-css": "^0.3.7",
+    "gulp-notify": "^1.4.2",
+    "gulp-plumber": "^0.6.4",
+    "gulp-rename": "^1.2.0",
+    "gulp-ruby-sass": "^0.7.1",
+    "gulp-uglify": "^0.3.1"
+  },
+  "dependencies": {
+    "bourbon-neat": "^1.9.0",
+    "browser-sync": "^2.23.6",
+    "del": "^3.0.0",
+    "gulp-sass": "^3.1.0",
+    "normalize.scss": "^0.1.0",
+    "run-sequence": "^2.2.1"
+  }
+}

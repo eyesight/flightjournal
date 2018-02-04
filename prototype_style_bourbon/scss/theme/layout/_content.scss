@@ -19,29 +19,11 @@ html {
   a{
     color: $color-black;
     text-decoration: none;
-    position:relative;
-    display:inline-block;
-    cursor: pointer;
-
-    &::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 3px;
-      bottom: 2px;
-      left: 0;
-      background-color: $color-primary;
-      visibility: visible;
-    }
 
     &:hover,
     &:active,
     &:focus{
       color: $color-primary;
-      &::after {
-        width: 0%;
-        transition:.8s ease width;
-      }
     }
   }
   h1,

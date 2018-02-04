@@ -1,14 +1,26 @@
-.title-h1{
-  font-family: $font-family-secundary;
-  font-size: $font-s-h1;
-  font-weight: 300;
-  &--bold{
-    font-family: $font-family-primary;
-    font-weight: 600;
+.title{
+  font-family: $font-family-primary;
+  font-weight: 600;
+
+  &--regular{
+    font-weight: 300;
+    font-family: $font-family-secundary;
     display: block;
+  }
+
+  &-h1{
+  }
+
+  &-h2{
+    margin-bottom: rem-calc(20px);
+  }
+
+  &-h3{
+    margin-bottom: rem-calc(20px);
+  }
+
+  &--white{
+    color: $color-white;
   }
 }
 
-.title-h2{
-  margin-bottom: rem-calc(20px);
-}

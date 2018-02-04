@@ -1,8 +1,9 @@
 .header{
   position: fixed;
-
   z-index:10;
   width: 100vw;
+  transition: top 1s ease;
+  top: 0;
   @include grid-container;
 
   &__logo,
@@ -26,4 +27,16 @@
     @include grid-push(1, $grid-14);
     background-color: $color-white;
   }
+
+  &.js-header--hide{
+    top:-150px;
+  }
+  &.js-header--positive{
+    background-color: $color-white;
+
+    .header__logo{
+      color: $color-black;
+    }
+  }
 }
+

@@ -5,8 +5,31 @@
   height: rem-calc(200px);
 
   &__link{
+    position:relative;
+    display:inline-block;
+    cursor: pointer;
     font-size: $font-s-anchor;
     line-height: 2.3rem;
-    cursor: pointer;
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      bottom: 2px;
+      left: 0;
+      background-color: $color-primary;
+      visibility: visible;
+    }
+
+    &:hover,
+    &:active,
+    &:focus{
+      color: $color-primary;
+      &::after {
+        width: 0%;
+        transition:.8s ease width;
+      }
+    }
   }
 }

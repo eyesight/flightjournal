@@ -9,12 +9,12 @@
 /*
     funktion to scroll the image/starttext
 */
-
     const intViewportHeight = window.innerHeight;
     const linkbox = document.querySelector('.start__right');
     const imagebox = document.querySelector('.start__image-wrapper');
     const starttextbox = document.querySelector('.start__text-wrapper');
     const header = document.querySelector('.header');
+    const img = document.querySelector('.js-start__image');
 
     let elheader = header.getBoundingClientRect();
     let headerheight = elheader.height;
@@ -35,8 +35,6 @@
         let elLinkbox = linkbox.getBoundingClientRect();
         let bottom = elLinkbox.bottom;
         let linkboxheight = elLinkbox.height;
-        console.log(intViewportHeight);
-        console.log(bottom);
 
         if(intViewportHeight >= bottom){
             imagebox.style.position = 'absolute';
@@ -54,7 +52,6 @@
 
         //add/remove class of header to show logo positive
         if(bottom <= headerheight){
-            console.log('tr');
             header.classList.add('js-header--positive');
         }else{
             header.classList.remove('js-header--positive');
@@ -78,6 +75,43 @@
         scrollDown = scroll_up;
     }
 
+    /*
+     funktion to change images
+     */
+    function changeImages(imagepath, fruehling, sommer, herbst, winter){
+        let d = new Date();
+        let Today = d.getDate();
+        let Month = d.getMonth();
+        let imagearray = [];
+
+        let actualMonthNumber = 0;
+        let season = '';
+        let seasonLetter = '';
+
+        if (Month <= 3 && Month > 0){
+            actualMonthNumber = winter;
+            season = 'winter';
+            seasonLetter = 'w';
+        } else if (Month <= 6 && Month > 3){
+            actualMonthNumber = fruehling;
+            season = 'fruehling';
+            seasonLetter = 'f';
+        } else if (Month <= 9 && Month > 6){
+            actualMonthNumber = sommer;
+            season = 'sommer';
+            seasonLetter = 's';
+        } else if (Month <= 12 && Month > 9){
+            actualMonthNumber = herbst;
+            season = 'herbst';
+            seasonLetter = 'h';
+        } else{
+            img.src = imagepath + 'default.jpg';
+        }
+
+        let randomImage = Math.floor(Math.random() * (actualMonthNumber))+1;
+        img.src = imagepath + season + '/' + seasonLetter +randomImage+'.jpg';
+    }
+
     window.addEventListener("scroll", function(){
         //scroll left side
         leftscroll();
@@ -92,5 +126,7 @@
         }
         ticking = true;
 
-    }, false)
+    }, false);
+
+    changeImages('assets/img/', 2, 2, 2, 2);
 })(window);

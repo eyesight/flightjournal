@@ -1,12 +1,12 @@
-.link-box{
-  margin-bottom: rem-calc(100px);
-  width:100%;
-  display:inline-block;
-  height: rem-calc(200px);
+.link-box {
+  margin-bottom: rem-calc(20px);
+  width: 100%;
+  display: inline-block;
+  min-height: rem-calc(300px);
 
-  &__link{
-    position:relative;
-    display:inline-block;
+  &__link {
+    position: relative;
+    display: inline-block;
     cursor: pointer;
     font-size: $font-s-anchor;
     line-height: 2.3rem;
@@ -24,12 +24,50 @@
 
     &:hover,
     &:active,
-    &:focus{
+    &:focus {
       color: $color-primary;
       &::after {
         width: 0%;
-        transition:.8s ease width;
+        transition: .8s ease width;
       }
     }
   }
+
+  &__lists {
+    margin-bottom: 10px;
+  }
+
+  &__show-more {
+    font-size: $font-s-anchor;
+    color: $color-primary;
+    text-decoration: none;
+    margin-top: rem-calc(20px);
+    visibility: hidden;
+    display:block;
+    margin: 20px 0;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $color-black;
+      cursor: pointer;
+    }
+
+    &--show{
+      visibility: visible;
+    }
+  }
+
+  .js-linkbox-content--show{
+    max-height: rem-calc(1000px);
+    overflow: auto;
+    transition: all 1s ease;
+  }
+
+  .js-linkbox-content--hide{
+    max-height: rem-calc(150px);
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
 }
+

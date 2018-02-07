@@ -19,17 +19,24 @@
     @include grid-shift(1, $grid-14);
     z-index:100;
     color: $color-white;
+    position: fixed;
+    top:0px;
   }
 
   &__menu{
     @include grid-column(10, $grid-14);
-    @include grid-shift(1, $grid-14);
+    @include grid-shift(12, $grid-14);
     @include grid-push(1, $grid-14);
     background-color: $color-white;
   }
 
   &.js-header--hide{
     top:-150px;
+
+    .header__logo{
+      position: fixed;
+      top:0px;
+    }
   }
   &.js-header--positive{
     background-color: $color-white;

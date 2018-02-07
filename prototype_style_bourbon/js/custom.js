@@ -15,6 +15,8 @@
     const starttextbox = document.querySelector('.start__text-wrapper');
     const header = document.querySelector('.header');
     const img = document.querySelector('.js-start__image');
+    const links = document.querySelectorAll('.js-linkbox-links');
+    const linkboxes = document.querySelectorAll('.js-linkbox-content');
 
     let elheader = header.getBoundingClientRect();
     let headerheight = elheader.height;
@@ -82,7 +84,6 @@
         let d = new Date();
         let Today = d.getDate();
         let Month = d.getMonth();
-        let imagearray = [];
 
         let actualMonthNumber = 0;
         let season = '';
@@ -112,6 +113,37 @@
         img.src = imagepath + season + '/' + seasonLetter +randomImage+'.jpg';
     }
 
+    /*
+     funktion for show more text
+     */
+
+    function showMoreText(numberOfLinks){
+        for (let i = 0; i < linkboxes.length; i++) {
+             let allLinks = linkboxes[i].querySelectorAll('.link-box__link');
+             let linkBoxLinks = linkboxes[i].querySelector('.js-linkbox-links');
+             let showMoreButton = linkboxes[i].querySelector('.js-show-more');
+
+             if(allLinks.length <= numberOfLinks){
+                 showMoreButton.classList.add('link-box__show-more--hide');
+             } else{
+                 linkBoxLinks.classList.add('js-linkbox-content--hide');
+                 showMoreButton.classList.add('link-box__show-more--show');
+            }
+
+            showMoreButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                let clickedbutton = e.target.parentNode.querySelector('.js-linkbox-links');
+                if(clickedbutton.classList.contains('js-linkbox-content--hide')){
+                    clickedbutton.classList.remove('js-linkbox-content--hide');
+                    clickedbutton.classList.add('js-linkbox-content--show');
+                }else{
+                    clickedbutton.classList.remove('js-linkbox-content--show');
+                    clickedbutton.classList.add('js-linkbox-content--hide');
+                }
+            });
+        }
+    }
+
     window.addEventListener("scroll", function(){
         //scroll left side
         leftscroll();
@@ -128,5 +160,22 @@
 
     }, false);
 
+    window.addEventListener("scroll", function(){
+        //scroll left side
+        leftscroll();
+
+        //hide/show header
+        last_known_scroll_position = window.scrollY;
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                scrollaction(last_known_scroll_position);
+                ticking = false;
+            });
+        }
+        ticking = true;
+
+    }, false);
+
+    showMoreText(4);
     changeImages('assets/img/', 2, 2, 2, 2);
 })(window);

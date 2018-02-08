@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="52fef29a-a04f-465a-a3f2-53e557756418" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/css/styles.css" afterPath="$PROJECT_DIR$/prototype_style_bourbon/css/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/index.html" afterPath="$PROJECT_DIR$/prototype_style_bourbon/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/js/custom.js" afterPath="$PROJECT_DIR$/prototype_style_bourbon/js/custom.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/scss/config/_font.scss" afterPath="$PROJECT_DIR$/prototype_style_bourbon/scss/config/_font.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_lead.scss" afterPath="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_lead.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_link-box.scss" afterPath="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_link-box.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_start.scss" afterPath="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_start.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/layout/_header.scss" afterPath="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/layout/_header.scss" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -28,8 +20,8 @@
       <file leaf-file-name="custom.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/js/custom.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="415">
-              <caret line="124" column="0" lean-forward="true" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
+            <state relative-caret-position="601">
+              <caret line="181" column="45" lean-forward="false" selection-start-line="181" selection-start-column="45" selection-end-line="181" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -38,8 +30,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="156" column="74" lean-forward="false" selection-start-line="156" selection-start-column="74" selection-end-line="156" selection-end-column="74" />
+            <state relative-caret-position="535">
+              <caret line="194" column="48" lean-forward="true" selection-start-line="194" selection-start-column="36" selection-end-line="194" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -98,8 +90,8 @@
         <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/config/_font.scss" />
         <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/layout/_header.scss" />
         <option value="$PROJECT_DIR$/prototype_style_bourbon/index.html" />
-        <option value="$PROJECT_DIR$/prototype_style_bourbon/js/custom.js" />
         <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_link-box.scss" />
+        <option value="$PROJECT_DIR$/prototype_style_bourbon/js/custom.js" />
       </list>
     </option>
   </component>
@@ -443,12 +435,12 @@
       <workItem from="1517658388277" duration="1734000" />
       <workItem from="1517660793725" duration="21945000" />
       <workItem from="1517868628599" duration="73000" />
-      <workItem from="1517868721363" duration="17560000" />
+      <workItem from="1517868721363" duration="18585000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41312000" />
+    <option name="totallyTimeSpent" value="42337000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1023" extended-state="6" />
@@ -741,14 +733,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="156" column="74" lean-forward="false" selection-start-line="156" selection-start-column="74" selection-end-line="156" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_link-box.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="604">
@@ -757,10 +741,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="194" column="48" lean-forward="true" selection-start-line="194" selection-start-column="36" selection-end-line="194" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/js/custom.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
-          <caret line="124" column="0" lean-forward="true" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
+        <state relative-caret-position="601">
+          <caret line="181" column="45" lean-forward="false" selection-start-line="181" selection-start-column="45" selection-end-line="181" selection-end-column="45" />
           <folding />
         </state>
       </provider>

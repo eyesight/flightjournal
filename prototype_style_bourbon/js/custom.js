@@ -117,7 +117,7 @@
      funktion for show more text
      */
 
-    function showMoreText(numberOfLinks){
+    function showMoreText(numberOfLinks, buttonTextshow, buttonTexthide){
         for (let i = 0; i < linkboxes.length; i++) {
              let allLinks = linkboxes[i].querySelectorAll('.link-box__link');
              let linkBoxLinks = linkboxes[i].querySelector('.js-linkbox-links');
@@ -132,13 +132,16 @@
 
             showMoreButton.addEventListener('click', function (e) {
                 e.preventDefault();
-                let clickedbutton = e.target.parentNode.querySelector('.js-linkbox-links');
-                if(clickedbutton.classList.contains('js-linkbox-content--hide')){
-                    clickedbutton.classList.remove('js-linkbox-content--hide');
-                    clickedbutton.classList.add('js-linkbox-content--show');
-                }else{
-                    clickedbutton.classList.remove('js-linkbox-content--show');
-                    clickedbutton.classList.add('js-linkbox-content--hide');
+                let targetLinkbox = e.target.parentNode.querySelector('.js-linkbox-links');
+                let clickedButton = e.target;
+                if(targetLinkbox.classList.contains('js-linkbox-content--hide')){
+                    targetLinkbox.classList.remove('js-linkbox-content--hide');
+                    targetLinkbox.classList.add('js-linkbox-content--show');
+                    clickedButton.innerHTML = buttonTexthide;
+                } else{
+                    targetLinkbox.classList.remove('js-linkbox-content--show');
+                    targetLinkbox.classList.add('js-linkbox-content--hide');
+                    clickedButton.innerHTML = buttonTextshow;
                 }
             });
         }
@@ -176,6 +179,6 @@
 
     }, false);
 
-    showMoreText(4);
+    showMoreText(4, '+ mehr Links', '&ndash; weniger Links');
     changeImages('assets/img/', 2, 2, 2, 2);
 })(window);

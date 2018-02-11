@@ -611,8 +611,9 @@ html {
   background-color: #fff;
   border: 1px solid #0d7e7f;
   padding: 0.9375rem;
-  box-shadow: 10px 10px #FDFF85;
-  margin-left: 45%; }
+  margin-left: 45%;
+  transition: all 0.3s ease-in-out 0s;
+  margin-top: 3.125rem; }
   .button-without-border {
     font-size: 1.375rem;
     color: #0d7e7f;
@@ -622,9 +623,8 @@ html {
     .button-without-border:hover, .button-without-border:focus {
       color: #000; }
   .button:hover, .button:focus {
-    box-shadow: 5px 5px #FDFF85;
-    margin-left: calc(45% + 5px);
-    margin-top: 5px; }
+    box-shadow: 10px 10px #FDFF85;
+    transition: all 0.3s ease-in-out 0s; }
 
 .table {
   width: calc(91.66667%);

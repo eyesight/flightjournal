@@ -3,8 +3,9 @@
   background-color: $color-white;
   border: 1px solid $color-primary;
   padding: rem-calc(15px);
-  box-shadow: 10px 10px $color-yellow;
   margin-left: 45%;
+  transition: all 0.3s ease-in-out 0s;
+  margin-top: rem-calc(50px);
 
   &-without-border{
     font-size: $font-s-button-wb;
@@ -21,8 +22,7 @@
 
   &:hover,
   &:focus{
-    box-shadow: 5px 5px $color-yellow;
-    margin-left: calc(45% + 5px);
-    margin-top: 5px;
+    box-shadow: 10px 10px $color-yellow;
+    transition: all 0.3s ease-in-out 0s;
   }
 }

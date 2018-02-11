@@ -10,6 +10,9 @@
 
     a{
       font-size: $font-s-main-nav;
+      @include bp(max, $screen-m) {
+        font-size: $font-s-main-nav-small;
+      }
     }
     &:first-child{
       margin-left:0;

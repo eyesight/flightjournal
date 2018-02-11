@@ -1,5 +1,5 @@
 .flights{
-  @include grid-column(24, $grid-14);
+  @include grid-column(24, $grid-24);
 
   &__header{
     margin-top: rem-calc(100px);

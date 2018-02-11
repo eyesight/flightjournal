@@ -1,17 +1,20 @@
 .table{
-  @include grid-column(22, $grid-14);
-  @include grid-push(1, $grid-14);
-  width:100%;
+  @include grid-column(22, $grid-24);
+  @include grid-push(1, $grid-24);
   &-wrapper{
     font-size: $font-s-table;
     overflow-y: auto;
     margin: 0 0 1em;
+
+    @include bp(max, $screen-m) {
+      font-size: $font-s-table-small;
+    }
   }
   td{
-    padding: 10px 0;
+    padding: 10px 10px 10px 0;
   }
   th{
-    padding: 0 0 40px 0;
+    padding: 0 10px 40px 0;
     text-align: left;
   }
 
@@ -69,6 +72,10 @@
     display: block;
     width: 103px;
     cursor: pointer;
+
+    @include bp(max, $screen-m) {
+      width: 90px;
+    }
 
     &:hover,
     &:active,

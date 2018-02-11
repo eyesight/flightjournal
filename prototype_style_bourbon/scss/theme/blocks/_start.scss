@@ -1,12 +1,12 @@
 .start{
 
     &__left{
-        @include grid-column(11, $grid-14);
+        @include grid-column(11, $grid-24);
     }
 
     &__right{
-            @include grid-column(10, $grid-14);
-            @include grid-shift(13, $grid-14);
+            @include grid-column(10, $grid-24);
+            @include grid-shift(13, $grid-24);
         }
 
     &__image-wrapper{
@@ -24,7 +24,7 @@
     }
 
     &__text-wrapper{
-        @include grid-push(1, $grid-14);
+        @include grid-push(1, $grid-24);
         z-index:100;
         position: fixed;
         bottom:0;

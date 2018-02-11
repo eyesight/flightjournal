@@ -179,6 +179,6 @@
 
     }, false);
 
-    showMoreText(4, '+ mehr Links', '&ndash; weniger Links');
+    showMoreText(5, '+ mehr Links', '&ndash; weniger Links');
     changeImages('assets/img/', 2, 2, 2, 2);
 })(window);

@@ -2,14 +2,16 @@
   margin-bottom: rem-calc(20px);
   width: 100%;
   display: inline-block;
-  min-height: rem-calc(300px);
+  min-height: rem-calc(400px);
 
-  &__link {
+  &__link,
+  .table__link{
     position: relative;
     display: inline-block;
     cursor: pointer;
     font-size: $font-s-anchor;
     line-height: 2.3rem;
+
 
     &::after {
       content: "";
@@ -20,6 +22,7 @@
       left: 0;
       background-color: $color-primary;
       visibility: visible;
+      transition: $transition-underline;
     }
 
     &:hover,
@@ -28,7 +31,7 @@
       color: $color-primary;
       &::after {
         width: 0%;
-        transition: .8s ease width;
+        transition: $transition-underline;
       }
     }
   }
@@ -41,7 +44,6 @@
     font-size: $font-s-anchor;
     color: $color-primary;
     text-decoration: none;
-    margin-top: rem-calc(20px);
     visibility: hidden;
     display:block;
     margin: 20px 0;
@@ -65,7 +67,7 @@
   }
 
   .js-linkbox-content--hide{
-    max-height: rem-calc(150px);
+    max-height: rem-calc(180px);
     overflow: hidden;
     transition: all 0.2s ease;
   }

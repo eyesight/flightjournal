@@ -23,7 +23,9 @@
 <div class="page">
     <header class="header">
         <div class="header__logo">
-            <p>G L E I T Z I I T</p>
+            <div class="header__logo-wrapper">
+                <p>G L E I T Z I I T</p>
+            </div>
         </div>
         <div class="header__menu">
         <nav class="main-nav">
@@ -54,21 +56,21 @@
                     <img class="start__image js-start__image" src=""/>
                 </div>
                 <div class="start__text-wrapper">
-                    <!--<h1 class="title title-h1 title&#45;&#45;white">
-                        Auf, (r)auf <span class="title&#45;&#45;regular">und davon.</span>
+                   <!-- <h1 class="title-h1 title&#45;&#45;white">
+                        Auf, (r)auf <br><span class="title&#45;&#45;regular">und davon.</span>
                     </h1>-->
                 </div>
             </div>
             <div class="start__right">
                 <div class="start__lead-wrapper">
                     <p class="lead">
-                        <span class="lead--bold">Wind und Wetter. Und mehr.</span> Die nützlichsten Links für die Flugvorbereitung.
+                        <span class="lead--bold">Wind und Wetter. Und mehr.<br></span> Die nützlichsten Links für die Flugvorbereitung.
                     </p>
                 </div>
                     <div class="start__twocolumn">
                         <div class="box link-box">
                             <div class="link-box__content js-linkbox-content">
-                                <h3 class="title title-h3">Wetter</h3>
+                                <h3 class="title-h3">Wetter.<br><span class="title--regular">  Wie wirds?</span></h3>
                                 <ul class="link-box__list js-linkbox-links">
                                     <li>
                                         <a class="link-box__link">
@@ -93,7 +95,7 @@
                         </div>
                         <div class="box link-box">
                             <div class="link-box__content js-linkbox-content">
-                                <h3 class="title title-h3">Thermik</h3>
+                                <h3 class="title title-h3">Thermik.<br><span class="title--regular">  Wo steigts?</span></h3>
                                 <ul class="link-box__list js-linkbox-links">
                                     <li>
                                         <a class="link-box__link ">
@@ -123,7 +125,7 @@
                         </div>
                         <div class="box link-box">
                             <div class="link-box__content js-linkbox-content">
-                                <h3 class="title title-h3">Wind</h3>
+                                <h3 class="title title-h3">Wind.<br><span class="title--regular">  Wo blästs?</span></h3>
                                 <ul class="link-box__list js-linkbox-links">
                                     <li>
                                         <a class="link-box__link">
@@ -153,7 +155,7 @@
                         </div>
                         <div class="box link-box">
                             <div class="link-box__content js-linkbox-content ">
-                                <h3 class="title title-h3">Webcams</h3>
+                                <h3 class="title title-h3">Webcams.<br> <span class="title--regular">  Wie siehts aus?</span></h3>
                                 <ul class="link-box__list js-linkbox-links">
                                     <li>
                                         <a class="link-box__link">
@@ -198,7 +200,7 @@
                         </div>
                         <div class="box link-box">
                             <div class="link-box__content js-linkbox-content">
-                                <h3 class="title title-h3">Planung</h3>
+                                <h3 class="title-h3">Karten.<br><span class="title--regular">Das wichtigste Kartenmaterial.</span> </h3>
                                 <ul class="link-box__list js-linkbox-links">
                                     <li>
                                         <a class="link-box__link">
@@ -252,7 +254,7 @@
                         </div>
                         <div class="box link-box">
                             <div class="link-box__content js-linkbox-content">
-                                <h3 class="title title-h3">Diverse</h3>
+                                <h3 class="title-h3">Diverse.<br> <span class="title--regular"> Weitere nützliche Klicks.</span>  </h3>
                                 <ul class="link-box__list js-linkbox-links">
                                     <li>
                                         <a class="link-box__link">
@@ -289,16 +291,41 @@
             </div>
         </section>
         <section class="flights">
-            <h2 class="title title-h2">Unsere Flüge. <span class="title--regular">Überblick.</span></h2>
-            <h2 class="title title-h2">Unsere Flüge. <span class="title--regular">Überblick.</span></h2>
-            <h2 class="title title-h2">Unsere Flüge. <span class="title--regular">Überblick.</span></h2>
-            <h2 class="title title-h2">Unsere Flüge. <span class="title--regular">Überblick.</span></h2>
-            <h2 class="title title-h2">Unsere Flüge. <span class="title--regular">Überblick.</span></h2>
-            <h2 class="title title-h2">Unsere Flüge. <span class="title--regular">Überblick.</span></h2>
-            <h2 class="title title-h2">Unsere Flüge. <span class="title--regular">Überblick.</span></h2>
-            <h2 class="title title-h2">Unsere Flüge. <span class="title--regular">Überblick.</span></h2>
-            <h2 class="title title-h2">Unsere Flüge. <span class="title--regular">Überblick.</span></h2>
-            <h2 class="title title-h2">Unsere Flüge. <span class="title--regular">Überblick.</span></h2>
+            <div class="flights__header">
+                <h2 class="title-h2">Unsere Flüge. <span class="title--regular">Überblick.</span></h2>
+                <button class="button-without-border">+ Flug hinzufügen</button>
+            </div>
+            <div class="table-wrapper">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="table__header table--sort js-table--sort"><span class="active">Datum</span><span class="arrow-up visible"> &#8593;</span><span class="arrow-down"> &#8595;</span></th>
+                            <th class="table__header table--sort js-table--sort"><span>Pilot</span><span class="arrow-up"> &#8593;</span><span class="arrow-down"> &#8595;</span></th>
+                            <th class="table__header table--sort js-table--sort"><span>Startplatz</span><span class="arrow-up"> &#8593;</span><span class="arrow-down">&#8595;</span></th>
+                            <th class="table__header table--sort js-table--sort"><span>Flugzeit</span><span class="arrow-up"> &#8593;</span><span class="arrow-down"> &#8595;</span></th>
+                            <th class="table__header table--sortjs-table--sort"><span>XC-Distanz</span><span class="arrow-up"> &#8593;</span><span class="arrow-down"> &#8595;</span></th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>22.1.2018</td>
+                        <td>Jonas</td>
+                        <td>Castelluccio, Fontanile, 1900 m</td>
+                        <td>45 min</td>
+                        <td>11 Kilometer</td>
+                        <td class="table__link">Flugdetails</td>
+                    </tr>
+                    <tr>
+                        <td>22.1.2018</td>
+                        <td>Claudia</td>
+                        <td>Engelberg – Herzlisee, 1800 m</td>
+                        <td>1 h 45 min</td>
+                        <td>21 Kilometer</td>
+                        <td class="table__link">Flugdetails</td>
+                    </tr>
+                </table>
+            </div>
+            <button class="button">mehr Flüge anzeigen</button>
         </section>
     </main>
 </div>

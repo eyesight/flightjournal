@@ -13,9 +13,14 @@
     const img = document.querySelector('.js-start__image');
     const links = document.querySelectorAll('.js-linkbox-links');
     const linkboxes = document.querySelectorAll('.js-linkbox-content');
+    const navigation = document.querySelector('.main-nav');
+    const logo = document.querySelector('.header__logo');
+    const navlinks = document.querySelectorAll('.main-nav__link');
 
     let elheader = header.getBoundingClientRect();
     let headerheight = elheader.height;
+
+    const burger = document.querySelector('.mobile-toggle');
 
     function leftscroll(){
         const intViewportHeight = window.innerHeight;
@@ -40,25 +45,39 @@
         let bottom = elLinkbox.bottom;
         let linkboxheight = elLinkbox.height;
 
-        if(intViewportHeight >= bottom){
-            imagebox.style.position = 'absolute';
-            imagebox.style.top = (linkboxheight-intViewportHeight) + 'px';
-            starttextbox.style.position = 'absolute';
-            starttextbox.style.top = (linkboxheight-startextheightmargin) + 'px';
-
-        } else{
-            imagebox.style.position = 'fixed';
-            imagebox.style.top = '0px';
-            starttextbox.style.position = 'fixed';
-            starttextbox.style.top = 'auto';
-
+        if (matchMedia) {
+            const mq = window.matchMedia("(min-width: 1024px)");
+            mq.addListener(WidthChange);
+            WidthChange(mq);
         }
 
-        //add/remove class of header to show logo positive
-        if(bottom <= headerheight){
-            header.classList.add('js-header--positive');
-        }else{
-            header.classList.remove('js-header--positive');
+        // media query change
+        function WidthChange(mq) {
+            if(mq.matches){
+                if(intViewportHeight >= bottom){
+                    imagebox.style.position = 'absolute';
+                    imagebox.style.top = (linkboxheight-intViewportHeight) + 'px';
+                    starttextbox.style.position = 'absolute';
+                    starttextbox.style.top = (linkboxheight-startextheightmargin) + 'px';
+
+                } else{
+                    imagebox.style.position = 'fixed';
+                    imagebox.style.top = '0px';
+                    starttextbox.style.position = 'fixed';
+                    starttextbox.style.top = 'auto';
+
+                }
+
+                //add/remove class of header to show logo positive
+                if(bottom <= headerheight){
+                    header.classList.add('js-header--positive');
+                }else{
+                    header.classList.remove('js-header--positive');
+                }
+
+            }else{
+                imagebox.style.position = 'relative';
+            }
         }
     }
 
@@ -70,14 +89,28 @@
     let ticking = false;
 
     function scrollaction(scroll_pos) {
-        let scroll_up = last_known_scroll_position;
-        if (scroll_up < scrollDown ) {
-            header.classList.remove('js-header--hide');
-        } else {
-            header.classList.add('js-header--hide');
+
+        // media query change
+        if (matchMedia) {
+            const mq = window.matchMedia("(min-width: 1024px)");
+            mq.addListener(WidthChange);
+            WidthChange(mq);
         }
-        scrollDown = scroll_up;
+
+        // media query change
+        function WidthChange(mq) {
+            if(mq.matches){
+                let scroll_up = last_known_scroll_position;
+                if (scroll_up < scrollDown ) {
+                    header.classList.remove('js-header--hide');
+                } else {
+                    header.classList.add('js-header--hide');
+                }
+                scrollDown = scroll_up;
+            }
+        }
     }
+
 
     /*
      funktion to change images
@@ -190,6 +223,29 @@
         }
     }
 
+    burger.addEventListener('click', function(event){
+        event.preventDefault();
+        if(navigation.classList.contains('js-mobile-nav--visible')){
+            navigation.classList.remove('js-mobile-nav--visible');
+        }else{
+            navigation.classList.add('js-mobile-nav--visible');
+        }
+
+        if(logo.classList.contains('js-mobile-logo--visible')){
+            logo.classList.remove('js-mobile-logo--visible');
+        }else{
+            logo.classList.add('js-mobile-logo--visible');
+        }
+    });
+
+    navlinks.forEach(function(e){
+            e.addEventListener('click', function(e){
+                if(navigation.classList.contains('js-mobile-nav--visible') && logo.classList.contains('js-mobile-logo--visible')){
+                    navigation.classList.remove('js-mobile-nav--visible');
+                    logo.classList.remove('js-mobile-logo--visible');
+                }
+            });
+    });
 
     window.addEventListener("scroll", function(){
         //scroll left side

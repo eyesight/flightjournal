@@ -2,11 +2,21 @@
 
     &__left{
         @include grid-column(11, $grid-24);
+
+        @include bp(max, $ipad-ls) {
+           @include grid-column(24, $grid-24);
+         }
     }
 
     &__right{
             @include grid-column(10, $grid-24);
             @include grid-shift(13, $grid-24);
+
+            @include bp(max, $ipad-ls) {
+                @include grid-column(22, $grid-24);
+                @include grid-shift(0, $grid-24);
+                @include grid-push(1, $grid-24);
+             }
         }
 
     &__image-wrapper{
@@ -21,6 +31,12 @@
             height:100%;
             min-width:100%;
         }
+
+        @include bp(max, $ipad-ls) {
+            position: relative;
+            width: 100%;
+            z-index: -100;
+        }
     }
 
     &__text-wrapper{
@@ -34,6 +50,12 @@
     &__lead-wrapper{
         margin-top: rem-calc(100px);
 
+        @include bp(max, $ipad-ls) {
+           color: $color-white;
+           margin-top: -250px;
+           padding: 10px 10px 100px 10px;
+           text-align: center;
+        }
     }
 
     &__twocolumn{
@@ -41,5 +63,9 @@
         column-gap: 100px;
         column-rule: 1px solid $color-gray-light;
         margin-top: rem-calc(100px);
+
+        @include bp(max, $ipad-ls) {
+            margin-top: 0;
+        }
     }
 }

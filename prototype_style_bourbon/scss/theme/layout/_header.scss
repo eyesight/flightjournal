@@ -27,7 +27,19 @@
 
       &:hover{
         color: $color-white;
+
+        @include bp(max, $ipad-ls) {
+          color: $color-black;
+        }
       }
+
+      @include bp(max, $ipad-ls) {
+        color: $color-black;
+      }
+    }
+
+    @include bp(max, $ipad-ls) {
+      color: $color-black;
     }
   }
 
@@ -36,6 +48,10 @@
     @include grid-shift(12, $grid-24);
     @include grid-push(1, $grid-24);
     background-color: $color-white;
+
+    @include bp(max, $ipad-ls) {
+      background-color: transparent;
+    }
   }
 
   &.js-header--hide{
@@ -48,6 +64,20 @@
   }
   &.js-header--positive{
     background-color: $color-white;
+
+    @include bp(max, $ipad-ls) {
+      background-color: transparent;
+    }
+
+    .header__anchor{
+      color: $color-black;
+    }
+  }
+
+  .js-mobile-logo--visible{
+    position:fixed;
+    z-index: 10000;
+    color: $color-black;
 
     .header__anchor{
       color: $color-black;

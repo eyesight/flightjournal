@@ -16,22 +16,24 @@
     @include grid-push(1, $grid-24);
     justify-content: space-between;
 
-    &-item{
-      color: $color-primary;
-      z-index:10;
-
-      &::after {
-        @extend .help-underline-yellow;
-      }
-
-      &:hover,
-      &:focus,
-      &.active{
-        color: $color-black;
-        transition: color .5s ease 0s;
+    a{
+      &.filter__list-item{
+        color: $color-primary;
+        z-index:10;
 
         &::after {
-          @extend .help-underline-yellow-hover;
+          @extend .help-underline-yellow;
+        }
+
+        &:hover,
+        &:focus,
+        &.active{
+          color: $color-black;
+          transition: color .5s ease 0s;
+
+          &::after {
+            @extend .help-underline-yellow-hover;
+          }
         }
       }
     }

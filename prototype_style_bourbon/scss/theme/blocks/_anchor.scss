@@ -1,4 +1,6 @@
-.anchor{
+.anchor,
+.anchor:active,
+.anchor:visited{
   position: relative;
   display: inline-block;
   cursor: pointer;
@@ -15,7 +17,6 @@
   }
 
   &:hover,
-  &:active,
   &:focus {
     color: $color-primary;
     &::after {

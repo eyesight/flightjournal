@@ -1,14 +1,16 @@
 .centered-layout{
+  margin-top: rem-calc(20px);
   @include grid-column(24, $grid-24);
 
   &__header{
-    margin-top: rem-calc(100px);
+    padding-top: rem-calc(100px);
+    margin-top: rem-calc(80px);
     margin-bottom: rem-calc(100px);
     display:flex;
     flex-direction: column;
   }
-
   &:last-child{
     margin-bottom: rem-calc(100px);
   }
+
 }

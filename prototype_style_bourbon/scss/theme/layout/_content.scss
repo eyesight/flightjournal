@@ -16,13 +16,15 @@ html {
     list-style: none;
   }
 
-  a{
+  a,
+  a:active,
+  a:visited,
+  a:focus{
     color: $color-black;
     text-decoration: none;
 
     &:hover,
-    &:active,
-    &:focus{
+    &.active{
       color: $color-primary;
     }
   }
@@ -66,4 +68,13 @@ html {
   padding: 0;
   position: absolute;
   width: 1px;
+}
+
+img {
+  opacity: 1;
+  transition: opacity 0.5s 0.3s;
+}
+
+img[data-src] {
+  opacity: 0;
 }

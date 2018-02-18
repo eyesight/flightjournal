@@ -21,6 +21,14 @@
     color: $color-white;
     position: fixed;
     top:0px;
+
+    .header__anchor{
+      color: $color-white;
+
+      &:hover{
+        color: $color-white;
+      }
+    }
   }
 
   &__menu{
@@ -41,7 +49,7 @@
   &.js-header--positive{
     background-color: $color-white;
 
-    .header__logo{
+    .header__anchor{
       color: $color-black;
     }
   }

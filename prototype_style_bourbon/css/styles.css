@@ -368,7 +368,7 @@ html p {
   margin: 0;
   padding: 0; }
 
-.help-underline-yellow, .table__header span::after, .filter__list-item::after {
+.help-underline-yellow, .table__header span::after, .filter__list a.filter__list-item::after {
   content: "";
   width: 100%;
   height: 12px;
@@ -381,11 +381,13 @@ html p {
   transform: scaleX(0);
   transition: all .5s ease 0s; }
 
-.help-underline-yellow-hover, .table__header span:hover::after, .table__header span:focus::after, .table__header span.active::after, .filter__list-item:hover::after, .filter__list-item:focus::after, .filter__list-item.active::after {
+.help-underline-yellow-hover, .table__header span:hover::after, .table__header span:focus::after, .table__header span.active::after, .filter__list a.filter__list-item:hover::after, .filter__list a.filter__list-item:focus::after, .filter__list a.filter__list-item.active::after {
   transform: scaleX(1);
   transition: all .5s ease 0s; }
 
-.help-underline-green, .anchor::after {
+.help-underline-green, .anchor::after,
+.anchor:active::after,
+.anchor:visited::after {
   content: "";
   position: absolute;
   width: 100%;
@@ -397,7 +399,11 @@ html p {
   transform: scaleX(1);
   transition: all 0.3s ease-in-out 0s; }
 
-.help-underline-green-hover, .anchor:hover::after, .anchor:active::after, .anchor:focus::after {
+.help-underline-green-hover, .anchor:hover::after, .anchor:focus::after,
+.anchor:active:hover::after,
+.anchor:active:focus::after,
+.anchor:visited:hover::after,
+.anchor:visited:focus::after {
   transform: scaleX(0);
   transition: all 0.3s ease-in-out 0s;
   /*width: 0%;
@@ -415,10 +421,19 @@ html {
     font-weight: 400; }
   html li {
     list-style: none; }
-  html a {
+  html a,
+  html a:active,
+  html a:visited,
+  html a:focus {
     color: #000;
     text-decoration: none; }
-    html a:hover, html a:active, html a:focus {
+    html a:hover, html a.active,
+    html a:active:hover,
+    html a:active.active,
+    html a:visited:hover,
+    html a:visited.active,
+    html a:focus:hover,
+    html a:focus.active {
       color: #0d7e7f; }
   html h1 {
     font-size: 3.75rem; }
@@ -440,6 +455,13 @@ html {
   padding: 0;
   position: absolute;
   width: 1px; }
+
+img {
+  opacity: 1;
+  transition: opacity 0.5s 0.3s; }
+
+img[data-src] {
+  opacity: 0; }
 
 .page::after {
   clear: both;
@@ -471,6 +493,10 @@ html {
     color: #fff;
     position: fixed;
     top: 0px; }
+    .header__logo .header__anchor {
+      color: #fff; }
+      .header__logo .header__anchor:hover {
+        color: #fff; }
   .header__menu {
     width: calc(41.66667%);
     float: left;
@@ -486,7 +512,7 @@ html {
       top: 0px; }
   .header.js-header--positive {
     background-color: #fff; }
-    .header.js-header--positive .header__logo {
+    .header.js-header--positive .header__anchor {
       color: #000; }
 
 .main-nav__wrapper {
@@ -606,13 +632,19 @@ html {
     max-height: 11.25rem;
     overflow: hidden;
     transition: all 0.2s ease; }
+  .link-box:last-child {
+    padding-bottom: 3.125rem; }
+  .link-box:nth-child(3) {
+    padding-bottom: 3.125rem; }
 
 .centered-layout {
+  margin-top: 1.25rem;
   width: calc(100%);
   float: left;
   margin-left: 0px; }
   .centered-layout__header {
-    margin-top: 6.25rem;
+    padding-top: 6.25rem;
+    margin-top: 5rem;
     margin-bottom: 6.25rem;
     display: flex;
     flex-direction: column; }
@@ -717,10 +749,10 @@ html {
     margin-left: 0px;
     margin-left: calc(4.16667% + 0px);
     justify-content: space-between; }
-    .filter__list-item {
+    .filter__list a.filter__list-item {
       color: #0d7e7f;
       z-index: 10; }
-      .filter__list-item:hover, .filter__list-item:focus, .filter__list-item.active {
+      .filter__list a.filter__list-item:hover, .filter__list a.filter__list-item:focus, .filter__list a.filter__list-item.active {
         color: #000;
         transition: color .5s ease 0s; }
   .filter__list-dropdown {
@@ -811,14 +843,22 @@ html {
     .image-box__icons i {
       margin-right: 20px; }
 
-.anchor {
+.anchor,
+.anchor:active,
+.anchor:visited {
   position: relative;
   display: inline-block;
   cursor: pointer;
   font-size: 1.125rem;
   line-height: 2.3rem; }
   @media screen and (max-width: 1200px) {
-    .anchor {
+    .anchor,
+    .anchor:active,
+    .anchor:visited {
       font-size: 1rem; } }
-  .anchor:hover, .anchor:active, .anchor:focus {
+  .anchor:hover, .anchor:focus,
+  .anchor:active:hover,
+  .anchor:active:focus,
+  .anchor:visited:hover,
+  .anchor:visited:focus {
     color: #0d7e7f; }

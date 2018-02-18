@@ -48,5 +48,13 @@
     overflow: hidden;
     transition: all 0.2s ease;
   }
+
+  &:last-child{
+    padding-bottom: rem-calc(50px);
+  }
+
+  &:nth-child(3){
+    padding-bottom: rem-calc(50px);
+  }
 }
 

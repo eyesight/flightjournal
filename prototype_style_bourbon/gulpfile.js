@@ -10,7 +10,7 @@ gulp.task('sass', function() {
 });
 
 gulp.task('autoprefixer', function(){
-    gulp.src('css/style.css')
+    gulp.src('css/styles.css')
         .pipe(autoprefixer({
             browsers: ['last 10 versions'],
             cascade: false,

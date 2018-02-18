@@ -25,6 +25,7 @@
     "browser-sync": "^2.23.6",
     "del": "^3.0.0",
     "gulp-sass": "^3.1.0",
+    "imagesloaded": "^4.1.4",
     "normalize.scss": "^0.1.0",
     "run-sequence": "^2.2.1"
   }

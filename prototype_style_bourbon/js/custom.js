@@ -9,10 +9,6 @@
 /*
     funktion to scroll the image/starttext
 */
-    const intViewportHeight = window.innerHeight;
-    const linkbox = document.querySelector('.start__right');
-    const imagebox = document.querySelector('.start__image-wrapper');
-    const starttextbox = document.querySelector('.start__text-wrapper');
     const header = document.querySelector('.header');
     const img = document.querySelector('.js-start__image');
     const links = document.querySelectorAll('.js-linkbox-links');
@@ -21,18 +17,24 @@
     let elheader = header.getBoundingClientRect();
     let headerheight = elheader.height;
 
-    //get the height of the start-text-element
-    let styleoftextbox = window.getComputedStyle(starttextbox, null);
-    let elStarttext = starttextbox.getBoundingClientRect();
-    let starttextheight = elStarttext.height;
-
-    //get the margin-bottom of the start-text-element
-    let starttextmargin = styleoftextbox.marginBottom;
-    starttextmargin=starttextmargin.match(/\d+/g).map(Number).join();
-    starttextmargin=Number(starttextmargin);
-    let startextheightmargin = starttextheight + starttextmargin;
-
     function leftscroll(){
+        const intViewportHeight = window.innerHeight;
+        const linkbox = document.querySelector('.start__right');
+        const imagebox = document.querySelector('.start__image-wrapper');
+        const starttextbox = document.querySelector('.start__text-wrapper');
+
+        //get the height of the start-text-element
+        let styleoftextbox = window.getComputedStyle(starttextbox, null);
+        let elStarttext = starttextbox.getBoundingClientRect();
+        let starttextheight = elStarttext.height;
+
+        //get the margin-bottom of the start-text-element
+        let starttextmargin = styleoftextbox.marginBottom;
+        starttextmargin=starttextmargin.match(/\d+/g).map(Number).join();
+        starttextmargin=Number(starttextmargin);
+        let startextheightmargin = starttextheight + starttextmargin;
+
+
         //get the height and bottom-position of the linkbox
         let elLinkbox = linkbox.getBoundingClientRect();
         let bottom = elLinkbox.bottom;
@@ -116,7 +118,6 @@
     /*
      funktion for show more text
      */
-
     function showMoreText(numberOfLinks, buttonTextshow, buttonTexthide){
         for (let i = 0; i < linkboxes.length; i++) {
              let allLinks = linkboxes[i].querySelectorAll('.link-box__link');
@@ -147,9 +148,56 @@
         }
     }
 
+    /*
+     funktion lazy loading images
+     */
+    function lazyloading(){
+        const images = document.querySelectorAll('img[data-src]');
+        if (images.length === 0) return;
+
+        for (const image of images) {
+            if (image.getBoundingClientRect().top <= window.innerHeight * 0.75 && image.getBoundingClientRect().top > 0) {
+                image.setAttribute('src', image.getAttribute('data-src'));
+                image.onload = function() {
+                    image.removeAttribute('data-src');
+                };
+            }
+        }
+    }
+
+    /*
+     funktion to activate navigation anchor, when section is in viewport
+     */
+    function scrollNavigation(){
+        let section = document.querySelectorAll('section');
+        let sections = {};
+        let i = 0;
+        let scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+
+        Array.prototype.forEach.call(section, function(e) {
+            sections[e.id] = e.offsetTop;
+        });
+
+        for (i in sections) {
+            if (sections[i] <= scrollPosition) {
+                if(document.querySelector('.active')){
+                    document.querySelector('.active').classList.remove('active');
+                    document.querySelector('a[href*=\\#' + i + ']').classList.add('active');
+                }else{
+                    document.querySelector('a[href*=\\#' + i + ']').classList.add('active');
+                }
+            }
+        }
+    }
+
+
     window.addEventListener("scroll", function(){
         //scroll left side
         leftscroll();
+        //lazyload images
+        lazyloading();
+        //activate menu of section
+        scrollNavigation();
 
         //hide/show header
         last_known_scroll_position = window.scrollY;
@@ -163,7 +211,7 @@
 
     }, false);
 
-    window.addEventListener("optimizedResize", function() {
+    window.addEventListener("resize", function() {
         leftscroll();
     });
 

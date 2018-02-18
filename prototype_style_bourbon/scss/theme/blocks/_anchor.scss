@@ -1,0 +1,25 @@
+.anchor{
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  font-size: $font-s-anchor;
+  line-height: 2.3rem;
+
+  @include bp(max, $screen-m) {
+    font-size: $font-s-anchor-small;
+  }
+
+
+  &::after {
+    @extend .help-underline-green;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $color-primary;
+    &::after {
+      @extend .help-underline-green-hover;
+    }
+  }
+}

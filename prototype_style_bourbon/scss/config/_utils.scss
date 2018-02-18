@@ -1,5 +1,10 @@
 //Border
 $border-anchor: 3px solid $color-primary;
 
-//transitions
+//transitions for underline from left to right
 $transition-underline: .8s ease width;
+
+//transitions for underline from center
+$transition-underline-center: all 0.3s ease-in-out 0s;
+
+

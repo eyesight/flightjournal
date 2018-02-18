@@ -163,21 +163,9 @@
 
     }, false);
 
-    window.addEventListener("scroll", function(){
-        //scroll left side
+    window.addEventListener("optimizedResize", function() {
         leftscroll();
-
-        //hide/show header
-        last_known_scroll_position = window.scrollY;
-        if (!ticking) {
-            window.requestAnimationFrame(function() {
-                scrollaction(last_known_scroll_position);
-                ticking = false;
-            });
-        }
-        ticking = true;
-
-    }, false);
+    });
 
     showMoreText(5, '+ mehr Links', '&ndash; weniger Links');
     changeImages('assets/img/', 2, 2, 2, 2);

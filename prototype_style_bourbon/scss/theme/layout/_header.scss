@@ -12,6 +12,11 @@
     padding-bottom: rem-calc(40px);
     font-size: $font-s-logo;
     z-index:100;
+
+    @include bp(max, $ipad-ls) {
+      padding-top: rem-calc(20px);
+      padding-bottom: rem-calc(40px);
+    }
   }
 
   &__logo{
@@ -82,6 +87,10 @@
     .header__anchor{
       color: $color-black;
     }
+  }
+
+  @include bp(max, $ipad-ls) {
+    background-color: $color-white;
   }
 }
 

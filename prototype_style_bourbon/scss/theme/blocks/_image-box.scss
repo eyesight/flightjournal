@@ -15,7 +15,7 @@
 
   &__item{
     width: 30%;
-    padding-right: 2.4%;
+    padding-right: 2%;
     padding-top: rem-calc(100px);
 
     &:nth-child(-n+3){
@@ -32,6 +32,73 @@
 
     &:nth-child(3n+1) {
       border-right: 1px solid $color-gray-light;
+    }
+
+    @include bp(max, $ipad-ls) {
+      width: 48%;
+
+      &:nth-child(-n+3){
+        padding-top: rem-calc(100px);
+      }
+
+      &:nth-child(3n+3) {
+        padding-right: 2%;
+      }
+
+      &:nth-child(3n+2) {
+        border-right: 0px solid $color-gray-light;
+      }
+
+      &:nth-child(3n+1) {
+        border-right: 0px solid $color-gray-light;
+      }
+
+      &:nth-child(even) {
+        padding-right: 0%;
+      }
+
+      &:nth-child(odd) {
+        border-right: 1px solid $color-gray-light;
+      }
+
+      &:nth-child(-n+2){
+        padding-top: 0;
+      }
+    }
+    @include bp(max, $phone) {
+      width: 100%;
+
+      &:nth-child(-n+3){
+        padding-top: rem-calc(100px);
+      }
+
+      &:nth-child(3n+3) {
+        padding-right: 0;
+      }
+
+      &:nth-child(3n+2) {
+        border-right: 0px solid $color-gray-light;
+      }
+
+      &:nth-child(3n+1) {
+        border-right: 0px solid $color-gray-light;
+      }
+
+      &:nth-child(even) {
+        padding-right: 0%;
+      }
+
+      &:nth-child(odd) {
+        border-right: 0px solid $color-gray-light;
+      }
+
+      &:nth-child(-n+2){
+        padding-top: rem-calc(100px);
+      }
+
+      &:nth-child(-n+1){
+        padding-top: 0;
+      }
     }
   }
 

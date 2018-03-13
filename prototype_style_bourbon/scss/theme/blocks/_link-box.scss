@@ -4,11 +4,6 @@
   display: inline-block;
   min-height: rem-calc(400px);
 
-  &__link,
-  .table__link{
-
-  }
-
   &__lists {
     margin-bottom: 10px;
   }
@@ -51,10 +46,19 @@
 
   &:last-child{
     padding-bottom: rem-calc(50px);
+    @include bp(max, $phone){
+      padding-bottom:0;
+      margin-bottom:0;
+    }
   }
 
   &:nth-child(3){
     padding-bottom: rem-calc(50px);
+  }
+
+  @include bp(max, $phone){
+    text-align: center;
+    min-height: auto;
   }
 }
 

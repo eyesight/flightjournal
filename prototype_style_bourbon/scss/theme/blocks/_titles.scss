@@ -20,6 +20,10 @@
     margin-bottom: rem-calc(20px);
     font-size: $font-s-h2;
     text-align: center;
+
+    @include bp(max, $phone){
+      font-size: $font-s-h2-xs;
+    }
   }
 
   &-h3{

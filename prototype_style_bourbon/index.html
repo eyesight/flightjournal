@@ -69,7 +69,7 @@
             <div class="start__right">
                 <div class="start__lead-wrapper">
                     <h1 class="main-title">
-                        <span class="main-title--bold">Rauf und davon.<br></span>Mit dem Gleitschirm unterwegs.
+                        <span class="main-title--bold">(R)auf und davon.<br></span>Mit dem Gleitschirm unterwegs.
                     </h1>
                 </div>
                     <div class="start__twocolumn">
@@ -305,33 +305,72 @@
                 <h2 class="title-h2">Flugtagebuch.<br><span class="title--regular"> Unsere Flüge im Überblick.</span></h2>
                 <button class="button-without-border">+ Flug hinzufügen</button>
             </div>
+            <div class="filter">
+                <ul class="filter__list">
+                    <li><a class="filter__list-item active" href="#">Jan.</a></li>
+                    <li><a class="filter__list-item active" href="#">Feb.</a></li>
+                    <li><a class="filter__list-item" href="#">Mär.</a></li>
+                    <li><a class="filter__list-item" href="#">Apr.</a></li>
+                    <li><a class="filter__list-item" href="#">Mai</a></li>
+                    <li><a class="filter__list-item" href="#">Jun.</a></li>
+                    <li><a class="filter__list-item" href="#">Jul.</a></li>
+                    <li><a class="filter__list-item" href="#">Aug.</a></li>
+                    <li><a class="filter__list-item" href="#">Sep.</a></li>
+                    <li><a class="filter__list-item" href="#">Okt.</a></li>
+                    <li><a class="filter__list-item" href="#">Nov.</a></li>
+                    <li><a class="filter__list-item" href="#">Dez.</a></li>
+                </ul>
+                <div class="filter__list-dropdown">
+                    <button class="filter__dropdown-item filter__dropdown--short">Jahr wählen <i class="fas fa-angle-down"></i>
+                        <div class="filter__sub-dropdown">
+                            <a class="filter__sub-dropdown-item">2018</a>
+                            <a class="filter__sub-dropdown-item">2017</a>
+                            <a class="filter__sub-dropdown-item">2016</a>
+                        </div>
+                    </button>
+                    <button class="filter__dropdown-item">Pilot wählen <i class="fas fa-angle-down"></i>
+                        <div class="filter__sub-dropdown filter__dropdown--short">
+                            <a class="filter__sub-dropdown-item">Jonas & Claudia</a>
+                            <a class="filter__sub-dropdown-item">Claudia</a>
+                            <a class="filter__sub-dropdown-item">Jonas</a>
+                        </div>
+                    </button>
+                    <button class="filter__dropdown-item">Sortieren nach <i class="fas fa-angle-down"></i>
+                        <div class="filter__sub-dropdown filter__dropdown--short">
+                            <a class="filter__sub-dropdown-item">Flugzeit</a>
+                            <a class="filter__sub-dropdown-item">Flugdauer</a>
+                            <a class="filter__sub-dropdown-item">XYZ</a>
+                        </div>
+                    </button>
+                </div>
+            </div>
             <div class="table-wrapper">
                 <table class="table">
-                    <thead>
+                    <!--<thead>
                         <tr>
-                            <th class="table__header table--sort js-table--sort"><span class="active">Datum</span><span class="arrow-up visible"> &#8593;</span><span class="arrow-down"> &#8595;</span></th>
-                            <th class="table__header table--sort js-table--sort"><span>Pilot</span><span class="arrow-up"> &#8593;</span><span class="arrow-down"> &#8595;</span></th>
-                            <th class="table__header table--sort js-table--sort"><span>Startplatz</span><span class="arrow-up"> &#8593;</span><span class="arrow-down">&#8595;</span></th>
-                            <th class="table__header table--sort js-table--sort"><span>Flugzeit</span><span class="arrow-up"> &#8593;</span><span class="arrow-down"> &#8595;</span></th>
-                            <th class="table__header table--sortjs-table--sort"><span>XC-Distanz</span><span class="arrow-up"> &#8593;</span><span class="arrow-down"> &#8595;</span></th>
+                            <th class="table__header table&#45;&#45;sort js-table&#45;&#45;sort"><span class="active">Datum</span><span class="arrow-up visible"> &#8593;</span><span class="arrow-down"> &#8595;</span></th>
+                            <th class="table__header table&#45;&#45;sort js-table&#45;&#45;sort"><span>Pilot</span><span class="arrow-up"> &#8593;</span><span class="arrow-down"> &#8595;</span></th>
+                            <th class="table__header table&#45;&#45;sort js-table&#45;&#45;sort"><span>Startplatz</span><span class="arrow-up"> &#8593;</span><span class="arrow-down">&#8595;</span></th>
+                            <th class="table__header table&#45;&#45;sort js-table&#45;&#45;sort"><span>Flugzeit</span><span class="arrow-up"> &#8593;</span><span class="arrow-down"> &#8595;</span></th>
+                            <th class="table__header table&#45;&#45;sortjs-table&#45;&#45;sort"><span>XC-Distanz</span><span class="arrow-up"> &#8593;</span><span class="arrow-down"> &#8595;</span></th>
                             <th> </th>
                         </tr>
-                    </thead>
+                    </thead>-->
                     <tr>
-                        <td>22.1.2018</td>
-                        <td>Jonas</td>
-                        <td>Castelluccio, Fontanile, 1900 m</td>
-                        <td>45 min</td>
-                        <td>11 Kilometer</td>
-                        <td class="table__link">Flugdetails</td>
+                        <td class="table__date">22.1.2018</td>
+                        <td class="table__pilot"><a class="table__link">Jonas</a></td>
+                        <td class="table__start"><a class="table__link">Castelluccio, Fontanile, 1900 m</a></td>
+                        <td class="table__duration">45 min</td>
+                        <td class="table__distance">11 Kilometer</td>
+                        <td class="table__details"><a class="table__link">Flugdetails</a></td>
                     </tr>
                     <tr>
-                        <td>22.1.2018</td>
-                        <td>Claudia</td>
-                        <td>Engelberg, Herzlisee, 1800 m</td>
-                        <td>1 h 45 min</td>
-                        <td>21 Kilometer</td>
-                        <td class="table__link">Flugdetails</td>
+                        <td class="table__date">22.1.2018</td>
+                        <td class="table__pilot"><a class="table__link">Claudia</a></td>
+                        <td class="table__start"><a class="table__link">Engelberg, Herzlisee, 1800 m</a></td>
+                        <td class="table__duration">1 h 45 min</td>
+                        <td class="table__distance">21 Kilometer</td>
+                        <td class="table__details"><a class="table__link">Flugdetails</a></td>
                     </tr>
                 </table>
             </div>
@@ -345,7 +384,9 @@
                 <button class="button-without-border">Fluggebiete suchen <i class="fas fa-search"></i></button>
             </div>
             <div class="filter">
+<!--
                 <h3 class="filter__title">Windrichtung</h3>
+-->
                 <ul class="filter__list">
                     <li><a class="filter__list-item active" href="#">Nord</a></li>
                     <li><a class="filter__list-item active" href="#">Nordorst</a></li>
@@ -497,6 +538,11 @@
         </section>
     </main>
 </div>
+<script
+src="https://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+crossorigin="anonymous"></script>
+
 <script src="js/polyfill_requestAnimationFrame.js"></script>
 <script src="js/custom.js"></script>
 <script src="js/zenscroll-min.js"></script>

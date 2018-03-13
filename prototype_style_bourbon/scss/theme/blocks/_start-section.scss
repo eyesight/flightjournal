@@ -52,7 +52,7 @@
 
         @include bp(max, $ipad-ls) {
            color: $color-white;
-           margin-top: -250px;
+           margin-top: -350px;
            padding: 10px 10px 100px 10px;
            text-align: center;
         }
@@ -64,7 +64,8 @@
         column-rule: 1px solid $color-gray-light;
         margin-top: rem-calc(100px);
 
-        @include bp(max, $ipad-ls) {
+        @include bp(max, $phone){
+            column-count: 1;
             margin-top: 0;
         }
     }

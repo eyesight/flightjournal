@@ -1,9 +1,9 @@
 .table{
   @include grid-column(22, $grid-24);
   @include grid-push(1, $grid-24);
+  margin-top: rem-calc(50px);
   &-wrapper{
     font-size: $font-s-table;
-    overflow-y: auto;
     margin: 0 0 1em;
 
     @include bp(max, $screen-m) {
@@ -16,6 +16,59 @@
   th{
     padding: 0 10px 40px 0;
     text-align: left;
+  }
+
+  tr{
+    @include bp(max, $phone){
+      display:flex;
+      margin-bottom: rem-calc(50px);
+      flex-flow: row wrap;
+    }
+
+    &:last-child{
+      margin-bottom: rem-calc(0px);
+    }
+  }
+
+  &__start,
+  &__details{
+    @include bp(max, $phone) {
+      flex: 1 100%;
+    }
+  }
+
+  &__date,
+  &__pilot{
+    @include bp(max, $phone) {
+      font-size:18px;
+    }
+  }
+
+  &__start,
+  &__duration,
+  &__distance,
+  &__details
+  {
+    @include bp(max, $phone) {
+      font-size:23px;
+    }
+  }
+
+  &__duration,
+  &__distance{
+    @include bp(max, $phone) {
+      font-size:23px;
+      font-family: $font-family-secundary;
+    }
+  }
+
+  &__date,
+  &__duration{
+    &::after{
+      @include bp(max, $phone) {
+        content:',';
+      }
+    }
   }
 
   &__header{
@@ -58,18 +111,11 @@
     }
 
   &__link{
-    display: block;
-    width: 103px;
-    cursor: pointer;
-
-    @include bp(max, $screen-m) {
-      width: 90px;
-    }
+    display:inherit;
 
     &:hover,
     &:active,
     &:focus {
-      color: $color-primary;
       &::after {
         transform: scaleX(0);
       }
@@ -85,6 +131,10 @@
       margin-top: 3px;
       transform: scaleX(1);
       transition: $transition-underline-center;
+    }
+
+    @include bp(max, $phone){
+      display:inline-block;
     }
   }
 }

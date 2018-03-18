@@ -1,7 +1,8 @@
 .table{
   @include grid-column(22, $grid-24);
   @include grid-push(1, $grid-24);
-  margin-top: rem-calc(50px);
+  float:none;
+
   &-wrapper{
     font-size: $font-s-table;
     margin: 0 0 1em;
@@ -10,16 +11,41 @@
       font-size: $font-s-table-small;
     }
   }
+
+  &-inner{
+    background-color: $color-primary-06;
+    display: flex;
+    flex-direction: column;
+    padding-top: rem-calc(50px);
+    padding-bottom: rem-calc(50px);
+
+    @include bp(max, $ipad-p) {
+      display: block;
+      background-color: transparent;
+      padding-top: rem-calc(20px);
+    }
+  }
+
+  &__tbody{
+    @include bp(max, $ipad-p) {
+      display: block;
+    }
+  }
+
   td{
     padding: 10px 10px 10px 0;
   }
   th{
     padding: 0 10px 40px 0;
     text-align: left;
+
+    @include bp(max, $ipad-p) {
+      display: none;
+    }
   }
 
   tr{
-    @include bp(max, $phone){
+    @include bp(max, $ipad-p){
       display:flex;
       margin-bottom: rem-calc(50px);
       flex-flow: row wrap;
@@ -32,14 +58,14 @@
 
   &__start,
   &__details{
-    @include bp(max, $phone) {
+    @include bp(max, $ipad-p) {
       flex: 1 100%;
     }
   }
 
   &__date,
   &__pilot{
-    @include bp(max, $phone) {
+    @include bp(max, $ipad-p) {
       font-size:18px;
     }
   }
@@ -49,14 +75,14 @@
   &__distance,
   &__details
   {
-    @include bp(max, $phone) {
+    @include bp(max, $ipad-p) {
       font-size:23px;
     }
   }
 
   &__duration,
   &__distance{
-    @include bp(max, $phone) {
+    @include bp(max, $ipad-p) {
       font-size:23px;
       font-family: $font-family-secundary;
     }
@@ -65,7 +91,7 @@
   &__date,
   &__duration{
     &::after{
-      @include bp(max, $phone) {
+      @include bp(max, $ipad-p) {
         content:',';
       }
     }
@@ -133,7 +159,7 @@
       transition: $transition-underline-center;
     }
 
-    @include bp(max, $phone){
+    @include bp(max, $ipad-p){
       display:inline-block;
     }
   }

@@ -9,13 +9,18 @@
 
   font-size:$font-s-image-box-text;
   line-height: 1.5;
+
+  @include bp(max, $ipad-p) {
+    margin-top:0;
+  }
+
   a{
     font-size:$font-s-image-box-text;
   }
 
   &__item{
     width: 30%;
-    padding-right: 2%;
+    padding-right: 2.4%;
     padding-top: rem-calc(100px);
 
     &:nth-child(-n+3){
@@ -36,6 +41,7 @@
 
     @include bp(max, $ipad-ls) {
       width: 48%;
+      padding-right: 2%;
 
       &:nth-child(-n+3){
         padding-top: rem-calc(100px);
@@ -65,6 +71,7 @@
         padding-top: 0;
       }
     }
+
     @include bp(max, $phone) {
       width: 100%;
 

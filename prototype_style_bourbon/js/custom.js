@@ -59,13 +59,11 @@
                     imagebox.style.top = (linkboxheight-intViewportHeight) + 'px';
                     starttextbox.style.position = 'absolute';
                     starttextbox.style.top = (linkboxheight-startextheightmargin) + 'px';
-
                 } else{
                     imagebox.style.position = 'fixed';
                     imagebox.style.top = '0px';
                     starttextbox.style.position = 'fixed';
                     starttextbox.style.top = 'auto';
-
                 }
 
                 //add/remove class of header to show logo positive
@@ -74,9 +72,9 @@
                 }else{
                     header.classList.remove('js-header--positive');
                 }
-
             }else{
                 imagebox.style.position = 'relative';
+                imagebox.style.top = '0px';
             }
         }
     }

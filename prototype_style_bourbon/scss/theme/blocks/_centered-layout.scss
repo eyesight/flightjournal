@@ -10,7 +10,8 @@
     flex-direction: column;
 
     @include bp(max, $phone){
-      padding-top: 0;
+      padding-top: rem-calc(20px);
+      margin-bottom: rem-calc(60px);
       @include grid-column(22, $grid-24);
       @include grid-push(1, $grid-24);
     }

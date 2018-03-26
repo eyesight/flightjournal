@@ -16,6 +16,13 @@
     const navigation = document.querySelector('.main-nav');
     const logo = document.querySelector('.header__logo');
     const navlinks = document.querySelectorAll('.main-nav__link');
+    const slides = document.querySelectorAll('.js-linkbox');
+    const dots = document.querySelectorAll('.js-dot');
+    const prev = document.querySelector('.js-prev');
+    const next = document.querySelector('.js-next');
+    const linkboxTitle = document.querySelectorAll('.js-linkbox .title-h3');
+    const linkboxPrevTitle = document.querySelector('.link-box__prev-text');
+    const linkboxNextTitle = document.querySelector('.link-box__next-text');
 
     let elheader = header.getBoundingClientRect();
     let headerheight = elheader.height;
@@ -220,6 +227,92 @@
             }
         }
     }
+
+    /*
+     funktion slideshow of Linklists
+     TODO: Make a funkction for the media-query (it's the second time I used it). Refactor Code!
+     */
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    // Next/previous controls
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        // media query change
+        if (matchMedia) {
+            const mq2 = window.matchMedia("(max-width: 550px)");
+            mq2.addListener(WidthChange2);
+            WidthChange2(mq2);
+        }
+
+        // media query change
+        function WidthChange2(mq2) {
+            let i;
+
+            if(mq2.matches){
+                if (n > slides.length) {
+                    slideIndex = 1;
+                }
+                if (n < 1) {
+                    slideIndex = slides.length;
+                }
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" active", "");
+                }
+                for (i = 0; i < linkboxTitle.length; i++) {
+                    if(slideIndex === 1){
+                        linkboxPrevTitle.innerHTML = linkboxTitle[slides.length-1].innerHTML.match(/^\S+(?=\.)/gi)[0];
+                    }else{
+                        linkboxPrevTitle.innerHTML = linkboxTitle[slideIndex-1].innerHTML.match(/^\S+(?=\.)/gi)[0];
+                    }
+                    if(slideIndex > 5){
+                        linkboxNextTitle.innerHTML = linkboxTitle[0].innerHTML.match(/^\S+(?=\.)/gi)[0];
+                    }else{
+                        linkboxNextTitle.innerHTML = linkboxTitle[slideIndex].innerHTML.match(/^\S+(?=\.)/gi)[0];
+                    }
+                }
+                slides[slideIndex-1].style.display = "block";
+                dots[slideIndex-1].className += " active";
+            } else {
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "block";
+                }
+            }
+        }
+    }
+    //TODO: refactor code for dots
+    prev.addEventListener('click', function(){
+        plusSlides(-1)
+        if(dots[0].classList.contains('first-dot')){
+            dots[0].classList.remove('first-dot');
+        }
+    });
+
+    next.addEventListener('click', function(){
+        plusSlides(1)
+        if(dots[0].classList.contains('first-dot')){
+            dots[0].classList.remove('first-dot');
+        }
+    });
+
+    dots.forEach(function(e){
+        e.addEventListener('click', function(e){
+            currentSlide(e.target.getAttribute('data-dot'));
+            if(dots[0].classList.contains('first-dot')){
+                dots[0].classList.remove('first-dot');
+            }
+        });
+    });
 
     burger.addEventListener('click', function(event){
         event.preventDefault();

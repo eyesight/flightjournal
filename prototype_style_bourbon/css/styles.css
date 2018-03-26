@@ -463,6 +463,12 @@ img {
 img[data-src] {
   opacity: 0; }
 
+.only-show-on-mobile {
+  display: none; }
+  @media screen and (max-width: 550px) {
+    .only-show-on-mobile {
+      display: block; } }
+
 .page::after {
   clear: both;
   content: "";
@@ -707,7 +713,9 @@ img[data-src] {
   margin-bottom: 1.25rem;
   width: 100%;
   display: inline-block;
-  min-height: 25rem; }
+  min-height: 25rem;
+  /* Position the "next button" to the right */
+  /* On hover, add a black background color with a little bit see-through */ }
   .link-box__lists {
     margin-bottom: 10px; }
   .link-box__show-more {
@@ -745,6 +753,45 @@ img[data-src] {
     .link-box {
       text-align: center;
       min-height: auto; } }
+  .link-box__dots {
+    text-align: center; }
+  .link-box__dot {
+    display: none;
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: #C4C4C4;
+    border-radius: 50%;
+    transition: background-color 0.6s ease; }
+    .link-box__dot:hover, .link-box__dot.active, .link-box__dot.first-dot {
+      background-color: #0d7e7f; }
+    @media screen and (max-width: 550px) {
+      .link-box__dot {
+        display: inline-block; } }
+  .link-box__prev, .link-box__next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    margin-left: -35px;
+    margin-right: -10px;
+    padding: 16px;
+    font-size: 25px;
+    transition: 0.6s ease;
+    color: #0d7e7f; }
+  .link-box__next {
+    right: 0; }
+  .link-box__prev:hover, .link-box__next:hover {
+    color: #000; }
+  .link-box__prev-text, .link-box__next-text {
+    font-size: 0.875rem;
+    transform: rotate(270deg);
+    display: inline-block;
+    padding-left: 5px; }
+  .link-box__fa {
+    margin: -10px; }
 
 .centered-layout {
   margin-top: 1.25rem;

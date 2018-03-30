@@ -3,22 +3,86 @@
   cursor: pointer;
   font-size: 20px;
   position: fixed;
-  right: 40px;
+  right: 5%;
   top: 20px;
-  width: 30px;
   transition: all 200ms ease-in;
   z-index: 1000;
+  margin-top: 2px;
+
+
+  &__menu{
+    float:left;
+    margin-right: 10px;
+    font-size: $font-s-copytext;
+
+    &:before{
+      content: 'Menu';
+    }
+  }
+
+  &__burger{
+    float:left;
+    width: 30px;
+  }
 
   span {
     width: 30px;
-    height: 4px;
+    height: 3px;
     margin-bottom: 6px;
     border-radius: 1000px;
     background: $color-black;
     display: block;
+    position: absolute;
+
+    &:first-child{
+      transition: transform 0.5s;
+      position: absolute;
+      bottom: -10px;
+      transform: rotate(0deg);
+    }
+
+    &:nth-child(2){
+      opacity: 1;
+      transition: opacity 0.5s;
+    }
+
+    &:nth-child(3){
+      transform:rotate(0deg);
+      position:absolute;
+      bottom:0;
+      transition: transform 0.5s;
+    }
   }
 
   @include bp(max, $ipad-ls) {
     display:block;
   }
+}
+
+.js-mobile-logo--visible + .mobile-toggle{
+  .mobile-toggle__menu{
+    &:before{
+      content: 'close';
+      transition: content 0.5s;
+    }
+  }
+   span{
+     &:first-child{
+       transform:rotate(45deg);
+       position:absolute;
+       bottom:0;
+       transition: transform 0.5s;
+     }
+
+     &:nth-child(2){
+       opacity: 0;
+     }
+
+     &:nth-child(3){
+       transform:rotate(-45deg);
+       position:absolute;
+       bottom:0;
+       transition: transform 0.5s;
+     }
+    }
 }

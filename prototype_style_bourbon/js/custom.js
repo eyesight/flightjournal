@@ -1,10 +1,6 @@
-/**
- * Created by claudia on 03.02.18.
- */
-
 'use strict';
 
-(function(win) {
+(function() {
 
 /*
     funktion to scroll the image/starttext
@@ -233,18 +229,19 @@
      TODO: Make a funkction for the media-query (it's the second time I used it). Refactor Code!
      */
     let slideIndex = 1;
-    showSlides(slideIndex);
+    let pre = false;
+    showSlides(slideIndex, pre);
 
     // Next/previous controls
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
+    function plusSlides(n, pre) {
+        showSlides(slideIndex += n, pre);
     }
 
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
+    function currentSlide(n, pre) {
+        showSlides(slideIndex = n, pre);
     }
 
-    function showSlides(n) {
+    function showSlides(n, pre) {
         // media query change
         if (matchMedia) {
             const mq2 = window.matchMedia("(max-width: 550px)");
@@ -254,9 +251,10 @@
 
         // media query change
         function WidthChange2(mq2) {
+            console.log(pre);
             let i;
-
             if(mq2.matches){
+                n = Number(n);
                 if (n > slides.length) {
                     slideIndex = 1;
                 }
@@ -264,8 +262,24 @@
                     slideIndex = slides.length;
                 }
                 for (i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none";
+                    if(pre){
+                        if(!slides[i].classList.contains('prev')){
+                            slides[i].classList.add('prev');
+                            slides[i].className = slides[i].className.replace("box link-box js-linkbox slide-active slide-visible prev", "box link-box js-linkbox prev");
+                        }else{
+                            slides[i].className = slides[i].className.replace("box link-box js-linkbox slide-active slide-visible", "box link-box js-linkbox prev");
+                        }
+                        slides[i].className = slides[i].className.replace("box link-box js-linkbox slide-active prev slide-visible", "box link-box js-linkbox prev");
+                    }else{
+                        if(!slides[i].classList.contains('prev')){
+                            slides[i].className = slides[i].className.replace("box link-box js-linkbox slide-active slide-visible", "box link-box js-linkbox");
+                        }else{
+                            slides[i].className = slides[i].className.replace("box link-box js-linkbox slide-active prev slide-visible", "box link-box js-linkbox");
+                        }
+                    }
+
                 }
+
                 for (i = 0; i < dots.length; i++) {
                     dots[i].className = dots[i].className.replace(" active", "");
                 }
@@ -273,7 +287,7 @@
                     if(slideIndex === 1){
                         linkboxPrevTitle.innerHTML = linkboxTitle[slides.length-1].innerHTML.match(/^\S+(?=\.)/gi)[0];
                     }else{
-                        linkboxPrevTitle.innerHTML = linkboxTitle[slideIndex-1].innerHTML.match(/^\S+(?=\.)/gi)[0];
+                        linkboxPrevTitle.innerHTML = linkboxTitle[slideIndex-2].innerHTML.match(/^\S+(?=\.)/gi)[0];
                     }
                     if(slideIndex > 5){
                         linkboxNextTitle.innerHTML = linkboxTitle[0].innerHTML.match(/^\S+(?=\.)/gi)[0];
@@ -281,37 +295,42 @@
                         linkboxNextTitle.innerHTML = linkboxTitle[slideIndex].innerHTML.match(/^\S+(?=\.)/gi)[0];
                     }
                 }
-                slides[slideIndex-1].style.display = "block";
-                dots[slideIndex-1].className += " active";
-            } else {
-                for (i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "block";
+                if(pre) {
+                    slides[slideIndex - 1].className = "box link-box js-linkbox slide-active prev";
+                }else{
+                    slides[slideIndex - 1].className = "box link-box js-linkbox slide-active";
                 }
+
+                if(pre){
+                    setTimeout(function() {
+                        slides[slideIndex-1].classList.add('slide-visible');
+                    }, 100);
+                }else{
+                    setTimeout(function() {
+                        slides[slideIndex-1].classList.add('slide-visible');
+                    }, 100);
+                }
+                dots[slideIndex-1].className += " active";
             }
         }
     }
     //TODO: refactor code for dots
     prev.addEventListener('click', function(){
-        plusSlides(-1)
+        pre = true;
+        plusSlides(-1, pre);
+        console.log(pre);
         if(dots[0].classList.contains('first-dot')){
             dots[0].classList.remove('first-dot');
         }
     });
 
     next.addEventListener('click', function(){
-        plusSlides(1)
+        pre = false;
+        console.log(pre);
+        plusSlides(1, pre);
         if(dots[0].classList.contains('first-dot')){
             dots[0].classList.remove('first-dot');
         }
-    });
-
-    dots.forEach(function(e){
-        e.addEventListener('click', function(e){
-            currentSlide(e.target.getAttribute('data-dot'));
-            if(dots[0].classList.contains('first-dot')){
-                dots[0].classList.remove('first-dot');
-            }
-        });
     });
 
     burger.addEventListener('click', function(event){

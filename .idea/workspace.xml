@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="52fef29a-a04f-465a-a3f2-53e557756418" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/css/styles.css" afterPath="$PROJECT_DIR$/prototype_style_bourbon/css/styles.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/index.html" afterPath="$PROJECT_DIR$/prototype_style_bourbon/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/js/custom.js" afterPath="$PROJECT_DIR$/prototype_style_bourbon/js/custom.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/logo-test.html" afterPath="$PROJECT_DIR$/prototype_style_bourbon/logo-test.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/scss/config/_colors.scss" afterPath="$PROJECT_DIR$/prototype_style_bourbon/scss/config/_colors.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/scss/config/_font.scss" afterPath="$PROJECT_DIR$/prototype_style_bourbon/scss/config/_font.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_link-box.scss" afterPath="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_link-box.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/layout/_content.scss" afterPath="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/layout/_content.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_mobile-toggle.scss" afterPath="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_mobile-toggle.scss" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -27,8 +25,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="41" column="71" lean-forward="true" selection-start-line="41" selection-start-column="71" selection-end-line="41" selection-end-column="71" />
+            <state relative-caret-position="291">
+              <caret line="33" column="45" lean-forward="false" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
               <folding>
                 <element signature="n#section#2;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
               </folding>
@@ -36,11 +34,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="_header.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/scss/theme/layout/_header.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="473">
+              <caret line="93" column="3" lean-forward="false" selection-start-line="91" selection-start-column="2" selection-end-line="93" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="custom.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/js/custom.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="292" column="34" lean-forward="false" selection-start-line="292" selection-start-column="34" selection-end-line="292" selection-end-column="34" />
+            <state relative-caret-position="21">
+              <caret line="243" column="23" lean-forward="false" selection-start-line="243" selection-start-column="13" selection-end-line="243" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -49,8 +57,28 @@
       <file leaf-file-name="_link-box.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_link-box.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="96" column="21" lean-forward="false" selection-start-line="96" selection-start-column="21" selection-end-line="96" selection-end-column="21" />
+            <state relative-caret-position="270">
+              <caret line="18" column="34" lean-forward="true" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_mobile-toggle.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_mobile-toggle.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="10" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_navigation.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/scss/theme/layout/_navigation.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-17">
+              <caret line="27" column="14" lean-forward="false" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -78,16 +106,10 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>scrollDown</find>
-      <find>console</find>
-      <find>Gewinnaus</find>
-      <find>list-item</find>
-      <find>link-box__link</find>
       <find>table__link</find>
       <find>flex</find>
       <find>classlist</find>
       <find>1023</find>
-      <find>mobile-toggle</find>
       <find>$transition-underline-center;</find>
       <find>__header</find>
       <find>__lead-wrapper</find>
@@ -105,6 +127,15 @@
       <find>sub</find>
       <find>Sortieren n</find>
       <find>dots</find>
+      <find>console.l</find>
+      <find>mobile-toggle</find>
+      <find>burger</find>
+      <find>min-height</find>
+      <find>cont</find>
+      <find>dot</find>
+      <find>backgrou</find>
+      <find>js-linkbox</find>
+      <find>mobile-</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -127,8 +158,6 @@
         <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/layout/_navigation.scss" />
         <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_main-title.scss" />
         <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/config/_grid.scss" />
-        <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_mobile-toggle.scss" />
-        <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/layout/_header.scss" />
         <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_buttons.scss" />
         <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_titles.scss" />
         <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/main.scss" />
@@ -143,9 +172,11 @@
         <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/layout/_content.scss" />
         <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/config/_colors.scss" />
         <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/config/_font.scss" />
-        <option value="$PROJECT_DIR$/prototype_style_bourbon/index.html" />
-        <option value="$PROJECT_DIR$/prototype_style_bourbon/js/custom.js" />
+        <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/layout/_header.scss" />
+        <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_mobile-toggle.scss" />
         <option value="$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_link-box.scss" />
+        <option value="$PROJECT_DIR$/prototype_style_bourbon/js/custom.js" />
+        <option value="$PROJECT_DIR$/prototype_style_bourbon/index.html" />
       </list>
     </option>
   </component>
@@ -541,12 +572,12 @@
       <workItem from="1517660793725" duration="21945000" />
       <workItem from="1517868628599" duration="73000" />
       <workItem from="1517868721363" duration="36579000" />
-      <workItem from="1518394136185" duration="111886000" />
+      <workItem from="1518394136185" duration="138802000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="172217000" />
+    <option name="totallyTimeSpent" value="199133000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1023" extended-state="0" />
@@ -559,7 +590,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23952739" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26530612" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -849,14 +880,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_mobile-toggle.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="3" lean-forward="false" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_main-title.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -877,14 +900,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="1" lean-forward="true" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/scss/theme/layout/_header.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-907">
-          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -969,14 +984,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/scss/theme/layout/_navigation.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="5" lean-forward="true" selection-start-line="5" selection-start-column="4" selection-end-line="7" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/scss/config/_font.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="557">
@@ -1001,26 +1008,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/js/custom.js">
+    <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/scss/theme/layout/_navigation.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="292" column="34" lean-forward="false" selection-start-line="292" selection-start-column="34" selection-end-line="292" selection-end-column="34" />
+        <state relative-caret-position="-17">
+          <caret line="27" column="14" lean-forward="false" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/scss/theme/layout/_header.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="473">
+          <caret line="93" column="3" lean-forward="false" selection-start-line="91" selection-start-column="2" selection-end-line="93" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_mobile-toggle.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="10" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/scss/theme/blocks/_link-box.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="96" column="21" lean-forward="false" selection-start-line="96" selection-start-column="21" selection-end-line="96" selection-end-column="21" />
+        <state relative-caret-position="270">
+          <caret line="18" column="34" lean-forward="true" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/js/custom.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="243" column="23" lean-forward="false" selection-start-line="243" selection-start-column="13" selection-end-line="243" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/prototype_style_bourbon/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="41" column="71" lean-forward="true" selection-start-line="41" selection-start-column="71" selection-end-line="41" selection-end-column="71" />
+        <state relative-caret-position="291">
+          <caret line="33" column="45" lean-forward="false" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
           <folding>
             <element signature="n#section#2;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>

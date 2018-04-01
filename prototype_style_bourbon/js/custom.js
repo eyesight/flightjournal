@@ -12,11 +12,6 @@
     const navigation = document.querySelector('.main-nav');
     const logo = document.querySelector('.header__logo');
     const navlinks = document.querySelectorAll('.main-nav__link');
-    /*const slides = document.querySelectorAll('.js-linkbox');
-     const dots = document.querySelectorAll('.js-dot');
-     const prev = document.querySelector('.js-prev');
-     const next = document.querySelector('.js-next');
-     const linkboxTitle = document.querySelectorAll('.js-linkbox .title-h3');*/
     let linkboxPrevTitle = document.querySelector('.link-box__prev-text');
     let linkboxNextTitle = document.querySelector('.link-box__next-text');
 
@@ -332,9 +327,7 @@
 
             curr_slide.classList.remove('slide-active', 'slide-visible');
             curr_dot.classList.remove('dot-active');
-
-            console.log(slides);
-
+            
             if (this.classList.contains('js-next')) {
                 if (curr_index >= slides.length - 1) {
                     curr_index = 0;

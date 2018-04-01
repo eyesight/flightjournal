@@ -629,8 +629,7 @@ img[data-src] {
         padding-left: 5%; } }
     @media screen and (max-width: 550px) {
       .start__right .start__twocolumn:nth-child(3) {
-        padding-left: 0;
-        margin-top: 6.25rem; } }
+        padding-left: 0; } }
   @media screen and (max-width: 1023px) {
     .start__right {
       width: calc(91.66667%);
@@ -688,7 +687,7 @@ img[data-src] {
     .start__twocolumn {
       float: none;
       width: 100%;
-      margin-top: 0; } }
+      margin-top: 6.25rem; } }
 
 .title-h1, .title-h2, .title-h3, .title-h4 {
   font-family: "Montserrat", Arial, Helvetica, sans-serif;

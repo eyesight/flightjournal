@@ -102,6 +102,7 @@
 
     &:hover,
     &.active,
+    &.dot-active,
     &.first-dot{
       background-color: $color-primary;
     }
@@ -115,12 +116,9 @@
   &__next {
     cursor: pointer;
     position: absolute;
-    top: 50%;
+    //top: 50%;
     width: auto;
-    /*margin-top: -22px;
-    margin-left: -35px;
-    margin-right: -10px;
-    padding: 16px;*/
+    margin-top: -50%;
     font-size: 25px;
     transition: 0.6s ease;
     color: $color-primary;
@@ -174,16 +172,22 @@
 
 .slide-visible{
   .link-box__content{
-    margin-left: 10%;
     opacity: 1;
     transition: margin 0.5s, opacity 1s;
+
+    @include bp(max, $phone){
+      margin-left: 10%;
+    }
   }
 }
 
 .slide-visible.prev{
   .link-box__content{
-    margin-right: 10%;
     opacity: 1;
     transition: margin 0.5s, opacity 1s;
+
+    @include bp(max, $phone){
+      margin-right: 10%;
+    }
   }
 }

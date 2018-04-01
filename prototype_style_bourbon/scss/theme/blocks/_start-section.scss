@@ -9,6 +9,29 @@
     }
 
     &__right{
+
+        .start__twocolumn:nth-child(2){
+            border-right: 1px solid $color-gray-light;
+            padding-right: 10%;
+            @include bp(max, $ipad-ls) {
+                padding-right: 5%;
+            }
+            @include bp(max, $phone) {
+                padding-right: 0;
+                border-right: none;
+                margin-top: rem-calc(50px);
+            }
+        }
+        .start__twocolumn:nth-child(3){
+            padding-left: 10%;
+            @include bp(max, $ipad-ls) {
+                padding-left: 5%;
+            }
+            @include bp(max, $phone) {
+                padding-left: 0;
+                margin-top: rem-calc(100px);
+            }
+        }
             @include grid-column(10, $grid-24);
             @include grid-shift(13, $grid-24);
 
@@ -64,17 +87,18 @@
     }
 
     &__twocolumn{
-        column-count: 2;
-        column-gap: 100px;
-        column-rule: 1px solid $color-gray-light;
         margin-top: rem-calc(100px);
+        float: left;
+        width: 39.7%;
 
         @include bp(max, $ipad-ls){
             margin-top: 0;
+            width: 44.7%;
         }
 
         @include bp(max, $phone){
-            column-count: 1;
+            float: none;
+            width: 100%;
             margin-top: 0;
         }
     }

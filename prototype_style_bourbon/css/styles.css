@@ -500,13 +500,13 @@ img[data-src] {
     left: calc(4.16667% + 0px);
     position: relative;
     z-index: 100;
-    color: #fff;
+    color: #000;
     position: fixed;
     top: 0px; }
     .header__logo .header__anchor {
-      color: #fff; }
+      color: #000; }
       .header__logo .header__anchor:hover {
-        color: #fff; }
+        color: #000; }
         @media screen and (max-width: 1023px) {
           .header__logo .header__anchor:hover {
             color: #000; } }
@@ -712,6 +712,11 @@ img[data-src] {
   margin-bottom: 1.25rem;
   font-size: 1.5625rem; }
 
+.title-page-title {
+  text-align: center;
+  color: #0d7e7f;
+  margin-bottom: 3.125rem; }
+
 .title--white {
   color: #fff; }
 
@@ -853,9 +858,13 @@ img[data-src] {
 
 .centered-layout {
   margin-top: 1.25rem;
-  width: calc(100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: calc(91.66667%);
   float: left;
-  margin-left: 0px; }
+  margin-left: 0px;
+  margin-left: calc(4.16667% + 0px); }
   .centered-layout__header {
     padding-top: 6.25rem;
     margin-top: 5rem;
@@ -865,15 +874,12 @@ img[data-src] {
     @media screen and (max-width: 550px) {
       .centered-layout__header {
         padding-top: 1.25rem;
-        margin-bottom: 3.75rem;
-        width: calc(91.66667%);
-        float: left;
-        margin-left: 0px;
-        margin-left: calc(4.16667% + 0px); } }
+        margin-bottom: 3.75rem; } }
   .centered-layout:last-child {
     margin-bottom: 6.25rem; }
 
 .button {
+  min-width: 12.5rem;
   color: #000;
   background-color: #fff;
   border: 1px solid #0d7e7f;
@@ -908,7 +914,7 @@ img[data-src] {
   float: none; }
   .table-wrapper {
     font-size: 1.125rem;
-    margin: 0 0 1em; }
+    margin: 0 -4.5% 1em -4.5%; }
     @media screen and (max-width: 1200px) {
       .table-wrapper {
         font-size: 1rem; } }
@@ -1085,10 +1091,6 @@ img[data-src] {
       color: #000; }
 
 .image-box {
-  width: calc(91.66667%);
-  float: left;
-  margin-left: 0px;
-  margin-left: calc(4.16667% + 0px);
   display: flex;
   justify-content: space-between;
   flex-flow: row wrap;
@@ -1349,3 +1351,78 @@ img[data-src] {
     transform: translateX(-10px); }
   100% {
     transform: translateX(0px); } }
+
+.formular {
+  font-family: "Lora", Times, serif; }
+  @media screen and (max-width: 769px) {
+    .formular {
+      flex-direction: column; } }
+  .formular-wrapper {
+    width: calc(50%);
+    float: left;
+    margin-left: 0px;
+    margin: auto; }
+    @media screen and (max-width: 1200px) {
+      .formular-wrapper {
+        width: calc(66.66667%);
+        float: left;
+        margin-left: 0px;
+        margin-left: auto; } }
+    @media screen and (max-width: 1023px) {
+      .formular-wrapper {
+        width: calc(83.33333%);
+        float: left;
+        margin-left: 0px;
+        margin-left: auto; } }
+    @media screen and (max-width: 769px) {
+      .formular-wrapper {
+        width: calc(83.33333%);
+        float: left;
+        margin-left: 0px;
+        margin: auto; } }
+    @media screen and (max-width: 550px) {
+      .formular-wrapper {
+        width: calc(100%);
+        float: left;
+        margin-left: 0px;
+        margin: auto; } }
+  .formular label {
+    background-color: #fff;
+    display: block;
+    z-index: 100;
+    margin-top: -10px;
+    margin-left: -1px;
+    padding-right: 10px;
+    padding-left: 0px;
+    padding-bottom: 10px;
+    max-width: 75px;
+    float: left; }
+  .formular div:first-child {
+    margin-top: 0; }
+  .formular__input {
+    border: none;
+    height: 55%;
+    width: 95%;
+    float: left;
+    margin-left: 2%;
+    background: transparent; }
+    .formular__input-wrapper {
+      height: 4.0625rem;
+      border: 1px solid #E0E0E0;
+      width: 45%;
+      margin-right: 0;
+      display: inline-block;
+      margin-top: 2.5rem; }
+      .formular__input-wrapper:first-of-type {
+        margin-right: 8%; }
+      @media screen and (max-width: 769px) {
+        .formular__input-wrapper {
+          width: 100%; } }
+      @media screen and (max-width: 550px) {
+        .formular__input-wrapper {
+          margin-bottom: 1.875rem; } }
+    @media screen and (max-width: 1023px) {
+      .formular__input {
+        margin-right: 25px;
+        margin-left: 10px;
+        width: 90%; } }

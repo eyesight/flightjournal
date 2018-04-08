@@ -31,6 +31,12 @@
     font-size: $font-s-h3;
   }
 
+  &-page-title{
+    text-align: center;
+    color: $color-primary;
+    margin-bottom: rem-calc(50px);
+  }
+
   &--white{
     color: $color-white;
   }

@@ -23,15 +23,15 @@
     @include grid-column(11, $grid-24);
     @include grid-shift(1, $grid-24);
     z-index:100;
-    color: $color-white;
+    color: $color-black;
     position: fixed;
     top:0px;
 
     .header__anchor{
-      color: $color-white;
+      color: $color-black;
 
       &:hover{
-        color: $color-white;
+        color: $color-black;
 
         @include bp(max, $ipad-ls) {
           color: $color-black;

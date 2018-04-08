@@ -5,7 +5,7 @@
 
   &-wrapper{
     font-size: $font-s-table;
-    margin: 0 0 1em;
+    margin: 0 -4.5% 1em -4.5%;
 
     @include bp(max, $screen-m) {
       font-size: $font-s-table-small;

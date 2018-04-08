@@ -1,6 +1,4 @@
 .image-box{
-  @include grid-column(22, $grid-24);
-  @include grid-push(1, $grid-24);
   display: flex;
   justify-content: space-between;
   flex-flow: row wrap;

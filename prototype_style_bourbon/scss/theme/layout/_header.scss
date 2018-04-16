@@ -46,6 +46,9 @@
     @include bp(max, $ipad-ls) {
       color: $color-black;
     }
+    @include bp(max, $ipad-p) {
+      position: absolute;
+    }
   }
 
   &__menu{

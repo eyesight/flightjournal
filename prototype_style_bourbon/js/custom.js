@@ -122,19 +122,19 @@
         let season = '';
         let seasonLetter = '';
 
-        if (Month <= 3 && Month > 0) {
+        if (Month <= 2 && Month > 0) {
             actualMonthNumber = winter;
             season = 'winter';
             seasonLetter = 'w';
-        } else if (Month <= 6 && Month > 3) {
+        } else if (Month <= 5 && Month > 2) {
             actualMonthNumber = fruehling;
             season = 'fruehling';
             seasonLetter = 'f';
-        } else if (Month <= 9 && Month > 6) {
+        } else if (Month <= 8 && Month > 5) {
             actualMonthNumber = sommer;
             season = 'sommer';
             seasonLetter = 's';
-        } else if (Month <= 12 && Month > 9) {
+        } else if (Month <= 11 && Month > 8) {
             actualMonthNumber = herbst;
             season = 'herbst';
             seasonLetter = 'h';
@@ -235,7 +235,7 @@
      funktion slideshow of Linklists
      TODO: Make a funkction for the media-query (it's the second time I used it). Refactor Code!
      */
-    slideshowInit(); //on page load - show first slide, hidethe rest
+    slideshowInit(); //on page load - show first slide, hide the rest
 
     function slideshowInit() {
         // media query change
@@ -480,7 +480,7 @@
     });
 
     showMoreText(5, '+ mehr Links', '&ndash; weniger Links');
-    changeImages('assets/img/', 2, 2, 2, 2);
+    changeImages('assets/img/', 2, 4, 9, 2);
 
 
 })(window);

@@ -25,7 +25,6 @@
     .link-box__content{
       @include bp(max, $phone){
         margin: auto -300px auto auto;
-
       }
     }
   }
@@ -40,7 +39,7 @@
     color: $color-primary;
     text-decoration: none;
     visibility: hidden;
-    display:block;
+    display: block;
     margin: 20px 0;
 
     @include bp(max, $screen-m) {
@@ -167,7 +166,7 @@
 }
 
 .slide-active{
-  display:block;
+  display: block;
 }
 
 .slide-visible{

@@ -524,7 +524,7 @@ img[data-src] {
     z-index: 100;
     color: #000;
     position: fixed;
-    top: 0px; }
+    top: 15px; }
     .header__logo .header__anchor {
       color: #000; }
       .header__logo .header__anchor:hover {
@@ -560,8 +560,7 @@ img[data-src] {
   .header.js-header--hide {
     top: -150px; }
     .header.js-header--hide .header__logo {
-      position: fixed;
-      top: 0px; }
+      position: fixed; }
   .header.js-header--positive {
     background-color: #fff; }
     @media screen and (max-width: 1023px) {
@@ -1434,8 +1433,13 @@ img[data-src] {
   transition: transform 0.5s; }
 
 svg {
+  height: 84.2px;
   width: 100%;
-  max-height: 100%; }
+  max-height: 100%;
+  overflow: hidden; }
+  @media screen and (max-width: 769px) {
+    svg {
+      height: 100%; } }
 
 .cls-1 {
   fill: #0b0b0c; }
@@ -1460,7 +1464,7 @@ svg {
   opacity: 0; }
 
 .wolken {
-  fill: #fff;
+  fill: none;
   z-index: -100;
   stroke: #000;
   opacity: 0; }
@@ -1474,16 +1478,6 @@ svg {
 .tropfen3,
 .tropfen4 {
   opacity: 1; }
-
-.flug {
-  -webkit-transform: translateX(17px);
-  -ms-transform: translateX(17px);
-  transform: translateX(17px); }
-
-.ziit {
-  -webkit-transform: translateX(-17px);
-  -ms-transform: translateX(-17px);
-  transform: translateX(-17px); }
 
 .formular {
   font-family: "Lora", Times, serif; }
@@ -1597,8 +1591,13 @@ svg {
     margin: auto; }
 
 svg {
+  height: 84.2px;
   width: 100%;
-  max-height: 100%; }
+  max-height: 100%;
+  overflow: hidden; }
+  @media screen and (max-width: 769px) {
+    svg {
+      height: 100%; } }
 
 .cls-1 {
   fill: #0b0b0c; }
@@ -1623,7 +1622,7 @@ svg {
   opacity: 0; }
 
 .wolken {
-  fill: #fff;
+  fill: none;
   z-index: -100;
   stroke: #000;
   opacity: 0; }
@@ -1637,13 +1636,3 @@ svg {
 .tropfen3,
 .tropfen4 {
   opacity: 1; }
-
-.flug {
-  -webkit-transform: translateX(17px);
-  -ms-transform: translateX(17px);
-  transform: translateX(17px); }
-
-.ziit {
-  -webkit-transform: translateX(-17px);
-  -ms-transform: translateX(-17px);
-  transform: translateX(-17px); }

@@ -33,7 +33,7 @@
     z-index:100;
     color: $color-black;
     position: fixed;
-    top:0px;
+    top: 15px;
 
     .header__anchor{
       color: $color-black;
@@ -77,7 +77,6 @@
 
     .header__logo{
       position: fixed;
-      top:0px;
     }
   }
   &.js-header--positive{

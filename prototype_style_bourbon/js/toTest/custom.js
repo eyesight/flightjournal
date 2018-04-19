@@ -185,24 +185,24 @@
         var images = document.querySelectorAll('img[data-src]');
         if (images.length === 0) return;
 
+        var _loop = function _loop(image) {
+            if (image.getBoundingClientRect().top <= window.innerHeight * 0.75 && image.getBoundingClientRect().top > 0) {
+                image.setAttribute('src', image.getAttribute('data-src'));
+                image.onload = function () {
+                    image.removeAttribute('data-src');
+                };
+            }
+        };
+
         var _iteratorNormalCompletion = true;
         var _didIteratorError = false;
         var _iteratorError = undefined;
 
         try {
-            var _loop = function _loop() {
+            for (var _iterator = images[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                 var image = _step.value;
 
-                if (image.getBoundingClientRect().top <= window.innerHeight * 0.75 && image.getBoundingClientRect().top > 0) {
-                    image.setAttribute('src', image.getAttribute('data-src'));
-                    image.onload = function () {
-                        image.removeAttribute('data-src');
-                    };
-                }
-            };
-
-            for (var _iterator = images[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                _loop();
+                _loop(image);
             }
         } catch (err) {
             _didIteratorError = true;
@@ -467,6 +467,18 @@
             logo.classList.add('js-mobile-logo--visible');
         }
     });
+
+    /*//Polyfill for i.e for foreach: https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach
+     if (window.NodeList && !NodeList.prototype.forEach) {
+     NodeList.prototype.forEach = function (callback, thisArg) {
+     thisArg = thisArg || window;
+     for (var i = 0; i < this.length; i++) {
+     callback.call(thisArg, this[i], i, this);
+     }
+     };
+     }
+     console.log(NodeList);*/
+    navlinks = [].slice.call(navlinks);
 
     navlinks.forEach(function (e) {
         e.addEventListener('click', function (e) {

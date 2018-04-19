@@ -38,6 +38,15 @@ window.addEventListener("DOMContentLoaded", function() {
     }
 
     let weather = JSON.parse(Get(url));
+    // when the url for openweather doesn't know the region render data of zurich
+    if(!url || weather.cod == 404 || weather == undefined || !weather){
+        url = "https://api.openweathermap.org/data/2.5/weather?q=Zurich&appid=f747ad7fcba6ef4fe91531b6e4c9cf90";
+        weather = JSON.parse(Get(url));
+        console.log('region not readable ' + region + ' ' + weather.name + ' ' + weather.weather[0].description);
+    }else{
+        console.log(region);
+        console.log(weather.name + ' ' + weather.weather[0].description);
+    }
 
     const tl = new TimelineLite({paused:true});
     const tlr = new TimelineLite({paused:true});
@@ -58,8 +67,8 @@ window.addEventListener("DOMContentLoaded", function() {
     tl.add('text');
 
     //start-animation mobile
-    tl.to(flug, 0.5, {x:0}, 'text')
-       .to(ziit, 0.5, {x:0}, 'text');
+    tl.fromTo(flug, 0.5, {x:17}, {x:0}, 'text')
+       .fromTo(ziit, 0.5, {x:-17},{x:0}, 'text');
 
 
     //animation for rain mobile
@@ -73,7 +82,7 @@ window.addEventListener("DOMContentLoaded", function() {
         .staggerTo(tropfen, 0.2, {opacity: 1}, -0.15);
 
     //animation sun mobile
-    tls.fromTo(sonne, 1, {opacity:0, y:'50px'}, {opacity:1, y:'25px'});
+    tls.fromTo(sonne, 1, {opacity:0, y:'50px'}, {opacity:1, y:'30px'});
 
     //animtion clouds mobile
     tlw.staggerFromTo(wolken, 0.5,
@@ -89,7 +98,7 @@ window.addEventListener("DOMContentLoaded", function() {
         .to(wolkeL, 0.5, {y: '30px'}, '-=0.4')
         .to(wolkeR, 0.5, {y: '30px'}, '-=0.4');
 
-    //animtion sunny with clouds mobile
+    //animation sunny with clouds mobile
     tlsw.fromTo(sonne, 0.5, {opacity:0, y:'50px'}, {opacity:1, y:'20px'})
         .staggerFromTo(wolken, 0.5,
             {x: '16px',

@@ -11,7 +11,7 @@
     const linkboxes = document.querySelectorAll('.js-linkbox-content');
     const navigation = document.querySelector('.main-nav');
     const logo = document.querySelector('.header__logo');
-    const navlinks = document.querySelectorAll('.main-nav__link');
+    let navlinks = document.querySelectorAll('.main-nav__link');
     let linkboxPrevTitle = document.querySelector('.link-box__prev-text');
     let linkboxNextTitle = document.querySelector('.link-box__next-text');
 
@@ -441,6 +441,19 @@
             logo.classList.add('js-mobile-logo--visible');
         }
     });
+
+    /*//Polyfill for i.e for foreach: https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach
+    if (window.NodeList && !NodeList.prototype.forEach) {
+        NodeList.prototype.forEach = function (callback, thisArg) {
+            thisArg = thisArg || window;
+            for (var i = 0; i < this.length; i++) {
+                callback.call(thisArg, this[i], i, this);
+            }
+        };
+    }
+
+    console.log(NodeList);*/
+    navlinks = [].slice.call(navlinks);
 
     navlinks.forEach(function (e) {
         e.addEventListener('click', function (e) {

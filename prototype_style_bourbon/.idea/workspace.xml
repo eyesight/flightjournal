@@ -427,12 +427,12 @@
       <workItem from="1516835598760" duration="28744000" />
       <workItem from="1518394131346" duration="1000" />
       <workItem from="1524002156015" duration="7127000" />
-      <workItem from="1525015260034" duration="718000" />
+      <workItem from="1525015260034" duration="892000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36711000" />
+    <option name="totallyTimeSpent" value="36885000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -445,6 +445,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1023" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Jenkins" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1923077" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />

@@ -442,17 +442,6 @@
         }
     });
 
-    /*//Polyfill for i.e for foreach: https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach
-    if (window.NodeList && !NodeList.prototype.forEach) {
-        NodeList.prototype.forEach = function (callback, thisArg) {
-            thisArg = thisArg || window;
-            for (var i = 0; i < this.length; i++) {
-                callback.call(thisArg, this[i], i, this);
-            }
-        };
-    }
-
-    console.log(NodeList);*/
     navlinks = [].slice.call(navlinks);
 
     navlinks.forEach(function (e) {
@@ -475,7 +464,7 @@
             scrollNavigation();
 
             //hide/show header
-            last_known_scroll_position = window.scrollY;
+            last_known_scroll_position = window.pageYOffset;
             if (!ticking) {
                 window.requestAnimationFrame(function () {
                     scrollaction(last_known_scroll_position);
@@ -493,7 +482,7 @@
     });
 
     showMoreText(5, '+ mehr Links', '&ndash; weniger Links');
-    changeImages('assets/img/', 2, 4, 9, 2);
+    changeImages('assets/img/', 6, 3, 9, 2);
 
 
 })(window);

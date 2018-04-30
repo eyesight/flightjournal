@@ -1,0 +1,57 @@
+svg {
+  height: 84.2px;
+  width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+
+  @include bp(max, $ipad-ls) {
+    height: 100%;
+  }
+}
+
+.cls-1 {
+  fill: #0b0b0c;
+}
+
+.cls-2 {
+  fill: none;
+  stroke: #21203f;
+  stroke-linejoin: round;
+}
+
+.cls-2, .cls-4 {
+  stroke-linecap: round;
+}
+
+.cls-3 {
+  fill: #29211a;
+}
+
+.cls-10 {
+  fill: none;
+  stroke: #1f2020;
+  stroke-miterlimit: 10;
+}
+
+.regen{
+  opacity: 0;
+}
+
+.wolken{
+  fill: none;
+  z-index: -100;
+  stroke: #000;
+  opacity: 0;
+}
+
+.sonne{
+  opacity: 0;
+  bottom: 0;
+}
+
+.tropfen1,
+.tropfen2,
+.tropfen3,
+.tropfen4{
+  opacity: 1;
+}

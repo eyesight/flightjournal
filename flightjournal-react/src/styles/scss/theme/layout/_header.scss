@@ -1,0 +1,111 @@
+.header{
+  position: fixed;
+  z-index:10;
+  width: 100vw;
+  transition: top 1s ease;
+  top: 0;
+  @include grid-container;
+
+  &__logo-wrapper{
+    width: 200px;
+    @include bp(max, $ipad-ls) {
+      width: 150px;
+    }
+  }
+
+  &__logo,
+  &__menu{
+    padding-bottom: rem-calc(40px);
+    font-size: $font-s-logo;
+    z-index:100;
+
+    @include bp(max, $ipad-ls) {
+      padding-top: rem-calc(20px);
+      padding-bottom: rem-calc(40px);
+    }
+  }
+
+  &__logo{
+    @include grid-column(11, $grid-24);
+    @include grid-shift(1, $grid-24);
+    margin-top: -20px;
+    padding-top: 0;
+    z-index:100;
+    color: $color-black;
+    position: fixed;
+    top: 15px;
+
+    .header__anchor{
+      color: $color-black;
+
+      &:hover{
+        color: $color-black;
+
+        @include bp(max, $ipad-ls) {
+          color: $color-black;
+        }
+      }
+
+      @include bp(max, $ipad-ls) {
+        color: $color-black;
+      }
+    }
+
+    @include bp(max, $ipad-ls) {
+      color: $color-black;
+    }
+    @include bp(max, $ipad-p) {
+      position: absolute;
+      margin-top: -15px;
+    }
+  }
+
+  &__menu{
+    @include grid-column(10, $grid-24);
+    @include grid-shift(12, $grid-24);
+    @include grid-push(1, $grid-24);
+    background-color: $color-white;
+    padding-top: rem-calc(40px);
+
+    @include bp(max, $ipad-ls) {
+      background-color: transparent;
+    }
+  }
+
+  &.js-header--hide{
+    top:-150px;
+    @include bp(max, $ipad-ls) {
+      top:0px;
+    }
+
+    .header__logo{
+      position: fixed;
+    }
+  }
+  &.js-header--positive{
+    background-color: $color-white;
+
+    @include bp(max, $ipad-ls) {
+      background-color: transparent;
+    }
+
+    .header__anchor{
+      color: $color-black;
+    }
+  }
+
+  .js-mobile-logo--visible{
+    position:fixed;
+    z-index: 10000;
+    color: $color-black;
+
+    .header__anchor{
+      color: $color-black;
+    }
+  }
+
+  @include bp(max, $ipad-ls) {
+    background-color: $color-white;
+  }
+}
+

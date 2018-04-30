@@ -1,0 +1,84 @@
+.formular{
+  font-family: $font-family-secundary;
+
+  @include bp(max, $ipad-p) {
+    flex-direction: column;
+  }
+  &-wrapper{
+    @include grid-column(12, $grid-24);
+    margin:auto;
+
+    @include bp(max, $screen-m) {
+      @include grid-column(16, $grid-24);
+      margin-left: auto;
+    }
+
+    @include bp(max, $ipad-ls) {
+      @include grid-column(20, $grid-24);
+      margin-left:auto;
+    }
+
+    @include bp(max, $ipad-p) {
+      @include grid-column(20, $grid-24);
+      margin:auto;
+    }
+
+    @include bp(max, $phone) {
+      @include grid-column(24, $grid-24);
+      margin:auto;
+    }
+  }
+
+  label{
+    background-color: $color-white;
+    display:block;
+    z-index: 100;
+    margin-top: -10px;
+    margin-left: -1px;
+    padding-right: 10px;
+    padding-left: 0px;
+    padding-bottom: 10px;
+    max-width: 75px;
+    float: left;
+  }
+
+  div:first-child{
+    margin-top: 0;
+  }
+
+  &__input{
+    border: none;
+    height: 55%;
+    width: 95%;
+    float: left;
+    margin-left: 2%;
+    background: transparent;
+
+    &-wrapper{
+      height: rem-calc(65px);
+      border: 1px solid $color-gray-light;
+      width: 45%;
+      margin-right: 0;
+      display: inline-block;
+      margin-top: rem-calc(40px);
+
+      &:first-of-type{
+        margin-right: 8%;
+      }
+
+      @include bp(max, $ipad-p) {
+        width: 100%;
+      }
+
+      @include bp(max, $phone) {
+        margin-bottom: rem-calc(30px);
+      }
+    }
+
+    @include bp(max, $ipad-ls) {
+      margin-right: 25px;
+      margin-left: 10px;
+      width: 90%;
+    }
+  }
+}

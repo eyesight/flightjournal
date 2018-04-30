@@ -1,0 +1,128 @@
+.filter{
+  font-size: $font-s-anchor;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: rem-calc(50px);
+
+  @include bp(max, $ipad-p) {
+    display: block;
+    height: 100px;
+  }
+
+  &__title{
+    @include grid-column(22, $grid-24);
+    @include grid-push(1, $grid-24);
+    font-size: $font-s-h3-filter;
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+
+  &__list{
+    display:flex;
+    @include grid-column(22, $grid-24);
+    @include grid-push(1, $grid-24);
+    justify-content: center;
+    flex-wrap: wrap;
+
+    li{
+      margin-right: 2.5%;
+      padding-bottom: 10px;
+    }
+
+    a{
+      &.filter__list-item{
+        color: $color-primary;
+        z-index:10;
+
+        &::after {
+          @extend .help-underline-yellow;
+        }
+
+        &:hover,
+        &:focus,
+        &.active{
+          color: $color-black;
+          transition: color .5s ease 0s;
+
+          &::after {
+            @extend .help-underline-yellow-hover;
+          }
+        }
+      }
+    }
+
+    + .filter__list-dropdown{
+      margin-top: 20px;
+    }
+  }
+
+  &__list-dropdown{
+    @include grid-column(22, $grid-24);
+    @include grid-push(1, $grid-24);
+    display: flex;
+    justify-content: center;
+
+    @include bp(max, $ipad-p) {
+      margin-bottom: rem-calc(50px);
+    }
+  }
+
+  &__dropdown-item{
+    min-width: rem-calc(155px);
+    margin-right: 5%;
+    text-align: center;
+    transition: .8s ease height;
+    border:none;
+    background-color: $color-white;
+    padding: 0;
+
+    i{
+      color: $color-primary;
+    }
+
+
+    &:hover,
+    &:focus{
+      color: $color-primary;
+      .filter__sub-dropdown{
+        visibility: visible;
+        display: block;
+        opacity: 1;
+        transition: .8s ease opacity;
+      }
+    }
+  }
+
+  &__sub-dropdown{
+    visibility: hidden;
+    position: absolute;
+    padding: 12px 0;
+    z-index: 1;
+    opacity: 0;
+    transition: .8s ease opacity;
+    text-align: center;
+    width: rem-calc(155px);
+    margin-left: -5px;
+  }
+
+  &__sub-dropdown-item{
+    font-weight: $font-regular;
+    width:rem-calc(150px);
+    display:block;
+    position:relative;
+    margin-left:rem-calc(0);
+    padding: 8px 5px;
+    background-color: $color-primary-10;
+    border-bottom: 1px solid $color-white;
+    transition: .8s ease background-color;
+    font-size: $font-s-dropdown-item;
+
+    &:hover,
+    &:focus{
+      background-color: $color-primary-50;
+      transition: .8s ease background-color;
+      color: $color-black;
+    }
+  }
+}

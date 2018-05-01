@@ -55,7 +55,6 @@
       color: $color-black;
     }
     @include bp(max, $ipad-p) {
-      position: absolute;
       margin-top: -15px;
     }
   }

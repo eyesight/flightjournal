@@ -5,15 +5,18 @@
   "dependencies": {
     "autoprefixer": "^8.4.1",
     "firebase": "^4.13.1",
+    "gsap": "^1.20.4",
     "nodemon": "^1.17.3",
     "postcss-cli": "^5.0.0",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
+    "react-addons-transition-group": "^15.6.2",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
     "react-scrollchor": "^5.0.2",
+    "react-transition-group": "^1.2.1",
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0"
   },

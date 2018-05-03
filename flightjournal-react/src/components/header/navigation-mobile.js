@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 
 class NavigationMobile extends Component {
+
     componentDidMount() {
         const burger = document.querySelector('.mobile-toggle');
         const navigation = document.querySelector('.main-nav');
         const logo = document.querySelector('.header__logo');
         let navlinks = document.querySelectorAll('.main-nav__link');
 
-        burger.addEventListener('click', function (event) {
+        burger.addEventListener('click', function (event){
             event.preventDefault();
             if (navigation.classList.contains('js-mobile-nav--visible')) {
                 navigation.classList.remove('js-mobile-nav--visible');

@@ -17,6 +17,7 @@ class FlugplanungLeft extends Component {
 
         const intViewportHeight = window.innerHeight;
         const linkbox = document.querySelector('.start__right');
+
         const imagebox = document.querySelector('.start__image-wrapper');
 
         //get the height and bottom-position of the linkbox
@@ -98,7 +99,7 @@ class FlugplanungLeft extends Component {
         this.changeImages('assets/img/', 6, 3, 9, 2);
     }
     componentWillUnmount(){
-        window.addEventListener('scroll', this.leftscroll);
+        window.removeEventListener('scroll', this.leftscroll);
         this.changeImages('assets/img/', 6, 3, 9, 2);
     }
 

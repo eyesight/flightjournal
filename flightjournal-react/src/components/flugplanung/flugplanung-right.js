@@ -252,10 +252,6 @@ class FlugplanungRight extends Component {
         this.showMoreText(5, '+ mehr Links', '- weniger Links');
         this.slideshowInit();
     }
-    componentWillUnmount(){
-        this.showMoreText(5, '+ mehr Links', '- weniger Links');
-        this.slideshowInit();
-    }
 
     render() {
         return (

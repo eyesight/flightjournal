@@ -1,5 +1,6 @@
 .button{
   min-width: rem-calc(200px);
+  font-size: $font-s-button;
 
   &-wrapper{
     @include grid-column(22, $grid-24);

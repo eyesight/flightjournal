@@ -1,12 +1,13 @@
-.formular{
+.formular {
   font-family: $font-family-secundary;
+  font-size: $font-s-copytext-l;
 
   @include bp(max, $ipad-p) {
     flex-direction: column;
   }
-  &-wrapper{
+  &-wrapper {
     @include grid-column(12, $grid-24);
-    margin:auto;
+    margin: auto;
 
     @include bp(max, $screen-m) {
       @include grid-column(16, $grid-24);
@@ -15,26 +16,26 @@
 
     @include bp(max, $ipad-ls) {
       @include grid-column(20, $grid-24);
-      margin-left:auto;
+      margin-left: auto;
     }
 
     @include bp(max, $ipad-p) {
       @include grid-column(20, $grid-24);
-      margin:auto;
+      margin: auto;
     }
 
     @include bp(max, $phone) {
       @include grid-column(24, $grid-24);
-      margin:auto;
+      margin: auto;
     }
   }
 
-  label{
+  label {
     background-color: $color-white;
-    display:block;
+    display: block;
     z-index: 100;
     margin-top: -10px;
-    margin-left: -1px;
+    margin-left: -2px;
     padding-right: 10px;
     padding-left: 0px;
     padding-bottom: 10px;
@@ -42,19 +43,21 @@
     float: left;
   }
 
-  div:first-child{
+  div:first-child {
     margin-top: 0;
   }
 
-  &__input{
+  &__input {
     border: none;
     height: 55%;
     width: 95%;
     float: left;
     margin-left: 2%;
+    margin-top: -3px;
     background: transparent;
+    font-family: $font-family-primary;
 
-    &-wrapper{
+    &-wrapper {
       height: rem-calc(65px);
       border: 1px solid $color-gray-light;
       width: 45%;
@@ -62,8 +65,23 @@
       display: inline-block;
       margin-top: rem-calc(40px);
 
-      &:first-of-type{
+
+      &:first-of-type {
         margin-right: 8%;
+      }
+
+      &.formular__input-wrapper--centered {
+        display: block;
+        margin: auto;
+
+        &:first-of-type {
+          margin-right: auto;
+          margin-top: rem-calc(40px);
+
+          @include bp(max, $phone) {
+            margin-top: rem-calc(0px);
+          }
+        }
       }
 
       @include bp(max, $ipad-p) {
@@ -72,7 +90,12 @@
 
       @include bp(max, $phone) {
         margin-bottom: rem-calc(30px);
+        margin-top: rem-calc(0);
       }
+    }
+
+    &--target {
+      border: 2px solid $color-primary;
     }
 
     @include bp(max, $ipad-ls) {
@@ -81,4 +104,35 @@
       width: 90%;
     }
   }
+
+  &__validation {
+    color: $color-red;
+    margin: auto;
+
+    &.validationPW {
+      color: #000;
+      font-size: 30px;
+      margin-top: 15%;
+      @media screen and (max-width: 768px) {
+        margin-top: 50%;
+      }
+    }
+  }
+
+  &--error {
+    border: 2px solid $color-red;
+  }
 }
+
+textarea:focus, input:focus{
+  outline: none;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #fff inset;
+}
+
+*:focus {
+  outline: none;
+}
+

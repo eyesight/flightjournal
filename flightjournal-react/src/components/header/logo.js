@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {TimelineLite} from 'gsap';
 import {weather} from '../../utils/_weatherData';
+import {Link} from 'react-router-dom';
+import * as routes from '../../constants/routes';
 
 class Logo extends Component {
     constructor(props) {
@@ -157,7 +159,7 @@ class Logo extends Component {
         return (
             <div className="header__logo">
                 <div className="header__logo-wrapper">
-                    <a className="header__anchor" href="index.html">
+                    <Link className="header__anchor" to={routes.LANDING}>
                         <svg viewBox="0 10 125.5 53.17" preserveAspectRatio="xMidYMin slice" width="100%">
                             <g ref={this.sonne} className="sonne">
                                 <g>
@@ -208,7 +210,7 @@ class Logo extends Component {
                                 </g>
                             </g>
                         </svg>
-                    </a>
+                    </Link>
                 </div>
             </div>
         );

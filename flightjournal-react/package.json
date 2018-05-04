@@ -1,0 +1,52 @@
+{
+  "name": "flightjournal-react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "autoprefixer": "^8.4.1",
+    "firebase": "^4.13.1",
+    "gsap": "^1.20.4",
+    "history": "^4.7.2",
+    "nodemon": "^1.17.3",
+    "postcss-cli": "^5.0.0",
+    "prop-types": "^15.6.1",
+    "react": "^16.3.2",
+    "react-addons-transition-group": "^15.6.2",
+    "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4",
+    "react-scrollchor": "^5.0.2",
+    "react-transition-group": "^1.2.1",
+    "redux": "^4.0.0",
+    "redux-form": "^7.3.0",
+    "redux-thunk": "^2.2.0"
+  },
+  "scripts": {
+    "build": "react-scripts build",
+    "sass:watch": "node-sass -w src/styles/scss -o src/styles/css",
+    "sass:build": "node-sass src/styles/scss -o src/styles/css --source-map true",
+    "build-css": "./node_modules/node-sass/bin/node-sass src/styles/scss/index.scss -o src/styles/css && npx ./node_modules/postcss-cli/bin/postcss src/styles/css/index.css --use autoprefixer -d src/styles/css",
+    "watch-css": "nodemon -e scss -x 'npm run build-css'",
+    "start": "react-scripts start",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "babel-polyfill": "^6.26.0",
+    "bourbon-neat": "^1.9.0",
+    "browser-sync": "^2.24.2",
+    "del": "^3.0.0",
+    "imagesloaded": "^4.1.4",
+    "node-sass": "^4.7.2",
+    "normalize.scss": "^0.1.0",
+    "run-sequence": "^2.2.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 3 versions",
+    "Android >= 4",
+    "Firefox >= 20",
+    "iOS >= 8"
+  ]
+}

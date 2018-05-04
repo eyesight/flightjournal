@@ -1,0 +1,29 @@
+.centered-layout{
+  margin-top: rem-calc(20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  @include grid-column(22, $grid-24);
+  @include grid-push(1, $grid-24);
+
+  &__header{
+    padding-top: rem-calc(100px);
+    margin-top: rem-calc(80px);
+    margin-bottom: rem-calc(100px);
+    display:flex;
+    flex-direction: column;
+
+    &--no-marginbottom{
+      margin-bottom: rem-calc(0);
+    }
+
+    @include bp(max, $phone){
+      padding-top: rem-calc(20px);
+      margin-bottom: rem-calc(60px);
+    }
+  }
+  &:last-child{
+    margin-bottom: rem-calc(100px);
+  }
+
+}

@@ -1,0 +1,45 @@
+.title{
+  &-h1,
+  &-h2,
+  &-h3,
+  &-h4{
+    font-family: $font-family-primary;
+    font-weight: 600;
+  }
+
+  &--regular{
+    font-weight: 300;
+    font-family: $font-family-secundary;
+  }
+
+  &-h1{
+    font-size: $font-s-h1;
+  }
+
+  &-h2{
+    margin-bottom: rem-calc(20px);
+    font-size: $font-s-h2;
+    text-align: center;
+
+    @include bp(max, $phone){
+      font-size: $font-s-h2-xs;
+    }
+  }
+
+  &-h3{
+    margin-bottom: rem-calc(20px);
+    font-size: $font-s-h3;
+  }
+
+  &-page-title{
+    text-align: center;
+    color: $color-primary;
+    margin-bottom: rem-calc(30px);
+    font-size: $font-s-page-title;
+  }
+
+  &--white{
+    color: $color-white;
+  }
+}
+

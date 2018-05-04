@@ -1,0 +1,50 @@
+.link,
+.link:active,
+.link:visited{
+  position: relative;
+  cursor: pointer;
+  font-size: $font-s-link;
+  font-family: $font-family-primary;
+  font-weight: 300;
+  color: $color-primary;
+  letter-spacing: 0.02rem;
+
+  &:hover,
+  &:focus {
+    color: $color-black;
+  }
+}
+
+.link-wrapper{
+  display: block;
+
+  &--right{
+    margin-left: 53.5%;
+
+    @include bp(max, $ipad-p) {
+      margin-left: 0;
+    }
+  }
+}
+
+.link{
+  &--black{
+    color: $color-black;
+
+    &:hover,
+    &:focus {
+      color: $color-primary;
+
+      .link__sign{
+        color: $color-black;
+      }
+    }
+  }
+
+  &__sign{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 3px;
+    color: $color-primary;
+  }
+}

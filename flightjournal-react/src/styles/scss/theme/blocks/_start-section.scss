@@ -1,0 +1,104 @@
+.start{
+
+    &__left{
+        @include grid-column(11, $grid-24);
+
+        @include bp(max, $ipad-ls) {
+           @include grid-column(24, $grid-24);
+         }
+    }
+
+    &__right{
+
+        .start__twocolumn:nth-child(2){
+            border-right: 1px solid $color-gray-light;
+            padding-right: 10%;
+            @include bp(max, $ipad-ls) {
+                padding-right: 5%;
+            }
+            @include bp(max, $phone) {
+                padding-right: 0;
+                border-right: none;
+                margin-top: rem-calc(50px);
+            }
+        }
+        .start__twocolumn:nth-child(3){
+            padding-left: 10%;
+            @include bp(max, $ipad-ls) {
+                padding-left: 5%;
+            }
+            @include bp(max, $phone) {
+                padding-left: 0;
+            }
+        }
+            @include grid-column(10, $grid-24);
+            @include grid-shift(13, $grid-24);
+
+            @include bp(max, $ipad-ls) {
+                @include grid-column(22, $grid-24);
+                @include grid-shift(0, $grid-24);
+                @include grid-push(1, $grid-24);
+             }
+        }
+
+    &__image-wrapper{
+        position: fixed;
+        top: 0;
+        width: 50%;
+        overflow: hidden;
+        height: 100vh;
+        z-index:1;
+
+        img{
+            height:100%;
+            min-width:100%;
+        }
+
+        @include bp(max, $ipad-ls) {
+            position: relative;
+            width: 100%;
+            z-index: -100;
+        }
+    }
+
+    &__text-wrapper{
+        @include grid-push(1, $grid-24);
+        z-index:100;
+        position: fixed;
+        bottom:0;
+        margin-bottom: rem-calc(100px);
+    }
+
+    &__lead-wrapper{
+        margin-top: rem-calc(100px);
+
+        @include bp(max, $ipad-ls) {
+           color: $color-white;
+           margin-top: -250px;
+           padding: 10px 10px 50px 10px;
+           text-align: center;
+           min-height: rem-calc(300px);
+        }
+
+        @include bp(max, $phone) {
+            margin-top: -340px;
+        }
+    }
+
+    &__twocolumn{
+        margin-top: rem-calc(100px);
+        float: left;
+        width: 39.7%;
+
+        @include bp(max, $ipad-ls){
+            margin-top: 0;
+            width: 44.7%;
+        }
+
+        @include bp(max, $phone){
+            float: none;
+            width: 100%;
+            margin-top: rem-calc(100px);
+        }
+    }
+}

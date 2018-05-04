@@ -1,5 +1,5 @@
 import firebase from 'firebase'
-import keys from './ApiKeys'
+import keys from './Keys'
 
 var config = {
     apiKey: keys.firebase,

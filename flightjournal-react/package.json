@@ -23,7 +23,7 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
-    "build": "yarn sass:build && react-scripts build",
+    "build": "react-scripts build",
     "sass:watch": "node-sass -w src/styles/scss -o src/styles/css",
     "sass:build": "node-sass src/styles/scss -o src/styles/css --source-map true",
     "build-css": "./node_modules/node-sass/bin/node-sass src/styles/scss/index.scss -o src/styles/css && npx ./node_modules/postcss-cli/bin/postcss src/styles/css/index.css --use autoprefixer -d src/styles/css",

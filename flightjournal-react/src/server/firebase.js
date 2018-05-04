@@ -11,5 +11,10 @@ var config = {
 };
 
 firebase.initializeApp(config);
+let id;
 
 export const auth = firebase.auth();
+export const database = firebase.database().ref('Flights/');
+export const databaseDetail = firebase.database().ref(`Flights/${id}`);
+export const startplacesdb = firebase.database().ref('startplaces/');
+

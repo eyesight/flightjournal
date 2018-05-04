@@ -59,11 +59,13 @@ Thumbs.db
 /examples
 /testing
 
-/assets/img/fruehling/*
-/assets/img/herbst/*
-/assets/img/sommer/*
-/assets/img/winter/*
-/assets/img/startplaetze/*
+prototype_style_bourbon/assets/img/fruehling/*
+prototype_style_bourbon/assets/img/herbst/*
+prototype_style_bourbon/assets/img/sommer/*
+prototype_style_bourbon/assets/img/winter/*
+prototype_style_bourbon/assets/img/startplaetze/*
+
+
 
 
 

@@ -3,6 +3,7 @@ import StartMain from './start-main';
 import Header from './header/header';
 import LoginForm from './forms/loginForm';
 import FlugdatenForm from './forms/flugdatenForm';
+import Flugdaten from './flight-table/test';
 import PasswordForgetForm from './forms/passwordForgetForm';
 import { applyMiddleware, createStore } from 'redux';
 import reducers from '../reducers/index';
@@ -15,8 +16,6 @@ import {
 } from 'react-router-dom';
 import * as routes from '../constants/routes';
 
-import PrivateRoute from './protectedRoutes/protected-routes'
-
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 class App extends Component {
@@ -27,7 +26,8 @@ class App extends Component {
                 <div className="page">
                  <Header />
                  <Switch>
-                     <PrivateRoute exact path={routes.FLUGDATEN_ERFASSEN} component={() => <FlugdatenForm />} />
+                 <Route exact path={routes.TEST} component={() => <Flugdaten />} />
+                     <Route exact path={routes.FLUGDATEN_ERFASSEN} component={() => <FlugdatenForm />} />
                      <Route exact path={routes.LOGIN} component={() => <LoginForm />} />
                      <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetForm />} />
                      <Route exact path={routes.HOME} component={() => <StartMain />} />

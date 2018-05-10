@@ -1,13 +1,31 @@
 .login-icon{
+  margin-top: 20px;
+  z-index:-1;
+}
+
+.login-icon{
   width: 186px;
   max-height: 100%;
   height: 100%;
-  overflow: hidden;
-
+  overflow: visible;
+  
   .sonne-inner {
     fill: none;
-    stroke: $color-yellow;
+    stroke: #FFC10E;
     stroke-linejoin: round;
+  }
+  .blitze{
+    transform: translateY(-5px);
+    transform: translateX(2px);
+    opacity:0;
+  }
+  
+  .blitz1{
+    fill: #FFC10E;
+  }
+  
+  .blitz2{
+    fill: transparent;
   }
 
   .sonne-inner,
@@ -16,25 +34,39 @@
   }
 
   .wolken-inner,
-  .regen-1 {
+  .regen-woken {
     fill: #fff;
+    opacity: 1;
   }
 
   .wolken-inner {
-    stroke: $color-gray-light;
+    stroke: #E0E0E0;
     stroke-miterlimit: 10;
   }
 
   .regen-2 {
-    fill: $color-primary-90;
+    fill: #258a8b;
   }
 
   .regen {
-    display:none;
+    opacity: 0;
+  }
+  
+  .tropfen1,
+  .tropfen2,
+  .tropfen3,
+  .tropfen4{
+    fill: #0d7e7f;
+    transform: scale(1.5, 1.5)
   }
 
   .sonne {
-    display: block;
+    opacity: 1;
+  }
+  
+  .wolkeL, .wolkeR{
+    opacity: 0;
+    position: absolute;
   }
 
   &-wrapper{

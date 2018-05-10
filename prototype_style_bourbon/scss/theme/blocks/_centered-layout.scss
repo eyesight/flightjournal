@@ -13,6 +13,10 @@
     display:flex;
     flex-direction: column;
 
+    &--no-marginbottom{
+      margin-bottom: rem-calc(0);
+    }
+
     @include bp(max, $phone){
       padding-top: rem-calc(20px);
       margin-bottom: rem-calc(60px);

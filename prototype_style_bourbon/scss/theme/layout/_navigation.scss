@@ -6,6 +6,10 @@
     @include bp(max, $ipad-ls) {
       display:none;
     }
+
+    &--single{
+      justify-content: flex-end;
+    }
   }
 
   &__link{

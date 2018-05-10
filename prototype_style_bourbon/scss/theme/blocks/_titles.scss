@@ -34,7 +34,8 @@
   &-page-title{
     text-align: center;
     color: $color-primary;
-    margin-bottom: rem-calc(50px);
+    margin-bottom: rem-calc(30px);
+    font-size: $font-s-page-title;
   }
 
   &--white{

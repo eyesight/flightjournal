@@ -8,7 +8,7 @@
 
   &__logo-wrapper{
     width: 200px;
-    @include bp(max, $ipad-p) {
+    @include bp(max, $ipad-ls) {
       width: 150px;
     }
   }
@@ -55,7 +55,6 @@
       color: $color-black;
     }
     @include bp(max, $ipad-p) {
-      position: absolute;
       margin-top: -15px;
     }
   }
@@ -74,6 +73,9 @@
 
   &.js-header--hide{
     top:-150px;
+    @include bp(max, $ipad-ls) {
+      top:0px;
+    }
 
     .header__logo{
       position: fixed;

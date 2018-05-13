@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ErrorAlert = (props) => {
+const FormErrorAlert = (props) => {
     return (
         <p className="formular__validation">
             {props.children}
@@ -8,4 +8,4 @@ const ErrorAlert = (props) => {
     );
 };
 
-export default ErrorAlert;
+export default FormErrorAlert; 

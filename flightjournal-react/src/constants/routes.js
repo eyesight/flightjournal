@@ -5,6 +5,7 @@ export const PASSWORD_FORGET = '/pw-forget';
 export const HOME = '/home';
 export const ACCOUNT = '/account';
 export const FLUGDATEN_ERFASSEN = '/enter-flight-data';
+export const STARTPLATZ_ERFASSEN = '/enter-startplace-data';
 export const FLUGDATEN = '/flight-data';
 export const TEST = '/test';
 

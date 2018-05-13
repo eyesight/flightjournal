@@ -12,6 +12,12 @@ html {
     font-weight: $font-regular;
   }
 
+  *,
+		*:after,
+		*:before {
+		    box-sizing: border-box;
+		}
+
   li {
     list-style: none;
   }

@@ -1,20 +1,33 @@
 .button{
   min-width: rem-calc(200px);
   font-size: $font-s-button;
-
-  &-wrapper{
-    @include grid-column(22, $grid-24);
-    @include grid-push(1, $grid-24);
-    display: flex;
-    justify-content: center;
-  }
-
   color: $color-black;
   background-color: $color-white;
   border: 1px solid $color-primary;
   padding: rem-calc(15px);
   transition: all 0.3s ease-in-out 0s;
   margin-top: rem-calc(50px);
+
+  &-wrapper{
+    @include grid-column(22, $grid-24);
+    @include grid-push(1, $grid-24);
+    display: flex;
+    justify-content: center;
+    font-family: $font-family-primary;
+  }
+
+  &-group{
+    clear:both;
+    padding-top: rem-calc(60px);
+    .button-wrapper{
+      margin-top: rem-calc(20px);
+
+      .button{
+        margin-top: 0;
+        min-width: rem-calc(250px);
+      }
+    }
+  }
 
   &-without-border{
     font-size: $font-s-button-wb;

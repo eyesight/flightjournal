@@ -19,3 +19,7 @@ export function saveStartplaces(post) {
 export function deleteStartplaces(id) {
   return dispatch => startplacesdb.child(id).remove();
 }
+
+export function updateStartplaces(id, updates) {
+  return dispatch => startplacesdb.child(id).update(updates);
+}

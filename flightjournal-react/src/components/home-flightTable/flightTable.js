@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import * as routes from '../../constants/routes';
+import { withRouter } from 'react-router-dom';
 
 class FlightTable extends Component {
     render() {
@@ -7,7 +9,7 @@ class FlightTable extends Component {
                 <div className="centered-layout__header">
                     <h2 className="title-h2">Flugtagebuch.<br /><span className="title--regular">Unsere Flüge im Überblick.</span>
                     </h2>
-                    <button className="button-without-border">+ Flug hinzufügen</button>
+                    <button className="button-without-border" onClick={(event) => {event.preventDefault(); this.props.history.push(routes.FLUGDATEN_ERFASSEN)}}>+ Flug hinzufügen</button>
                 </div>
                 <div className="filter">
                     <ul className="filter__list">
@@ -93,4 +95,4 @@ class FlightTable extends Component {
     }
 }
 
-export default FlightTable;
+export default withRouter(FlightTable);

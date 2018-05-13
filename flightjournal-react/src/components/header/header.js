@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Logo from './logo';
-import NavigationContainer from './navigation-container';
+import NavigationContainer from './navigationContainer';
 import ReactTransitionGroup from 'react-addons-transition-group'
 
 class Header extends Component {

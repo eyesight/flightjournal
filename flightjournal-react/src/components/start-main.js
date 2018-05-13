@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Flugplanung from './flugplanung/flugplanung';
-import FlightTable from './flight-table/flight-table';
-import StartingPlaces from './startingplaces/startingplaces';
+import Flugplanung from './home-flugplanung/flugplanung';
+import FlightTable from './home-flightTable/flightTable';
+import StartingPlaces from './home-startingplaces/startingplaces';
 import { getUser } from '../actions/UserActions';
 import { connect } from 'react-redux';
 

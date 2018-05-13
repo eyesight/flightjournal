@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavigationMobile from './navigation-mobile';
+import NavigationMobile from './navigationMobile';
 import Navigation from './navigation';
 
 class NavigationContainer extends Component {

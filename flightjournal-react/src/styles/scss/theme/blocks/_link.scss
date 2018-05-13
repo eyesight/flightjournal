@@ -30,6 +30,8 @@
 .link{
   &--black{
     color: $color-black;
+    clear: both;
+    display: block;
 
     &:hover,
     &:focus {
@@ -39,6 +41,13 @@
         color: $color-black;
       }
     }
+    i{
+      color: $color-primary;
+      padding-left: rem-calc(15px);
+      padding-right: 5px;
+      font-size: $font-s-icon;
+      float: left;
+    }
   }
 
   &__sign{
@@ -46,5 +55,11 @@
     font-weight: 600;
     margin-bottom: 3px;
     color: $color-primary;
+  }
+
+  &-with-icon{
+    display: block;
+    padding-top: 10px;
+    clear: both;
   }
 }

@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
-import InputField from './inputfield';
+import InputField from '../formInputfield/formInputfield';
 import { login, getUser } from '../../actions/UserActions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import ErrorAlert from './errorAlert';
-import * as validation from '../../utils/validationText'
+import FormErrorAlert from '../formErrorAlert/formErrorAlert';
+import FormTitle from '../formTitle/formTitle';
+import FormAnimation from '../formAnimation/formAnimation';
+import * as validation from '../../utils/validationText';
 import * as routes from '../../constants/routes';
 
-
-class LoginForm extends Component {
+class LoginFormContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
             email: '',
             password: '',
             error: '',
-            formClassPW: 'formular__input-wrapper',
+            formClassPW: 'formular__input-wrapper margin-top-0',
             formClassName: 'formular__input-wrapper'
         };
     }
@@ -35,29 +36,34 @@ class LoginForm extends Component {
         this.props.login(this.state.email, this.state.password).catch(err => {
             this.setState({
                 error: err,
-                formClassPW: 'formular__input-wrapper formular--error',
+                formClassPW: 'formular__input-wrapper margin-top-0 formular--error',
                 formClassName: 'formular__input-wrapper formular--error'
             });
         });
     }
 
     render() {
+        const {ani} = this.props;
         return (
             <main className="main">
                 <section id="loginForm" className="centered-layout">
-                    <div className="centered-layout__header centered-layout__header--no-marginbottom">
-                        <div className="title-page-title">Pilotenseite</div>
-                        <h2 className="title-h2">Noch nicht angemeldet?<br /><span className="title--regular"> Jetzt anmelden.</span>
-                        </h2>
-                    </div>
-                    {this.state.error && <ErrorAlert>{validation.valLogin_emailPW}</ErrorAlert>}
+                    <FormTitle 
+                        children = {<FormAnimation
+                            xyz = {ani}
+                        />}
+                        classes = 'centered-layout__header'
+                        pageTitle = 'Pilotenseite'
+                        titleH2 = 'Noch nicht angemeldet?'
+                        titleH2regular = 'Jetzt anmelden.'
+                    />
+                    {this.state.error && <FormErrorAlert>{validation.valLogin_emailPW}</FormErrorAlert>}
                     <div className="formular-wrapper">
                         <form onSubmit={event => { this.submitLogin(event);}} className="formular">
                             <InputField id="email" type="text" label="Name:" name="name" classes={this.state.formClassName} autocomp="email"
                                         inputAction={(event) => this.setState({ email: event.target.value, formClassName: 'formular__input-wrapper formular__input--target' })}
                             />
                             <InputField id="pw" type="password" label="Passwort:" name="password" classes={this.state.formClassPW} autocomp="current-password"
-                                        inputAction={(event) => this.setState({ password: event.target.value, formClassPW: 'formular__input-wrapper formular__input--target'})}
+                                        inputAction={(event) => this.setState({ password: event.target.value, formClassPW: 'formular__input-wrapper margin-top-0 formular__input--target'})}
                             />
                             <div className="link-wrapper link-wrapper--right">
                                 <a className="link link--black" onClick={(event) => {event.preventDefault(); this.props.history.push(routes.PASSWORD_FORGET)}}><span className="link__sign">?</span> Passwort vergessen</a>
@@ -77,4 +83,4 @@ function mapStateToProps(state) {
     return { user: state.user };
 }
 
-export default withRouter(connect(mapStateToProps, { login, getUser })(LoginForm));
+export default withRouter(connect(mapStateToProps, { login, getUser })(LoginFormContainer));

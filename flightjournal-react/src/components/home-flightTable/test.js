@@ -78,7 +78,7 @@ class Flugdaten extends Component {
                 <div className="formular-wrapper">
                     <form className="formular" onSubmit={event => { this.onUpdate(event, this.state.kk);}}>
                         <div className="formular__input-wrapper">
-                        <label>Pilot:</label>
+                        <label className="formular__label">Pilot:</label>
                         <input type="text" value={this.state.inputPilot} onChange={this.handleChange} placeholder={x.pilot} className="formular__input"/>
                         </div>
                         <div className="button-wrapper">
@@ -93,13 +93,13 @@ class Flugdaten extends Component {
 
     renderFlightsForm() {
         const { handleSubmit } = this.props;
-        return (
+        return ( 
         <main className="main">
             <section className="centered-layout">
                 <div className="formular-wrapper">
                     <form className="formular" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                         <div className="formular__input-wrapper">
-                        <label>Pilot:</label>
+                        <label className="formular__label">Pilot:</label>
                         <Field
                             name="pilot"
                             component={this.renderField}
@@ -107,7 +107,7 @@ class Flugdaten extends Component {
                         />
                         </div>
                         <div className="formular__input-wrapper">
-                            <label>Datum:</label>
+                            <label className="formular__label">Datum:</label>
                             <Field
                             name="data"
                             component={this.renderField}
@@ -115,7 +115,7 @@ class Flugdaten extends Component {
                             />
                         </div>
                         <div className="formular__input-wrapper">
-                            <label>Flugzeit:</label>
+                            <label className="formular__label">Flugzeit:</label>
                             <Field
                             name="flighttime"
                             component={this.renderField}
@@ -123,7 +123,7 @@ class Flugdaten extends Component {
                             />
                         </div>
                         <div className="formular__input-wrapper">
-                            <label>Startort:</label>
+                            <label className="formular__label">Startort:</label>
                             <Field
                             name="startplaces"
                             component={this.renderField}
@@ -131,7 +131,7 @@ class Flugdaten extends Component {
                             />
                         </div>
                         <div className="formular__input-wrapper">
-                            <label>Landeort:</label>
+                            <label className="formular__label">Landeort:</label>
                             <Field
                             name="landingplace"
                             component={this.renderField}
@@ -139,7 +139,7 @@ class Flugdaten extends Component {
                             />
                         </div>
                         <div className="formular__input-wrapper">
-                            <label>Kommentar:</label>
+                            <label className="formular__label">Kommentar:</label>
                             <Field
                             name="comment"
                             component={this.renderField}
@@ -147,7 +147,7 @@ class Flugdaten extends Component {
                             />
                         </div>
                         <div className="formular__input-wrapper">
-                            <label>Distance:</label>
+                            <label className="formular__label">Distance:</label>
                             <Field
                             name="distance"
                             component={this.renderField}

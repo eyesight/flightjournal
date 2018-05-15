@@ -1,9 +1,9 @@
-import { startplacesdb } from '../server/firebase';
+import { pilotsdb } from '../server/firebase';
 import { FETCH_Pilots } from '../constants/user';
 
 export function getPilots () {
   return dispatch => {
-    startplacesdb.on('value', snapshot => {
+    pilotsdb.on('value', snapshot => {
       dispatch({
         type: FETCH_Pilots,
         payload: snapshot.val()
@@ -13,9 +13,9 @@ export function getPilots () {
 }
 
 export function savePilots(post) {
-  return dispatch => startplacesdb.push(post)
+  return dispatch => pilotsdb.push(post)
 }
 
 export function deletePilots(id) {
-  return dispatch => startplacesdb.child(id).remove();
+  return dispatch => pilotsdb.child(id).remove();
 }

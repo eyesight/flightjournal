@@ -16,6 +16,10 @@
     font-family: $font-family-primary;
   }
 
+  &-wrapper--top{
+    margin-top: rem-calc(50px); 
+  }
+
   &-group{
     clear:both;
     padding-top: rem-calc(60px);
@@ -40,6 +44,10 @@
     &:hover,
     &:focus{
       color: $color-black;
+    }
+
+    &--small{
+      font-size: $font-s-anchor;
     }
   }
 

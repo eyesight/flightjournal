@@ -27,9 +27,9 @@ class FlugdatenForm1 extends Component {
     }
 
     render() {
-        const { onChange, onSubmit, valueHour, valueMinute, nameHour, nameMinute, nameComment, goNext, ani, nameSP, getOptions, goToPage} = this.props;
+        const { onChange, onSubmit, valueHour, valueMinute, nameHour, nameMinute, nameComment, valueComment, goNext, ani, nameSP, getOptions, goToPage, valueLandeplatz, valueDate, valueXcdistance, selectedValueSP} = this.props;
         return (
-                <main className="main">
+            <main className="main">
                 <section className="centered-layout">
                     <FormTitle 
                         children = {<FormAnimation
@@ -48,12 +48,13 @@ class FlugdatenForm1 extends Component {
                                     type='text'
                                     name='date'
                                     autocomp=''
+                                    value={valueDate}
                                 />
                                 <div className="formular__input-Icon-wrapper margin-top-0">
                                 <div className="formular__input-wrapper">
                                     <label className="formular__label">Startplatz</label>
                                     <div className="formular__select"><i className="fas fa-angle-down"></i>
-                                        <select className="formular__dropdown-select" name={nameSP}
+                                        <select value={selectedValueSP} className="formular__dropdown-select" name={nameSP}
                                                 onChange={onChange}>{getOptions}
                                         </select>
                                     </div>
@@ -67,6 +68,7 @@ class FlugdatenForm1 extends Component {
                                     inputAction={onChange}
                                     type='text'
                                     name='landingplace'
+                                    value={valueLandeplatz}
                                     autocomp=''
                                 />
                                 <a className="link link--black link-with-icon" ><i className="fas fa-map-marker-alt"></i> Aktueller Standort </a>
@@ -97,10 +99,11 @@ class FlugdatenForm1 extends Component {
                                     type='text'
                                     name='xcdistance'
                                     autocomp=''
+                                    value={valueXcdistance}
                                 />
                                 <div className="formular__input-wrapper formular__input--text">
                                     <label className="formular__label">Kommentar:</label>
-                                    <textarea className="formular__input" type="text" name={nameComment} onChange={onChange}></textarea>
+                                    <textarea className="formular__input" type="text" name={nameComment} value={valueComment} onChange={onChange}></textarea>
                                 </div>
                                 <div className="button-group">
                                     <div className="button-wrapper">
@@ -114,7 +117,7 @@ class FlugdatenForm1 extends Component {
                             </form>
                         </div>
                     </section>
-                </main>
+                    </main>
         );
     }
 };

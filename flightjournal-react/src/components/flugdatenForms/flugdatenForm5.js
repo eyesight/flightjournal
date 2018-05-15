@@ -22,7 +22,7 @@ class FlugdatenForm5 extends Component {
         TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px", onComplete: callback});
     }
     render() {
-        const { onChange, onSubmit, goBack, ani5} = this.props;
+        const { onChange, onSubmit, goBack, ani5, valueWeatherFoehndiagramm, valueWeatherWindBoden, valueWeatherWind800m, valueWeatherWind1500m, valueWeatherWind3000m, valueWeatherRegtherm, valueWeatherFronten, valueWeatherSoaringmeteo, valueWeatherBisendiagramm} = this.props;
         return (
                 <main className="main">
                 <section className="centered-layout">
@@ -43,6 +43,7 @@ class FlugdatenForm5 extends Component {
                                     type='text'
                                     name='weatherFoehndiagramm'
                                     autocomp=''
+                                    value={valueWeatherFoehndiagramm}
                                 />
                                 <InputField 
                                     classes='formular__input-wrapper margin-top-0'
@@ -51,6 +52,7 @@ class FlugdatenForm5 extends Component {
                                     type='text'
                                     name='weatherWindBoden'
                                     autocomp=''
+                                    value={valueWeatherWindBoden}
                                 />
                                 <InputField 
                                     classes='formular__input-wrapper'
@@ -59,6 +61,7 @@ class FlugdatenForm5 extends Component {
                                     type='text'
                                     name='weatherWind800m'
                                     autocomp=''
+                                    value={valueWeatherWind800m}
                                 />
                                 <InputField 
                                     classes='formular__input-wrapper'
@@ -67,6 +70,7 @@ class FlugdatenForm5 extends Component {
                                     type='text'
                                     name='weatherWind1500m'
                                     autocomp=''
+                                    value={valueWeatherWind1500m}
                                 />
                                 <InputField 
                                     classes='formular__input-wrapper'
@@ -75,6 +79,7 @@ class FlugdatenForm5 extends Component {
                                     type='text'
                                     name='weatherWind3000m'
                                     autocomp=''
+                                    value={valueWeatherWind3000m}
                                 />
                                 <InputField 
                                     classes='formular__input-wrapper'
@@ -83,6 +88,7 @@ class FlugdatenForm5 extends Component {
                                     type='text'
                                     name='weatherRegtherm'
                                     autocomp=''
+                                    value={valueWeatherRegtherm}
                                 />
                                 <InputField 
                                     classes='formular__input-wrapper'
@@ -91,6 +97,7 @@ class FlugdatenForm5 extends Component {
                                     type='text'
                                     name='weatherFronten'
                                     autocomp=''
+                                    value={valueWeatherFronten}
                                 />
                                 <InputField 
                                     classes='formular__input-wrapper'
@@ -99,6 +106,7 @@ class FlugdatenForm5 extends Component {
                                     type='text'
                                     name='weatherSoaringmeteo'
                                     autocomp=''
+                                    value={valueWeatherSoaringmeteo}
                                 />
                                 <InputField 
                                     classes='formular__input-wrapper'
@@ -107,6 +115,7 @@ class FlugdatenForm5 extends Component {
                                     type='text'
                                     name='weatherBisendiagramm'
                                     autocomp=''
+                                    value={valueWeatherBisendiagramm}
                                 />
                                 <div className="button-group">
                                     <div className="button-wrapper">

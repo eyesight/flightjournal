@@ -15,6 +15,7 @@ class StartplaceFormContainer extends Component {
         super(props);
         this.state = {
             ani:'startplaces',
+            formisvisible: true,
 
             altitude : '',
             anreise : '',
@@ -25,10 +26,10 @@ class StartplaceFormContainer extends Component {
             googleMaps : '',
             imagesUrl : '',
             linkToSibling : '',
-            name : '',
+            name : '', 
             seilbahn : '',
             shvInfo : '',
-            streckenflug : '',
+            streckenflug : '',  
             thermalHotspots : '',
             weatherForecast : '',
             webcam : '',
@@ -62,7 +63,6 @@ class StartplaceFormContainer extends Component {
         console.log([theEvent.target.name] + theEvent.target.value);
     };
 
-
     onSubmit(e){
         e.preventDefault();
         obj = {
@@ -92,18 +92,24 @@ class StartplaceFormContainer extends Component {
     goBack(e){
         e.preventDefault();
         this.props.dispatch(reset('NewPost'));
-        this.props.history.push(routes.FLUGDATEN_ERFASSEN);
+        this.setState({
+            formisvisible: false
+        });
     }
 
     render() {
         return ( 
             <ReactTransitionGroup>
-             <StartplacesForm 
-                onChange={this.onChange}
-                onSubmit={this.onSubmit}
-                goBack={this.goBack}
-                ani={this.state.ani}
-             />
+            {this.state.formisvisible ? 
+                <StartplacesForm 
+                    history={this.props.history}
+                    onChange={this.onChange}
+                    onSubmit={this.onSubmit}
+                    goBack={this.goBack}
+                    ani={this.state.ani}
+                    delayEnter={0.2}
+                    delayLeave={0.2}
+                /> : null}
             </ReactTransitionGroup>
         );
     }

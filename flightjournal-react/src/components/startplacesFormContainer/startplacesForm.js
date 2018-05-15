@@ -2,31 +2,36 @@ import React, {Component} from 'react';
 import InputField from '../formInputfield/formInputfield';
 import FormAnimation from '../formAnimation/formAnimation';
 import FormTitle from '../formTitle/formTitle';
+//import Transition from 'react-transition-group/Transition';
 import {TweenLite} from 'gsap';
+import * as routes from '../../constants/routes';
 
 class StartplacesForm extends Component {
     constructor(props) {
         super(props);
         this.formular1 = React.createRef();
     }
+    componentDidMount() {
+        console.log('Component did mount');
+      }    
 
-    componentWillEnter(callback){
-        console.log('ani4');
-        TweenLite.to(this.formular1.current, .1, {opacity:"0", x:"-900px", onComplete: callback});
-    }
-
-    componentDidEnter(callback) {
-        console.log('ani5');
-        TweenLite.to(this.formular1.current, 0.5, {opacity:"1", x:"0px", onComplete: callback});
+    componentWillAppear(callback) {
+        window.scrollTo(0, 0);
+        const { delayEnter } = this.props
+        console.log('spani1');
+        TweenLite.fromTo(this.formular1.current, 0.5, {opacity:"0", x:"-900px"}, {opacity:"1", x:"0px", onComplete: callback, delay: delayEnter});
     }
 
     componentWillLeave (callback) {
-        console.log('ani6');
-        TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px", onComplete: callback});
+        const { delayLeave } = this.props
+        TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px", onComplete: callback, delay: delayLeave});
     }
-    componentWillUnmount(){
-        console.log('ddd');
+    componentDidLeave() {
+        console.log('did leave');
     }
+    componentWillUnmount() {
+        this.props.history.push(routes.FLUGDATEN_ERFASSEN);
+      }
     render() {
         const { onChange, onSubmit, goBack, ani} = this.props;
         return (

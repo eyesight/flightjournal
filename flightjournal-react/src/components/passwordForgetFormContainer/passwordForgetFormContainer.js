@@ -61,7 +61,7 @@ class PasswordForgetFormContainer extends Component {
                     <section id="loginForm" className="centered-layout">
                     <FormTitle 
                         classes = 'centered-layout__header centered-layout__header--no-marginbottom'
-                        pageTitle = 'Pilotenseite'
+                        pageTitle = 'Passwort vergessen'
                         titleH2 = 'E-Mail wurde versendet.'
                         titleH2regular = ' Bitte prüfen Sie ihr Postfach.'
                     />
@@ -72,11 +72,12 @@ class PasswordForgetFormContainer extends Component {
                         </div>
                     </section> :
                     <section id="loginForm" className="centered-layout">
-                        <div className="centered-layout__header centered-layout__header--no-marginbottom">
-                            <div className="title-page-title">Pilotenseite</div>
-                            <h2 className="title-h2">Passwort vergessen?<br /><span className="title--regular"> Jetzt zurücksetzen.</span>
-                            </h2>
-                        </div>
+                        <FormTitle 
+                            classes = 'centered-layout__header centered-layout__header--no-marginbottom'
+                            pageTitle = 'Passwort vergessen'
+                            titleH2 = 'Passwort vergessen?'
+                            titleH2regular = ' Jetzt zurücksetzen.'
+                        />
                         {this.state.error && <FormErrorAlert>{validation.valPWforget}</FormErrorAlert>}
                         <div className="formular-wrapper">
                             <form onSubmit={event => {this.submitPWforget(event)}} className="formular">

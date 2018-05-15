@@ -11,24 +11,18 @@ class FlugdatenForm2 extends Component {
     }
 
     componentWillEnter(callback){
-        console.log('ani4');
         TweenLite.to(this.formular1.current, .1, {opacity:"0", x:"-900px", onComplete: callback});
     }
 
     componentDidEnter(callback) {
-        console.log('ani5');
         TweenLite.to(this.formular1.current, 0.5, {opacity:"1", x:"0px", onComplete: callback});
     }
 
     componentWillLeave (callback) {
-        console.log('ani6');
         TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px", onComplete: callback});
     }
-    componentWillUnmount(){
-        console.log('ddd');
-    }
     render() {
-        const { onChange, onSubmit, goBack, goNext, ani2} = this.props;
+        const { onChange, onSubmit, goBack, goNext, ani2, valueMaxaltitude, valueHeightgain, valueMaxclimb, valueStartingtime, valueDistance} = this.props;
         return (
                 <main className="main">
                 <section className="centered-layout">
@@ -49,6 +43,7 @@ class FlugdatenForm2 extends Component {
                                     type='text'
                                     name='maxaltitude'
                                     autocomp=''
+                                    value={valueMaxaltitude}
                                 />
                                 <InputField 
                                     classes='formular__input-wrapper margin-top-0'
@@ -57,6 +52,7 @@ class FlugdatenForm2 extends Component {
                                     type='text'
                                     name='heightgain'
                                     autocomp=''
+                                    value={valueHeightgain}
                                 />
                                 <InputField 
                                     classes='formular__input-wrapper'
@@ -65,6 +61,7 @@ class FlugdatenForm2 extends Component {
                                     type='text'
                                     name='maxclimb'
                                     autocomp=''
+                                    value={valueMaxclimb}
                                 />
                                 <InputField 
                                     classes='formular__input-wrapper'
@@ -73,6 +70,7 @@ class FlugdatenForm2 extends Component {
                                     type='text'
                                     name='startingtime'
                                     autocomp=''
+                                    value={valueStartingtime}
                                 />
                                 <InputField 
                                     classes='formular__input-wrapper'
@@ -81,6 +79,7 @@ class FlugdatenForm2 extends Component {
                                     type='text'
                                     name='distance'
                                     autocomp=''
+                                    value={valueDistance}
                                 />
                                 <div className="button-group">
                                     <div className="button-wrapper">

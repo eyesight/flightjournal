@@ -22,7 +22,7 @@ class FlugdatenForm4 extends Component {
         TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px", onComplete: callback});
     }
     render() {
-        const { onChange, onSubmit, goBack, goNext, ani4} = this.props;
+        const { onChange, onSubmit, goBack, goNext, ani4, valueSyrideLink, valueXcontestLink, valueAirtribuneLink} = this.props;
         return (
                 <main className="main">
                 <section className="centered-layout">
@@ -43,6 +43,7 @@ class FlugdatenForm4 extends Component {
                                     type='text'
                                     name='syrideLink'
                                     autocomp=''
+                                    value={valueSyrideLink}
                                 />
                                 <InputField 
                                     classes='formular__input-wrapper margin-top-0'
@@ -51,6 +52,7 @@ class FlugdatenForm4 extends Component {
                                     type='text'
                                     name='xcontestLink'
                                     autocomp=''
+                                    value={valueXcontestLink}
                                 />
                                 <InputField 
                                     classes='formular__input-wrapper'
@@ -59,6 +61,7 @@ class FlugdatenForm4 extends Component {
                                     type='text'
                                     name='airtribuneLink'
                                     autocomp=''
+                                    value={valueAirtribuneLink}
                                 />
                                 <div className="button-group">
                                     <div className="button-wrapper">

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import StartMain from './start-main';
+import StartMainContainer from './startMainContainer';
 import Header from './header/header';
 import LoginFormContainer from './loginFormContainer/loginFormContainer';
 import FlugdatenFormContainer from './flugdatenForms/flugdatenFormContainer';
@@ -32,8 +32,8 @@ class App extends Component {
                      <Route exact path={routes.FLUGDATEN_ERFASSEN} component={() => <FlugdatenFormContainer />} />
                      <Route exact path={routes.LOGIN} component={() => <LoginFormContainer />} />
                      <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetFormContainer />} />
-                     <Route exact path={routes.HOME} component={() => <StartMain />} />
-                     <Route path={routes.LANDING} component={() => <StartMain />} />
+                     <Route exact path={routes.HOME} component={() => <StartMainContainer />} />
+                     <Route path={routes.LANDING} component={() => <StartMainContainer />} />
                  </Switch>
                 </div>
              </Router>

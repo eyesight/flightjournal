@@ -52,7 +52,7 @@ class LoginFormContainer extends Component {
                             xyz = {ani}
                         />}
                         classes = 'centered-layout__header'
-                        pageTitle = 'Pilotenseite'
+                        pageTitle = 'Log in'
                         titleH2 = 'Noch nicht angemeldet?'
                         titleH2regular = 'Jetzt anmelden.'
                     />

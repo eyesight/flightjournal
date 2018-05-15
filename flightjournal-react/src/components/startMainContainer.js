@@ -5,7 +5,7 @@ import StartingPlaces from './home-startingplaces/startingplaces';
 import { getUser } from '../actions/UserActions';
 import { connect } from 'react-redux';
 
-class StartMain extends Component {
+class StartMainContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -50,4 +50,4 @@ function mapStateToProps(state) {
     return { user: state.user };
 }
 
-export default connect(mapStateToProps, { getUser }) (StartMain);
+export default connect(mapStateToProps, { getUser }) (StartMainContainer);

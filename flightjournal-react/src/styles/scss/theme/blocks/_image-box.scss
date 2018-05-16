@@ -17,19 +17,22 @@
   }
 
   &__item{
-    width: 30%;
+    width: 32.4%;
     padding-right: 2.4%;
     padding-top: rem-calc(100px);
 
     &:nth-child(-n+3){
+      width: 32.4%;
       padding-top: 0;
     }
 
     &:nth-child(3n+3) {
+      width: 30%;
       padding-right: 0%;
     }
 
     &:nth-child(3n+2) {
+      width: 32.4%;
       border-right: 1px solid $color-gray-light;
     }
 
@@ -39,7 +42,7 @@
 
     @include bp(max, $ipad-ls) {
       width: 48%;
-      padding-right: 2%;
+      padding-right: 2%; 
 
       &:nth-child(-n+3){
         padding-top: rem-calc(100px);
@@ -58,10 +61,12 @@
       }
 
       &:nth-child(even) {
+        width: 48%;
         padding-right: 0%;
       }
 
       &:nth-child(odd) {
+        width: 50%;
         border-right: 1px solid $color-gray-light;
       }
 
@@ -90,10 +95,12 @@
       }
 
       &:nth-child(even) {
+        width: 100%;
         padding-right: 0%;
       }
 
       &:nth-child(odd) {
+        width: 100%;
         border-right: 0px solid $color-gray-light;
       }
 

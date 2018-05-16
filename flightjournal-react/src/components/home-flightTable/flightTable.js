@@ -79,7 +79,7 @@ class FlightTable extends Component {
                                     <td className="table__start"><a className="table__link">{z.name}</a></td>
                                     <td className="table__duration">{x.flighttime} min</td>
                                     <td className="table__distance">{x.xcdistance} Kilometer</td>
-                                    <td className="table__details"><a className="anchor table__link" onClick={() => this.setState({flightkey: flightskey[index], inputPilot: this.props.flights[flightskey[index]].pilot})}>Flugdetails</a></td>
+                                    <td className="table__details"><a className="anchor table__link" onClick={(event) => {event.preventDefault(); this.props.history.push({pathname: `/fligth/${flightskey[index]}`, state:{flightID: flightskey[index]}})}}>Flugdetails</a></td>
                                     <td className="table__details"><a className="anchor table__link" onClick={(event) => { this.setState({flightkey: flightskey[index], inputPilot: this.props.flights[flightskey[index]].pilot}); this.updateFlight(event, flightskey[index], this.props.flights[flightskey[index]].pilot)}}>Bearbeiten</a></td>
                                     <td className="table__details"><a className="anchor table__link" onClick={() => this.props.deleteFlights(flightskey[index])}>Löschen</a></td>
                                 </tr>

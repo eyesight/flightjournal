@@ -4,13 +4,15 @@ import UserReducer from './UserReducers';
 import FlightReducers from './FlightReducers';
 import StartplacesReducer from './StartplacesReducer';
 import PilotReducer from './PilotReducer'
+import FilterReducers from './FilterReducers';
 
 const rootReducer = combineReducers({
     form: formReducer,
     user: UserReducer,
     flights: FlightReducers,
     startplaces: StartplacesReducer,
-    pilots: PilotReducer
+    pilots: PilotReducer,
+    filter: FilterReducers
 });
 
 export default rootReducer;

@@ -5,11 +5,13 @@ import { getFlights} from '../../actions/FlightActions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as routes from '../../constants/routes';
+import  _ from 'lodash';
 
 class FlightDetailContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            flighttime: '',
             date: '',
             name: '',
             landeplatz: '',
@@ -31,29 +33,16 @@ class FlightDetailContainer extends Component {
         if (nextProps.user.loading === false && nextProps.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
           }
-        //if history.location.state is set (if someone likes to update a Flight), set the values of Form-Input-Field
-        if( nextProps.flights['0']!== undefined && this.props.history.location.state!==undefined && this.props.history.location.state.flightID !== '' && this.props.history.location.state.flightID !== [] ){
-            const FlightData = Object.keys(nextProps.flights).map(i => nextProps.flights[i]);
-            const FlightDatakey = Object.keys(nextProps.flights);
-            let dataindex = '';
-            let currentFlight = FlightData.map((item, ind) => {
-                if(this.props.history.location.state.flightID === FlightDatakey[ind]){
-                    dataindex = ind.toString();
-                    return FlightData[ind];
-                } return null;
+          
+        if( nextProps.flight!== undefined){
+            const currentFlight = nextProps.flight;
+            this.setState({
+                flighttime: currentFlight.flighttime,
+                date: currentFlight.date,
+                landeplatz: currentFlight.landingplace,
+                startplatz: currentFlight.startplace,
+                flughoehe: currentFlight.maxaltitude
             })
-
-            if(currentFlight !==null || currentFlight !==undefined || currentFlight !==[] || currentFlight[dataindex] !== undefined || currentFlight[dataindex] !== null){
-                //get the hours and minutes and set into state
-                this.setState({
-                    flighttime: currentFlight[dataindex].flighttime,
-                    date: currentFlight[dataindex].date,
-                    name: currentFlight[dataindex].name,
-                    landeplatz: currentFlight[dataindex].landingplace,
-                    startplatz: currentFlight[dataindex].startplace,
-                    flughoehe: currentFlight[dataindex].maxaltitude
-                })
-            }
         }
     }
 
@@ -74,11 +63,12 @@ class FlightDetailContainer extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
+    const key = props.match.params.id;
     return { 
         user: state.user,
-        flights: state.flights
+        flight: _.get(state.flights, key),
     };
-}
+} 
 
 export default withRouter(connect(mapStateToProps, { getUser, getFlights })(FlightDetailContainer));

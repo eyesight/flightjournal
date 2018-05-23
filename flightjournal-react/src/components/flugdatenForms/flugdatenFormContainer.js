@@ -13,6 +13,7 @@ import FlugdatenForm2 from './flugdatenForm2';
 import FlugdatenForm3 from './flugdatenForm3';
 import FlugdatenForm4 from './flugdatenForm4';
 import FlugdatenForm5 from './flugdatenForm5';
+import  _ from 'lodash';
 
 let obj = {};
 
@@ -83,8 +84,6 @@ class FlugdatenFormContainer extends Component {
         this.goNext4 = this.goNext4.bind(this);
 
         this.goBack5 = this.goBack5.bind(this);
-
-        this.onBlur = this.onBlur.bind(this);
     }
     
     componentWillMount() {
@@ -105,50 +104,42 @@ class FlugdatenFormContainer extends Component {
 
         //if history.location.state is set (if someone likes to update a Flight), set the values of Form-Input-Field
         if( nextProps.flights['0']!== undefined && this.props.history.location.state!==undefined && this.props.history.location.state.flightID !== '' && this.props.history.location.state.flightID !== [] ){
-            const FlightData = Object.keys(nextProps.flights).map(i => nextProps.flights[i]);
-            const FlightDatakey = Object.keys(nextProps.flights);
-            let dataindex = '';
-            let currentFlight = FlightData.map((item, ind) => {
-                if(this.props.history.location.state.flightID === FlightDatakey[ind]){
-                    dataindex = ind.toString();
-                    return FlightData[ind];
-                } return null;
-            })
+            let currentFlight = _.get(nextProps.flights, this.props.history.location.state.flightID);
 
-            if(currentFlight !==null || currentFlight !==undefined || currentFlight !==[] || currentFlight[dataindex] !== undefined || currentFlight[dataindex] !== null){
+            if(currentFlight !==null || currentFlight !==undefined || currentFlight !==[]){
                 //get the hours and minutes and set into state
-                const akthour = Math.floor(Number(currentFlight[dataindex].flighttime)/60);
-                const aktminute = Number(currentFlight[dataindex].flighttime)%60;
+                const akthour = Math.floor(Number(currentFlight.flighttime)/60);
+                const aktminute = Number(currentFlight.flighttime)%60;
                 this.setState({
                     valueHour: akthour,
                     valueMinute: aktminute,
 
                     flightID: this.props.history.location.state.flightID,
                     IDtoUpdate: this.props.history.location.state.flightID,
-                    date: currentFlight[dataindex].date,
-                    startplace: currentFlight[dataindex].startplace,
-                    landingplace: currentFlight[dataindex].landingplace,
-                    flighttime: currentFlight[dataindex].flighttime,
-                    xcdistance: currentFlight[dataindex].xcdistance,
-                    description: currentFlight[dataindex].description,
-                    maxaltitude: currentFlight[dataindex].maxaltitude,
-                    heightgain: currentFlight[dataindex].heightgain,
-                    maxclimb: currentFlight[dataindex].maxclimb,
-                    startingtime: currentFlight[dataindex].startingtime,
-                    distance: currentFlight[dataindex].distance,
-                    imgUrl: currentFlight[dataindex].imgUrl,
-                    syrideLink: currentFlight[dataindex].syrideLink,
-                    xcontestLink: currentFlight[dataindex].xcontestLink,
-                    airtribuneLink: currentFlight[dataindex].airtribuneLink,
-                    weatherFoehndiagramm: currentFlight[dataindex].weatherFoehndiagramm,
-                    weatherWindBoden: currentFlight[dataindex].weatherWindBoden,
-                    weatherWind800m: currentFlight[dataindex].weatherWind800m,
-                    weatherWind1500m: currentFlight[dataindex].weatherWind1500m,
-                    weatherWind3000m: currentFlight[dataindex].weatherWind3000m,
-                    weatherRegtherm: currentFlight[dataindex].weatherRegtherm,
-                    weatherFronten: currentFlight[dataindex].weatherFronten,
-                    weatherSoaringmeteo: currentFlight[dataindex].weatherSoaringmeteo,
-                    weatherBisendiagramm: currentFlight[dataindex].weatherBisendiagramm,
+                    date: currentFlight.date,
+                    startplace: currentFlight.startplace,
+                    landingplace: currentFlight.landingplace,
+                    flighttime: currentFlight.flighttime,
+                    xcdistance: currentFlight.xcdistance,
+                    description: currentFlight.description,
+                    maxaltitude: currentFlight.maxaltitude,
+                    heightgain: currentFlight.heightgain,
+                    maxclimb: currentFlight.maxclimb,
+                    startingtime: currentFlight.startingtime,
+                    distance: currentFlight.distance,
+                    imgUrl: currentFlight.imgUrl,
+                    syrideLink: currentFlight.syrideLink,
+                    xcontestLink: currentFlight.xcontestLink,
+                    airtribuneLink: currentFlight.airtribuneLink,
+                    weatherFoehndiagramm: currentFlight.weatherFoehndiagramm,
+                    weatherWindBoden: currentFlight.weatherWindBoden,
+                    weatherWind800m: currentFlight.weatherWind800m,
+                    weatherWind1500m: currentFlight.weatherWind1500m,
+                    weatherWind3000m: currentFlight.weatherWind3000m,
+                    weatherRegtherm: currentFlight.weatherRegtherm,
+                    weatherFronten: currentFlight.weatherFronten,
+                    weatherSoaringmeteo: currentFlight.weatherSoaringmeteo,
+                    weatherBisendiagramm: currentFlight.weatherBisendiagramm,
                 });
             }
         }
@@ -350,20 +341,14 @@ class FlugdatenFormContainer extends Component {
         this.props.history.push(routes.STARTPLATZ_ERFASSEN);
     }
 
-    onBlur(e){
-        console.log(e.target);
-    }
-
     componentWillUnmount() {
         this.setState({
             flightID: ''
         });
-        console.log('unmount');
     }
 
     render() {
         const sp = this.props.startplaces;
-        console.log(this.state.flightID);
         return ( 
             <div>
                 <ReactTransitionGroup>
@@ -455,7 +440,7 @@ let flightform = reduxForm({
     form: 'NewPost'
   })(FlugdatenFormContainer);
   
-  flightform = connect((state, ownProps) => ({
+  flightform = connect((state, props) => ({
       flights: state.flights,
       user: state.user,
       pilots: state.pilots,

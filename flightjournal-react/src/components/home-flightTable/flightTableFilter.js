@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getFilterFlights } from '../../selectors/flightSelector';
-import { filterText, startYear, sortBy, clear } from '../../actions/FilterActions';
+import { startYear } from '../../actions/FilterActions';
 import DropDownItem from '../dropdownItem/dropdownItem';
 
 class FlightTableFilter extends Component {
@@ -14,17 +14,10 @@ class FlightTableFilter extends Component {
         this.renderYearFilter = this.renderYearFilter.bind(this);
         this.chooseFilter = this.chooseFilter.bind(this);
       }
-    componentWillMount() {
-    
-    }
-
-    componentWillReceiveProps(nextProps) {
-    }
 
     chooseFilter (e) {
         e.preventDefault();
         this.props.dispatch(startYear(e.target.getAttribute('data-value')));
-        console.log(this.props.filter);
      }
 
     renderYearFilter(filterYStart, filterYCurrent) {
@@ -40,7 +33,6 @@ class FlightTableFilter extends Component {
     }
 
     render() {
-        const allflight = this.props.filteredFlights;
         return (
                 <div className="filter">
                     <ul className="filter__list">

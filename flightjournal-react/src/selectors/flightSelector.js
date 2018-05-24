@@ -8,5 +8,20 @@ export const getFilterFlights = (flights, { sortBy, startYear, text }) => {
       const startYearMatch = regexmatcher.test(flight.date);
       return textMatch && startYearMatch
   }) 
-  return _.sortBy(filteredItems, [function(o) { return o[sortBy];}]);
+
+  const flightsSort = Object.keys(filteredItems).map(i => filteredItems[i]);
+  const flightskey = Object.keys(filteredItems);
+
+  let x = flightsSort.sort((a, b) => {
+    if(sortBy === 'pilot' || sortBy === 'startplace'){
+      if(a[sortBy] > b[sortBy]){
+        return -1;
+      }else{
+        return 1;
+      }
+    }else{
+      return a[sortBy] - b[sortBy];
+    }
+  });
+  return x;
 }

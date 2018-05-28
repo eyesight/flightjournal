@@ -13,7 +13,11 @@ export function getStartplaces () {
 }
 
 export function saveStartplaces(post) {
-  return dispatch => startplacesdb.push(post)
+  return dispatch => {
+    let key = startplacesdb.push().key;
+    post.id = key;
+    return startplacesdb.push(post);
+  }
 }
 
 export function deleteStartplaces(id) {

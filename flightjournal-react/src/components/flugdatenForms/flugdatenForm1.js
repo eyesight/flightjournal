@@ -3,6 +3,7 @@ import InputField from '../formInputfield/formInputfield';
 import FormAnimation from '../formAnimation/formAnimation';
 import FormTitle from '../formTitle/formTitle';
 import {TweenLite} from 'gsap';
+import DatePicker from 'react-datepicker';
 
 class FlugdatenForm1 extends Component {
     constructor(props) {
@@ -27,7 +28,7 @@ class FlugdatenForm1 extends Component {
     }
 
     render() {
-        const { onChange, onSubmit, valueHour, valueMinute, nameHour, nameMinute, nameComment, valueComment, goNext, ani, nameSP, getOptions, goToPage, valueLandeplatz, valueDate, valueXcdistance, selectedValueSP} = this.props;
+        const { onChange, onSubmit, valueHour, valueMinute, nameHour, nameMinute, nameComment, valueComment, goNext, ani, nameSP, getOptions, goToPage, valueLandeplatz, valueXcdistance, selectedValueSP, handleChange, startDate} = this.props;
         return (
             <main className="main">
                 <section className="centered-layout">
@@ -41,15 +42,17 @@ class FlugdatenForm1 extends Component {
                     />
                         <div className="formular-wrapper">
                             <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
-                                <InputField 
-                                    classes='formular__input-wrapper'
-                                    label='Datum'
-                                    inputAction={onChange}
-                                    type='text'
-                                    name='date'
-                                    autocomp=''
-                                    value={valueDate}
-                                />
+                                <div className="formular__input-wrapper">
+                                    <label className="formular__label">Datum</label>
+                                    <DatePicker
+                                        selected={startDate}
+                                        onChange={handleChange}
+                                        locale="de-ch"
+                                        dateFormat="L"
+                                        className='formular__input'
+                                        name='date'
+                                    />
+                                </div>
                                 <div className="formular__input-Icon-wrapper margin-top-0">
                                 <div className="formular__input-wrapper">
                                     <label className="formular__label">Startplatz</label>

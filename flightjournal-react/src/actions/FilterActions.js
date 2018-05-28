@@ -13,9 +13,15 @@ export const sortBy = (sortType) => ({
   sortType
 });
 
+export const sortDirection = (sortType) => ({
+  type: 'SORT_DIRECTION',
+  sortType
+});
+
 const filtersReducerDefaultState = {
   text: '',
   sortBy: '',
+  sortDirection: '',
   startYear: undefined,
 };
 

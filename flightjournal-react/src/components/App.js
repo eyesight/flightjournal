@@ -5,7 +5,6 @@ import LoginFormContainer from './loginFormContainer/loginFormContainer';
 import FlugdatenFormContainer from './flugdatenForms/flugdatenFormContainer';
 import StartplaceFormContainer from './startplacesFormContainer/startplacesFormContainer';
 import FlightDetailContainer from './flightDetailContainer/flightDetailContainer'
-import Flugdaten from './home-flightTable/test';
 import PasswordForgetFormContainer from './passwordForgetFormContainer/passwordForgetFormContainer';
 import { applyMiddleware, createStore } from 'redux';
 import reducers from '../reducers/index';
@@ -22,13 +21,12 @@ const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 class App extends Component {
   render() {
-    return (
+    return ( 
         <Provider store={createStoreWithMiddleware(reducers)}>
             <Router>
                 <div className="page">
                  <Header />
                  <Switch>
-                    <Route exact path={routes.TEST} component={() => <Flugdaten />} />
                     <Route exact path={routes.STARTPLATZ_ERFASSEN} component={() => <StartplaceFormContainer />} />
                     <Route exact path={routes.FLUGDATEN_DETAIL} component={() => <FlightDetailContainer/>} />
                      <Route exact path={routes.FLUGDATEN_ERFASSEN} component={() => <FlugdatenFormContainer />} />

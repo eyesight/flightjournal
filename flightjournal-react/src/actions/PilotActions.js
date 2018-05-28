@@ -13,7 +13,11 @@ export function getPilots () {
 }
 
 export function savePilots(post) {
-  return dispatch => pilotsdb.push(post)
+  return dispatch => {
+    let key = pilotsdb.push().key;
+    post.id = key;
+    return pilotsdb.push(post)
+  }
 }
 
 export function deletePilots(id) {

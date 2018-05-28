@@ -2,6 +2,7 @@ const filtersReducerDefaultState = {
   text: '',
   sortBy: '',
   startYear: undefined,
+  sortDirection: ''
 };
 
 export default (state = filtersReducerDefaultState, action) => {
@@ -21,12 +22,18 @@ export default (state = filtersReducerDefaultState, action) => {
               ...state,
               sortBy: action.sortType
           };
+      case 'SORT_DIRECTION':
+        return {
+            ...state,
+            sortDirection: action.sortType
+        };
       case 'CLEAR':
           return {
               ...state,
               text: action.defaultFilter.text,
               sortBy: action.defaultFilter.sortBy,
-              startYear: action.defaultFilter.startYear
+              startYear: action.defaultFilter.startYear,
+              sortDirection: action.defaultFilter.sortDirection
           };
       default:
           return state;

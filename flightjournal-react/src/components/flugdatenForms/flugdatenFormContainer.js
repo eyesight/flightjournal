@@ -14,6 +14,10 @@ import FlugdatenForm3 from './flugdatenForm3';
 import FlugdatenForm4 from './flugdatenForm4';
 import FlugdatenForm5 from './flugdatenForm5';
 import  _ from 'lodash';
+import moment from 'moment';
+import 'moment/locale/de-ch'
+import 'react-datepicker/dist/react-datepicker.css';
+
 
 let obj = {};
 
@@ -21,6 +25,7 @@ class FlugdatenFormContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
+          startDate: moment(),
           ud: false, 
           form1: true,
           form2: false,
@@ -39,7 +44,12 @@ class FlugdatenFormContainer extends Component {
           nameComment: 'description',
           nameStartplace: 'startplace',
           
-          date:'',
+          date: new Date().toLocaleDateString("de-ch",
+          {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          }),
           description: '',
           startplace:'',
           landingplace: '',
@@ -84,6 +94,8 @@ class FlugdatenFormContainer extends Component {
         this.goNext4 = this.goNext4.bind(this);
 
         this.goBack5 = this.goBack5.bind(this);
+
+        this.handleChangeDate = this.handleChangeDate.bind(this);
     }
     
     componentWillMount() {
@@ -152,8 +164,20 @@ class FlugdatenFormContainer extends Component {
         console.log([theEvent.target.name] + theEvent.target.value);
     };
 
+    handleChangeDate(d) {
+        this.setState({
+          startDate: d,
+          date: d._d.toLocaleDateString("de-ch",{
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })
+        });
+      }
+
     goNext(e){
         e.preventDefault();
+        console.log(this.state.date);
         let ftime = 0;
 
         if(Number(this.state.valueHour) > 0){
@@ -175,7 +199,6 @@ class FlugdatenFormContainer extends Component {
             xcdistance: this.state.xcdistance,
             description: this.state.description
         });
-        console.log(this.state.maxclimb)
     }
 
     goNext2(e){
@@ -272,6 +295,7 @@ class FlugdatenFormContainer extends Component {
 
     onSubmit(e){
         e.preventDefault();
+        console.log(this.state.date);
         let ftime = 0;
         if(Number(this.state.valueHour) > 0){
             ftime = (Number(this.state.valueHour)*60) + Number(this.state.valueMinute);
@@ -369,8 +393,10 @@ class FlugdatenFormContainer extends Component {
                         selectedValueSP={this.state.startplace}
                         goToPage={this.goToPage}
                         valueLandeplatz={this.state.landingplace}
-                        valueDate={this.state.date}
                         valueXcdistance={this.state.xcdistance}
+                        startDate={this.state.startDate}
+                        handleChange={this.handleChangeDate}
+                        onChangeDate={this.onChange}
                     /> }
                 </ReactTransitionGroup> 
                 <ReactTransitionGroup>

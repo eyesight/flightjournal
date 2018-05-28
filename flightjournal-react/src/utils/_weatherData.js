@@ -9,10 +9,11 @@ export function weather(){
         return Httpreq.responseText;
     }
     let loc = JSON.parse(Get(APIIP));
-    let region = loc.region;
-
+    let region = '';
     if(!loc){
         region = 'Zurich';
+    }else{
+        region = loc.region;
     }
 
     let url = "https://api.openweathermap.org/data/2.5/weather?q="+region+"&appid=f747ad7fcba6ef4fe91531b6e4c9cf90";
@@ -24,14 +25,12 @@ export function weather(){
 
     let weather = JSON.parse(Get(url));
     // when the url for openweather doesn't know the region render data of zurich
-    if(!url || weather.cod === 404 || weather === undefined || !weather){
+    if(!url || weather.cod === '404' || weather === undefined || !weather){
         url = "https://api.openweathermap.org/data/2.5/weather?q=Zurich&appid=f747ad7fcba6ef4fe91531b6e4c9cf90";
         weather = JSON.parse(Get(url));
         console.log('region not readable ' + region + ' ' + weather.name + ' ' + weather.weather[0].description);
     }else{
         console.log(region);
-        console.log(weather.name + ' ' + weather.weather[0].description);
     }
-
     return weather;
 }

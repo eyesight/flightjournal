@@ -1,23 +1,56 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getFilterFlights } from '../../selectors/flightSelector';
-import { startYear } from '../../actions/FilterActions';
+import { startYear, filterText, filterSelects } from '../../actions/FilterActions';
 import DropDownItem from '../dropdownItem/dropdownItem';
+
+let filtermonthArr = [];
+
+let removeDuplicates = (arrArg, element) => {
+    let double = false;
+    let filterElement = arrArg.filter((elem, pos, arr) => {
+        if(arr.indexOf(elem) === pos){
+            double = false;
+            return elem;
+        }else {
+             double = true;
+             return '';
+        }
+    });
+
+    if (double){
+        let index = filterElement.indexOf(element);
+        filterElement.splice(index, 1);
+    }
+  return filterElement;
+}
 
 class FlightTableFilter extends Component {
     constructor(props) {
         super(props);
         this.state = {
           startYearFilter: 2016,
-          currentYearFilter: new Date().getFullYear()
+          currentYearFilter: new Date().getFullYear(),
+          filtermonth: []
         };
         this.renderYearFilter = this.renderYearFilter.bind(this);
+        this.renderPilotFilter = this.renderPilotFilter.bind(this);
         this.chooseFilter = this.chooseFilter.bind(this);
+        this.filterMonth = this.filterMonth.bind(this);
       }
 
-    chooseFilter (e) {
+    chooseFilter(e) {
         e.preventDefault();
-        this.props.dispatch(startYear(e.target.getAttribute('data-value')));
+        console.log()
+        switch (e.target.getAttribute('data-filter')) {
+            case 'pilot':
+                    this.props.dispatch(filterText(e.target.getAttribute('data-value')));
+                    break;
+            case 'year':
+                    this.props.dispatch(startYear(e.target.getAttribute('data-value')));
+                    break;
+            default:
+                    return '';
+        }        
      }
 
     renderYearFilter(filterYStart, filterYCurrent) {
@@ -27,31 +60,54 @@ class FlightTableFilter extends Component {
                 txt = {i}
                 value = {i}
                 chooseFilter = {this.chooseFilter}
+                filtername = 'year'
              />);
         }
         return yearFilter;
     }
 
+    filterMonth(e){
+        e.preventDefault();
+        filtermonthArr.push(e.target.getAttribute('data-value'));
+        filtermonthArr = removeDuplicates(filtermonthArr, e.target.getAttribute('data-value'))
+        this.setState({filtermonth: filtermonthArr}); 
+        this.props.dispatch(filterSelects(filtermonthArr));
+    }
+
+    renderPilotFilter(filterPilots) {
+        let pilotFilter = [];
+        for (let i=0; i < filterPilots.length; i++) { 
+            pilotFilter.push(<DropDownItem key = {filterPilots[i].id.toString()}
+                txt = {filterPilots[i].firstname}
+                value = {filterPilots[i].email}
+                chooseFilter = {this.chooseFilter}
+                filtername = 'pilot'
+             />);
+        }
+        return pilotFilter;
+    }
+
     render() {
-        return (
+            return (
                 <div className="filter">
                     <ul className="filter__list">
-                        <li><a className="filter__list-item active" href="index.html">Jan.</a></li>
-                        <li><a className="filter__list-item active" href="index.html">Feb.</a></li>
-                        <li><a className="filter__list-item" href="index.html">Mär.</a></li>
-                        <li><a className="filter__list-item" href="index.html">Apr.</a></li>
-                        <li><a className="filter__list-item" href="index.html">Mai</a></li>
-                        <li><a className="filter__list-item" href="index.html">Jun.</a></li>
-                        <li><a className="filter__list-item" href="index.html">Jul.</a></li>
-                        <li><a className="filter__list-item" href="index.html">Aug.</a></li>
-                        <li><a className="filter__list-item" href="index.html">Sep.</a></li>
-                        <li><a className="filter__list-item" href="index.html">Okt.</a></li>
-                        <li><a className="filter__list-item" href="index.html">Nov.</a></li>
-                        <li><a className="filter__list-item" href="index.html">Dez.</a></li>
+                        <li><a onClick={this.filterMonth} data-value='01' data-filter='month' className="filter__list-item">Jan.</a></li>
+                        <li><a onClick={this.filterMonth} data-value='02' data-filter='month' className="filter__list-item">Feb.</a></li>
+                        <li><a onClick={this.filterMonth} data-value='03' data-filter='month' className="filter__list-item">Mär.</a></li>
+                        <li><a onClick={this.filterMonth} data-value='04' data-filter='month' className="filter__list-item">Apr.</a></li>
+                        <li><a onClick={this.filterMonth} data-value='05' data-filter='month' className="filter__list-item">Mai</a></li>
+                        <li><a className="filter__list-item">Jun.</a></li>
+                        <li><a className="filter__list-item">Jul.</a></li>
+                        <li><a className="filter__list-item">Aug.</a></li>
+                        <li><a className="filter__list-item">Sep.</a></li>
+                        <li><a className="filter__list-item">Okt.</a></li>
+                        <li><a className="filter__list-item">Nov.</a></li>
+                        <li><a className="filter__list-item">Dez.</a></li>
                     </ul>
                     <div className="filter__list-dropdown">
                         <button className="filter__dropdown-item">Jahr wählen <i className="fas fa-angle-down"></i>
                             <div className="filter__sub-dropdown filter__dropdown--short">
+                            <a data-value='' data-filter='year' onClick={this.chooseFilter} className="filter__sub-dropdown-item">alle Jahre</a>
                                 {
                                     this.renderYearFilter(this.state.startYearFilter, this.state.currentYearFilter)
                                 }
@@ -59,9 +115,10 @@ class FlightTableFilter extends Component {
                         </button>
                         <button className="filter__dropdown-item">Pilot wählen <i className="fas fa-angle-down"></i>
                             <div className="filter__sub-dropdown filter__dropdown--short">
-                                <a className="filter__sub-dropdown-item">Jonas & Claudia</a>
-                                <a className="filter__sub-dropdown-item">Claudia</a>
-                                <a className="filter__sub-dropdown-item">Jonas</a>
+                                <a data-value='' data-filter='pilot' onClick={this.chooseFilter} className="filter__sub-dropdown-item">Jonas & Claudia</a>
+                                {
+                                    this.renderPilotFilter(this.props.pilots)
+                                }
                             </div>
                         </button>
                     </div>
@@ -72,7 +129,9 @@ class FlightTableFilter extends Component {
 
 function mapStateToProps(state, props) {
     return {         
-        filteredFlights: getFilterFlights(state.flights, state.filter)
+        pilots: state.pilots,
+        filter: state.filter,
+        flights: state.flights
     };
 }
 

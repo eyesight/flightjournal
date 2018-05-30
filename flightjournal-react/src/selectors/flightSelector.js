@@ -1,17 +1,32 @@
 import  _ from 'lodash';
 
-// get visible flights
-export const getFilterFlights = (flights, { sortDirection, sortBy, startYear, text }) => {
-  const filteredItems =  _.pickBy(flights, flight => {
-      const textMatch = _.startsWith(flight.pilot, text);
+export const getFilterFlights = (flights, { sortDirection, sortBy, startYear, text, filterSelects, filterJan, filterFeb, filterMai }) => {
+  //Filter-functions
+  let filteredItems =  _.pickBy(flights, flight => {
+      const pilotMatch = _.startsWith(flight.pilot, text);
       const regexmatcher = new RegExp(startYear, "g");
       const startYearMatch = regexmatcher.test(flight.date);
-      return textMatch && startYearMatch
+      //Month-filter add monthes in a string to a regex
+      let reg = '';
+      if(filterSelects !== []){
+        //filterSelect is pseudo-array - must be converted to a real one
+        let convertedArray = [];
+        for(let i = 0; i < filterSelects.length; ++i){
+          convertedArray.push(filterSelects[i]);
+        }
+        reg = convertedArray.join('|');
+      }else{
+        reg='';
+      }
+      let monthRegex = new RegExp(reg, 'g');
+      const monthMatch = monthRegex.test(flight.date.split('.')[1]);
+      return pilotMatch && startYearMatch && monthMatch
   }) 
-
+  
+  //Sort-function
   const flightsSort = Object.keys(filteredItems).map(i => filteredItems[i]);
   //TODO: improve sorting - too many if elses
-  let x = flightsSort.sort((a, b) => {
+  filteredItems = flightsSort.sort((a, b) => {
     if(sortDirection === 'asc'){
       if(sortBy === 'pilot' || sortBy === 'startplace'){
         if(a[sortBy] > b[sortBy]){
@@ -50,5 +65,5 @@ export const getFilterFlights = (flights, { sortDirection, sortBy, startYear, te
       }
     } 
   });
-  return x;
+  return filteredItems;
 }

@@ -18,11 +18,17 @@ export const sortDirection = (sortType) => ({
   sortType
 });
 
+export const filterSelects = (filterSelects) => ({
+  type: 'SORT_FILTERSELECTS',
+  filterSelects
+});
+
 const filtersReducerDefaultState = {
-  text: '',
+  filterText: '',
   sortBy: '',
   sortDirection: '',
   startYear: undefined,
+  filterSelects: '',
 };
 
 export const clear = () => ({

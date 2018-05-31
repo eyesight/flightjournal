@@ -18,6 +18,7 @@ export const getFilterFlights = (flights, { sortDirection, sortBy, startYear, te
       }else{
         reg='';
       }
+      //TODO: Regex shoud exclude 11 if it matches 1
       let monthRegex = new RegExp(reg, 'g');
       const monthMatch = monthRegex.test(flight.date.split('.')[1]);
       return pilotMatch && startYearMatch && monthMatch

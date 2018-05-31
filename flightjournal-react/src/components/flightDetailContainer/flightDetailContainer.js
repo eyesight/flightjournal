@@ -67,7 +67,7 @@ function mapStateToProps(state, props) {
     const key = props.match.params.id;
     return { 
         user: state.user,
-        flight: _.get(state.flights, key),
+        flight: _.find(state.flights, {id:key})
     };
 } 
 

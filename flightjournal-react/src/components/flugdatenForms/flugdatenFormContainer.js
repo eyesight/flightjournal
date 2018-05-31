@@ -115,8 +115,9 @@ class FlugdatenFormContainer extends Component {
           }
 
         //if history.location.state is set (if someone likes to update a Flight), set the values of Form-Input-Field
-        if( nextProps.flights['0']!== undefined && this.props.history.location.state!==undefined && this.props.history.location.state.flightID !== '' && this.props.history.location.state.flightID !== [] ){
-            let currentFlight = _.get(nextProps.flights, this.props.history.location.state.flightID);
+        if( Object.keys(nextProps.flights).length !== 0 && this.props.history.location.state!==undefined && this.props.history.location.state.flightID !== '' && this.props.history.location.state.flightID !== [] ){
+            const key = this.props.history.location.state.flightID;
+            let currentFlight = _.find(nextProps.flights, {id: key});
 
             if(currentFlight !==null || currentFlight !==undefined || currentFlight !==[]){
                 //get the hours and minutes and set into state

@@ -7,19 +7,24 @@ import { getFilterFlights } from '../../selectors/flightSelector';
 import { getStartplaces } from '../../actions/StartplacesActions';
 import { getPilots } from '../../actions/PilotActions';
 import FlightTableSort from './flightTableSort';
+import MessageBoxDelete from '../messageBoxDelete/messageBoxDelete';
+import  _ from 'lodash';
 
 class FlightTableList extends Component {
     constructor(props) {
         super(props);
         this.state = {
           flightkey: '',
-          itemsToShow: 4,
+          itemsToShow: 3,
           expanded: false,
+          displayMessageBox: false,
+          deleteID: ''
         };
         this.row = React.createRef();
         this.renderFlights = this.renderFlights.bind(this);
         this.showMore = this.showMore.bind(this);
         this.updateFlight = this.updateFlight.bind(this);
+        this.deleteFunc = this.deleteFunc.bind(this);
       }
     componentWillMount() {
         this.props.getFlights();
@@ -29,6 +34,7 @@ class FlightTableList extends Component {
 
     updateFlight(e, item, index){
         e.preventDefault();
+        console.log(item);
         this.props.history.push({
             pathname: routes.FLUGDATEN_ERFASSEN,
             state: {
@@ -40,12 +46,22 @@ class FlightTableList extends Component {
 
     showMore(e){
         e.preventDefault();
-        this.state.itemsToShow === 4 ? 
+        this.state.itemsToShow === 3 ? 
             (
             this.setState({ itemsToShow: this.props.flights.length, expanded: true })
             ) : (
-              this.setState({ itemsToShow: 4, expanded: false})
+              this.setState({ itemsToShow: 3, expanded: false})
             )
+    }
+
+    deleteFunc(e, id){
+        //TODO: add Message-Box to delete flight
+        e.preventDefault();
+        this.props.deleteFlights(_.findKey(this.props.flights, {id:id}))
+        this.setState({
+            displayMessageBox: true,
+            deleteID: id
+        })
     }
 
     renderFlights(obj, pilot, startpl) {
@@ -53,7 +69,7 @@ class FlightTableList extends Component {
         const users = Object.keys(pilot).map(i => pilot[i]);
         const sp = Object.keys(startpl).map(i => startpl[i]);
         
-        return flights.slice(0, this.state.itemsToShow).map((x) => {
+        return flights.slice(0, this.state.itemsToShow).map((x, i) => {
             return users.map((y, i)=>{
                 return sp.map((z, i)=>{
                     if(y.email === x.pilot){
@@ -68,8 +84,8 @@ class FlightTableList extends Component {
                                     <td className="table__details"><a className="anchor table__link" onClick={(event) => {
                                         event.preventDefault(); 
                                         this.props.history.push({pathname: `/fligth/${x.id}`, state:{flightID: x.id}})}}>Flugdetails</a></td>
-                                    <td className="table__details"><a className="anchor table__link" onClick={(event) => { this.setState({flightkey: x.id, inputPilot: this.props.flights[x.id].pilot}); this.updateFlight(event, x.id, this.props.flights[x.id].pilot)}}>Bearbeiten</a></td>
-                                    <td className="table__details"><a className="anchor table__link" onClick={() => this.props.deleteFlights(x.id)}>Löschen</a></td>
+                                    <td className="table__details"><a className="anchor table__link" onClick={(event) => { this.setState({flightkey: x.id, inputPilot: this.props.flights[x.id]}); this.updateFlight(event, x.id, this.props.flights[x.id])}}>Bearbeiten</a></td>
+                                    <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.deleteFunc(event, x.id)}}>Löschen</a></td>
                                 </tr>
                             );
                         }
@@ -88,6 +104,9 @@ class FlightTableList extends Component {
 
         return (
             <div className="table-wrapper">
+                {
+                    this.state.displayMessageBox ? <MessageBoxDelete /> : null
+                }
                 <div className="table-inner">
                 <table className="table">
                         <FlightTableSort />
@@ -95,9 +114,12 @@ class FlightTableList extends Component {
                             {this.renderFlights(allflight, allPilots, allStartplaces)}
                         </tbody> 
                     </table>
-                    <div className="button-wrapper button-wrapper--top"> 
-                        <button onClick={this.showMore} className="button-without-border button-without-border--small">{this.state.expanded ? (<span>- weniger Flüge anzeigen</span>) : (<span>+ mehr Flüge anzeigen</span>)}</button>
-                    </div>
+                    {
+                        allflight.length>3 ? 
+                        <div className="button-wrapper button-wrapper--top"> 
+                            <button onClick={this.showMore} className="button-without-border button-without-border--small">{this.state.expanded ? (<span>- weniger Flüge anzeigen</span>) : (<span>+ mehr Flüge anzeigen</span>)}</button>
+                        </div> : null
+                    }
                 </div>
             </div>
         );

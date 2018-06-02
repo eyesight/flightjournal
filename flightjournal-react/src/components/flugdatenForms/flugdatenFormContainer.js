@@ -113,11 +113,9 @@ class FlugdatenFormContainer extends Component {
         if (nextProps.user.loading === false && nextProps.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
           }
-
         //if history.location.state is set (if someone likes to update a Flight), set the values of Form-Input-Field
-        if( Object.keys(nextProps.flights).length !== 0 && this.props.history.location.state!==undefined && this.props.history.location.state.flightID !== '' && this.props.history.location.state.flightID !== [] ){
-            const key = this.props.history.location.state.flightID;
-            let currentFlight = _.find(nextProps.flights, {id: key});
+        if( nextProps.flight && this.props.history.location.state!==undefined && this.props.history.location.state.flightID !== '' && this.props.history.location.state.flightID !== []){
+            let currentFlight = nextProps.flight;
 
             if(currentFlight !==null || currentFlight !==undefined || currentFlight !==[]){
                 //get the hours and minutes and set into state
@@ -335,7 +333,7 @@ class FlugdatenFormContainer extends Component {
             weatherFronten: this.state.weatherFronten,
             weatherSoaringmeteo: this.state.weatherSoaringmeteo,
             weatherBisendiagramm: this.state.weatherBisendiagramm,
-            rating: this.state.rating
+            rating: this.state.rating,
         }
 
         //if there is set an ID to update a fligt -> "Speichern" means update. Otherwise save a new flight
@@ -466,13 +464,15 @@ class FlugdatenFormContainer extends Component {
 let flightform = reduxForm({
     form: 'NewPost'
   })(FlugdatenFormContainer);
-  
-  flightform = connect((state, props) => ({
-      flights: state.flights,
-      user: state.user,
-      pilots: state.pilots,
-      startplaces: state.startplaces,
-    }), { saveFlights, getFlights, deleteFlights, getUser, updateFlights, getPilots, getStartplaces }
-  )(flightform);
+
+  flightform = connect((state, props) => {
+    const key = props.history.location.state.flightID;
+    return {
+          flight: _.find(state.flights, { id: key }),
+          user: state.user,
+          pilots: state.pilots,
+          startplaces: state.startplaces
+    };
+}, { saveFlights, getFlights, deleteFlights, getUser, updateFlights, getPilots, getStartplaces })(flightform);
 
 export default withRouter(flightform);

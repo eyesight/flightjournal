@@ -8,7 +8,6 @@ import { getStartplaces } from '../../actions/StartplacesActions';
 import { getPilots } from '../../actions/PilotActions';
 import FlightTableSort from './flightTableSort';
 import MessageBoxDelete from '../messageBoxDelete/messageBoxDelete';
-import  _ from 'lodash';
 
 class FlightTableList extends Component {
     constructor(props) {
@@ -34,7 +33,6 @@ class FlightTableList extends Component {
 
     updateFlight(e, item, index){
         e.preventDefault();
-        console.log(item);
         this.props.history.push({
             pathname: routes.FLUGDATEN_ERFASSEN,
             state: {
@@ -57,7 +55,7 @@ class FlightTableList extends Component {
     deleteFunc(e, id){
         //TODO: add Message-Box to delete flight
         e.preventDefault();
-        this.props.deleteFlights(_.findKey(this.props.flights, {id:id}))
+        this.props.deleteFlights(id)
         this.setState({
             displayMessageBox: true,
             deleteID: id

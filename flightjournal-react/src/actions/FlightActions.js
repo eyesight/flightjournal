@@ -12,11 +12,14 @@ export function getFlights () {
   }
 }
 
-export function saveFlights(post) {
+export function saveFlights(flight) {
   return dispatch => {
-    let key = database.push().key;
-    post.id = key
-    return database.push(post)
+    const newRef = database.push();
+    const newItem = {
+      id: newRef.key,
+      ...flight
+    };
+    return newRef.set(newItem);
   }
 }
 

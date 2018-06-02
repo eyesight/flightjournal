@@ -12,3 +12,4 @@ export const FETCH_Pilots = 'fetch_pilots';
 
 export const GET_USER = 'get_user';
 
+export const ADD_FLIGHT = 'add_flight';

@@ -13,17 +13,14 @@ class FlugdatenForm1 extends Component {
 
     componentWillAppear(callback) {
         window.scrollTo(0, 0);
-        console.log('ani1');
         TweenLite.fromTo(this.formular1.current, 0.5, {opacity:"0", x:"-900px"}, {opacity:"1", x:"0px", onComplete: callback});
     }
 
     componentWillEnter(callback) {
-        console.log('ani3');
         TweenLite.fromTo(this.formular1.current, 0.5, {opacity:"0", x:"-900px"}, {opacity:"1", x:"0px", onComplete: callback});
     }
 
     componentWillLeave (callback) {
-        console.log('ani2');
         TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px",  onComplete: callback});
     }
 

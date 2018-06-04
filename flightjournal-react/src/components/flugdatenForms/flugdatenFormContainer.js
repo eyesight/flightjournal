@@ -466,7 +466,13 @@ let flightform = reduxForm({
   })(FlugdatenFormContainer);
 
   flightform = connect((state, props) => {
-    const key = props.history.location.state.flightID;
+      let key = '';
+      if(props.history.location.state){
+         key = props.history.location.state.flightID;
+      }else{
+          key = '';
+      }
+    
     return {
           flight: _.find(state.flights, { id: key }),
           user: state.user,

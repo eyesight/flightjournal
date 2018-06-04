@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Prototype</title>
+
+    <!-- allStyles -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700" rel="stylesheet">
+    <link href="assets/web-fonts-with-css/css/fontawesome-all.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]-->
+    <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
+    <![endif]-->
+</head>
+<body>
+<div class="page">
+    <header class="header">
+        <div class="header__logo">
+            <div class="header__logo-wrapper">
+                <a class="header__anchor" href="index.html">
+                    <svg viewBox="0 10 125.5 53.17" preserveAspectRatio="xMidYMin slice" width="100%">
+                        <g class="sonne">
+                            <g>
+                                <circle class="cls-2" cx="66.74" cy="14.66" r="9.01"/>
+                                <line class="cls-2" x1="66.74" y1="25.92" x2="66.74" y2="27.76"/>
+                                <line class="cls-2" x1="74.7" y1="22.62" x2="76.01" y2="23.92"/>
+                                <line class="cls-2" x1="78" y1="14.66" x2="79.84" y2="14.66"/>
+                                <line class="cls-2" x1="74.7" y1="6.7" x2="76.01" y2="5.4"/>
+                                <line class="cls-2" x1="66.74" y1="3.4" x2="66.74" y2="1.56"/>
+                                <line class="cls-2" x1="58.78" y1="6.7" x2="57.48" y2="5.4"/>
+                                <line class="cls-2" x1="55.49" y1="14.66" x2="53.65" y2="14.66"/>
+                                <line class="cls-2" x1="58.78" y1="22.62" x2="57.48" y2="23.92"/>
+                            </g>
+                        </g>
+                        <g class="schrift">
+                            <g class="flug">
+                                <path class="cls-3 f" d="M.62,50.24v-8.5H5.78v1.09h-4v2.73H5.41v1.1H1.79v3.57Z"/>
+                                <path class="cls-3 l" d="M12,50.24v-8.5H13.2v7.4h4v1.1Z"/>
+                                <path class="cls-3 u" d="M23.16,47.34v-5.6h1.16V47.3a1.89,1.89,0,1,0,3.78,0V41.74h1.18v5.6a2.88,2.88,0,0,1-3.06,3.08A2.88,2.88,0,0,1,23.16,47.34Z"/>
+                                <path class="cls-3 g" d="M42.54,50.24,42.43,49a3,3,0,0,1-2.72,1.38A4.12,4.12,0,0,1,35.58,46a4.19,4.19,0,0,1,4.21-4.43,3.78,3.78,0,0,1,3.77,2.57l-1.07.46a2.68,2.68,0,0,0-2.7-1.94,3,3,0,0,0-3,3.35c0,2.25,1.44,3.37,3,3.37a2.42,2.42,0,0,0,2.63-2.22h-3V46.08h4.07v4.16Z"/>
+                            </g>
+                            <g class="ziit">
+                                <path class="cls-3 z" d="M89.85,50.24V49.07l5.07-6.24H90V41.74h6.38v1.14l-5.1,6.26h5.16v1.1Z"/>
+                                <path class="cls-3 i" d="M102.77,50.24v-8.5H104v8.5Z"/>
+                                <path class="cls-3 i2" d="M110.93,50.24v-8.5h1.2v8.5Z"/>
+                                <path class="cls-3 t" d="M122.15,42.83v7.41H121V42.83h-2.84V41.74H125v1.09Z"/>
+                            </g>
+                        </g>
+                        <g class="wolken wolke1">
+                            <path class="cls-4" d="M78.17,17.57h-.22a7.41,7.41,0,0,0-14.1,1.94,4.8,4.8,0,1,0-1.4,9.4H78.17a5.68,5.68,0,0,0,0-11.35Z"/>
+                        </g>
+                        <g class="wolken wolke2">
+                            <path class="cls-4" d="M65.17,17.57h-.22a7.41,7.41,0,0,0-14.1,1.94,4.8,4.8,0,1,0-1.4,9.4H65.17a5.68,5.68,0,0,0,0-11.35Z"/>
+                        </g>
+                        <g class="regen">
+                            <path class="cls-10" d="M74.17,242.91h-.22a7.41,7.41,0,0,0-14.1,1.94,4.8,4.8,0,1,0-1.4,9.4H74.17a5.68,5.68,0,0,0,0-11.35Z" transform="translate(-0.62 -231.9)"/>
+                            <g class="tropfen1" data-name="Ebene 6">
+                                <path class="cls-11" d="M58,265a.5.5,0,0,1-.78-.62l5.59-7a.5.5,0,0,1,.78.63" transform="translate(-0.62 -231.9)"/>
+                            </g>
+                            <g class="tropfen2" data-name="Ebene 7">
+                                <path class="cls-11" d="M55.21,261.74a.49.49,0,0,1-.31-.11.5.5,0,0,1-.08-.7l2.8-3.49a.5.5,0,0,1,.78.63l-2.8,3.49A.5.5,0,0,1,55.21,261.74Z" transform="translate(-0.62 -231.9)"/>
+                            </g>
+                            <g class="tropfen3" data-name="Ebene 8">
+                                <path class="cls-11" d="M65.69,261.74a.5.5,0,0,1-.39-.81l2.8-3.49a.5.5,0,0,1,.78.63l-2.8,3.49A.5.5,0,0,1,65.69,261.74Z" transform="translate(-0.62 -231.9)"/>
+                            </g>
+                            <g class="tropfen4" data-name="Ebene 9">
+                                <path class="cls-11" d="M68.14,265.23a.49.49,0,0,1-.31-.11.5.5,0,0,1-.08-.7l5.59-7a.5.5,0,0,1,.78.63l-5.59,7A.5.5,0,0,1,68.14,265.23Z" transform="translate(-0.62 -231.9)"/>
+                            </g>
+                        </g>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="mobile-toggle">
+            <div class="mobile-toggle__menu"></div>
+            <div class="mobile-toggle__burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="header__menu">
+            <nav class="main-nav">
+                <ul class="main-nav__wrapper">
+                    <li class="main-nav__link">
+                        <a href="#flugplanung" class="">Flugplanung</a>
+                    </li>
+                    <li class="main-nav__link">
+                        <a href="#fluege" class="">Flüge</a>
+                    </li>
+                    <li class="main-nav__link">
+                        <a href="#startplaetze" class="">Startplätze</a>
+                    </li>
+                    <li class="main-nav__link">
+                        <a href="#" class="">Pilotenseite</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="main">
+        <section id="flugplanung" class="start">
+            <div class="start__left">
+                <div class="start__image-wrapper">
+                    <img class="start__image js-start__image" src="assets/img/default.jpg"/>
+                </div>
+                <div class="start__text-wrapper">
+                    <!-- <h1 class="title-h1 title&#45;&#45;white">
+                         Auf, (r)auf <br><span class="title&#45;&#45;regular">und davon.</span>
+                     </h1>-->
+                </div>
+            </div>
+            <div class="start__right">
+                <div class="start__lead-wrapper">
+                    <h1 class="main-title">
+                        <span class="main-title--bold">(R)auf und davon.<br></span>Mit dem Gleitschirm unterwegs.
+                    </h1>
+                </div>
+                <div class="start__twocolumn js-linkbox-slideshow-container">
+                    <div class="box link-box js-linkbox">
+                        <div class="link-box__content js-linkbox-content">
+                            <h3 class="title-h3">Wetter.<br><span class="title--regular">Wie wirds?</span></h3>
+                            <ul class="link-box__list js-linkbox-links">
+                                <li>
+                                    <a href="http://www.meteoschweiz.admin.ch/home.html?tab=report" target="_blank"
+                                       class="link-box__link anchor">
+                                        Textprognose
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://www.meteoschweiz.admin.ch/home/wetter/prognosen/allgemeine-lage.html"
+                                       target="_blank" class="link-box__link anchor">
+                                        Frontenkarte
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://wetter.kk7.ch/" target="_blank" class="link-box__link anchor">
+                                        kk7
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://www.meteocentrale.ch/de/wetter/wetterstationen.html" target="_blank"
+                                       class="link-box__link anchor">
+                                        Meteocentrale
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.burnair.ch/MeteoService/" target="_blank"
+                                       class="link-box__link anchor">
+                                        Burnair-Prognose
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://gleitschirmmeteo.ch/" target="_blank" class="link-box__link anchor">
+                                        Gleitschirmmeteo
+                                    </a>
+                                </li>
+                            </ul>
+                            <a class="link-box__show-more js-show-more">
+                                + mehr Links
+                            </a>
+                        </div>
+                    </div>
+                    <div class="box link-box js-linkbox">
+                        <div class="link-box__content js-linkbox-content">
+                            <h3 class="title title-h3">Wind.<br><span class="title--regular"> Wo blästs?</span></h3>
+                            <ul class="link-box__list js-linkbox-links">
+                                <li>
+                                    <a href="http://www.meteocentrale.ch/de/wetter/foehn-und-bise/foehn.html"
+                                       target="_blank" class="link-box__link anchor">
+                                        Föhndiagramm
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://www.meteocentrale.ch/de/wetter/foehn-und-bise/bise.html"
+                                       target="_blank" class="link-box__link anchor">
+                                        Bisendiagramm
+                                    </a>
+                                </li><li>
+                                    <a href="http://wetterstationen.meteomedia.ch/?map=Schweiz" target="_blank"
+                                       class="link-box__link anchor">
+                                        Meteocentrale
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.burnair.ch/windmap/" target="_blank"
+                                       class="link-box__link anchor">
+                                        Live-Wind-Karte
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.dcweissenstein.ch/portfolio_page/wetterstation-weissenstein/" target="_blank"
+                                       class="link-box__link anchor">
+                                        Weissenstein
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://www.meteocentrale.ch/de/europa/schweiz/wetter-uetliberg-turm/details/S066770/#2017-04-03" target="_blank"
+                                       class="link-box__link anchor">
+                                        Uetliberg
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://wetterstationen.meteomedia.ch/?map=Schweiz&station=066561" target="_blank"
+                                       class="link-box__link anchor">
+                                        Rigi-Kulm
+                                    </a>
+                                </li>
+                                 <li>
+                                    <a href="https://www.dcweissenstein.ch/portfolio_page/wetterstation-roeti/" target="_blank"
+                                       class="link-box__link anchor">
+                                        Weissenstein – Röti
+                                    </a>
+                                </li>
+                            </ul>
+                            <a class="link-box__show-more js-show-more">
+                                + mehr Links
+                            </a>
+                        </div>
+                    </div>
+                    <div class="box link-box js-linkbox">
+                        <div class="link-box__content js-linkbox-content">
+                            <h3 class="title title-h3">Karten.<br><span class="title--regular">Das wichtigste Kartenmaterial.</span>
+                            </h3>
+                            <ul class="link-box__list js-linkbox-links">
+                                <li>
+                                    <a href="https://www.skybriefing.com/portal/delegate/dabs?today" target="_blank"
+                                       class="link-box__link anchor">
+                                        DABS von Heute
+                                    </a>
+                                </li>
+                                <li>
+                                <li>
+                                    <a href="https://www.skybriefing.com/portal/delegate/dabs?tomorrow" target="_blank"
+                                       class="link-box__link anchor">
+                                        DABS von Morgen
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://map.geo.admin.ch/?lang=de&zoom=3&scale=500000&X=261310.48&Y=687075.00&bgLayer=ch.swisstopo.pixelkarte-farbe&bgOpacity=1&topic=ech&layers=ch.bazl.segelflugkarte"
+                                       target="_blank" class="link-box__link anchor">
+                                        Segelflugkarte
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://map.geo.admin.ch/?lang=de&zoom=4&scale=500000&X=169415.73694&Y=635750&layers=ch.bazl.segelflugkarte&bgLayer=ch.swisstopo.pixelkarte-farbe&bgOpacity=1&topic=ech"
+                                       target="_blank" class="link-box__link anchor">
+                                        Hinderniskarte
+                                    </a>
+                                </li>
+                                  <li>
+                                    <a href="https://www.facebook.com/TMA-Locarno-1037676889614177/"
+                                       target="_blank" class="link-box__link anchor">
+                                        TMA-Locarno
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://www.parange.ch" target="_blank" class="link-box__link anchor">
+                                        Gleitwinkel
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://xcweeks.com" target="_blank" class="link-box__link anchor">
+                                        XC-Weeks
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://xcplanner.appspot.com" target="_blank"
+                                       class="link-box__link anchor">
+                                        XC-Planer
+                                    </a>
+                                </li>
+                            </ul>
+                            <a class="link-box__show-more js-show-more">
+                                + mehr Links
+                            </a>
+                        </div>
+                    </div>
+                    <div class="link-box__prev-next only-show-on-mobile">
+                        <a class="link-box__prev js-prev"><span class="link-box__prev-text"></span><i class="fas fa-chevron-left link-box__fa"></i></a>
+                        <a class="link-box__next js-next"><i class="fas fa-chevron-right link-box__fa"></i><span class="link-box__next-text"></span></a>
+                    </div>
+                    <div class="link-box__dots only-show-on-mobile">
+                        <span class="link-box__dot js-dot" data-dot="1"></span>
+                        <span class="link-box__dot js-dot" data-dot="2"></span>
+                        <span class="link-box__dot js-dot" data-dot="3"></span>
+                    </div>
+                </div>
+                <div class="start__twocolumn js-linkbox-slideshow-container">
+                    <div class="box link-box js-linkbox">
+                        <div class="link-box__content js-linkbox-content ">
+                            <h3 class="title title-h3">Thermik.<br> <span class="title--regular">Wo steigts?</span></h3>
+                            <ul class="link-box__list js-linkbox-links">
+                                <li>
+                                    <a href="https://soaringmeteo.org/soarWRF2K0612Z.html" target="_blank"
+                                       class="link-box__link anchor">
+                                        Soaringmeteo
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://wetter.kk7.ch/#regtherm" target="_blank"
+                                       class="link-box__link anchor">
+                                        Regtherm
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://thermal.kk7.ch/" target="_blank" class="link-box__link anchor">
+                                        Hotspots
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.meteo-shv.ch/home/allgemein/segelflugwetterbericht.html" target="_blank"
+                                       class="link-box__link anchor">
+                                        SHV-Meteo
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.meteo-shv.ch/home/thermik/previtemps-72-std-interlaken-visp.html" target="_blank"
+                                       class="link-box__link anchor">
+                                        Interlaken-Visp
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.meteo-shv.ch/home/thermik/previtemps-72-std-interlaken-visp.html" target="_blank"
+                                       class="link-box__link anchor">
+                                        Buochs-Locarno
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.meteo-shv.ch/home/thermik/previtemps-72-std-visp-illanz.html" target="_blank"
+                                       class="link-box__link anchor">
+                                        Visp-Illanz
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.meteo-shv.ch/home/thermik/previtemps-72-std-illanz-samedan.html" target="_blank"
+                                       class="link-box__link anchor">
+                                        Ilanz-Samedan
+                                    </a>
+                                </li>
+                            </ul>
+                            <a class="link-box__show-more js-show-more">
+                                + mehr Links
+                            </a>
+                        </div>
+                    </div>
+                    <div class="box link-box js-linkbox">
+                        <div class="link-box__content js-linkbox-content">
+                            <h3 class="title-h3">Webcams.<br><span class="title--regular">Wie siehts aus?</span> </h3>
+                            <ul class="link-box__list js-linkbox-links">
+                                <li>
+                                    <a href="https://www.flugsau.ch/main_bigware_30.php?pages_id=21&language=de" target="_blank"
+                                       class="link-box__link anchor">
+                                        Engelbergerthal
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://www.brunni.ch/aktuelle-info/webcams" target="_blank"
+                                       class="link-box__link anchor">
+                                        Brunni-Engelberg
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://www.eggberge.ch/aktuell/webcam" target="_blank"
+                                       class="link-box__link anchor">
+                                        Eggberge
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://www.mythenregion.ch/winter/info/webcams" target="_blank"
+                                       class="link-box__link anchor">
+                                        Rotenflue
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.bergfex.ch/locarno-orselina-cardada/webcams/c7865/"
+                                       target="_blank" class="link-box__link anchor">
+                                        Cimetta
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://www.niederbauen.ch/aussichten/webcams" target="_blank"
+                                       class="link-box__link anchor">
+                                        Niederbauen
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://laax.roundshot.com/crap-sogn-gion-park" target="_blank"
+                                       class="link-box__link anchor">
+                                        Laax
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://panocam.skiline.cc/firstbahn#" target="_blank"
+                                       class="link-box__link anchor">
+                                        Grindelwald
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://flug-taxi.ch/webcam/landeplatz_fiesch.jpg" target="_blank"
+                                       class="link-box__link anchor">
+                                        Fiesch – Landeplatz
+                                    </a>
+                                </li>
+                            </ul>
+                            <a class="link-box__show-more js-show-more">
+                                + mehr Links
+                            </a>
+                        </div>
+                    </div>
+                    <div class="box link-box js-linkbox">
+                        <div class="link-box__content js-linkbox-content">
+                            <h3 class="title-h3">Diverse.<br><span class="title--regular">Weitere nützliche Klicks.</span>  </h3>
+                            <ul class="link-box__list js-linkbox-links">
+                                <li>
+                                    <a href="https://www.shv-fsvl.ch/sicherheit/luftraum" target="_blank"
+                                       class="link-box__link anchor">
+                                        SHV Lufträume
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.shv-fsvl.ch/sicherheit/fluggebiete" target="_blank"
+                                       class="link-box__link anchor">
+                                        SHV Fluggebiete
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.xcontest.org/world/en/flights/daily-score-pg/#filter[date]=2018-02-11@filter[country]=CH"
+                                       target="_blank" class="link-box__link anchor">
+                                        XContest
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.youtube.com/user/glidezeit/videos?shelf_id=1&view=0&sort=dd"
+                                       target="_blank" class="link-box__link anchor">
+                                        Manövervideos
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://api3.geo.admin.ch/static/images/legends/ch.bazl.segelflugkarte_de_big.pdf"
+                                       target="_blank" class="link-box__link anchor">
+                                        Leg. Segelflugkarte
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.shv-fsvl.ch/sicherheit/luftraum/"
+                                       target="_blank" class="link-box__link anchor">
+                                        Luftraum News
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://www.5steps.ch/meteo/lokaleAbmachungen.htm"
+                                       target="_blank" class="link-box__link anchor">
+                                        Lokale Abmachungen
+                                    </a>
+                                </li>
+                            </ul>
+                            <a class="link-box__show-more js-show-more">
+                                + mehr Links
+                            </a>
+                        </div>
+                    </div>
+                    <div class="link-box__prev-next only-show-on-mobile">
+                        <a class="link-box__prev js-prev"><span class="link-box__prev-text"></span><i class="fas fa-chevron-left link-box__fa"></i></a>
+                        <a class="link-box__next js-next"><i class="fas fa-chevron-right link-box__fa"></i><span class="link-box__next-text"></span></a>
+                    </div>
+                    <div class="link-box__dots only-show-on-mobile">
+                        <span class="link-box__dot js-dot" data-dot="1"></span>
+                        <span class="link-box__dot js-dot" data-dot="2"></span>
+                        <span class="link-box__dot js-dot" data-dot="3"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="fluege" class="centered-layout">
+            <div class="centered-layout__header">
+                <h2 class="title-h2">Flugtagebuch.<br><span class="title--regular">Unsere Flüge im Überblick.</span>
+                </h2>
+                <button class="button-without-border">+ Flug hinzufügen</button>
+            </div>
+            <div class="filter">
+                <ul class="filter__list">
+                    <li><a class="filter__list-item active" href="#">Jan.</a></li>
+                    <li><a class="filter__list-item active" href="#">Feb.</a></li>
+                    <li><a class="filter__list-item" href="#">Mär.</a></li>
+                    <li><a class="filter__list-item" href="#">Apr.</a></li>
+                    <li><a class="filter__list-item" href="#">Mai</a></li>
+                    <li><a class="filter__list-item" href="#">Jun.</a></li>
+                    <li><a class="filter__list-item" href="#">Jul.</a></li>
+                    <li><a class="filter__list-item" href="#">Aug.</a></li>
+                    <li><a class="filter__list-item" href="#">Sep.</a></li>
+                    <li><a class="filter__list-item" href="#">Okt.</a></li>
+                    <li><a class="filter__list-item" href="#">Nov.</a></li>
+                    <li><a class="filter__list-item" href="#">Dez.</a></li>
+                </ul>
+                <div class="filter__list-dropdown">
+                    <button class="filter__dropdown-item filter__dropdown--short">Jahr wählen <i
+                            class="fas fa-angle-down"></i>
+                        <div class="filter__sub-dropdown">
+                            <a class="filter__sub-dropdown-item">2018</a>
+                            <a class="filter__sub-dropdown-item">2017</a>
+                            <a class="filter__sub-dropdown-item">2016</a>
+                        </div>
+                    </button>
+                    <button class="filter__dropdown-item">Pilot wählen <i class="fas fa-angle-down"></i>
+                        <div class="filter__sub-dropdown filter__dropdown--short">
+                            <a class="filter__sub-dropdown-item">Jonas & Claudia</a>
+                            <a class="filter__sub-dropdown-item">Claudia</a>
+                            <a class="filter__sub-dropdown-item">Jonas</a>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <div class="table-inner">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="table__header table&#45;&#45;sort js-table&#45;&#45;sort"><span class="active">Datum</span><span
+                                    class="arrow-up visible"> &#8593;</span><span class="arrow-down"> &#8595;</span>
+                            </th>
+                            <th class="table__header table&#45;&#45;sort js-table&#45;&#45;sort"><span>Pilot</span><span
+                                    class="arrow-up"> &#8593;</span><span class="arrow-down"> &#8595;</span></th>
+                            <th class="table__header table&#45;&#45;sort js-table&#45;&#45;sort"><span>Startplatz</span><span
+                                    class="arrow-up"> &#8593;</span><span class="arrow-down">&#8595;</span></th>
+                            <th class="table__header table&#45;&#45;sort js-table&#45;&#45;sort">
+                                <span>Flugzeit</span><span class="arrow-up"> &#8593;</span><span class="arrow-down"> &#8595;</span>
+                            </th>
+                            <th class="table__header table&#45;&#45;sortjs-table&#45;&#45;sort">
+                                <span>XC-Distanz</span><span class="arrow-up"> &#8593;</span><span class="arrow-down"> &#8595;</span>
+                            </th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody class="table__tbody">
+                        <tr>
+                            <td class="table__date">22.1.2018</td>
+                            <td class="table__pilot"><a class="table__link">Jonas</a></td>
+                            <td class="table__start"><a class="table__link">Castelluccio, Fontanile, 1900 m</a></td>
+                            <td class="table__duration">45 min</td>
+                            <td class="table__distance">11 Kilometer</td>
+                            <td class="table__details"><a class="table__link">Flugdetails</a></td>
+                        </tr>
+                        <tr>
+                            <td class="table__date">22.1.2018</td>
+                            <td class="table__pilot"><a class="table__link">Claudia</a></td>
+                            <td class="table__start"><a class="table__link">Engelberg, Herzlisee, 1800 m</a></td>
+                            <td class="table__duration">1 h 45 min</td>
+                            <td class="table__distance">21 Kilometer</td>
+                            <td class="table__details"><a class="table__link">Flugdetails</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="button-wrapper">
+                        <button class="button">mehr Flüge anzeigen</button>
+                    </div>
+                </div>
+            </div>
+            <div class="messageBox-Background">
+                <div class="messageBox">
+                    <p class="messageBox__text">Wills du den Flug wirklich löschen?</p>
+                    <div class="button-wrapper button-wrapper__row">
+                        <button class="button">Flug löschen</button>
+                        <button class="button">abbrechen</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="startplaetze" class="centered-layout">
+            <div class="centered-layout__header">
+                <h2 class="title-h2">Startplätze.<span class="title--regular"> Wo solls hin?</span></h2>
+                <button class="button-without-border">Fluggebiete suchen <i class="fas fa-search"></i></button>
+            </div>
+            <div class="filter">
+                <!--
+                                <h3 class="filter__title">Windrichtung</h3>
+                -->
+                <ul class="filter__list">
+                    <li><a class="filter__list-item active" href="#">Nord</a></li>
+                    <li><a class="filter__list-item active" href="#">Nordorst</a></li>
+                    <li><a class="filter__list-item" href="#">Ost</a></li>
+                    <li><a class="filter__list-item" href="#">Südost</a></li>
+                    <li><a class="filter__list-item" href="#">Süd</a></li>
+                    <li><a class="filter__list-item" href="#">Südwest</a></li>
+                    <li><a class="filter__list-item" href="#">West</a></li>
+                    <li><a class="filter__list-item" href="#">Nordwest</a></li>
+                </ul>
+                <div class="filter__list-dropdown">
+                    <button class="filter__dropdown-item">Starthöhe <i class="fas fa-angle-down"></i>
+                        <div class="filter__sub-dropdown">
+                            <a class="filter__sub-dropdown-item">1000</a>
+                            <a class="filter__sub-dropdown-item">1500</a>
+                            <a class="filter__sub-dropdown-item">2000</a>
+                        </div>
+                    </button>
+                    <button class="filter__dropdown-item">Region <i class="fas fa-angle-down"></i>
+                        <div class="filter__sub-dropdown">
+                            <a class="filter__sub-dropdown-item">Engelberg</a>
+                            <a class="filter__sub-dropdown-item">Berner Oberland</a>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <div class="image-box vertical-divider">
+                <div class="image-box__item">
+                    <div class="image-box__text">
+                        <a href="#" class="image-box__link anchor">
+                            Uetliberg, 800 m
+                        </a>
+                        <p class="image-box__txt">Nordost, Ost</p>
+
+                    </div>
+                    <a href="#">
+                        <div class="image-box__image-wrapper">
+                            <img class="image-box__image" src="./assets/img/default.jpg"
+                                 data-src="./assets/img/startplaetze/default.jpg" alt="Startplatz Uetliberg">
+                        </div>
+                    </a>
+                    <div class="image-box__icons">
+                        <a href="#"><i class="fas fa-map-marker-alt"></i></a><a href="#"><i
+                            class="fas fa-video"></i></a>
+                    </div>
+                </div>
+                <div class="image-box__item">
+                    <div class="image-box__text">
+                        <a href="#" class="image-box__link anchor">
+                            Weissenstein, 1200 m
+
+                        </a>
+                        <p class="image-box__txt">Nordost, Ost</p>
+
+                    </div>
+                    <a href="#">
+                        <div class="image-box__image-wrapper">
+                            <img class="image-box__image" src="./assets/img/default.jpg"
+                                 data-src="./assets/img/startplaetze/default.jpg" alt="Startplatz Uetliberg">
+                        </div>
+                    </a>
+                    <div class="image-box__icons">
+                        <a href="#"><i class="fas fa-map-marker-alt"></i></a><a href="#"><i
+                            class="fas fa-video"></i></a>
+                    </div>
+                </div>
+                <div class="image-box__item">
+                    <div class="image-box__text">
+                        <a href="#" class="image-box__link anchor">
+                            Uetliberg, 800 m
+                        </a>
+                        <p class="image-box__txt">Nordost, Ost</p>
+
+                    </div>
+                    <a href="#">
+                        <div class="image-box__image-wrapper">
+                            <img class="image-box__image" src="./assets/img/default.jpg"
+                                 data-src="./assets/img/startplaetze/default.jpg" alt="Startplatz Uetliberg">
+                        </div>
+                    </a>
+                    <div class="image-box__icons">
+                        <a href="#"><i class="fas fa-map-marker-alt"></i></a><a href="#"><i
+                            class="fas fa-video"></i></a>
+                    </div>
+                </div>
+                <div class="image-box__item">
+                    <div class="image-box__text">
+                        <a href="#" class="image-box__link anchor">
+                            Uetliberg, 800 m
+                        </a>
+                        <p class="image-box__txt">Nordost, Ost</p>
+
+                    </div>
+                    <a href="#">
+                        <div class="image-box__image-wrapper">
+                            <img class="image-box__image" src="./assets/img/default.jpg"
+                                 data-src="./assets/img/startplaetze/default.jpg" alt="Startplatz Uetliberg">
+                        </div>
+                    </a>
+                    <div class="image-box__icons">
+                        <a href="#"><i class="fas fa-map-marker-alt"></i></a><a href="#"><i
+                            class="fas fa-video"></i></a>
+                    </div>
+                </div>
+                <div class="image-box__item">
+                    <div class="image-box__text">
+                        <a href="#" class="image-box__link anchor">
+                            Uetliberg, 800 m
+                        </a>
+                        <p class="image-box__txt">Nordost, Ost</p>
+
+                    </div>
+                    <a href="#">
+                        <div class="image-box__image-wrapper">
+                            <img class="image-box__image" src="./assets/img/default.jpg"
+                                 data-src="./assets/img/startplaetze/default.jpg" alt="Startplatz Uetliberg">
+                        </div>
+                    </a>
+                    <div class="image-box__icons">
+                        <a href="#"><i class="fas fa-map-marker-alt"></i></a><a href="#"><i
+                            class="fas fa-video"></i></a>
+                    </div>
+                </div>
+                <div class="image-box__item">
+                    <div class="image-box__text">
+                        <a href="#" class="image-box__link anchor">
+                            Uetliberg, 800 m
+                        </a>
+                        <p class="image-box__txt">Nordost, Ost</p>
+
+                    </div>
+                    <a href="#">
+                        <div class="image-box__image-wrapper">
+                            <img class="image-box__image" src="./assets/img/default.jpg"
+                                 data-src="./assets/img/startplaetze/default.jpg" alt="Startplatz Uetliberg">
+                        </div>
+                    </a>
+                    <div class="image-box__icons">
+                        <a href="#"><i class="fas fa-map-marker-alt"></i></a><a href="#"><i
+                            class="fas fa-video"></i></a>
+                    </div>
+                </div>
+                <div class="image-box__item">
+                    <div class="image-box__text">
+                        <a href="#" class="image-box__link anchor">
+                            Uetliberg, 800 m
+                        </a>
+                        <p class="image-box__txt">Nordost, Ost</p>
+
+                    </div>
+                    <a href="#">
+                        <div class="image-box__image-wrapper">
+                            <img class="image-box__image" src="./assets/img/default.jpg"
+                                 data-src="./assets/img/startplaetze/default.jpg" alt="Startplatz Uetliberg">
+                        </div>
+                    </a>
+                    <div class="image-box__icons">
+                        <a href="#"><i class="fas fa-map-marker-alt"></i></a><a href="#"><i
+                            class="fas fa-video"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+<!--<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timelinejs/2.36.0/js/timeline-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js"></script>
+<script src="js/polyfill_requestAnimationFrame.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/zenscroll-min.js"></script>
+<script src="js/animation.js"></script>
+</body>
+</html>

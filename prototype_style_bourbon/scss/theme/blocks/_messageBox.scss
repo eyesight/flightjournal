@@ -1,0 +1,35 @@
+.messageBox{
+  &-Background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: $color-black-70;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  width: 50%;
+  background-color: $color-white;
+  padding: rem-calc(50px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: $font-s-copytext-l;
+
+  @include bp(max, $ipad-p) {
+    width: 80%;
+    padding: rem-calc(50px) rem-calc(20px);
+   }
+   @include bp(max, $phone) {
+    width: 90%;
+   }
+
+   &__text{
+     text-align: center;
+   }
+}

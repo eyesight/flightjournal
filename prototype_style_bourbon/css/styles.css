@@ -916,6 +916,22 @@ img[data-src] {
     display: flex;
     justify-content: center;
     font-family: "Montserrat", Arial, Helvetica, sans-serif; }
+    .button-wrapper__row {
+      flex-direction: row; }
+      @media screen and (max-width: 1023px) {
+        .button-wrapper__row {
+          flex-direction: column;
+          margin: 0; } }
+      .button-wrapper__row .button {
+        margin-left: 0.9375rem;
+        margin-right: 0.9375rem; }
+        @media screen and (max-width: 1023px) {
+          .button-wrapper__row .button {
+            margin-left: 0;
+            margin-right: 0; } }
+        @media screen and (max-width: 1023px) {
+          .button-wrapper__row .button:nth-child(2) {
+            margin-top: 1.25rem; } }
   .button-group {
     clear: both;
     padding-top: 3.75rem; }
@@ -1842,3 +1858,33 @@ svg {
 .tropfen3,
 .tropfen4 {
   opacity: 1; }
+
+.messageBox {
+  width: 50%;
+  background-color: #fff;
+  padding: 3.125rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 1.125rem; }
+  .messageBox-Background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  @media screen and (max-width: 769px) {
+    .messageBox {
+      width: 80%;
+      padding: 3.125rem 1.25rem; } }
+  @media screen and (max-width: 550px) {
+    .messageBox {
+      width: 90%; } }
+  .messageBox__text {
+    text-align: center; }

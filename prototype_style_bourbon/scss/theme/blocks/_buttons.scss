@@ -14,6 +14,30 @@
     display: flex;
     justify-content: center;
     font-family: $font-family-primary;
+
+    &__row{
+      flex-direction: row;
+      @include bp(max, $ipad-ls) {
+        flex-direction: column;
+        margin: 0;
+       }
+
+      .button{
+        margin-left: rem-calc(15px);
+        margin-right: rem-calc(15px);
+
+        @include bp(max, $ipad-ls) {
+          margin-left: 0;
+          margin-right: 0;
+         }
+
+         &:nth-child(2){
+          @include bp(max, $ipad-ls) {
+            margin-top: rem-calc(20px);
+           }
+         }
+      }
+    }
   }
 
   &-group{

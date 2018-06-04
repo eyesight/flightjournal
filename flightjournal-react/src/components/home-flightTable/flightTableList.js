@@ -63,31 +63,36 @@ class FlightTableList extends Component {
 
     deleteFunc(e){
         e.preventDefault();
-        this.props.deleteFlights(this.state.deleteID)
-        this.setState({
-            showMessageBox: false,
-            deleteID: '',
-            ButtonDelClass: 'button clicked',
-            ButtonCancClass: 'button'
-        })
         tl.add("scene1")
           .to(document.querySelectorAll('.button'), 0, {opacity: 0}, "scene1")
           .to(document.querySelector('.messageBox__text'), 0, {opacity: 0}, "scene1")
           .to(document.querySelector('.checkmark'), 0, {display: 'inline-block', scale: 2}, "scene1+=0.1")
-          .to(document.querySelector('.messageBox'), 0.1, {borderRadius: "50%", height: '200px', width: '200px'}, "scene1+=0.2")
-          .fromTo(document.querySelector('.checkmark__kick'), 0.1, {width: '0'}, {width: '15px'}, "scene1+=0.2")
-          .fromTo(document.querySelector('.checkmark__stem'), 0.1, {height: '0'}, {height: '25px'}, "scene1+=0.2")
+          .to(document.querySelector('.messageBox'), 0.2, {borderRadius: "50%", height: '200px', width: '200px'}, "scene1+=0.2")
+          .fromTo(document.querySelector('.checkmark__kick'), 0.2, {width: '0'}, {width: '15px'}, "scene1+=0.2")
+          .fromTo(document.querySelector('.checkmark__stem'), 0.2, {height: '0'}, {height: '25px'}, "scene1+=0.2");
+
+          setTimeout(() => {
+            this.props.deleteFlights(this.state.deleteID)
+            this.setState({
+                showMessageBox: false,
+                deleteID: '',
+                ButtonDelClass: 'button clicked',
+                ButtonCancClass: 'button'
+            })
+        }, 600);
     }
 
     cancelFunc(e){
         e.preventDefault();
-        this.setState({
-            showMessageBox: false,
-            deleteID: '',
-            ButtonDelClass: 'button',
-            ButtonCancClass: 'button clicked'
-        })        
-        TweenLite.to(document.querySelector('.messageBox'), 0.3, {opacity:"0", scale : 0.1, y:"500px"});  
+        TweenLite.to(document.querySelector('.messageBox'), 0.3, {opacity:"0", scale : 0.1, y:"500px"});
+        setTimeout(() => { 
+            this.setState({
+                showMessageBox: false,
+                deleteID: '',
+                ButtonDelClass: 'button',
+                ButtonCancClass: 'button clicked'
+            }) 
+        }, 150);  
     }
 
     flugdetails(e, id){

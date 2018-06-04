@@ -11,11 +11,6 @@ class MessageBox extends Component{
         console.log('componentWillEnter');
         TweenLite.fromTo(this.messageBoxe.current, 0.2, {opacity:"0", scale : 0.1, y:"900px"}, {opacity:"1", y:"0px", scale : 1, onComplete: callback});
     }
-    
-    componentWillLeave (callback) {
-        console.log('componentWillLeave');
-        setTimeout(function(){ callback();}, 450);
-    }
 
     render() {
         const {txt, functionDelete, functionCancel, buttonDeleteTxt, buttonCancelTxt, buttonDelClass, buttonCancClass } = this.props;

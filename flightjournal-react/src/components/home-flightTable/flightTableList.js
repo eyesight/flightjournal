@@ -21,11 +21,7 @@ class FlightTableList extends Component {
           itemsToShow: 3,
           expanded: false,
           showMessageBox: false,
-          deleteID: '',
-          cancelDelStatus: '',
-          delStatus: false,
-          ButtonDelClass: 'button',
-          ButtonCancClass: 'button'
+          deleteID: ''
         };
         this.row = React.createRef();
         this.renderFlights = this.renderFlights.bind(this);
@@ -76,8 +72,6 @@ class FlightTableList extends Component {
             this.setState({
                 showMessageBox: false,
                 deleteID: '',
-                ButtonDelClass: 'button clicked',
-                ButtonCancClass: 'button'
             })
         }, 600);
     }
@@ -89,8 +83,6 @@ class FlightTableList extends Component {
             this.setState({
                 showMessageBox: false,
                 deleteID: '',
-                ButtonDelClass: 'button',
-                ButtonCancClass: 'button clicked'
             }) 
         }, 150);  
     }
@@ -177,8 +169,8 @@ class FlightTableList extends Component {
                             buttonCancelTxt = 'Abbrechen'
                             functionDelete = {this.deleteFunc}
                             functionCancel = {this.cancelFunc}
-                            buttonDelClass = {this.state.ButtonDelClass}
-                            buttonCancClass = {this.state.ButtonCancClass}
+                            buttonDelClass = 'button'
+                            buttonCancClass = 'button'
                         /> 
                     : null
                 }

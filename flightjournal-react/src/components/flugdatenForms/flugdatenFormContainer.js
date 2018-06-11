@@ -17,7 +17,10 @@ import  _ from 'lodash';
 import moment from 'moment';
 import 'moment/locale/de-ch'
 import 'react-datepicker/dist/react-datepicker.css';
-
+import * as validation from '../../utils/validationText';
+import {FormErrors} from '../formErrors/formErrors';
+import FormAnimation from '../formAnimation/formAnimation';
+import FormTitle from '../formTitle/formTitle';
 
 let obj = {};
 
@@ -36,7 +39,22 @@ class FlugdatenFormContainer extends Component {
           ani: 'form1',
           flightID: '',
           IDtoUpdate: '',
+          formTitleH2: 'Erfasse deine Flugdaten.',
+          
+          //validation-states
+          validationTxt: '',
+          errorAlert: false,
 
+          formErrors: {Landeplatz: '', Datum: '', Startplatz: '', Flugzeit: '', valueHour: '', valueMinute: '', Beschreibung: '', Distanz: ''},
+          landingplaceValid: false,
+          dateValid: false,
+          startplaceValid: false,
+          formValid: false, 
+          flighttimeValid: false,
+          descriptionValid: false,
+          xcdistanceValid: false,
+          
+          //states for the flighttime and the names of inputfields
           valueHour:'',
           valueMinute: '',
           nameHour: 'valueHour',
@@ -44,6 +62,7 @@ class FlugdatenFormContainer extends Component {
           nameComment: 'description',
           nameStartplace: 'startplace',
           
+          //data for database
           date: new Date().toLocaleDateString("de-ch",
           {
             year: "numeric",
@@ -96,6 +115,10 @@ class FlugdatenFormContainer extends Component {
         this.goBack5 = this.goBack5.bind(this);
 
         this.handleChangeDate = this.handleChangeDate.bind(this);
+
+        this.validateField = this.validateField.bind(this);
+        this.validateForm = this.validateForm.bind(this);
+        this.errorClass = this.errorClass.bind(this);
     }
     
     componentWillMount() {
@@ -156,27 +179,92 @@ class FlugdatenFormContainer extends Component {
         }
     }
 
-    onChange(theEvent){
-        this.setState({
-            [theEvent.target.name]: theEvent.target.value,
-        });
-        console.log([theEvent.target.name] + theEvent.target.value);
-    };
+      validateField(fieldName, value) {
+        let fieldValidationErrors = this.state.formErrors;
+        let landingplaceValid = this.state.landingplaceValid;
+        let startplaceValid = this.state.startplaceValid;
+        let flighttimeValid = this.state.flighttimeValid;
+        let dateValid = this.state.dateValid;
+        let descriptionValid = this.state.descriptionValid;
+        let xcdistanceValid = this.state.xcdistanceValid;
+    
+        switch(fieldName) {
+          case 'landingplace':
+            landingplaceValid = value.length <= 30;
+            fieldValidationErrors.Landeplatz = landingplaceValid ? '' : ' is invalid';
+            break;
+          case 'date':
+            dateValid = value.match(/^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{4}$/i);
+            fieldValidationErrors.Datum = dateValid ? '' : ' is invalid';
+            break;
+          case 'startplace':
+            startplaceValid = (value !== '0');
+            fieldValidationErrors.Startplatz = startplaceValid ? '' : ' is invalid';
+            break;
+          case 'valueHour' || 'valueMinute':
+            flighttimeValid = (value !== '0');
+            fieldValidationErrors.Flugzeit = flighttimeValid ? '' : ' is invalid';
+            break;
+        case 'description':
+            console.log(value);
+            descriptionValid = value.length > 0 && value.length <= 1000;
+            fieldValidationErrors.Beschreibung = descriptionValid ? '' : ' is invalid';
+            break;
+        case 'xcdistance':
+            xcdistanceValid = value.length !== 0 && !isNaN(value);
+            fieldValidationErrors.Distanz = xcdistanceValid ? '' : ' is invalid';
+            break;
+          default:
+            break;
+        }
+        this.setState({formErrors: fieldValidationErrors,
+                        landingplaceValid: landingplaceValid,
+                        dateValid: dateValid,
+                        startplaceValid: startplaceValid,
+                        flighttimeValid: flighttimeValid,
+                        descriptionValid: descriptionValid,
+                        xcdistanceValid: xcdistanceValid
+                      }, this.validateForm);
+      }
+    
+      validateForm() {
+        this.setState({formValid: this.state.landingplaceValid && this.state.dateValid && this.state.startplaceValid && this.state.flighttimeValid && this.state.descriptionValid && this.state.xcdistanceValid});
+      }
+
+      errorClass(error) {
+        return(error.length === 0 ? '' : 'formular--error');
+      }
+
+    onChange(e){
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({[name]: value},
+            () => { this.validateField(name, value) });
+            console.log(name, value);
+     };
 
     handleChangeDate(d) {
-        this.setState({
-          startDate: d,
-          date: d._d.toLocaleDateString("de-ch",{
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-          })
-        });
+        if(d){
+            this.setState({
+                startDate: d,
+                date: d._d.toLocaleDateString("de-ch",{
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                })
+              });
+        }else{
+            //TODO: else-case
+            this.setState({
+                date: ''},
+                () => { this.validateField('date', 'false') 
+              });
+            console.log('startdate empty');
+        }
       }
 
     goNext(e){
         e.preventDefault();
-        console.log(this.state.date);
         let ftime = 0;
 
         if(Number(this.state.valueHour) > 0){
@@ -184,20 +272,27 @@ class FlugdatenFormContainer extends Component {
         }else{
             ftime = Number(this.state.valueMinute);
         }
-        
-        this.setState({
-            form1: false,
-            form2: true,
-            form3: false,
-            form4: false,
-            form5: false,
-            ani: 'form2',
-            date: this.state.date,
-            landingplace: this.state.landingplace,
-            flighttime: ftime,
-            xcdistance: this.state.xcdistance,
-            description: this.state.description
-        });
+
+        if(this.state.formValid){
+            this.setState({
+                form1: false,
+                form2: true,
+                form3: false,
+                form4: false,
+                form5: false,
+                ani: 'form2',
+                date: this.state.date,
+                landingplace: this.state.landingplace,
+                flighttime: ftime,
+                xcdistance: this.state.xcdistance,
+                description: this.state.description,
+                formTitleH2: 'Weitere optionale Daten zum Flug.',
+                validationTxt: ''
+            });
+        }else{
+            //TODO: else-case
+            console.log('not valid');
+        }
     }
 
     goNext2(e){
@@ -213,7 +308,8 @@ class FlugdatenFormContainer extends Component {
             heightgain: this.state.heightgain,
             maxclimb: this.state.maxclimb,
             startingtime: this.state.startingtime,
-            distance: this.state.distance
+            distance: this.state.distance,
+            formTitleH2: 'Weitere optionale Daten zum Flug.'
         });
         console.log('weiter');
     }
@@ -226,7 +322,8 @@ class FlugdatenFormContainer extends Component {
             form3: false,
             form4: false,
             form5: false,
-            ani: 'form1'
+            ani: 'form1',
+            formTitleH2: 'Erfasse deine Flugdaten.'
         });
     }
 
@@ -239,7 +336,8 @@ class FlugdatenFormContainer extends Component {
             form4: true,
             form5: false,
             ani: 'form4',
-            imgUrl: this.state.imgUrl
+            imgUrl: this.state.imgUrl,
+            formTitleH2: 'Weitere optionale Daten zum Flug.'
         });
     }
 
@@ -264,7 +362,8 @@ class FlugdatenFormContainer extends Component {
             form4: false,
             form5: true,
             ani: 'form5',
-            imgUrl: this.state.imgUrl
+            imgUrl: this.state.imgUrl,
+            formTitleH2: 'Screenshots zum Wetter hochladen.'
         });
     }
 
@@ -288,7 +387,8 @@ class FlugdatenFormContainer extends Component {
             form3: false,
             form4: true,
             form5: false,
-            ani: 'form4'
+            ani: 'form4',
+            formTitleH2: 'Weitere optionale Daten zum Flug.'
         });
     }
 
@@ -371,10 +471,24 @@ class FlugdatenFormContainer extends Component {
     }
 
     render() {
+        console.log('form '+this.state.formValid);
+        console.log('landingplace '+this.state.landingplaceValid);
+        console.log('date ' + this.state.dateValid);
+        console.log('startplace ' + this.state.startplaceValid);
+        console.log('fligthttime ' + this.state.flighttime);
         const sp = this.props.startplaces;
         return ( 
-            <div>
-                <ReactTransitionGroup>
+            <main className="main">
+                <section className="centered-layout">
+                    <FormTitle 
+                        children = {<FormAnimation
+                            xyz = {this.state.ani}
+                        />}
+                        classes = 'centered-layout__header'
+                        pageTitle = 'Pilotenseite'
+                        titleH2 = {this.state.formTitleH2}
+                    />
+                <ReactTransitionGroup component="div" className="formular-wrapper">
                 {this.state.form1 &&
                     <FlugdatenForm1 
                         onChange={this.onChange}
@@ -386,7 +500,7 @@ class FlugdatenFormContainer extends Component {
                         nameMinute={this.state.nameMinute}
                         nameComment={this.state.nameComment}
                         valueComment={this.state.description}
-                        ani={this.state.ani}
+                        ani={this.state.ani} 
                         getOptions={this.getOptions(sp)}
                         nameSP={this.state.nameStartplace}
                         selectedValueSP={this.state.startplace}
@@ -396,9 +510,15 @@ class FlugdatenFormContainer extends Component {
                         startDate={this.state.startDate}
                         handleChange={this.handleChangeDate}
                         onChangeDate={this.onChange}
+                        classNameDate={`formular__input-wrapper ${this.errorClass(this.state.formErrors.Datum)}`}
+                        classNameDateLP={`formular__input-wrapper ${this.errorClass(this.state.formErrors.Landeplatz)}`}
+                        classNameDateFT={`formular__input-wrapper ${this.errorClass(this.state.formErrors.Flugzeit)}` }
+                        classNameSP={`formular__input-wrapper ${this.errorClass(this.state.formErrors.Startplatz)}`}
+                        classNameDescription={`formular__input-wrapper formular__input--text ${this.errorClass(this.state.formErrors.Beschreibung)}`}
+                        classNameXcdistance={`formular__input-wrapper ${this.errorClass(this.state.formErrors.Distanz)}`}
                     /> }
                 </ReactTransitionGroup> 
-                <ReactTransitionGroup>
+                <ReactTransitionGroup component="div" className="formular-wrapper">
                     {this.state.form2 &&
                     <FlugdatenForm2 
                         onChange={this.onChange}
@@ -413,7 +533,7 @@ class FlugdatenFormContainer extends Component {
                         valueDistance={this.state.distance}
                     />}
                 </ReactTransitionGroup> 
-                <ReactTransitionGroup>
+                <ReactTransitionGroup component="div" className="formular-wrapper">
                     {this.state.form3 &&
                     <FlugdatenForm3 
                         onChange={this.onChange}
@@ -425,7 +545,7 @@ class FlugdatenFormContainer extends Component {
 
                     />}
                 </ReactTransitionGroup> 
-                <ReactTransitionGroup>
+                <ReactTransitionGroup component="div" className="formular-wrapper">
                     {this.state.form4 &&
                     <FlugdatenForm4 
                         onChange={this.onChange}
@@ -438,7 +558,7 @@ class FlugdatenFormContainer extends Component {
                         valueAirtribuneLink={this.state.airtribuneLink}
                     />}
                 </ReactTransitionGroup> 
-                <ReactTransitionGroup>
+                <ReactTransitionGroup component="div" className="formular-wrapper">
                     {this.state.form5 &&
                     <FlugdatenForm5 
                         onChange={this.onChange}
@@ -456,7 +576,9 @@ class FlugdatenFormContainer extends Component {
                         valueWeatherBisendiagramm={this.state.weatherBisendiagramm}
                     />}
                 </ReactTransitionGroup> 
-             </div>
+                <FormErrors formErrors={this.state.formErrors} />
+             </section>
+           </main>
         );
     }
 }

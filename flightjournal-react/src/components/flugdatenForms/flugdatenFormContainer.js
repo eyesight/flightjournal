@@ -18,11 +18,13 @@ import moment from 'moment';
 import 'moment/locale/de-ch'
 import 'react-datepicker/dist/react-datepicker.css';
 import * as validation from '../../utils/validationText';
-import {FormErrors} from '../formErrors/formErrors';
 import FormAnimation from '../formAnimation/formAnimation';
 import FormTitle from '../formTitle/formTitle';
+import FormErrorAlert from '../formErrorAlert/formErrorAlert';
 
 let obj = {};
+let minute = 0;
+let hour = 0;
 
 class FlugdatenFormContainer extends Component {
     constructor(props) {
@@ -45,14 +47,22 @@ class FlugdatenFormContainer extends Component {
           validationTxt: '',
           errorAlert: false,
 
-          formErrors: {Landeplatz: '', Datum: '', Startplatz: '', Flugzeit: '', valueHour: '', valueMinute: '', Beschreibung: '', Distanz: ''},
+          formErrors: {landingplace: '', date: '', startplace: '', flighttime: '', valueHour: '', valueMinute: '', description: '', xcdistance: '', maxaltitude: '', heightgain: '', maxclimb: '', startingtime: '', distance: ''},
+          formErrorsValid: {landingplace: false, date: true, startplace: false, flighttime: false, description: false, xcdistance: true, maxaltitude: true, heightgain: true, maxclimb: true, startingtime: true, distance: true,},
+          //form1
           landingplaceValid: false,
-          dateValid: false,
+          dateValid: true,
           startplaceValid: false,
           formValid: false, 
           flighttimeValid: false,
           descriptionValid: false,
-          xcdistanceValid: false,
+          xcdistanceValid: true,
+          //form2
+          maxaltitudeValid: true, 
+          heightgainValid: true,
+          maxclimbValid: true, 
+          startingtimeValid: true, 
+          distanceValid: true,
           
           //states for the flighttime and the names of inputfields
           valueHour:'',
@@ -187,48 +197,103 @@ class FlugdatenFormContainer extends Component {
         let dateValid = this.state.dateValid;
         let descriptionValid = this.state.descriptionValid;
         let xcdistanceValid = this.state.xcdistanceValid;
+
+        let maxaltitudeValid = this.state.maxaltitudeValid;
+        let heightgainValid = this.state.heightgainValid;
+        let maxclimbValid = this.state.maxclimbValid;
+        let startingtimeValid = this.state.startingtimeValid;
+        let distanceValid = this.state.distanceValid;
     
         switch(fieldName) {
           case 'landingplace':
-            landingplaceValid = value.length <= 30;
-            fieldValidationErrors.Landeplatz = landingplaceValid ? '' : ' is invalid';
+            landingplaceValid = value.length > 0 && value.length <= 50 && value !== '' && (typeof value === 'string');
+            fieldValidationErrors.landingplace = landingplaceValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess50}.`;
             break;
           case 'date':
-            dateValid = value.match(/^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{4}$/i);
-            fieldValidationErrors.Datum = dateValid ? '' : ' is invalid';
+            dateValid = (/^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{4}$/i).test(this.state.date);
+            fieldValidationErrors.date = dateValid ? '' : `${validation.valField} ${validation.valDate}.`;
             break;
           case 'startplace':
-            startplaceValid = (value !== '0');
-            fieldValidationErrors.Startplatz = startplaceValid ? '' : ' is invalid';
+            startplaceValid = value.length > 0 && value.length <= 50 && (typeof value === 'string') && value !== '0';
+            fieldValidationErrors.startplace = startplaceValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess50}.`;
             break;
-          case 'valueHour' || 'valueMinute':
-            flighttimeValid = (value !== '0');
-            fieldValidationErrors.Flugzeit = flighttimeValid ? '' : ' is invalid';
+          case 'flighttime':
+            flighttimeValid = value !== 0 && !isNaN(value);
+            fieldValidationErrors.flighttime = flighttimeValid ? '' : `${validation.valField} ${validation.valEmpty}.`;
             break;
         case 'description':
-            console.log(value);
-            descriptionValid = value.length > 0 && value.length <= 1000;
-            fieldValidationErrors.Beschreibung = descriptionValid ? '' : ' is invalid';
+            descriptionValid = value.length > 0 && value.length <= 1000 && (typeof value === 'string');
+            fieldValidationErrors.description = descriptionValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess1000}.`;
             break;
         case 'xcdistance':
-            xcdistanceValid = value.length !== 0 && !isNaN(value);
-            fieldValidationErrors.Distanz = xcdistanceValid ? '' : ' is invalid';
+            xcdistanceValid = value.length === 0 || (!isNaN(value) && value.length <= 5);
+            fieldValidationErrors.xcdistance = xcdistanceValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
+            break;
+
+        case 'maxaltitude':
+            maxaltitudeValid = value.length === 0 || (!isNaN(value) && value.length <= 5);
+            fieldValidationErrors.maxaltitude = maxaltitudeValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
+            break;
+        case 'heightgain':
+            heightgainValid = value.length === 0 || (!isNaN(value) && value.length <= 5);
+            fieldValidationErrors.heightgain = heightgainValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
+            break;
+        case 'maxclimb':
+            maxclimbValid = value.length === 0 || (!isNaN(value) && value.length <= 5);
+            fieldValidationErrors.maxclimb = maxclimbValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
+            break;
+        case 'startingtime':
+            startingtimeValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.startingtime = startingtimeValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
+            break;
+        case 'distance':
+            distanceValid = value.length === 0 || (!isNaN(value) && value.length <= 5);
+            fieldValidationErrors.distance = distanceValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
             break;
           default:
             break;
         }
-        this.setState({formErrors: fieldValidationErrors,
+        this.setState({ formErrorsValid: {
+            landingplace: landingplaceValid, 
+            date: dateValid, 
+            startplace: startplaceValid, 
+            flighttime: flighttimeValid, 
+            description: descriptionValid, 
+            xcdistance: xcdistanceValid, 
+
+            maxaltitude: maxaltitudeValid,
+            heightgain: heightgainValid,
+            maxclimb: maxclimbValid,
+            startingtime: startingtimeValid,
+            distance: distanceValid
+        },
                         landingplaceValid: landingplaceValid,
                         dateValid: dateValid,
                         startplaceValid: startplaceValid,
                         flighttimeValid: flighttimeValid,
                         descriptionValid: descriptionValid,
-                        xcdistanceValid: xcdistanceValid
+                        xcdistanceValid: xcdistanceValid,
+                        maxaltitudeValid: maxaltitudeValid,
+                        heightgainValid: heightgainValid,
+                        maxclimbValid: maxclimbValid,
+                        startingtimeValid: startingtimeValid,
+                        distanceValid: distanceValid
                       }, this.validateForm);
       }
     
       validateForm() {
-        this.setState({formValid: this.state.landingplaceValid && this.state.dateValid && this.state.startplaceValid && this.state.flighttimeValid && this.state.descriptionValid && this.state.xcdistanceValid});
+        this.setState({formValid: this.state.landingplaceValid && 
+            this.state.dateValid && 
+            this.state.startplaceValid && 
+            this.state.flighttimeValid && 
+            this.state.descriptionValid && 
+            this.state.xcdistanceValid &&
+            this.state.maxaltitudeValid &&
+            this.state.heightgainValid &&
+            this.state.maxclimbValid &&
+            this.state.startingtimeValid &&
+            this.state.distanceValid
+        });
       }
 
       errorClass(error) {
@@ -238,9 +303,24 @@ class FlugdatenFormContainer extends Component {
     onChange(e){
         const name = e.target.name;
         const value = e.target.value;
+        let ftime = 0;
         this.setState({[name]: value},
             () => { this.validateField(name, value) });
-            console.log(name, value);
+
+        //validate flighttime on change
+        //TODO: make it as function - i use the same in onSubmit
+        if(name === 'valueMinute' || name === 'valueHour'){
+            if(name === 'valueMinute'){
+                minute = Number(value);
+             }  else if(name === 'valueHour'){
+                hour = Number(value*60);
+             }
+             ftime = hour + minute;
+             this.setState({
+                flighttime: ftime},
+                () => { this.validateField('flighttime', ftime) 
+              });
+        }
      };
 
     handleChangeDate(d) {
@@ -252,29 +332,36 @@ class FlugdatenFormContainer extends Component {
                   month: "2-digit",
                   day: "2-digit",
                 })
-              });
+              },
+              () => { this.validateField('date', d._d.toLocaleDateString("de-ch",{
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              })) 
+            });
         }else{
-            //TODO: else-case
             this.setState({
                 date: ''},
                 () => { this.validateField('date', 'false') 
               });
-            console.log('startdate empty');
         }
       }
 
     goNext(e){
         e.preventDefault();
         let ftime = 0;
-
+        
         if(Number(this.state.valueHour) > 0){
             ftime = (Number(this.state.valueHour)*60) + Number(this.state.valueMinute);
         }else{
             ftime = Number(this.state.valueMinute);
         }
-
+        this.setState({flighttime: ftime},
+            () => { this.validateField('flighttime', ftime) 
+          })
         if(this.state.formValid){
             this.setState({
+                errorAlert: false,
                 form1: false,
                 form2: true,
                 form3: false,
@@ -290,28 +377,40 @@ class FlugdatenFormContainer extends Component {
                 validationTxt: ''
             });
         }else{
-            //TODO: else-case
-            console.log('not valid');
-        }
-    }
+            this.setState({errorAlert: true})
+             Object.keys(this.state.formErrorsValid).map((fieldName, i) => {
+                    this.errorClass(this.state.formErrors[fieldName]);
+                    this.validateField(fieldName, this.state[fieldName]);
+                    return '';
+        });
+    }}
 
     goNext2(e){
         e.preventDefault();
-        this.setState({
-            form1: false,
-            form2: false,
-            form3: true,
-            form4: false,
-            form5: false,
-            ani: 'form3',
-            maxaltitude: this.state.maxaltitude,
-            heightgain: this.state.heightgain,
-            maxclimb: this.state.maxclimb,
-            startingtime: this.state.startingtime,
-            distance: this.state.distance,
-            formTitleH2: 'Weitere optionale Daten zum Flug.'
+        if(this.state.formValid){
+            this.setState({
+                errorAlert: false,
+                form1: false,
+                form2: false,
+                form3: true,
+                form4: false,
+                form5: false,
+                ani: 'form3',
+                maxaltitude: this.state.maxaltitude,
+                heightgain: this.state.heightgain,
+                maxclimb: this.state.maxclimb,
+                startingtime: this.state.startingtime,
+                distance: this.state.distance,
+                formTitleH2: 'Weitere optionale Daten zum Flug.'
+            });
+        }else{
+            this.setState({errorAlert: true})
+                Object.keys(this.state.formErrorsValid).map((fieldName, i) => {
+                    this.errorClass(this.state.formErrors[fieldName]);
+                    this.validateField(fieldName, this.state[fieldName]);
+                    return '';
         });
-        console.log('weiter');
+    }
     }
 
     goBack2(e){
@@ -394,18 +493,17 @@ class FlugdatenFormContainer extends Component {
 
     onSubmit(e){
         e.preventDefault();
-        console.log(this.state.date);
         let ftime = 0;
         if(Number(this.state.valueHour) > 0){
             ftime = (Number(this.state.valueHour)*60) + Number(this.state.valueMinute);
         }else{
             ftime = Number(this.state.valueMinute);
         }
-        this.setState({
-            flighttime: ftime,
-            flightID: ''
-        });
-
+        this.setState({flighttime: ftime, flightID: ''},
+            () => { this.validateField('flighttime', ftime) 
+          })
+        if(this.state.formValid){
+         this.setState({errorAlert: false})
         obj = {
             pilot: this.props.user.email,
             pilotId: this.props.user.uid,
@@ -443,6 +541,14 @@ class FlugdatenFormContainer extends Component {
             this.props.saveFlights(obj).then(this.props.dispatch(reset('NewPost')));
         }
         this.props.history.push(routes.LANDING);
+    }else{
+        this.setState({errorAlert: true})
+        Object.keys(this.state.formErrorsValid).map((fieldName, i) => {
+               this.errorClass(this.state.formErrors[fieldName]);
+               this.validateField(fieldName, this.state[fieldName]);
+               return '';
+         });
+        }
     }
 
     getOptions(sp){
@@ -471,11 +577,6 @@ class FlugdatenFormContainer extends Component {
     }
 
     render() {
-        console.log('form '+this.state.formValid);
-        console.log('landingplace '+this.state.landingplaceValid);
-        console.log('date ' + this.state.dateValid);
-        console.log('startplace ' + this.state.startplaceValid);
-        console.log('fligthttime ' + this.state.flighttime);
         const sp = this.props.startplaces;
         return ( 
             <main className="main">
@@ -510,12 +611,18 @@ class FlugdatenFormContainer extends Component {
                         startDate={this.state.startDate}
                         handleChange={this.handleChangeDate}
                         onChangeDate={this.onChange}
-                        classNameDate={`formular__input-wrapper ${this.errorClass(this.state.formErrors.Datum)}`}
-                        classNameDateLP={`formular__input-wrapper ${this.errorClass(this.state.formErrors.Landeplatz)}`}
-                        classNameDateFT={`formular__input-wrapper ${this.errorClass(this.state.formErrors.Flugzeit)}` }
-                        classNameSP={`formular__input-wrapper ${this.errorClass(this.state.formErrors.Startplatz)}`}
-                        classNameDescription={`formular__input-wrapper formular__input--text ${this.errorClass(this.state.formErrors.Beschreibung)}`}
-                        classNameXcdistance={`formular__input-wrapper ${this.errorClass(this.state.formErrors.Distanz)}`}
+                        classNameDate={`formular__input-wrapper ${this.errorClass(this.state.formErrors.date)}`}
+                        classNameDateLP={`formular__input-wrapper ${this.errorClass(this.state.formErrors.landingplace)}`}
+                        classNameDateFT={`formular__input-wrapper ${this.errorClass(this.state.formErrors.flighttime)}` }
+                        classNameSP={`formular__input-wrapper ${this.errorClass(this.state.formErrors.startplace)}`}
+                        classNameDescription={`formular__input-wrapper formular__input--text ${this.errorClass(this.state.formErrors.description)}`}
+                        classNameXcdistance={`formular__input-wrapper ${this.errorClass(this.state.formErrors.xcdistance)}`}
+                        errorMessageLP={this.state.formErrors.landingplace}
+                        errorMessageST={this.state.formErrors.startplace}
+                        errorMessageDate={this.state.formErrors.date}
+                        errorMessageFT={this.state.formErrors.flighttime}
+                        errorMessageXC={this.state.formErrors.xcdistance}
+                        errorMessageDesc={this.state.formErrors.description}
                     /> }
                 </ReactTransitionGroup> 
                 <ReactTransitionGroup component="div" className="formular-wrapper">
@@ -531,6 +638,16 @@ class FlugdatenFormContainer extends Component {
                         valueMaxclimb={this.state.maxclimb}
                         valueStartingtime={this.state.startingtime}
                         valueDistance={this.state.distance}
+                        classNamemaxaltitude={`formular__input-wrapper ${this.errorClass(this.state.formErrors.maxaltitude)}`}
+                        classNameheightgain={`formular__input-wrapper margin-top-0 ${this.errorClass(this.state.formErrors.heightgain)}`}
+                        classNamemaxclimb={`formular__input-wrapper ${this.errorClass(this.state.formErrors.maxclimb)}`}
+                        classNamestartingtime={`formular__input-wrapper ${this.errorClass(this.state.formErrors.startingtime)}`}
+                        classNamedistance={`formular__input-wrapper ${this.errorClass(this.state.formErrors.distance)}`}
+                        errorMessagemaxaltitude={this.state.formErrors.maxaltitude}
+                        errorMessageheightgain={this.state.formErrors.heightgain}
+                        errorMessagemaxclimp={this.state.formErrors.maxclimb}
+                        errorMessagestartingtime={this.state.formErrors.startingtime}
+                        errorMessagedistance={this.state.formErrors.distance}
                     />}
                 </ReactTransitionGroup> 
                 <ReactTransitionGroup component="div" className="formular-wrapper">
@@ -576,7 +693,7 @@ class FlugdatenFormContainer extends Component {
                         valueWeatherBisendiagramm={this.state.weatherBisendiagramm}
                     />}
                 </ReactTransitionGroup> 
-                <FormErrors formErrors={this.state.formErrors} />
+                {this.state.errorAlert && <FormErrorAlert>{validation.valForm}</FormErrorAlert>}
              </section>
            </main>
         );

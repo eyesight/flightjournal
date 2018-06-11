@@ -22,7 +22,7 @@ class FlugdatenForm1 extends Component {
     }
 
     render() {
-        const { onChange, onSubmit, valueHour, valueMinute, nameHour, nameMinute, nameComment, valueComment, goNext, nameSP, getOptions, goToPage, valueLandeplatz, valueXcdistance, selectedValueSP, handleChange, startDate, classNameDate, classNameDateLP, classNameDateFT, classNameSP, classNameDescription, classNameXcdistance} = this.props;
+        const { onChange, onSubmit, valueHour, valueMinute, nameHour, nameMinute, nameComment, valueComment, goNext, nameSP, getOptions, goToPage, valueLandeplatz, valueXcdistance, selectedValueSP, handleChange, startDate, classNameDate, classNameDateLP, classNameDateFT, classNameSP, classNameDescription, classNameXcdistance, errorMessageLP, errorMessageST, errorMessageDate, errorMessageFT, errorMessageXC, errorMessageDesc} = this.props;
         return ( 
             <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
                 <div className={classNameDate}>
@@ -35,6 +35,7 @@ class FlugdatenForm1 extends Component {
                         className='formular__input'
                         name='date'
                     />
+                    <span className='formular__validation'>{errorMessageDate}</span>
                 </div>
                 <div className="formular__input-Icon-wrapper margin-top-0">
                 <div className={classNameSP}>
@@ -44,6 +45,7 @@ class FlugdatenForm1 extends Component {
                                 onChange={onChange}>{getOptions}
                         </select>
                     </div>
+                    <span className='formular__validation'>{errorMessageST}</span>
                 </div>
                 <a className="link link--black link-with-icon" onClick={goToPage}><i className="fas fa-plus"></i> Startplatz erfassen </a>
                 </div>
@@ -56,6 +58,8 @@ class FlugdatenForm1 extends Component {
                     name='landingplace'
                     value={valueLandeplatz}
                     autocomp=''
+                    classNamesError='formular__validation'
+                    errorMessage={errorMessageLP}
                 />
                 <a className="link link--black link-with-icon" ><i className="fas fa-map-marker-alt"></i> Aktueller Standort </a>
                 </div>
@@ -77,6 +81,7 @@ class FlugdatenForm1 extends Component {
                             <option className="formular__dropdown-option" value="3">3 Minuten</option>
                         </select>
                     </div>
+                    <span className='formular__validation'>{errorMessageFT}</span>
                 </div>
                 <InputField 
                     classes={classNameXcdistance}
@@ -86,10 +91,13 @@ class FlugdatenForm1 extends Component {
                     name='xcdistance'
                     autocomp=''
                     value={valueXcdistance}
+                    classNamesError='formular__validation'
+                    errorMessage={errorMessageXC}
                 />
                 <div className={classNameDescription}>
                     <label className="formular__label">Kommentar:</label>
                     <textarea className="formular__input" type="text" name={nameComment} value={valueComment} onChange={onChange}></textarea>
+                    <span className='formular__validation'>{errorMessageDesc}</span>
                 </div>
                 <div className="button-group">
                     <div className="button-wrapper">

@@ -20,35 +20,41 @@ class FlugdatenForm4 extends Component {
         TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px", onComplete: callback});
     }
     render() {
-        const { onChange, onSubmit, goBack, goNext, valueSyrideLink, valueXcontestLink, valueAirtribuneLink} = this.props;
+        const { onChange, onSubmit, goBack, goNext, valueSyrideLink, valueXcontestLink, valueAirtribuneLink, errorMessageSyrideLink, errorMessageXcontestLink, errorMessageAirtribuneLink, classNameSyrideLink, classNameXcontestLink, classNameAirtribuneLink} = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameSyrideLink}
                     label='Syride Link hinzufügen'
                     inputAction={onChange}
                     type='text'
                     name='syrideLink'
                     autocomp=''
                     value={valueSyrideLink}
+                    classNamesError='formular__validation'
+                    errorMessage={errorMessageSyrideLink}
                 />
                 <InputField 
-                    classes='formular__input-wrapper margin-top-0'
+                    classes={classNameXcontestLink}
                     label='X-Contest Link hinzufügen'
                     inputAction={onChange}
                     type='text'
                     name='xcontestLink'
                     autocomp=''
                     value={valueXcontestLink}
+                    classNamesError='formular__validation'
+                    errorMessage={errorMessageXcontestLink}
                 />
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameAirtribuneLink}
                     label='Airtribune Link hinzufügenn'
                     inputAction={onChange}
                     type='text'
                     name='airtribuneLink'
                     autocomp=''
                     value={valueAirtribuneLink}
+                    classNamesError='formular__validation'
+                    errorMessage={errorMessageAirtribuneLink}
                 />
                 <div className="button-group">
                     <div className="button-wrapper">

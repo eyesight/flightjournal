@@ -58,7 +58,6 @@ class FlugdatenForm2 extends Component {
                     />
                     <InputField 
                         classes={classNamestartingtime}
-                        classes='formular__input-wrapper'
                         label='Startzeit'
                         inputAction={onChange}
                         type='text'

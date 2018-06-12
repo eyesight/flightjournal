@@ -20,89 +20,107 @@ class FlugdatenForm5 extends Component {
         TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px", onComplete: callback});
     }
     render() {
-        const { onChange, onSubmit, goBack, valueWeatherFoehndiagramm, valueWeatherWindBoden, valueWeatherWind800m, valueWeatherWind1500m, valueWeatherWind3000m, valueWeatherRegtherm, valueWeatherFronten, valueWeatherSoaringmeteo, valueWeatherBisendiagramm} = this.props;
+        const { onChange, onSubmit, goBack, valueWeatherFoehndiagramm, valueWeatherWindBoden, valueWeatherWind800m, valueWeatherWind1500m, valueWeatherWind3000m, valueWeatherRegtherm, valueWeatherFronten, valueWeatherSoaringmeteo, valueWeatherBisendiagramm, errorMessageWeatherFoehndiagramm, errorMessageWeatherWindBoden, errorMessageWeatherWind800m, errorMessageWeatherWind1500m, errorMessageWeatherWind3000m, errorMessageWeatherRegtherm, errorMessageWeatherFronten, errorMessageWeatherSoaringmeteo, errorMessageWeatherBisendiagramm, classNameweatherFoehndiagramm, classNamevalueWeatherWindBoden, classNameweatherWind800m, classNameweatherWind1500m, classNameweatherWind3000m, classNameweatherRegtherm, classNameweatherFronten, classNameweatherSoaringmeteo, classNameweatherBisendiagramm} = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameweatherFoehndiagramm}
                     label='Föhndiagramm'
                     inputAction={onChange}
                     type='text'
                     name='weatherFoehndiagramm'
                     autocomp=''
                     value={valueWeatherFoehndiagramm}
+                    classNamesError='formular__validation'
+                    errorMessage={errorMessageWeatherFoehndiagramm}
                 />
                 <InputField 
-                    classes='formular__input-wrapper margin-top-0'
+                    classes={classNamevalueWeatherWindBoden}
                     label='Wind Boden'
                     inputAction={onChange}
                     type='text'
                     name='weatherWindBoden'
                     autocomp=''
                     value={valueWeatherWindBoden}
+                    classNamesError='formular__validation'
+                    errorMessage={errorMessageWeatherWindBoden}
                 />
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameweatherWind800m}
                     label='Wind 800 m'
                     inputAction={onChange}
                     type='text'
                     name='weatherWind800m'
                     autocomp=''
                     value={valueWeatherWind800m}
+                    classNamesError='formular__validation'
+                    errorMessage={errorMessageWeatherWind800m}
                 />
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameweatherWind1500m}
                     label='Wind 1500 m'
                     inputAction={onChange}
                     type='text'
                     name='weatherWind1500m'
                     autocomp=''
                     value={valueWeatherWind1500m}
+                    classNamesError='formular__validation'
+                    errorMessage={errorMessageWeatherWind1500m}
                 />
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameweatherWind3000m}
                     label='Wind 3000 m '
                     inputAction={onChange}
                     type='text'
                     name='weatherWind3000m'
                     autocomp=''
                     value={valueWeatherWind3000m}
+                    classNamesError='formular__validation'
+                    errorMessage={errorMessageWeatherWind3000m}
                 />
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameweatherRegtherm}
                     label='Regtherm'
                     inputAction={onChange}
                     type='text'
                     name='weatherRegtherm'
                     autocomp=''
                     value={valueWeatherRegtherm}
+                    classNamesError='formular__validation'
+                    errorMessage={errorMessageWeatherRegtherm}
                 />
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameweatherFronten}
                     label='Fronten'
                     inputAction={onChange}
                     type='text'
                     name='weatherFronten'
                     autocomp=''
                     value={valueWeatherFronten}
+                    classNamesError='formular__validation'
+                    errorMessage={errorMessageWeatherFronten}
                 />
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameweatherSoaringmeteo}
                     label='Soaringmeteo'
                     inputAction={onChange}
                     type='text'
                     name='weatherSoaringmeteo'
                     autocomp=''
                     value={valueWeatherSoaringmeteo}
+                    classNamesError='formular__validation'
+                    errorMessage={errorMessageWeatherSoaringmeteo}
                 />
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameweatherBisendiagramm}
                     label='Bisendiagramm'
-                    inputAction={onChange}
+                    inputAction={onChange} 
                     type='text'
                     name='weatherBisendiagramm'
                     autocomp=''
                     value={valueWeatherBisendiagramm}
+                    classNamesError='formular__validation'
+                    errorMessage={errorMessageWeatherBisendiagramm}
                 />
                 <div className="button-group">
                     <div className="button-wrapper">

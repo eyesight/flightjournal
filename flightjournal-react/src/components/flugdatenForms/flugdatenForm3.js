@@ -20,17 +20,19 @@ class FlugdatenForm3 extends Component {
         TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px", onComplete: callback});
     }
     render() {
-        const { onChange, onSubmit, goBack, goNext, valueImgUrl} = this.props;
+        const { onChange, onSubmit, goBack, goNext, valueImgUrl, classNameimgUrl, errorMessageimgUrl} = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
                 <InputField 
-                    classes='formular__input-wrapper formular__input-wrapper--centered'
+                    classes={classNameimgUrl}
                     label='Bilder hochladen.'
                     inputAction={onChange}
                     type='text'
                     name='imgUrl'
                     autocomp=''
                     value={valueImgUrl}
+                    classNamesError='formular__validation'
+                    errorMessage={errorMessageimgUrl}
                 />
                 <div className="button-group">
                     <div className="button-wrapper">

@@ -47,8 +47,8 @@ class FlugdatenFormContainer extends Component {
           validationTxt: '',
           errorAlert: false,
 
-          formErrors: {landingplace: '', date: '', startplace: '', flighttime: '', valueHour: '', valueMinute: '', description: '', xcdistance: '', maxaltitude: '', heightgain: '', maxclimb: '', startingtime: '', distance: ''},
-          formErrorsValid: {landingplace: false, date: true, startplace: false, flighttime: false, description: false, xcdistance: true, maxaltitude: true, heightgain: true, maxclimb: true, startingtime: true, distance: true,},
+          formErrors: {landingplace: '', date: '', startplace: '', flighttime: '', valueHour: '', valueMinute: '', description: '', xcdistance: '', maxaltitude: '', heightgain: '', maxclimb: '', startingtime: '', distance: '', imgUrl:'', syrideLink: '', xcontestLink: '', airtribuneLink: '',weatherFoehndiagramm: '', weatherWindBoden: '', weatherWind800m: '', weatherWind1500m: '', weatherWind3000m: '', weatherRegtherm: '', weatherFronten: '', weatherSoaringmeteo: '', weatherBisendiagramm: ''},
+          formErrorsValid: {landingplace: false, date: true, startplace: false, flighttime: false, description: false, xcdistance: true, maxaltitude: true, heightgain: true, maxclimb: true, startingtime: true, distance: true, imgUrl: true, syrideLink: true, xcontestLink: true, airtribuneLink: true, weatherFoehndiagramm: true, weatherWindBoden: true, weatherWind800m: true, weatherWind1500m: true, weatherWind3000m: true, weatherRegtherm: true, weatherFronten: true, weatherSoaringmeteo: true, weatherBisendiagramm: true},
           //form1
           landingplaceValid: false,
           dateValid: true,
@@ -63,7 +63,23 @@ class FlugdatenFormContainer extends Component {
           maxclimbValid: true, 
           startingtimeValid: true, 
           distanceValid: true,
-          
+          //form3
+          imgUrlValid: true,
+          //form4
+          syrideLinkValid: true,
+          xcontestLinkValid: true,
+          airtribuneLinkValid: true,
+          //form5
+          weatherFoehndiagrammValid: true,
+          weatherWindBodenValid: true,
+          weatherWind800mValid: true,
+          weatherWind1500mValid: true,
+          weatherWind3000mValid: true,
+          weatherRegthermValid: true,
+          weatherFrontenValid: true,
+          weatherSoaringmeteoValid: true,
+          weatherBisendiagrammValid: true,
+
           //states for the flighttime and the names of inputfields
           valueHour:'',
           valueMinute: '',
@@ -197,13 +213,29 @@ class FlugdatenFormContainer extends Component {
         let dateValid = this.state.dateValid;
         let descriptionValid = this.state.descriptionValid;
         let xcdistanceValid = this.state.xcdistanceValid;
-
+        //form2
         let maxaltitudeValid = this.state.maxaltitudeValid;
         let heightgainValid = this.state.heightgainValid;
         let maxclimbValid = this.state.maxclimbValid;
         let startingtimeValid = this.state.startingtimeValid;
         let distanceValid = this.state.distanceValid;
-    
+        //form3
+        let imgUrlValid = this.state.imgUrlValid
+        //form4
+        let syrideLinkValid = this.state.syrideLinkValid
+        let xcontestLinkValid = this.state.xcontestLinkValid
+        let airtribuneLinkValid = this.state.airtribuneLinkValid
+        //form4
+        let weatherFoehndiagrammValid = this.state.weatherFoehndiagrammValid
+        let weatherWindBodenValid = this.state.weatherWindBodenValid
+        let weatherWind800mValid = this.state.weatherWind800mValid
+        let weatherWind1500mValid = this.state.weatherWind1500mValid
+        let weatherWind3000mValid = this.state.weatherWind3000mValid
+        let weatherRegthermValid = this.state.weatherRegthermValid
+        let weatherFrontenValid = this.state.weatherFrontenValid
+        let weatherSoaringmeteoValid = this.state.weatherSoaringmeteoValid
+        let weatherBisendiagrammValid = this.state.weatherBisendiagrammValid
+
         switch(fieldName) {
           case 'landingplace':
             landingplaceValid = value.length > 0 && value.length <= 50 && value !== '' && (typeof value === 'string');
@@ -229,7 +261,7 @@ class FlugdatenFormContainer extends Component {
             xcdistanceValid = value.length === 0 || (!isNaN(value) && value.length <= 5);
             fieldValidationErrors.xcdistance = xcdistanceValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
             break;
-
+        //form2
         case 'maxaltitude':
             maxaltitudeValid = value.length === 0 || (!isNaN(value) && value.length <= 5);
             fieldValidationErrors.maxaltitude = maxaltitudeValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
@@ -250,6 +282,61 @@ class FlugdatenFormContainer extends Component {
             distanceValid = value.length === 0 || (!isNaN(value) && value.length <= 5);
             fieldValidationErrors.distance = distanceValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
             break;
+        //form3
+        case 'imgUrl':
+            imgUrlValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.imgUrl = imgUrlValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            break;
+        //form4
+        case 'syrideLink':
+            syrideLinkValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.syrideLink = syrideLinkValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            break;
+        case 'xcontestLink':
+            xcontestLinkValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.xcontestLink = xcontestLinkValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            break;
+        case 'airtribuneLink':
+            airtribuneLinkValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.airtribuneLink = airtribuneLinkValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            break;
+        //form5
+        case 'weatherFoehndiagramm':
+            weatherFoehndiagrammValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.weatherFoehndiagramm = weatherFoehndiagrammValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            break;
+        case 'weatherWindBoden':
+            weatherWindBodenValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.weatherWindBoden = weatherWindBodenValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            break;
+        case 'weatherWind800m':
+            weatherWind800mValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.weatherWind800m = weatherWind800mValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            break;
+        case 'weatherWind1500m':
+            weatherWind1500mValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.weatherWind1500m = weatherWind1500mValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            break;
+        case 'weatherWind3000m':
+            weatherWind3000mValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.weatherWind3000m = weatherWind3000mValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            break;
+        case 'weatherRegtherm':
+            weatherRegthermValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.weatherRegtherm = weatherRegthermValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            break;
+        case 'weatherFronten':
+            weatherFrontenValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.weatherFronten = weatherFrontenValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            break;
+        case 'weatherSoaringmeteo':
+            weatherSoaringmeteoValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.weatherSoaringmeteo = weatherSoaringmeteoValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            break;
+        case 'weatherBisendiagramm':
+            weatherBisendiagrammValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.weatherBisendiagramm = weatherBisendiagrammValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            break;
           default:
             break;
         }
@@ -260,12 +347,24 @@ class FlugdatenFormContainer extends Component {
             flighttime: flighttimeValid, 
             description: descriptionValid, 
             xcdistance: xcdistanceValid, 
-
             maxaltitude: maxaltitudeValid,
             heightgain: heightgainValid,
             maxclimb: maxclimbValid,
             startingtime: startingtimeValid,
-            distance: distanceValid
+            distance: distanceValid,
+            imgUrl: imgUrlValid,
+            syrideLink: syrideLinkValid,
+            xcontestLink: xcontestLinkValid,
+            airtribuneLink: airtribuneLinkValid,
+            weatherFoehndiagramm: weatherFoehndiagrammValid,
+            weatherWindBoden: weatherWindBodenValid,
+            weatherWind800m: weatherWind800mValid,
+            weatherWind1500m: weatherWind1500mValid,
+            weatherWind3000m: weatherWind3000mValid,
+            weatherRegtherm: weatherRegthermValid,
+            weatherFronten: weatherFrontenValid,
+            weatherSoaringmeteo: weatherSoaringmeteoValid,
+            weatherBisendiagramm: weatherBisendiagrammValid
         },
                         landingplaceValid: landingplaceValid,
                         dateValid: dateValid,
@@ -277,9 +376,22 @@ class FlugdatenFormContainer extends Component {
                         heightgainValid: heightgainValid,
                         maxclimbValid: maxclimbValid,
                         startingtimeValid: startingtimeValid,
-                        distanceValid: distanceValid
+                        distanceValid: distanceValid,
+                        imgUrlValid: imgUrlValid,
+                        syrideLinkValid: syrideLinkValid,
+                        xcontestLinkValid: xcontestLinkValid,
+                        airtribuneLinkValid: airtribuneLinkValid,
+                        weatherFoehndiagrammValid: weatherFoehndiagrammValid,
+                        weatherWindBodenValid: weatherWindBodenValid,
+                        weatherWind800mValid: weatherWind800mValid,
+                        weatherWind1500mValid: weatherWind1500mValid,
+                        weatherWind3000mValid: weatherWind3000mValid,
+                        weatherRegthermValid: weatherRegthermValid,
+                        weatherFrontenValid: weatherFrontenValid,
+                        weatherSoaringmeteoValid: weatherSoaringmeteoValid,
+                        weatherBisendiagrammValid: weatherBisendiagrammValid,
                       }, this.validateForm);
-      }
+      } 
     
       validateForm() {
         this.setState({formValid: this.state.landingplaceValid && 
@@ -292,7 +404,20 @@ class FlugdatenFormContainer extends Component {
             this.state.heightgainValid &&
             this.state.maxclimbValid &&
             this.state.startingtimeValid &&
-            this.state.distanceValid
+            this.state.distanceValid &&
+            this.state.imgUrlValid &&
+            this.state.syrideLinkValid &&
+            this.state.xcontestLinkValid &&
+            this.state.airtribuneLinkValid &&
+            this.state.weatherFoehndiagrammValid &&
+            this.state.weatherWindBodenValid &&
+            this.state.weatherWind800mValid &&
+            this.state.weatherWind1500mValid &&
+            this.state.weatherWind3000mValid &&
+            this.state.weatherRegthermValid &&
+            this.state.weatherFrontenValid &&
+            this.state.weatherSoaringmeteoValid &&
+            this.state.weatherBisendiagrammValid,
         });
       }
 
@@ -401,7 +526,7 @@ class FlugdatenFormContainer extends Component {
                 maxclimb: this.state.maxclimb,
                 startingtime: this.state.startingtime,
                 distance: this.state.distance,
-                formTitleH2: 'Weitere optionale Daten zum Flug.'
+                formTitleH2: 'Bilder hochladen.'
             });
         }else{
             this.setState({errorAlert: true})
@@ -422,22 +547,33 @@ class FlugdatenFormContainer extends Component {
             form4: false,
             form5: false,
             ani: 'form1',
-            formTitleH2: 'Erfasse deine Flugdaten.'
+            formTitleH2: 'Erfasse deine Flugdaten.',
         });
     }
 
     goNext3(e){
         e.preventDefault();
-        this.setState({
-            form1: false,
-            form2: false,
-            form3: false,
-            form4: true,
-            form5: false,
-            ani: 'form4',
-            imgUrl: this.state.imgUrl,
-            formTitleH2: 'Weitere optionale Daten zum Flug.'
+        if(this.state.formValid){
+            this.setState({
+                errorAlert: false,
+                form1: false,
+                form2: false,
+                form3: false,
+                form4: true,
+                form5: false,
+                ani: 'form4',
+                imgUrl: this.state.imgUrl,
+                formTitleH2: 'Links zu anderen Flugplatformen.'
         });
+        }else{
+            console.log('dfdf');
+            this.setState({errorAlert: true})
+                Object.keys(this.state.formErrorsValid).map((fieldName, i) => {
+                    this.errorClass(this.state.formErrors[fieldName]);
+                    this.validateField(fieldName, this.state[fieldName]);
+                    return '';
+        });
+        }
     }
 
     goBack3(e){
@@ -448,22 +584,34 @@ class FlugdatenFormContainer extends Component {
             form3: false,
             form4: false,
             form5: false,
-            ani: 'form2'
+            ani: 'form2',
+            formTitleH2: 'Weitere optionale Daten zum Flug.'
         });
     }
 
     goNext4(e){
         e.preventDefault();
-        this.setState({
-            form1: false,
-            form2: false,
-            form3: false,
-            form4: false,
-            form5: true,
-            ani: 'form5',
-            imgUrl: this.state.imgUrl,
-            formTitleH2: 'Screenshots zum Wetter hochladen.'
+        if(this.state.formValid){
+            this.setState({
+                errorAlert: false,
+                form1: false,
+                form2: false,
+                form3: false,
+                form4: false,
+                form5: true,
+                ani: 'form5',
+                imgUrl: this.state.imgUrl,
+                formTitleH2: 'Screenshots zum Wetter hochladen.'
+            });
+        }else{
+            console.log('dfdf');
+            this.setState({errorAlert: true})
+                Object.keys(this.state.formErrorsValid).map((fieldName, i) => {
+                    this.errorClass(this.state.formErrors[fieldName]);
+                    this.validateField(fieldName, this.state[fieldName]);
+                    return '';
         });
+        }
     }
 
     goBack4(e){
@@ -474,7 +622,8 @@ class FlugdatenFormContainer extends Component {
             form3: true,
             form4: false,
             form5: false,
-            ani: 'form3'
+            ani: 'form3',
+            formTitleH2: 'Bilder hochladen.'
         });
     }
 
@@ -487,7 +636,7 @@ class FlugdatenFormContainer extends Component {
             form4: true,
             form5: false,
             ani: 'form4',
-            formTitleH2: 'Weitere optionale Daten zum Flug.'
+            formTitleH2: 'Links zu anderen Flugplatformen.'
         });
     }
 
@@ -577,6 +726,7 @@ class FlugdatenFormContainer extends Component {
     }
 
     render() {
+        console.log(this.state.formValid)
         const sp = this.props.startplaces;
         return ( 
             <main className="main">
@@ -659,7 +809,8 @@ class FlugdatenFormContainer extends Component {
                         goNext={this.goNext3}
                         ani3={this.state.ani}
                         valueImgUrl={this.state.imgUrl}
-
+                        classNameimgUrl={`formular__input-wrapper formular__input-wrapper--centered ${this.errorClass(this.state.formErrors.imgUrl)}`}
+                        errorMessageimgUrl={this.state.formErrors.imgUrl}
                     />}
                 </ReactTransitionGroup> 
                 <ReactTransitionGroup component="div" className="formular-wrapper">
@@ -673,6 +824,12 @@ class FlugdatenFormContainer extends Component {
                         valueSyrideLink={this.state.syrideLink}
                         valueXcontestLink={this.state.xcontestLink}
                         valueAirtribuneLink={this.state.airtribuneLink}
+                        classNameSyrideLink={`formular__input-wrapper ${this.errorClass(this.state.formErrors.syrideLink)}`}
+                        classNameXcontestLink={`formular__input-wrapper margin-top-0 ${this.errorClass(this.state.formErrors.xcontestLink)}`}
+                        classNameAirtribuneLink={`formular__input-wrapper ${this.errorClass(this.state.formErrors.airtribuneLink)}`}
+                        errorMessageSyrideLink={this.state.formErrors.syrideLink}
+                        errorMessageXcontestLink={this.state.formErrors.xcontestLink}
+                        errorMessageAirtribuneLink={this.state.formErrors.airtribuneLink}
                     />}
                 </ReactTransitionGroup> 
                 <ReactTransitionGroup component="div" className="formular-wrapper">
@@ -691,6 +848,24 @@ class FlugdatenFormContainer extends Component {
                         valueWeatherFronten={this.state.weatherFronten}
                         valueWeatherSoaringmeteo={this.state.weatherSoaringmeteo}
                         valueWeatherBisendiagramm={this.state.weatherBisendiagramm}
+                        classNameweatherFoehndiagramm={`formular__input-wrapper ${this.errorClass(this.state.formErrors.weatherFoehndiagramm)}`}
+                        classNamevalueWeatherWindBoden={`formular__input-wrapper margin-top-0 ${this.errorClass(this.state.formErrors.weatherWindBoden)}`}
+                        classNameweatherWind800m={`formular__input-wrapper ${this.errorClass(this.state.formErrors.weatherWind800m)}`}
+                        classNameweatherWind1500m={`formular__input-wrapper ${this.errorClass(this.state.formErrors.weatherWind1500m)}`}
+                        classNameweatherWind3000m={`formular__input-wrapper ${this.errorClass(this.state.formErrors.weatherWind3000m)}`}
+                        classNameweatherRegtherm={`formular__input-wrapper ${this.errorClass(this.state.formErrors.weatherRegtherm)}`}
+                        classNameweatherFronten={`formular__input-wrapper ${this.errorClass(this.state.formErrors.weatherFronten)}`}
+                        classNameweatherSoaringmeteo={`formular__input-wrapper ${this.errorClass(this.state.formErrors.weatherSoaringmeteo)}`}
+                        classNameweatherBisendiagramm={`formular__input-wrapper ${this.errorClass(this.state.formErrors.weatherBisendiagramm)}`}
+                        errorMessageWeatherFoehndiagramm={this.state.formErrors.weatherFoehndiagramm}
+                        errorMessageWeatherWindBoden={this.state.formErrors.weatherWindBoden}
+                        errorMessageWeatherWind800m={this.state.formErrors.weatherWind800m}
+                        errorMessageWeatherWind1500m={this.state.formErrors.weatherWind1500m}
+                        errorMessageWeatherWind3000m={this.state.formErrors.weatherWind3000m}
+                        errorMessageWeatherRegtherm={this.state.formErrors.weatherRegtherm}
+                        errorMessageWeatherFronten={this.state.formErrors.weatherFronten}
+                        errorMessageWeatherSoaringmeteo={this.state.formErrors.weatherSoaringmeteo}
+                        errorMessageWeatherBisendiagramm={this.state.formErrors.weatherBisendiagramm}
                     />}
                 </ReactTransitionGroup> 
                 {this.state.errorAlert && <FormErrorAlert>{validation.valForm}</FormErrorAlert>}

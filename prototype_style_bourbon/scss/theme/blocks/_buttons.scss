@@ -15,6 +15,10 @@
     justify-content: center;
     font-family: $font-family-primary;
 
+    &--top{
+      margin-top: rem-calc(50px);
+    }
+
     &__row{
       flex-direction: row;
       @include bp(max, $ipad-ls) {
@@ -65,10 +69,15 @@
     &:focus{
       color: $color-black;
     }
+
+    &--left{
+      text-align: left;
+      margin: 0;
+    }
   }
 
   &:hover,
-  &:focus{
+  &:focus{ 
     box-shadow: 10px 10px $color-yellow;
     transition: all 0.3s ease-in-out 0s;
   }

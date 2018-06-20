@@ -14,6 +14,9 @@
     let navlinks = document.querySelectorAll('.main-nav__link');
     let linkboxPrevTitle = document.querySelector('.link-box__prev-text');
     let linkboxNextTitle = document.querySelector('.link-box__next-text');
+    let prev = document.querySelector('.js-img-prev');
+    let next = document.querySelector('.js-img-next');
+    let imgdots = document.querySelectorAll('.js-img-dot');
 
     let elheader = header.getBoundingClientRect();
     let headerheight = elheader.height;
@@ -424,6 +427,68 @@
             }
             curr_linkboxPrevTitle.innerHTML = curr_linkboxTitle[index_prev].innerHTML.match(/^\S+(?=\.)/gi)[0];
             curr_linkboxNextTitle.innerHTML = curr_linkboxTitle[index_next].innerHTML.match(/^\S+(?=\.)/gi)[0];
+        }
+    }
+
+    let slideIndex = 1;
+
+    function plusDivs(n) {
+        showDivs(slideIndex += n);
+    }
+    function currentSlide(n) {
+        showDivs(slideIndex = n);
+      }
+
+    showDivs(1);
+
+    function showDivs(n) {
+        let i;
+        let slides = document.getElementsByClassName("js-image-galerie__image");
+        let dotsAc = document.getElementsByClassName("js-img-dot");
+        // media query change
+        if (matchMedia) {
+            const mq = window.matchMedia("(min-width: 768px)");
+            mq.addListener(WidthChange);
+            WidthChange(mq);
+        }
+
+        // media query change
+        function WidthChange(mq) {
+            if (!mq.matches) {
+                if (n > slides.length) {
+                    slideIndex = 1;
+                } 
+                else if (n < 1) {
+                    slideIndex = slides.length;
+                };
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none"; 
+                }
+                for (i = 0; i < dotsAc.length; i++) {
+                    console.log(slideIndex);
+                    dotsAc[i].className = dotsAc[i].className.replace("image-galerie__dot js-img-dot isactive", "image-galerie__dot js-img-dot");
+                } 
+                console.log(dotsAc[slideIndex-1]);
+                slides[slideIndex-1].style.display = "block"; 
+                dotsAc[slideIndex-1].className += " isactive";
+                console.log(dotsAc[slideIndex-1]);
+            }
+        }
+    }
+
+    prev.addEventListener('click', function(e){
+        e.preventDefault;
+        plusDivs(-1);
+    });
+    next.addEventListener('click', function(e){
+        e.preventDefault;
+        plusDivs(1);
+    });
+    
+    for (let i = 0; i < imgdots.length; i++) {
+
+        imgdots[i].onclick = function () {
+            currentSlide(i+1);
         }
     }
 

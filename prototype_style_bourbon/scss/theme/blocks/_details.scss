@@ -1,0 +1,70 @@
+.details{
+  margin-top: rem-calc(50px);
+
+  &__columns{
+    column-count: 2;
+    column-gap: 40px;
+  }
+
+  &__item{
+    margin-bottom: rem-calc(20px);
+    break-inside: avoid-column;
+  }
+
+  &__titel{
+    font-family: $font-family-secundary;
+  }
+
+  &__txt{
+    font-weight: $font-bold;
+  }
+
+  &__titel-anchors{
+    font-family: $font-family-primary;
+    font-weight: $font-bold;
+    margin-top: rem-calc(40px);
+  }
+  &__txt-anchors{
+    margin-bottom: rem-calc(10px);
+  }
+
+  a{
+    display: block;
+  }
+}
+
+.title-h2 + .details,
+.title-h3 + .details,
+.title-h4 + .details{
+  margin-top: 0;
+}
+
+.details + .title-h2,
+.details + .title-h3,
+.details + .title-h4{
+  margin-top: rem-calc(50px);
+}
+
+.detail-layout--no-images{
+  .details{
+    @include grid-column(11, $grid-24);
+
+    &:not(:first-of-type){
+      @include grid-push(1, $grid-24);
+
+      @include bp(max, $ipad-p){
+        @include grid-push(0, $grid-24);
+      }
+    }
+
+    @include bp(max, $ipad-p){
+      @include grid-column(22, $grid-24);
+    }
+  }
+  .details:first-of-type{
+    border-right: 1px solid $color-gray-light;
+    @include bp(max, $ipad-p){
+      border-right: none;
+    }
+  }
+}

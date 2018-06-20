@@ -1,0 +1,109 @@
+.image-galerie{
+  position: relative;
+
+  &__image{
+    width: 100%;
+    margin-bottom: rem-calc(20px);
+    @include bp(max, $ipad-p){
+      height: 100%;
+      min-width: 100%;
+      width: auto;
+    }
+  }
+
+  &__prev-next{
+    display: none;
+    position: absolute;
+    top: 42%;
+    width: 100%;
+    font-size: $font-s-image-galerie;
+    @include bp(max, $ipad-p){
+      display: block;
+    }
+  }
+
+  &__prev{
+    position: absolute;
+    left:-10px; 
+  }
+  &__next{
+    position: absolute;
+    right:-10px; 
+  }
+
+  &__prev,
+  &__next{
+    color: $color-primary;
+    &:hover,
+    &:focus,
+    &:active{
+      color: $color-black;
+    }
+  }
+
+  &__dots{
+    text-align: center;
+    margin-bottom: rem-calc(40px);
+    display: none;
+
+    @include bp(max, $ipad-p){
+      display: block;
+    }
+  }
+
+  &__dot{
+    display: inline-block;
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: $color-gray-middle;
+    border-radius: 50%;
+    transition: background-color 0.6s ease;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.isactive{
+      background-color: $color-primary;
+    }
+  } 
+
+  &__wrapper{
+    margin-bottom: 20px;
+    @include bp(max, $ipad-p){
+      overflow:hidden;
+      height: 500px;
+    }
+    @include bp(max, $phone){
+      height: 350px; 
+    }
+  }
+}
+
+
+.slide-active{
+  display: block;
+}
+
+.slide-visible{
+  .image-galerie__content{
+    opacity: 1;
+    transition: margin 0.5s, opacity 1s;
+
+    @include bp(max, $ipad-p){
+      margin-left: 10%;
+    }
+  }
+}
+
+.slide-visible.prev{
+  .image-galerie__content{
+    opacity: 1;
+    transition: margin 0.5s, opacity 1s;
+
+    @include bp(max, $ipad-p){
+      margin-right: 10%;
+    }
+  }
+}

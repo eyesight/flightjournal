@@ -1,0 +1,24 @@
+
+.formular__input-wrapper{
+  .react-datepicker{
+    font-family: $font-family-primary;
+
+    &__input-container{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  div.react-datepicker-wrapper{
+    margin-top: 5px;
+    width: 100%;
+    height: 100%;
+  }
+  .react-datepicker-popper{
+    z-index: 1000;
+  }
+
+  .react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range{
+    background-color: $color-primary;
+    border-radius: rem-calc(50px);
+  }
+}

@@ -30,6 +30,8 @@
 .link{
   &--black{
     color: $color-black;
+    clear: both;
+    display: block;
 
     &:hover,
     &:focus {

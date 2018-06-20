@@ -168,7 +168,10 @@ class FlugdatenFormContainer extends Component {
                 const akthour = Math.floor(Number(currentFlight.flighttime)/60);
                 const aktminute = Number(currentFlight.flighttime)%60;
 
-    
+                //convert date-string to dateobject for the datepicker
+                let dateParts = currentFlight.date.split(".");
+                let dateObject = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);    
+                console.log(currentFlight.date);
                 this.setState({
                     valueHour: akthour,
                     valueMinute: aktminute,
@@ -176,6 +179,7 @@ class FlugdatenFormContainer extends Component {
                     flightID: this.props.history.location.state.flightID,
                     IDtoUpdate: this.props.history.location.state.flightID,
                     date: currentFlight.date,
+                    startDate: moment(dateObject),
                     startplace: currentFlight.startplace,
                     landingplace: currentFlight.landingplace,
                     flighttime: currentFlight.flighttime,

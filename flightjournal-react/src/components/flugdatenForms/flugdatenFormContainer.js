@@ -89,12 +89,7 @@ class FlugdatenFormContainer extends Component {
           nameStartplace: 'startplace',
           
           //data for database
-          date: new Date().toLocaleDateString("de-ch",
-          {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-          }),
+          date: '',
           description: '',
           startplace:'',
           landingplace: '',
@@ -119,6 +114,8 @@ class FlugdatenFormContainer extends Component {
           weatherSoaringmeteo: '',
           weatherBisendiagramm: '',
           rating: '',
+          writeDate: '',
+          lastUpdate: ''
         };
 
         this.getOptions = this.getOptions.bind(this);
@@ -170,6 +167,8 @@ class FlugdatenFormContainer extends Component {
                 //get the hours and minutes and set into state
                 const akthour = Math.floor(Number(currentFlight.flighttime)/60);
                 const aktminute = Number(currentFlight.flighttime)%60;
+
+    
                 this.setState({
                     valueHour: akthour,
                     valueMinute: aktminute,
@@ -200,8 +199,40 @@ class FlugdatenFormContainer extends Component {
                     weatherFronten: currentFlight.weatherFronten,
                     weatherSoaringmeteo: currentFlight.weatherSoaringmeteo,
                     weatherBisendiagramm: currentFlight.weatherBisendiagramm,
+                    writeDate: currentFlight.writeDate,
+                    lastUpdate: new Date().toLocaleDateString("de-ch",
+                    {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    }),
+
+                    //set state of forminput
+                    //TODO: find a better solution
+                    landingplaceValid: true,
+                    startplaceValid: true,
+                    formValid: true, 
+                    flighttimeValid: true,
+                    descriptionValid: true,
+                    xcdistanceValid: true,
                 });
             }
+        }else{
+            //add actual date, if it's the first input
+            this.setState({
+                date: new Date().toLocaleDateString("de-ch",
+                {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                }),
+                writeDate: new Date().toLocaleDateString("de-ch",
+                {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                })
+            })
         }
     }
 
@@ -681,6 +712,8 @@ class FlugdatenFormContainer extends Component {
             weatherSoaringmeteo: this.state.weatherSoaringmeteo,
             weatherBisendiagramm: this.state.weatherBisendiagramm,
             rating: this.state.rating,
+            writeDate: this.state.writeDate,
+            lastUpdate: this.state.lastUpdate
         }
 
         //if there is set an ID to update a fligt -> "Speichern" means update. Otherwise save a new flight
@@ -726,7 +759,6 @@ class FlugdatenFormContainer extends Component {
     }
 
     render() {
-        console.log(this.state.formValid)
         const sp = this.props.startplaces;
         return ( 
             <main className="main">

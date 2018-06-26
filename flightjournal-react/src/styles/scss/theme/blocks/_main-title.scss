@@ -14,3 +14,9 @@
     margin-top: 0;
   }
 }
+
+.button-without-border+.main-title,
+.anchor-small+.main-title,
+.anchor+.main-title{
+  margin-top: 0;
+}

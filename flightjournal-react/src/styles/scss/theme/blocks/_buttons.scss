@@ -57,7 +57,8 @@
     }
   }
 
-  &-without-border{
+  &-without-border,
+  &.button-without-border{
     font-size: $font-s-button-wb;
     color: $color-primary;
     text-align: center;
@@ -68,6 +69,11 @@
     &:hover,
     &:focus{
       color: $color-black;
+    }
+
+    &--left{
+      text-align: left;
+      margin: 0;
     }
   }
 

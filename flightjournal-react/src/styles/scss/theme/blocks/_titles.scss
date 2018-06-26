@@ -43,3 +43,13 @@
   }
 }
 
+.detail-layout{
+  .title{
+    &-h2{
+      font-size: $font-s-h2-details;
+      text-align: left;
+      column-count: 1;
+    }
+  }
+}
+

@@ -21,6 +21,22 @@
     color: $color-primary;
     &::after {
       @extend .help-underline-green-hover;
-    }
+    } 
+  }
+}
+
+.anchor-small{
+  font-size: $font-s-anchor-small;
+  cursor: pointer;
+}
+
+.anchor--green{
+  color: $color-primary;
+
+  &:active,
+  &:visited,
+  &:hover,
+  &:focus{
+    color: $color-black;
   }
 }

@@ -10,6 +10,7 @@ import FlightTableSort from './flightTableSort';
 import MessageBox from '../messageBox/messageBox';
 import ReactTransitionGroup from 'react-addons-transition-group';
 import {TweenLite, TimelineLite} from 'gsap';
+import * as utils from '../../utils/timeToHourMinString';
 
 const tl = new TimelineLite();
 
@@ -122,7 +123,7 @@ class FlightTableList extends Component {
                                     <td className="table__date">{x.date}</td>
                                     <td className="table__pilot"><a className="table__link">{y.firstname}</a></td>
                                     <td className="table__start"><a className="table__link">{z.name}</a></td>
-                                    <td className="table__duration">{x.flighttime} min</td>
+                                    <td className="table__duration">{utils.timeToHourMinString(x.flighttime)}</td>
                                     <td className="table__distance">{x.xcdistance} Kilometer</td>
                                     <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.flugdetails(event, x.id)}}>Flugdetails</a></td>
                                     <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.updateFlight(event, x.id)}}>Bearbeiten</a></td>

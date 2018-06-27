@@ -4,38 +4,39 @@
       ".write": "auth != null",
         
         "Flights": {
-          "$Flights":{
+					"$Flights":{
             ".validate": "newData.hasChildren(['pilot',
-            'pilotId',
-            'date',
-            'startplace',
-            'landingplace',
-            'flighttime',
-            'xcdistance',
-            'maxaltitude',
-            'heightgain',
-            'maxclimb',
-            'startingtime',
-            'distance',
-            'description',
-            'imgUrl',
-            'syrideLink',
-            'xcontestLink',
-            'airtribuneLink',
-            'weatherFoehndiagramm',
-            'weatherWindBoden',
-            'weatherWind800m',
-            'weatherWind1500m',
-            'weatherWind3000m',
-            'weatherRegtherm',
-            'weatherFronten',
-            'weatherSoaringmeteo',
-            'weatherBisendiagramm',
-            'rating'])",
-              "date": {
-                  ".validate": "newData.val().length > 0 && newData.val().length <= 10 "
-              },
-              "startplace": {
+                          'pilotId',
+                          'date',
+                          'startplace',
+                          'landingplace',
+                          'flighttime',
+                          'xcdistance',
+                          'maxaltitude',
+                          'heightgain',
+                          'maxclimb',
+                          'startingtime',
+                          'distance',
+                          'description',
+              			  'imgUrl',
+                          'imgName',
+                          'syrideLink',
+                          'xcontestLink',
+                          'airtribuneLink',
+                          'weatherFoehndiagramm',
+                          'weatherWindBoden',
+                          'weatherWind800m',
+                          'weatherWind1500m',
+                          'weatherWind3000m',
+                          'weatherRegtherm',
+                          'weatherFronten',
+                          'weatherSoaringmeteo',
+                          'weatherBisendiagramm',
+                          'rating'])",
+           "date": {
+               ".validate": "newData.val().length > 0 && newData.val().length <= 10 "
+            },
+            "startplace": {
                 ".validate": "newData.val().length > 0 && newData.isString() && newData.val().length < 100"
             },
             "landingplace": {
@@ -67,9 +68,6 @@
             },
             "distance": {
                 ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 50"
-            },
-            "imgUrl": {
-                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 100"
             },
             "syrideLink": {
                 ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 100"

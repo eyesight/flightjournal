@@ -28,13 +28,17 @@
 .anchor-small{
   font-size: $font-s-anchor-small;
   cursor: pointer;
+
+  .fas{
+    padding-right: 5px;
+  }
 }
 
-.anchor--green{
+.anchor--green,
+.anchor-small.anchor--green{
   color: $color-primary;
 
   &:active,
-  &:visited,
   &:hover,
   &:focus{
     color: $color-black;

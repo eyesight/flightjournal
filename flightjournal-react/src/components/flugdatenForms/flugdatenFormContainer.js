@@ -112,8 +112,8 @@ class FlugdatenFormContainer extends Component {
           maxclimb: '',
           startingtime:'',
           distance: '',
-          imgUrl: [],
-          imgName: [],
+          imgUrl: [''],
+          imgName: [''],
           syrideLink: '',
           xcontestLink: '',
           airtribuneLink: '',
@@ -208,6 +208,7 @@ class FlugdatenFormContainer extends Component {
                     startingtime: currentFlight.startingtime,
                     distance: currentFlight.distance,
                     imgUrl: currentFlight.imgUrl,
+                    imgName: currentFlight.imgName,
                     syrideLink: currentFlight.syrideLink,
                     xcontestLink: currentFlight.xcontestLink,
                     airtribuneLink: currentFlight.airtribuneLink,
@@ -483,7 +484,6 @@ class FlugdatenFormContainer extends Component {
         let ftime = 0;
         this.setState({[name]: value},
             () => { this.validateField(name, value) });
-            console.log(name + ' ' + value)
 
         //validate flighttime on change
         //TODO: make it as function - i use the same in onSubmit
@@ -755,6 +755,8 @@ class FlugdatenFormContainer extends Component {
                return '';
          });
         }
+
+        console.log(obj);
     }
 
     getOptions(sp){

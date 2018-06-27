@@ -21,6 +21,7 @@ import * as validation from '../../utils/validationText';
 import FormAnimation from '../formAnimation/formAnimation';
 import FormTitle from '../formTitle/formTitle';
 import FormErrorAlert from '../formErrorAlert/formErrorAlert';
+import firebase from 'firebase';
 
 let obj = {};
 let minute = 0;
@@ -65,6 +66,15 @@ class FlugdatenFormContainer extends Component {
           distanceValid: true,
           //form3
           imgUrlValid: true,
+          pictures: [],
+          flightPictureURL: [],
+          errorMessageImage: '',
+          successPreview: false,
+          progress: [],
+          renderImageUploader: true,
+          renderButton: false,
+          progressObj: [],
+          previewUrl: [],
           //form4
           syrideLinkValid: true,
           xcontestLinkValid: true,
@@ -100,7 +110,8 @@ class FlugdatenFormContainer extends Component {
           maxclimb: '',
           startingtime:'',
           distance: '',
-          imgUrl: '',
+          imgUrl: [],
+          imgName: [],
           syrideLink: '',
           xcontestLink: '',
           airtribuneLink: '',
@@ -142,6 +153,9 @@ class FlugdatenFormContainer extends Component {
         this.validateField = this.validateField.bind(this);
         this.validateForm = this.validateForm.bind(this);
         this.errorClass = this.errorClass.bind(this);
+        
+        this.onChangeImgUpload = this.onChangeImgUpload.bind(this);
+        this.onSubmitImgUpload = this.onSubmitImgUpload.bind(this);
     }
     
     componentWillMount() {
@@ -598,6 +612,7 @@ class FlugdatenFormContainer extends Component {
                 form5: false,
                 ani: 'form4',
                 imgUrl: this.state.imgUrl,
+                imgName: this.state.imgName,
                 formTitleH2: 'Links zu anderen Flugplatformen.'
         });
         }else{
@@ -703,6 +718,7 @@ class FlugdatenFormContainer extends Component {
             distance: this.state.distance,
             description: this.state.description,
             imgUrl: this.state.imgUrl,
+            imgName: this.state.imgName,
             syrideLink: this.state.syrideLink,
             xcontestLink: this.state.xcontestLink,
             airtribuneLink: this.state.airtribuneLink,
@@ -760,6 +776,74 @@ class FlugdatenFormContainer extends Component {
         this.setState({
             flightID: ''
         });
+    }
+
+    //image-upload (Form3) functions
+    onChangeImgUpload(picture){
+        if(picture.length === 0){
+            this.setState({
+                successPreview: false
+            });
+        }else{
+            this.setState({
+                pictures: picture,
+                successPreview: true
+            });
+        }    
+      }
+
+     onSubmitImgUpload(e){
+        e.preventDefault();
+        let file = this.state.pictures;
+        let that = this;
+        this.setState({renderButton: false});
+        file.forEach(function(element) {  
+            //PreviewUrl safe in state "preview Url"
+            let reader = new FileReader();
+            reader.onload = function(event) {
+                that.setState({
+                    previewUrl: that.state.previewUrl.concat(event.target.result)
+                })
+            };
+            reader.readAsDataURL(element);
+            
+            let img = firebase.storage().ref('images/'+element.name).put(element);
+            img.on('state_changed', function(snapshot){
+                let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                let obj = {name: element.name, progressbar: progress, uploaded: false};
+                that.setState({
+                    progress: progress,
+                    renderImageUploader: false,
+                    progressObj: that.state.progressObj.concat(obj)
+                });
+                switch (snapshot.state) {
+                  case firebase.storage.TaskState.PAUSED: // or 'paused'
+                    console.log('Upload is paused');
+                    break;
+                  case firebase.storage.TaskState.RUNNING: // or 'running'
+                    console.log('Upload is running');
+                    break;
+                default:
+                    console.log('default');
+                    break;
+                }
+              }, function(error) {
+                that.setState({errorMessageImage: error})
+                console.log(error);
+              }, function() {
+                    that.setState({
+                        imgUrl: that.state.imgUrl.concat(img.snapshot.downloadURL),
+                        successPreview: false,
+                        imgName: that.state.imgName.concat(element.name),
+                        renderButton: true
+                    });
+                    console.log('Uploaded a blob or file!');
+              });
+        });
+     }
+
+     getUrl(filename){
+        firebase.storage().ref('images').child(filename).getDownloadURL().then(url => this.setState({flightPictureURL: url}));
     }
 
     render() {
@@ -839,14 +923,20 @@ class FlugdatenFormContainer extends Component {
                 <ReactTransitionGroup component="div" className="formular-wrapper">
                     {this.state.form3 &&
                     <FlugdatenForm3 
-                        onChange={this.onChange}
+                        onChange={this.onChangeImgUpload}
                         onSubmit={this.onSubmit}
+                        onSubmitImageUpload= {this.onSubmitImgUpload}
                         goBack={this.goBack3}
                         goNext={this.goNext3}
                         ani3={this.state.ani}
                         valueImgUrl={this.state.imgUrl}
                         classNameimgUrl={`formular__input-wrapper formular__input-wrapper--centered ${this.errorClass(this.state.formErrors.imgUrl)}`}
                         errorMessageimgUrl={this.state.formErrors.imgUrl}
+                        renderImageUploader={this.state.renderImageUploader}
+                        renderButton={this.state.renderButton}
+                        pictures={this.state.pictures}
+                        progressObj= {this.state.progressObj}
+                        previewUrl= {this.state.previewUrl}
                     />}
                 </ReactTransitionGroup> 
                 <ReactTransitionGroup component="div" className="formular-wrapper">

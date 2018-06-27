@@ -1,11 +1,22 @@
 import React, {Component} from 'react';
-import InputField from '../formInputfield/formInputfield';
 import {TweenLite} from 'gsap';
+import ImageUploader from 'react-images-upload';
 
 class FlugdatenForm3 extends Component {
     constructor(props) {
         super(props);
         this.formular1 = React.createRef();
+        this.state = { 
+            pictures: [],
+            flightPictureURL: [],
+            errorMessageImage: '',
+            successPreview: false,
+            progress: [],
+            renderImageUploader: true,
+            renderButton: true,
+            progressObj: [],
+            previewUrl: []
+        };
     }
 
     componentWillEnter(callback){
@@ -19,21 +30,75 @@ class FlugdatenForm3 extends Component {
     componentWillLeave (callback) {
         TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px", onComplete: callback});
     }
+    renderProgressBar(items, objects, prevUrl) {
+        return items.map((value, index)=>{
+            let styles = [];
+            let progressitem = [];
+            console.log('ss');
+            //map through the progressbar-object of each item
+             objects.map((item)=>{ 
+                let counter = 0;
+                while(value.name === item.name && item.progressbar<=100 &&  counter<1){
+                    styles[index] = {
+                        width: item.progressbar+'%'
+                      };
+                    progressitem[index] = Math.round(item.progressbar);
+                    counter++;
+                }
+                if(item.progressbar === 100){
+                    item.uploaded = true;
+                }
+                return item;
+              });
+              if(progressitem[index] === 0){
+                return <div key={index}></div>;
+              } else if(progressitem[index] === 100){
+                return (
+                    <div key={index} className='progress'>
+                        <div className='progress__image-wrapper'>
+                            <img alt="preview" className='progress__image' src={prevUrl[index]} />
+                        </div>
+                        <div className='progress__text-wrapper'>
+                            <p className='progress__text'>UPLOADED!</p>
+                        </div>
+                    </div>)
+              } else{
+                return (
+                    <div key={index} className='progress'>
+                     <div className='progress__image-wrapper'>
+                          <img alt="preview" className='progress__image' src={prevUrl[index]} />
+                      </div>
+                      <div className='progress__bar-wrapper'>
+                          <p className='progress__procent'>0%</p>
+                          <div className='progress__outer-bar'>  
+                              <div className='progress__inner-bar' style={styles[index]}></div>
+                          </div>
+                          <p className='progress__procent'>{progressitem[index]}%</p>
+                      </div>
+                    </div>)
+              }
+        });
+      }
+
     render() {
-        const { onChange, onSubmit, goBack, goNext, valueImgUrl, classNameimgUrl, errorMessageimgUrl} = this.props;
+        const { onChange, onSubmit, onSubmitImageUpload, goBack, goNext, renderImageUploader, renderButton, pictures, progressObj, previewUrl} = this.props;
         return (
-            <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
-                <InputField 
-                    classes={classNameimgUrl}
-                    label='Bilder hochladen.'
-                    inputAction={onChange}
-                    type='text'
-                    name='imgUrl'
-                    autocomp=''
-                    value={valueImgUrl}
-                    classNamesError='formular__validation'
-                    errorMessage={errorMessageimgUrl}
-                />
+            <form ref={this.formular1} className="formular" onSubmit={onSubmitImageUpload}>
+                {renderImageUploader &&  <ImageUploader
+                withIcon={false}
+                buttonClassName={'button button-without-border'}
+                buttonText='+ Bilder auswählen'
+                onChange={onChange}
+                imgExtension={['.jpg', '.png']}
+                maxFileSize={5242880}
+                withPreview={true}
+                label={'Maximale Dateigrösse: 5 MB, akzeptierte Formate: jpg und png'}
+                fileSizeError={'Die Datei ist zu gross. Sie darf die Maximalgrösse von 5 MB nicht überschreiten.'}
+                fileTypeError={'Es sind nur jpg und png erlaubt.'}
+                labelClass={'fileUploader__label'}
+                errorClass={'fileUploader__validation'}
+            />}
+            {!renderImageUploader && <div className="progress-wrapper">{this.renderProgressBar(pictures, progressObj, previewUrl)}</div>}
                 <div className="button-group">
                     <div className="button-wrapper">
                         <button type="button" onClick={goBack} className="button">Zurück</button>
@@ -41,9 +106,14 @@ class FlugdatenForm3 extends Component {
                     <div className="button-wrapper">
                         <button type="button" onClick={goNext} className="button">Weiter</button>
                     </div>
+                {!renderButton &&
                     <div className="button-wrapper">
-                        <button type="submit" className="button">Speichern und schliessen</button>
-                    </div>
+                        <button type="submit" className="button">Speichern</button>
+                    </div>}
+                {renderButton && 
+                    <div className="button-wrapper">
+                        <button type="submit" className="button" onClick={onSubmit}>Schliessen</button>
+                    </div>}
                 </div>
             </form>
         );

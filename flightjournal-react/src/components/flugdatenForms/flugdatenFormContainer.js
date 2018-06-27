@@ -72,7 +72,9 @@ class FlugdatenFormContainer extends Component {
           successPreview: false,
           progress: [],
           renderImageUploader: true,
-          renderButton: false,
+          renderButtonSave: true,
+          renderButtons: true,
+          renderButtonClose: false,
           progressObj: [],
           previewUrl: [],
           //form4
@@ -130,6 +132,7 @@ class FlugdatenFormContainer extends Component {
         };
 
         this.getOptions = this.getOptions.bind(this);
+        this.getOptionsTime = this.getOptionsTime.bind(this);
         this.goToPage = this.goToPage.bind(this);
         this.onChange = this.onChange.bind(this);
         
@@ -480,6 +483,7 @@ class FlugdatenFormContainer extends Component {
         let ftime = 0;
         this.setState({[name]: value},
             () => { this.validateField(name, value) });
+            console.log(name + ' ' + value)
 
         //validate flighttime on change
         //TODO: make it as function - i use the same in onSubmit
@@ -766,6 +770,25 @@ class FlugdatenFormContainer extends Component {
                 }
             });
     }
+    getOptionsTime(number, text, multiplied){
+        let option = [];
+        let numberTxt = '';
+        let textWithEnd = 'n';
+        for(let i=0; i<=number; i=i+multiplied){
+            if(i===0){
+                numberTxt=''
+                textWithEnd=text+'n'
+            }else if (i===1){
+                numberTxt='1'
+                textWithEnd=text+''
+            }else{
+                numberTxt=i
+                textWithEnd=text+'n'
+            }
+            option.push(<option key={i.toString()} className="formular__dropdown-option" value={i.toString()}>{numberTxt} {textWithEnd}</option>)
+        }
+        return option;
+    }
 
     goToPage(e){
         e.preventDefault();
@@ -780,6 +803,7 @@ class FlugdatenFormContainer extends Component {
 
     //image-upload (Form3) functions
     onChangeImgUpload(picture){
+        console.log(picture);
         if(picture.length === 0){
             this.setState({
                 successPreview: false
@@ -796,7 +820,10 @@ class FlugdatenFormContainer extends Component {
         e.preventDefault();
         let file = this.state.pictures;
         let that = this;
-        this.setState({renderButton: false});
+        this.setState({
+            renderButtonSave: false,
+            renderButtons: false
+        });
         file.forEach(function(element) {  
             //PreviewUrl safe in state "preview Url"
             let reader = new FileReader();
@@ -835,7 +862,8 @@ class FlugdatenFormContainer extends Component {
                         imgUrl: that.state.imgUrl.concat(img.snapshot.downloadURL),
                         successPreview: false,
                         imgName: that.state.imgName.concat(element.name),
-                        renderButton: true
+                        renderButtonClose: true,
+                        renderButtons: true
                     });
                     console.log('Uploaded a blob or file!');
               });
@@ -847,7 +875,6 @@ class FlugdatenFormContainer extends Component {
     }
 
     render() {
-        const sp = this.props.startplaces;
         return ( 
             <main className="main">
                 <section className="centered-layout">
@@ -872,7 +899,9 @@ class FlugdatenFormContainer extends Component {
                         nameComment={this.state.nameComment}
                         valueComment={this.state.description}
                         ani={this.state.ani} 
-                        getOptions={this.getOptions(sp)}
+                        getOptions={this.getOptions(this.props.startplaces)}
+                        getOptionsHour={this.getOptionsTime(8, 'Stunde', 1)}
+                        getOptionsMinute={this.getOptionsTime(60, 'Minute', 5)}
                         nameSP={this.state.nameStartplace}
                         selectedValueSP={this.state.startplace}
                         goToPage={this.goToPage}
@@ -933,7 +962,9 @@ class FlugdatenFormContainer extends Component {
                         classNameimgUrl={`formular__input-wrapper formular__input-wrapper--centered ${this.errorClass(this.state.formErrors.imgUrl)}`}
                         errorMessageimgUrl={this.state.formErrors.imgUrl}
                         renderImageUploader={this.state.renderImageUploader}
-                        renderButton={this.state.renderButton}
+                        renderButtonSave={this.state.renderButtonSave}
+                        renderButtonClose={this.state.renderButtonClose}
+                        renderButtons={this.state.renderButtons}
                         pictures={this.state.pictures}
                         progressObj= {this.state.progressObj}
                         previewUrl= {this.state.previewUrl}

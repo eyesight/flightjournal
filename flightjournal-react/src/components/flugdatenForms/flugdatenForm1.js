@@ -22,7 +22,7 @@ class FlugdatenForm1 extends Component {
     }
 
     render() {
-        const { onChange, onSubmit, valueHour, valueMinute, nameHour, nameMinute, nameComment, valueComment, goNext, nameSP, getOptions, goToPage, valueLandeplatz, valueXcdistance, selectedValueSP, handleChange, startDate, classNameDate, classNameDateLP, classNameDateFT, classNameSP, classNameDescription, classNameXcdistance, errorMessageLP, errorMessageST, errorMessageDate, errorMessageFT, errorMessageXC, errorMessageDesc} = this.props;
+        const { onChange, onSubmit, valueHour, valueMinute, nameHour, nameMinute, nameComment, valueComment, goNext, nameSP, getOptions, getOptionsHour, getOptionsMinute, goToPage, valueLandeplatz, valueXcdistance, selectedValueSP, handleChange, startDate, classNameDate, classNameDateLP, classNameDateFT, classNameSP, classNameDescription, classNameXcdistance, errorMessageLP, errorMessageST, errorMessageDate, errorMessageFT, errorMessageXC, errorMessageDesc} = this.props;
         return ( 
             <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
                 <div className={classNameDate}>
@@ -67,18 +67,12 @@ class FlugdatenForm1 extends Component {
                     <label className="formular__label">Flugzeit</label>
                     <div className="formular__select formular__select--half"><i className="fas fa-angle-down"></i>
                         <select className="formular__dropdown-select" name={nameHour} value={valueHour} onChange={onChange}>
-                            <option className="formular__dropdown-option" value="0">Stunden</option>
-                            <option className="formular__dropdown-option" value="1">1 Stunde</option>
-                            <option className="formular__dropdown-option" value="2">2 Stunden</option>
-                            <option className="formular__dropdown-option" value="3">3 Stunden</option>
+                            {getOptionsHour}
                         </select>
                     </div>
                     <div className="formular__select formular__select--half"><i className="fas fa-angle-down"></i>
                         <select className="formular__dropdown-select" name={nameMinute} value={valueMinute} onChange={onChange}>
-                            <option className="formular__dropdown-option" value="0">Minuten</option>
-                            <option className="formular__dropdown-option" value="1">1 Minute</option>
-                            <option className="formular__dropdown-option" value="2">2 Minuten</option>
-                            <option className="formular__dropdown-option" value="3">3 Minuten</option>
+                            {getOptionsMinute}
                         </select>
                     </div>
                     <span className='formular__validationBox'>{errorMessageFT}</span>

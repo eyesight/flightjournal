@@ -17,6 +17,9 @@ class FlugdatenForm3 extends Component {
             progressObj: [],
             previewUrl: []
         };
+        this.onChange = this.onChange.bind(this);
+        this.renderProgressBar = this.renderProgressBar.bind(this);
+        this.onSub = this.onSub.bind(this);
     }
 
     componentWillEnter(callback){
@@ -29,6 +32,23 @@ class FlugdatenForm3 extends Component {
 
     componentWillLeave (callback) {
         TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px", onComplete: callback});
+    }
+    onChange(picture) {
+        console.log(picture);
+        if(picture.length === 0){
+            this.setState({
+                successPreview: false
+            });
+        }else{
+            this.setState({
+                pictures: picture,
+                successPreview: true
+            });
+        }        
+    }
+    onSub(e){
+        e.preventDefault();
+        console.log('suuuub');
     }
     renderProgressBar(items, objects, prevUrl) {
         return items.map((value, index)=>{
@@ -81,9 +101,9 @@ class FlugdatenForm3 extends Component {
       }
 
     render() {
-        const { onChange, onSubmit, onSubmitImageUpload, goBack, goNext, renderImageUploader, renderButton, pictures, progressObj, previewUrl} = this.props;
+        const { onChange, onSubmit, onSubmitImageUpload, goBack, goNext, renderImageUploader, renderButtonSave, renderButtonClose, pictures, progressObj, previewUrl, renderButtons} = this.props;
         return (
-            <form ref={this.formular1} className="formular" onSubmit={onSubmitImageUpload}>
+            <form ref={this.formular1} className="formular" onSubmit={this.onSub}>
                 {renderImageUploader &&  <ImageUploader
                 withIcon={false}
                 buttonClassName={'button button-without-border'}
@@ -99,6 +119,7 @@ class FlugdatenForm3 extends Component {
                 errorClass={'fileUploader__validation'}
             />}
             {!renderImageUploader && <div className="progress-wrapper">{this.renderProgressBar(pictures, progressObj, previewUrl)}</div>}
+            {renderButtons &&
                 <div className="button-group">
                     <div className="button-wrapper">
                         <button type="button" onClick={goBack} className="button">Zurück</button>
@@ -106,15 +127,15 @@ class FlugdatenForm3 extends Component {
                     <div className="button-wrapper">
                         <button type="button" onClick={goNext} className="button">Weiter</button>
                     </div>
-                {!renderButton &&
+                {renderButtonSave &&
                     <div className="button-wrapper">
-                        <button type="submit" className="button">Speichern</button>
+                        <button type="submit" onClick={onSubmitImageUpload} className="button">Speichern</button>
                     </div>}
-                {renderButton && 
+                {renderButtonClose && 
                     <div className="button-wrapper">
                         <button type="submit" className="button" onClick={onSubmit}>Schliessen</button>
-                    </div>}
-                </div>
+                    </div>} 
+                </div>}
             </form>
         );
     }

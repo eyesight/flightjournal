@@ -2,10 +2,10 @@ import React from 'react';
 
 const Dots = props => {
     const _onClick = () => {
-      console.log(props.id);
+        props.onItemClick(props.id);
     }
       return (
-        <span key={props.index} className={props.classNameDot} onClick={props._onClick}></span>
+        <span className={props.classNameDot} data-dots={props.index} onClick={_onClick}></span>
       );
   };  
 export default Dots;

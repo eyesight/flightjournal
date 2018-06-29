@@ -53,9 +53,6 @@ class FlightDetailContainer extends Component {
             showFurtherDetailsLinks: false,
             isActive: 1
         };
-        this.prevFunction = this.prevFunction.bind(this);
-        this.nextFunction = this.nextFunction.bind(this);
-        this.onClickDot = this.onClickDot.bind(this);
     }
 
     componentWillMount() {
@@ -132,36 +129,6 @@ class FlightDetailContainer extends Component {
             }
         }   
     }
-    nextFunction(e){
-        e.preventDefault();
-        //TODO: image-object shouldn't have a empty object on position 1. If is corrected, delete -1 before this.state.imagesName
-        if(this.state.imagesName.length-1 <= this.state.isActive){
-            this.setState({
-                isActive: 1
-            })
-        }else{
-            this.setState({
-                isActive: this.state.isActive+1
-            })
-        }
-    }
-    prevFunction(e){
-        e.preventDefault();
-        //TODO: image-object shouldn't have a empty object on position 1. If is corrected, delete -1 before this.state.imagesName
-        if(this.state.imagesName.length-1 > this.state.isActive){
-            this.setState({
-                isActive: this.state.imagesName.length-1
-            })
-        }else{
-            this.setState({
-                isActive: this.state.isActive-1
-            })
-        }
-    }
-    onClickDot(dot){
-        console.log('dot' + dot);
-        console.log(this.state.isActive);
-    }
 
     render() {
         let textParagraph = `${this.state.date}, ${this.state.pilotFirstname} ${this.state.pilotLastname}`;
@@ -188,17 +155,9 @@ class FlightDetailContainer extends Component {
                     />
                     {this.state.imagesName[1] !== undefined ? (
                         <ImageGallerie 
-                            classNameOuterDiv="detail-layout__left image-galerie"
                             url={this.state.imagesUrl}
                             name={this.state.imagesName}
-                            nextFunction={this.nextFunction}
-                            prevFunction={this.prevFunction}
-                            onClickDot={this.onClickDot(this.state.isActive)}
-                            isActiveImg={this.state.isActive}
-                            items={this.state.imagesName}
-                    />) : (
-                        ''
-                    )}
+                    />) : null}
                     <div className="detail-layout__right">
                         <Paragraph 
                             classNameParagraph='text'
@@ -213,9 +172,7 @@ class FlightDetailContainer extends Component {
                                     classNameDetailsTxt='details__txt'
                                     title='Landeplatz'
                                     txt={this.state.landeplatz}
-                                />): (
-                                    ''
-                                )}
+                                />): null}
                                 {this.state.maxaltitude ? (
                                 <DetailsItem 
                                     classNameDetails='details__item'
@@ -223,9 +180,7 @@ class FlightDetailContainer extends Component {
                                     classNameDetailsTxt='details__txt'
                                     title='Maximale Flughöhe'
                                     txt={this.state.maxaltitude + ' m'}
-                                />): (
-                                    ''
-                                )}
+                                />): null}
                                 {this.state.heightgain ? (
                                 <DetailsItem 
                                     classNameDetails='details__item'
@@ -233,9 +188,7 @@ class FlightDetailContainer extends Component {
                                     classNameDetailsTxt='details__txt'
                                     title='Maximaler Höhengewinn'
                                     txt={this.state.heightgain + ' m'}
-                                />): (
-                                    ''
-                                )}
+                                />): null}
                                 {this.state.maxclimb ? (
                                 <DetailsItem 
                                     classNameDetails='details__item'
@@ -243,9 +196,7 @@ class FlightDetailContainer extends Component {
                                     classNameDetailsTxt='details__txt'
                                     title='Maximales Steigen'
                                     txt={this.state.maxclimb + ' m/s'}
-                                />): (
-                                    ''
-                                )}
+                                />): null}
                                 {this.state.maxsink ? (
                                 <DetailsItem 
                                     classNameDetails='details__item'
@@ -253,9 +204,7 @@ class FlightDetailContainer extends Component {
                                     classNameDetailsTxt='details__txt'
                                     title='Maximales Sinken'
                                     txt={this.state.maxsink + ' m/s'}
-                                />): (
-                                    ''
-                                )}
+                                />): null}
                                 {this.state.startingtime ? (
                                 <DetailsItem 
                                     classNameDetails='details__item'
@@ -263,9 +212,7 @@ class FlightDetailContainer extends Component {
                                     classNameDetailsTxt='details__txt'
                                     title='Starzzeit'
                                     txt={this.state.startingtime + ' m/s'}
-                                />): (
-                                    ''
-                                )}
+                                />): null}
                                 {this.state.distance ? (
                                 <DetailsItem 
                                     classNameDetails='details__item'
@@ -273,29 +220,19 @@ class FlightDetailContainer extends Component {
                                     classNameDetailsTxt='details__txt'
                                     title='Geflogene Distanz'
                                     txt={this.state.distance + ' km'}
-                                />): (
-                                    ''
-                                )}
+                                />): null}
                                 {this.state.showFurtherDetailsLinks ? (
                                     <div className="details__item">
                                     <p className="details__titel-anchors">Weitere Daten</p>
                                     <p className="details__txt-anchors">Kartenansicht und mehr.</p>
                                     {this.state.syrideLink ? (
-                                        <a target="_blank" href={this.state.syrideLink}><span className="anchor">Syride</span></a>): (
-                                        ''
-                                    )}
+                                        <a target="_blank" href={this.state.syrideLink}><span className="anchor">Syride</span></a>): null}
                                     {this.state.xcontestLink ? (
-                                    <a target="_blank" href={this.state.xcontestLink}><span className="anchor">XContest</span></a>): (
-                                        ''
-                                    )}
+                                    <a target="_blank" href={this.state.xcontestLink}><span className="anchor">XContest</span></a>): null}
                                     {this.state.airtribuneLink ? (
-                                    <a target="_blank" href={this.state.airtribuneLink}><span className="anchor">Airtribune</span></a>): (
-                                        ''
-                                    )}
+                                    <a target="_blank" href={this.state.airtribuneLink}><span className="anchor">Airtribune</span></a>): null}
                                 </div>
-                                ) : (
-                                    ''
-                                )} 
+                                ) : null} 
                             </div>
                         </div>
                         {this.state.showWeatherLinks ? (
@@ -310,10 +247,7 @@ class FlightDetailContainer extends Component {
                                 <a><span className="anchor" href={this.state.weatherRegtherm}>Regtherm</span></a>
                                 <a><span className="anchor" href={this.state.weatherSoaringmeteo}>Soaringmeteo</span></a>
                             </div>
-                        </div>) : (
-                            ''
-                            )}
-                        
+                        </div>) : null}
                     </div>
                 </section>
             </main>

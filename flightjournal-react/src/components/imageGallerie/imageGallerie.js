@@ -1,44 +1,89 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Arrow from '../arrow/arrow';
+import Dots from '../dots/dots';
 
-const ImageGallerie = (props) => {
-    function renderImages(url, name){
+class ImageGallerie extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isActive: 1,
+            classNameDot: 'image-galerie__dot'
+        }
+        this.prevFunction = this.prevFunction.bind(this);
+        this.nextFunction = this.nextFunction.bind(this);
+        this.renderImages = this.renderImages.bind(this);
+        this.onClickDot = this.onClickDot.bind(this);
+    }
+    renderImages(url, name){
         let items = [];
         let classNameImg = 'image-galerie__image';
         for(let i=1; i<name.length; i++){
-            classNameImg = (props.isActiveImg === i) ? 'image-galerie__image js-active' : 'image-galerie__image';
+            classNameImg = (this.state.isActive === i) ? 'image-galerie__image js-active' : 'image-galerie__image';
             items.push(<img key={i.toString()} className={classNameImg} src={url[i]} alt={name[i]} />)
         }
         return items;
     }
-    function renderDots(name){
-        let items = [];
-        let classNameDot = 'image-galerie__dot';
-        for(let i=1; i<name.length; i++){
-            classNameDot = (props.isActiveImg === i) ? 'image-galerie__dot js-active' : 'image-galerie__dot';
-            items.push( <span key={i.toString()} className={classNameDot} data-dot={i.toString()} onClick={props.onClickDot}></span>)
+
+    nextFunction(e){
+        e.preventDefault();
+        //TODO: image-object shouldn't have a empty object on position 1. If is corrected, delete -1 before this.state.imagesName
+        if(this.props.name.length-1 <= this.state.isActive){
+            this.setState({
+                isActive: 1
+            })
+        }else{
+            this.setState({
+                isActive: this.state.isActive+1
+            })
         }
-        return items;
     }
+    prevFunction(e){
+        e.preventDefault();
+        //TODO: image-object shouldn't have a empty object on position 1. If is corrected, delete -1 before this.state.imagesName
+        if(this.props.name.length-1 > this.state.isActive){
+            this.setState({
+                isActive: this.props.name.length-1
+            })
+        }else{
+            this.setState({
+                isActive: this.state.isActive-1
+            })
+        }
+    }
+    onClickDot(i){
+        this.setState({
+            isActive: i
+        })
+    }
+    render() {
     return (
-        <div className={props.classNameOuterDiv}>
+        <div className="detail-layout__left image-galerie">
             <div className="image-galerie__wrapper">
-                {renderImages(props.url, props.name)}
+                {this.renderImages(this.props.url, this.props.name)}
             </div>
             <div className="image-galerie__prev-next">
                 <Arrow 
                     arrow="right"
-                    prevNextFunction={props.nextFunction}
+                    prevNextFunction={this.nextFunction}
                 />
                 <Arrow 
                     arrow="left"
-                    prevNextFunction={props.prevFunction}
+                    prevNextFunction={this.prevFunction}
                 />
             </div>
             <div className="image-galerie__dots">
-                {renderDots(props.name)}
+                {this.props.name.map((item, index) =>{
+                    let classNameDot = (this.state.isActive === index) ? 'image-galerie__dot js-active' : 'image-galerie__dot';
+                        return <Dots key={index.toString()}
+                            classNameDot={classNameDot}
+                            onItemClick={this.onClickDot} 
+                            id={index}
+                        />
+                    }
+                )}
             </div>
         </div>
     );
+}
 };
 export default ImageGallerie;

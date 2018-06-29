@@ -8,6 +8,12 @@
       height: 100%;
       min-width: 100%;
       width: auto;
+      display:none;
+    }
+    &.js-active{
+      @include bp(max, $ipad-p){
+        display: block;
+      }
     }
   }
 
@@ -64,7 +70,7 @@
     &:hover,
     &:focus,
     &:active,
-    &.isactive{
+    &.js-active{
       background-color: $color-primary;
     }
   } 

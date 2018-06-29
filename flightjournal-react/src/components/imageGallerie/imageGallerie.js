@@ -1,17 +1,22 @@
 import React from 'react';
+import Arrow from '../arrow/arrow';
 
 const ImageGallerie = (props) => {
     function renderImages(url, name){
         let items = [];
-        for(let i=0; i<name.length; i++){
-            items.push(<img key={i.toString()} className="image-galerie__image js-image-galerie__image" src={url[i]} alt={name[i]} />)
+        let classNameImg = 'image-galerie__image';
+        for(let i=1; i<name.length; i++){
+            classNameImg = (props.isActiveImg === i) ? 'image-galerie__image js-active' : 'image-galerie__image';
+            items.push(<img key={i.toString()} className={classNameImg} src={url[i]} alt={name[i]} />)
         }
         return items;
     }
     function renderDots(name){
         let items = [];
-        for(let i=0; i<name.length; i++){
-            items.push( <span key={i.toString()} className="image-galerie__dot js-img-dot" data-dot={i.toString()}></span>)
+        let classNameDot = 'image-galerie__dot';
+        for(let i=1; i<name.length; i++){
+            classNameDot = (props.isActiveImg === i) ? 'image-galerie__dot js-active' : 'image-galerie__dot';
+            items.push( <span key={i.toString()} className={classNameDot} data-dot={i.toString()} onClick={props.onClickDot}></span>)
         }
         return items;
     }
@@ -21,11 +26,17 @@ const ImageGallerie = (props) => {
                 {renderImages(props.url, props.name)}
             </div>
             <div className="image-galerie__prev-next">
-                <a className="image-galerie__prev js-img-prev"><span className="image-galerie__prev-text"></span><i className="fas fa-chevron-left image-galerie__fa"></i></a>
-                <a className="image-galerie__next js-img-next"><i className="fas fa-chevron-right image-galerie__fa"></i><span className="image-galerie__next-text"></span></a>
+                <Arrow 
+                    arrow="right"
+                    prevNextFunction={props.nextFunction}
+                />
+                <Arrow 
+                    arrow="left"
+                    prevNextFunction={props.prevFunction}
+                />
             </div>
             <div className="image-galerie__dots">
-            {renderDots(props.name)}
+                {renderDots(props.name)}
             </div>
         </div>
     );

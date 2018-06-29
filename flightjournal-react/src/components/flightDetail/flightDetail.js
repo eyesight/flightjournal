@@ -51,7 +51,11 @@ class FlightDetailContainer extends Component {
 
             showWeatherLinks: false,
             showFurtherDetailsLinks: false,
+            isActive: 1
         };
+        this.prevFunction = this.prevFunction.bind(this);
+        this.nextFunction = this.nextFunction.bind(this);
+        this.onClickDot = this.onClickDot.bind(this);
     }
 
     componentWillMount() {
@@ -126,7 +130,37 @@ class FlightDetailContainer extends Component {
                     this.setState({showFurtherDetailsLinks: false});
                 } 
             }
+        }   
+    }
+    nextFunction(e){
+        e.preventDefault();
+        //TODO: image-object shouldn't have a empty object on position 1. If is corrected, delete -1 before this.state.imagesName
+        if(this.state.imagesName.length-1 <= this.state.isActive){
+            this.setState({
+                isActive: 1
+            })
+        }else{
+            this.setState({
+                isActive: this.state.isActive+1
+            })
         }
+    }
+    prevFunction(e){
+        e.preventDefault();
+        //TODO: image-object shouldn't have a empty object on position 1. If is corrected, delete -1 before this.state.imagesName
+        if(this.state.imagesName.length-1 > this.state.isActive){
+            this.setState({
+                isActive: this.state.imagesName.length-1
+            })
+        }else{
+            this.setState({
+                isActive: this.state.isActive-1
+            })
+        }
+    }
+    onClickDot(dot){
+        console.log('dot' + dot);
+        console.log(this.state.isActive);
     }
 
     render() {
@@ -143,7 +177,7 @@ class FlightDetailContainer extends Component {
                         withIcon={true} 
                         classNameIcon='fas fa-angle-left'
                         anchorText='Zurück zur Übersicht'
-                        hrefAnchor={routes.HOME}
+                        hrefAnchor={routes.HOME_ANCHOR_FLIGHTS}
                         classNameH1='main-title'
                         classNameSpan='main-title--bold'
                         textBold={textTitelBold}
@@ -152,11 +186,16 @@ class FlightDetailContainer extends Component {
                         classNameParagraph=''
                         paragraphTxt={textParagraph}
                     />
-                    {this.state.imagesName.length !==0 ? (
+                    {this.state.imagesName[1] !== undefined ? (
                         <ImageGallerie 
                             classNameOuterDiv="detail-layout__left image-galerie"
                             url={this.state.imagesUrl}
                             name={this.state.imagesName}
+                            nextFunction={this.nextFunction}
+                            prevFunction={this.prevFunction}
+                            onClickDot={this.onClickDot(this.state.isActive)}
+                            isActiveImg={this.state.isActive}
+                            items={this.state.imagesName}
                     />) : (
                         ''
                     )}

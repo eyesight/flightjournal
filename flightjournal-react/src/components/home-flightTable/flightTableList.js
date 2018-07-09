@@ -62,7 +62,8 @@ class FlightTableList extends Component {
         e.preventDefault();
         tl.add("scene1")
           .to(document.querySelectorAll('.button'), 0, {opacity: 0}, "scene1")
-          .to(document.querySelector('.messageBox__text'), 0, {opacity: 0}, "scene1")
+          .to(document.querySelector('.messageBox__text'), 0, {opacity: 0, display: 'none'}, "scene1")
+          .to(document.querySelector('.button-wrapper__row'), 0, {opacity: 0, display: 'none'}, "scene1")
           .to(document.querySelector('.checkmark'), 0, {display: 'inline-block', scale: 2}, "scene1+=0.1")
           .to(document.querySelector('.messageBox'), 0.2, {borderRadius: "50%", height: '200px', width: '200px'}, "scene1+=0.2")
           .fromTo(document.querySelector('.checkmark__kick'), 0.2, {width: '0'}, {width: '15px'}, "scene1+=0.2")
@@ -127,7 +128,7 @@ class FlightTableList extends Component {
                                     <td className="table__distance">{x.xcdistance} Kilometer</td>
                                     <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.flugdetails(event, x.id)}}>Flugdetails</a></td>
                                     <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.updateFlight(event, x.id)}}>Bearbeiten</a></td>
-                                    <td className="table__details"><a className="anchor table__link" onClick={(event) => { this.showMessageBox(event, x.id)}}>Löschen</a></td>
+                                    <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.showMessageBox(event, x.id)}}>Löschen</a></td>
                                 </tr>
                             );
                         }

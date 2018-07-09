@@ -109,23 +109,23 @@ class FlightTableFilter extends Component {
                         }
                     </ul>
                     <div className="filter__list-dropdown">
-                        <button className="filter__dropdown-item">{!this.state.dropdownYearTxt ? 'Jahr wählen': this.state.dropdownYearTxt} <i className="fas fa-angle-down"></i>
+                        <div className="filter__dropdown-item">{!this.state.dropdownYearTxt ? 'Jahr wählen': this.state.dropdownYearTxt} <i className="fas fa-angle-down"></i>
                             <div className="filter__sub-dropdown filter__dropdown--short">
                             <a data-value='' data-filter='year' onClick={this.chooseFilter} className="filter__sub-dropdown-item">alle Jahre</a>
                                 {
                                     this.renderYearFilter(this.state.startYearFilter, this.state.currentYearFilter)
                                 }
                             </div>
-                        </button>
-                        <button className="filter__dropdown-item">{!this.state.dropdownPilotTxt ? 'Pilot wählen': this.state.dropdownPilotTxt}<i className="fas fa-angle-down"></i>
+                        </div>
+                        <div className="filter__dropdown-item">{!this.state.dropdownPilotTxt ? 'Pilot wählen': this.state.dropdownPilotTxt}<i className="fas fa-angle-down"></i>
                             <div className="filter__sub-dropdown filter__dropdown--short">
                                 <a data-value='' data-filter='pilot' onClick={this.chooseFilter} className="filter__sub-dropdown-item">Jonas & Claudia</a>
                                 {
                                     this.renderPilotFilter(this.props.pilots)
                                 }
                             </div>
-                        </button>
-                    </div>
+                        </div>
+                    </div> 
                 </div>
         );
     }

@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import MainTitleWrapper from '../mainTitleWrapper/mainTitleWrapper';
+import TitleH3 from '../titleH3/titleH3';
+import Anchor from '../anchor/anchor';
 
 class FlugplanungRight extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            buttonTxt:'+ mehr Links'
+            buttonTxt:'+ mehr Links',
+            classNameH3: 'title title-h3',
+            classNameTitleReg: 'title title--regular',
+            classNameAnchor: 'link-box__link anchor'
         };
         this.showMoreText = this.showMoreText.bind(this);
         this.slideshowInit = this.slideshowInit.bind(this);
@@ -256,22 +262,34 @@ class FlugplanungRight extends Component {
     render() {
         return (
         <div className="start__right">
-            <div className="start__lead-wrapper">
-                <h1 className="main-title">
-                      <span className="main-title--bold">(R)auf und davon.<br />
-                      </span>Mit dem Gleitschirm unterwegs.
-                </h1>
-            </div>
+            <MainTitleWrapper 
+                classNameWrapper='start__lead-wrapper'
+                withAnchor={false}
+                withIcon={false} 
+                classNameH1='main-title'
+                classNameSpan='main-title--bold'
+                textBold='(R)auf und davon.'
+                textReg='Mit dem Gleitschirm unterwegs.'
+                withParagraph={false}
+            />
             <div className="start__twocolumn js-linkbox-slideshow-container">
                 <div className="box link-box js-linkbox">
                     <div className="link-box__content js-linkbox-content">
-                        <h3 className="title-h3">Wetter.<br /><span className="title--regular">Wie wirds?</span></h3>
+                        <TitleH3 
+                            classNameH3={this.state.classNameH3}
+                            classNameTitleReg={this.state.classNameTitleReg}
+                            txtBold='Wetter.'
+                            txtReg='Wie wirds?'
+                        />
                         <ul className="link-box__list js-linkbox-links">
                             <li>
-                                <a href="http://www.meteoschweiz.admin.ch/home.html?tab=report" target="_blank" rel="noopener noreferrer"
-                                   className="link-box__link anchor">
-                                    Textprognose
-                                </a>
+                                <Anchor 
+                                    anchorText='Textprognose'
+                                    hrefAnchor="http://www.meteoschweiz.admin.ch/home.html?tab=report"
+                                    classNameAnchor={this.state.classNameAnchor}
+                                    withIcon={false}
+                                    withTarget={true}
+                                />
                             </li>
                             <li>
                                 <a href="http://www.meteoschweiz.admin.ch/home/wetter/prognosen/allgemeine-lage.html"
@@ -309,7 +327,12 @@ class FlugplanungRight extends Component {
                 </div>
                 <div className="box link-box js-linkbox">
                     <div className="link-box__content js-linkbox-content">
-                        <h3 className="title title-h3">Wind.<br /><span className="title--regular"> Wo blästs?</span></h3>
+                        <TitleH3 
+                            classNameH3={this.state.classNameH3}
+                            classNameTitleReg={this.state.classNameTitleReg}
+                            txtBold='Wind.'
+                            txtReg='Wo blästs?'
+                        />
                         <ul className="link-box__list js-linkbox-links">
                             <li>
                                 <a href="http://www.meteocentrale.ch/de/wetter/foehn-und-bise/foehn.html" rel="noopener noreferrer"
@@ -366,8 +389,12 @@ class FlugplanungRight extends Component {
                 </div>
                 <div className="box link-box js-linkbox">
                     <div className="link-box__content js-linkbox-content">
-                        <h3 className="title title-h3">Karten.<br /><span className="title--regular">Das wichtigste Kartenmaterial.</span>
-                        </h3>
+                        <TitleH3 
+                            classNameH3={this.state.classNameH3}
+                            classNameTitleReg={this.state.classNameTitleReg}
+                            txtBold='Karten.'
+                            txtReg='Das wichtigste Kartenmaterial.'
+                        />
                         <ul className="link-box__list js-linkbox-links">
                             <li>
                                 <a href="https://www.skybriefing.com/portal/delegate/dabs?today" target="_blank" rel="noopener noreferrer"
@@ -434,7 +461,12 @@ class FlugplanungRight extends Component {
             <div className="start__twocolumn js-linkbox-slideshow-container">
                 <div className="box link-box js-linkbox">
                     <div className="link-box__content js-linkbox-content ">
-                        <h3 className="title title-h3">Thermik.<br /> <span className="title--regular">Wo steigts?</span></h3>
+                        <TitleH3 
+                            classNameH3={this.state.classNameH3}
+                            classNameTitleReg={this.state.classNameTitleReg}
+                            txtBold='Thermik.'
+                            txtReg='Wo steigts?'
+                        />
                         <ul className="link-box__list js-linkbox-links">
                             <li>
                                 <a href="https://soaringmeteo.org/soarWRF2K0612Z.html" target="_blank" rel="noopener noreferrer"
@@ -491,7 +523,12 @@ class FlugplanungRight extends Component {
                 </div>
                 <div className="box link-box js-linkbox">
                     <div className="link-box__content js-linkbox-content">
-                        <h3 className="title-h3">Webcams.<br /><span className="title--regular">Wie siehts aus?</span> </h3>
+                        <TitleH3 
+                            classNameH3={this.state.classNameH3}
+                            classNameTitleReg={this.state.classNameTitleReg}
+                            txtBold='Webcams.'
+                            txtReg='Wie siehts aus?'
+                        />
                         <ul className="link-box__list js-linkbox-links">
                             <li>
                                 <a href="https://www.flugsau.ch/main_bigware_30.php?pages_id=21&language=de" target="_blank" rel="noopener noreferrer"
@@ -555,7 +592,12 @@ class FlugplanungRight extends Component {
                 </div>
                 <div className="box link-box js-linkbox">
                     <div className="link-box__content js-linkbox-content">
-                        <h3 className="title-h3">Diverse.<br /><span className="title--regular">Weitere nützliche Klicks.</span>  </h3>
+                        <TitleH3 
+                            classNameH3={this.state.classNameH3}
+                            classNameTitleReg={this.state.classNameTitleReg}
+                            txtBold='Diverse.'
+                            txtReg='Weitere nützliche Klicks.'
+                        />
                         <ul className="link-box__list js-linkbox-links">
                             <li>
                                 <a href="https://www.shv-fsvl.ch/sicherheit/luftraum" target="_blank" rel="noopener noreferrer"

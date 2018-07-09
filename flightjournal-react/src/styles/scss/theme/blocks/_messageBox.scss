@@ -33,15 +33,12 @@
      text-align: center;
    } 
 }
-/* TODO: Style update checkmark shuld be centered in every browser */
+
 .checkmark {
-  display:none;
-  position: absolute;
-  margin: 0 20px;
-  width: 30px;
-  height: 35px;
-  -ms-transform: rotate(45deg); /* IE 9 */
-  -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+  display: none;
+  position: relative;
+  width: 16px;
+  height: 45px;
   transform: rotate(45deg);
 }
 

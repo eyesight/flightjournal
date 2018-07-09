@@ -19,11 +19,11 @@ class MessageBox extends Component{
         <div className="messageBox-Background">
                 <div ref={this.messageBoxe} className="messageBox">
                     <p className="messageBox__text">{txt}</p>
-                    <span className="checkmark">
+                    <div className="checkmark">
                         <div className="checkmark__circle"></div>
                         <div className="checkmark__stem"></div>
                         <div className="checkmark__kick"></div> 
-                    </span>
+                    </div>
                     <div className="button-wrapper button-wrapper__row">
                         <button onClick={functionDelete} className={buttonDelClass}>{buttonDeleteTxt}</button>
                         <button onClick={functionCancel} className={buttonCancClass}>{buttonCancelTxt}</button>

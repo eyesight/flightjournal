@@ -29,7 +29,7 @@ class ImageGallerie extends Component {
         //TODO: image-object shouldn't have a empty object on position 1. If is corrected, delete -1 before this.state.imagesName
         if(this.props.name.length-1 <= this.state.isActive){
             this.setState({
-                isActive: 1
+                isActive: 1 
             })
         }else{
             this.setState({
@@ -63,13 +63,15 @@ class ImageGallerie extends Component {
             </div>
             <div className="image-galerie__prev-next">
                 <Arrow 
-                    arrow="right"
                     prevNextFunction={this.nextFunction}
+                    classNameAnchor='image-galerie__next'
+                    classNameIcon='fas fa-chevron-right image-galerie__fa'
                 />
                 <Arrow 
-                    arrow="left"
                     prevNextFunction={this.prevFunction}
-                />
+                    classNameAnchor='image-galerie__prev'
+                    classNameIcon='fas fa-chevron-left image-galerie__fa'
+                /> 
             </div>
             <div className="image-galerie__dots">
                 {this.props.name.map((item, index) =>{

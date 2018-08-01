@@ -113,7 +113,6 @@ class FlightTableList extends Component {
         const flights = Object.keys(obj).map(i => obj[i]);
         const users = Object.keys(pilot).map(i => pilot[i]);
         const sp = Object.keys(startpl).map(i => startpl[i]);
-        console.log(this.props.activeUser);
 
         return flights.slice(0, this.state.itemsToShow).map((x, i) => {
             return users.map((y, i)=>{
@@ -121,7 +120,6 @@ class FlightTableList extends Component {
                     if(y.email === x.pilot){
                         if(x.startplace === z.id){
                             let isactiveuser = y.email === this.props.activeUser ? true:false;
-                            console.log(isactiveuser)
                             return (
                                 <tr key={x.id}>
                                     <td className="table__date">{x.date}</td>

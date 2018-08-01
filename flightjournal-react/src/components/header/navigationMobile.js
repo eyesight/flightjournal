@@ -36,12 +36,12 @@ class NavigationMobile extends Component {
     render() {
         return (
             <div className="mobile-toggle">
-                <div className="mobile-toggle__menu"></div>
                 <div className="mobile-toggle__burger">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
+                <div className="mobile-toggle__menu"></div>
             </div>
         );
     }

@@ -144,7 +144,7 @@ class FlightDetailContainer extends Component {
                         withIcon={true} 
                         classNameIcon='fas fa-angle-left'
                         anchorText='Zurück zur Übersicht'
-                        hrefAnchor={routes.HOME_ANCHOR_FLIGHTS}
+                        hrefAnchor={routes.LANDING}
                         classNameH1='main-title'
                         classNameSpan='main-title--bold'
                         textBold={textTitelBold}

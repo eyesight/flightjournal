@@ -8,8 +8,8 @@
 
   &__logo-wrapper{
     width: 200px;
-    @include bp(max, $ipad-ls) {
-      width: 150px;
+    @include bp(max, $phone) {
+      width: 220px;
     }
   }
 
@@ -55,7 +55,8 @@
       color: $color-black;
     }
     @include bp(max, $ipad-p) {
-      margin-top: -15px;
+      margin-top: -18px;
+      margin-left: 2%;
     }
   }
 
@@ -101,10 +102,6 @@
     .header__anchor{
       color: $color-black;
     }
-  }
-
-  @include bp(max, $ipad-ls) {
-    background-color: $color-white;
   }
 }
 

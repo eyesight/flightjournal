@@ -11,17 +11,15 @@
 
 
   &__menu{
-    float:left;
     margin-right: 10px;
-    font-size: $font-s-copytext;
-
-    &:before{
+    font-size: $font-s-menu;
+    margin-top: 30px;
+    &:after{
       content: 'Menu';
     }
   }
 
   &__burger{
-    float:left;
     width: 30px;
   }
 
@@ -37,19 +35,21 @@
     &:first-child{
       transition: transform 0.5s;
       position: absolute;
-      bottom: -10px;
+      top: 0;
       transform: rotate(0deg);
     }
 
     &:nth-child(2){
       opacity: 1;
       transition: opacity 0.5s;
+      position: absolute;
+      top: 10px;
     }
 
     &:nth-child(3){
       transform:rotate(0deg);
       position:absolute;
-      bottom:0;
+      top:20px;
       transition: transform 0.5s;
     }
   }

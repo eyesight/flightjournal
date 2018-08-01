@@ -34,7 +34,6 @@ class StartMainContainer extends Component {
                   <div>
                     <Flugplanung />
                     <FlightTable />
-                    <StartingPlaces />
                   </div> :
                     <div>
                         <Flugplanung />

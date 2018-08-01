@@ -50,9 +50,9 @@ class Navigation extends Component {
                         <li className="main-nav__link">
                             <Scrollchor to="fluege">Flüge</Scrollchor>
                         </li>
-                        <li className="main-nav__link">
+                        {/* <li className="main-nav__link">
                             <Scrollchor to="startplaetze">Startplätze</Scrollchor>
-                        </li>
+                        </li> */}
                         <li className="main-nav__link">
                             <Link onClick={() => {this.doLogOut();}} to={routes.LANDING}>Logout</Link>
                          </li>

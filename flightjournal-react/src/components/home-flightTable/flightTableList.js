@@ -123,8 +123,10 @@ class FlightTableList extends Component {
                             return (
                                 <tr key={x.id}>
                                     <td className="table__date">{x.date}</td>
-                                    <td className="table__pilot"><a className="table__link">{y.firstname}</a></td>
-                                    <td className="table__start"><a className="table__link">{z.name}</a></td>
+                                    {/* <td className="table__pilot"><a className="table__link">{y.firstname}</a></td>
+                                    <td className="table__start"><a className="table__link">{z.name}</a></td> */}
+                                    <td className="table__pilot">{y.firstname}</td>
+                                    <td className="table__start">{z.name}</td>
                                     <td className="table__duration">{utils.timeToHourMinString(x.flighttime)}</td>
                                     <td className="table__distance">{x.xcdistance} Kilometer</td>
                                     <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.flugdetails(event, x.id)}}>Flugdetails</a></td>

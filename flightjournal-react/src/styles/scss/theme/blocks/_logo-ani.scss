@@ -9,17 +9,20 @@ svg {
   }
 }
 
-.cls-1 {
+.cls-1,
+{
   fill: #0b0b0c;
 }
 
-.cls-2 {
+.cls-2,
+.st2 {
   fill: none;
   stroke: #21203f;
   stroke-linejoin: round;
 }
 
-.cls-2, .cls-4 {
+.cls-2, .cls-4,
+.st4  {
   stroke-linecap: round;
 }
 
@@ -27,7 +30,8 @@ svg {
   fill: #29211a;
 }
 
-.cls-10 {
+.cls-10,
+.st4  {
   fill: none;
   stroke: #1f2020;
   stroke-miterlimit: 10;
@@ -37,16 +41,49 @@ svg {
   opacity: 0;
 }
 
-.wolken{
+.wolke,
+.wokeBlitz{
   fill: none;
   z-index: -100;
   stroke: #000;
-  opacity: 0;
+  opacity: 1;
 }
 
 .sonne{
   opacity: 0;
   bottom: 0;
+}
+
+.mondWolke,
+.sonneWolkeSchnee,
+.sonneNebel,
+.sonneNebel1,
+.sonneNebel2,
+.sonneNebel3,
+.sonneNebel4,
+.schnee1,
+.schnee2,
+.schnee3,
+.schnee4,
+.schnee5,
+.schnee6,
+.schnee7,
+.schnee8,
+.schnee9,
+.schnee10,
+.blitzLeer,
+.blitz1,
+.blitz2,
+.blitz3,
+.nebel,
+.nebel1,
+.nebel2,
+.nebel3,
+.nebelWolke,
+.mond,
+.wokeBlitz
+{
+  opacity: 0;
 }
 
 .tropfen1,

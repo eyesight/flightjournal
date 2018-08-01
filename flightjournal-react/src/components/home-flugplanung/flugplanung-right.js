@@ -216,8 +216,11 @@ class FlugplanungRight extends Component {
         }
     }
 
-
     componentDidMount() {
+        this.slideshowInit();
+    }
+
+    componentWillUnmount(){
         this.slideshowInit();
     }
 

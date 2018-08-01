@@ -108,17 +108,20 @@ class FlightTableList extends Component {
             }
           })
     }
-
+    //TODO: make delete- & update-function just for active user (inside the function, not the ui)
     renderFlights(obj, pilot, startpl) {
         const flights = Object.keys(obj).map(i => obj[i]);
         const users = Object.keys(pilot).map(i => pilot[i]);
         const sp = Object.keys(startpl).map(i => startpl[i]);
-        
+        console.log(this.props.activeUser);
+
         return flights.slice(0, this.state.itemsToShow).map((x, i) => {
             return users.map((y, i)=>{
                 return sp.map((z, i)=>{
                     if(y.email === x.pilot){
                         if(x.startplace === z.id){
+                            let isactiveuser = y.email === this.props.activeUser ? true:false;
+                            console.log(isactiveuser)
                             return (
                                 <tr key={x.id}>
                                     <td className="table__date">{x.date}</td>
@@ -127,8 +130,8 @@ class FlightTableList extends Component {
                                     <td className="table__duration">{utils.timeToHourMinString(x.flighttime)}</td>
                                     <td className="table__distance">{x.xcdistance} Kilometer</td>
                                     <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.flugdetails(event, x.id)}}>Flugdetails</a></td>
-                                    <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.updateFlight(event, x.id)}}>Bearbeiten</a></td>
-                                    <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.showMessageBox(event, x.id)}}>Löschen</a></td>
+                                    {isactiveuser ? <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.updateFlight(event, x.id)}}>Bearbeiten</a></td> : <td> </td>}
+                                    {isactiveuser ? <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.showMessageBox(event, x.id)}}>Löschen</a></td> : <td> </td>}
                                 </tr>
                             );
                         }
@@ -188,6 +191,7 @@ function mapStateToProps(state, props) {
         startplaces: state.startplaces,
         pilots: state.pilots,
         filter: state.filter,
+        activeUser: state.user.email,
         filteredFlights: getFilterFlights(state.flights, state.filter)
     };
 }

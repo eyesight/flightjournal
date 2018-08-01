@@ -28,6 +28,7 @@ class StartMainContainer extends Component {
         }
     }
     render() {
+        console.log(this.props.user.email);
         return (
             <main className="main">
                 {this.state.authUser ?

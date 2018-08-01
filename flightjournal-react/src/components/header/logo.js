@@ -273,7 +273,7 @@ class Logo extends Component {
             case 302:
             case 310:
             case 311:
-            case 312:
+            case 312: 
             case 313:
             case 314:
             case 321:

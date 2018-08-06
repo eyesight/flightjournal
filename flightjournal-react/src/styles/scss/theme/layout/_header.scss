@@ -55,7 +55,7 @@
       color: $color-black;
     }
     @include bp(max, $ipad-p) {
-      margin-top: -18px;
+      margin-top: -20px; 
       margin-left: 2%;
     }
   }

@@ -7,6 +7,9 @@ import * as routes from '../../constants/routes';
 class Logo extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            region: ''
+        };
         this.tropfen1 = React.createRef();
         this.tropfen2 = React.createRef();
         this.tropfen3 = React.createRef();
@@ -49,6 +52,9 @@ class Logo extends Component {
     componentWillAppear (callback) {
         const weatherData = weather();
         console.log(weatherData);
+        this.setState({
+            region: weatherData.name
+        })
         //function to see if its day or night
         const isDay = (sunrise, sunset) =>{
             let sunriseTime = sunrise ? new Date(1000*sunrise).getHours() : 6; //When no time is given, take 9:00 am
@@ -61,7 +67,7 @@ class Logo extends Component {
             return isItDaytime;
         }
         let isItDaytime = isDay(weatherData.sys.sunrise, weatherData.sys.sunset);
-        console.log(isItDaytime);
+        console.log('ist es Tag: '+ isItDaytime);
 
         this.tropfen = [this.tropfen1.current, this.tropfen2.current, this.tropfen3.current, this.tropfen4.current];
 
@@ -299,6 +305,7 @@ class Logo extends Component {
             case 701:
                  //animation Sun with fog
                 tl2.add(sunfog());
+                tl2.delay(1).play();
                 break
             case 711:
             case 721:
@@ -321,7 +328,6 @@ class Logo extends Component {
                 tl2.delay(1).play();
                 break;
             default:
-            console.log('dd');
                 //animation Sun with clouds and snow
                 tl2.add('sonnewolkeschnee');
                 tl2.add(cloud(ycloud), 'sonnewolkeschnee');
@@ -473,9 +479,10 @@ class Logo extends Component {
                         </g>
                         </svg>
                     </Link>
+                    <p className="verySmall">{this.state.region}</p>
                 </div>
             </div>
-        );
+        ); 
     }
 }
 

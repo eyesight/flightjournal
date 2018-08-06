@@ -60,7 +60,11 @@ class FlightTableSort extends Component {
                     <span className={`arrow-up ${(this.props.sort.sortDirection === 'asc' && this.props.sort.sortBy === 'xcdistance') ? 'visible' : ''}`}> &#8593;</span>
                     <span className={`arrow-up ${(this.props.sort.sortDirection === 'desc' && this.props.sort.sortBy === 'xcdistance') ? 'visible' : ''}`}> &#8595;</span>
                 </th>
-                <th>
+                <th className="table__header table--sort js-table--sort">&nbsp;
+                </th>
+                <th className="table__header table--sort js-table--sort">&nbsp;
+                </th>
+                <th className="table__header table--sort js-table--sort">&nbsp;
                 </th>
             </tr>
             </thead>

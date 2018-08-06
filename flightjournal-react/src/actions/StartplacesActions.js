@@ -14,9 +14,13 @@ export function getStartplaces () {
 
 export function saveStartplaces(post) {
   return dispatch => {
-    let key = startplacesdb.push().key;
-    post.id = key;
-    return startplacesdb.push(post);
+    const newRef = startplacesdb.push();
+    const newItem = {
+      id: newRef.key,
+      ...post
+    };
+    console.log(newItem);
+    return newRef.set(newItem);
   }
 }
 

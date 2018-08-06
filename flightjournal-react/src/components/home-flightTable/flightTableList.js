@@ -44,7 +44,7 @@ class FlightTableList extends Component {
         e.preventDefault();
         this.state.itemsToShow === 3 ? 
             (
-            this.setState({ itemsToShow: this.props.flights.length, expanded: true })
+            this.setState({ itemsToShow: this.props.filteredFlights.length, expanded: true })
             ) : (
               this.setState({ itemsToShow: 3, expanded: false})
             )
@@ -114,12 +114,12 @@ class FlightTableList extends Component {
         const users = Object.keys(pilot).map(i => pilot[i]);
         const sp = Object.keys(startpl).map(i => startpl[i]);
 
-        return flights.slice(0, this.state.itemsToShow).map((x, i) => {
-            return users.map((y, i)=>{
-                return sp.map((z, i)=>{
+        return flights.slice(0, this.state.itemsToShow).map((x) => {
+            return users.map((y)=>{
+                return sp.map((z)=>{
                     if(y.email === x.pilot){
                         if(x.startplace === z.id){
-                            let isactiveuser = y.email === this.props.activeUser ? true:false;
+                            let isactiveuser = y.email === this.props.activeUser ? true : false;
                             return (
                                 <tr key={x.id}>
                                     <td className="table__date">{x.date}</td>
@@ -130,8 +130,8 @@ class FlightTableList extends Component {
                                     <td className="table__duration">{utils.timeToHourMinString(x.flighttime)}</td>
                                     <td className="table__distance">{x.xcdistance} Kilometer</td>
                                     <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.flugdetails(event, x.id)}}>Flugdetails</a></td>
-                                    {isactiveuser ? <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.updateFlight(event, x.id)}}>Bearbeiten</a></td> : <td> </td>}
-                                    {isactiveuser ? <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.showMessageBox(event, x.id)}}>Löschen</a></td> : <td> </td>}
+                                    {isactiveuser ? <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.updateFlight(event, x.id)}}>Bearbeiten</a></td> : null}
+                                    {isactiveuser ? <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.showMessageBox(event, x.id)}}>Löschen</a></td> : null}
                                 </tr>
                             );
                         }
@@ -152,17 +152,17 @@ class FlightTableList extends Component {
             <div className="table-wrapper">
                 <div className="table-inner">
                 <table className="table">
-                        <FlightTableSort />
-                        <tbody className='table__tbody'>
-                            {this.renderFlights(allflight, allPilots, allStartplaces)}
-                        </tbody> 
-                    </table>
-                    {
-                        allflight.length>3 ? 
-                        <div className="button-wrapper button-wrapper--top"> 
-                            <button onClick={this.showMore} className="button-without-border button-without-border--small">{this.state.expanded ? (<span>- weniger Flüge anzeigen</span>) : (<span>+ mehr Flüge anzeigen</span>)}</button>
-                        </div> : null
-                    }
+                    <FlightTableSort />
+                    <tbody className='table__tbody'>
+                        {this.renderFlights(allflight, allPilots, allStartplaces)}
+                    </tbody> 
+                </table>
+                {
+                    allflight.length>3 ? 
+                    <div className="button-wrapper button-wrapper--top"> 
+                        <button onClick={this.showMore} className="button-without-border button-without-border--small">{this.state.expanded ? (<span>- weniger Flüge anzeigen</span>) : (<span>+ mehr Flüge anzeigen</span>)}</button>
+                    </div> : null
+                }
                 </div>
                 <ReactTransitionGroup component="div">
                 {

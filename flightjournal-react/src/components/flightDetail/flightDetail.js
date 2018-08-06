@@ -211,7 +211,7 @@ class FlightDetailContainer extends Component {
                                     classNameDetailsTitel= 'details__titel'
                                     classNameDetailsTxt='details__txt'
                                     title='Starzzeit'
-                                    txt={this.state.startingtime + ' m/s'}
+                                    txt={this.state.startingtime + ' Uhr'}
                                 />): null}
                                 {this.state.distance ? (
                                 <DetailsItem 

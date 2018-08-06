@@ -46,7 +46,7 @@ svg {
   fill: none;
   z-index: -100;
   stroke: #000;
-  opacity: 1;
+  opacity: 0; 
 }
 
 .sonne{
@@ -91,4 +91,9 @@ svg {
 .tropfen3,
 .tropfen4{
   opacity: 1;
+}
+
+.verySmall{
+  font-size: 8px;
+  margin-top: -25px;
 }

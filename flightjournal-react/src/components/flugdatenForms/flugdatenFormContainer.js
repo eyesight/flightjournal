@@ -908,7 +908,6 @@ class FlugdatenFormContainer extends Component {
                         selectedValueSP={this.state.startplace}
                         goToPage={this.goToPage}
                         valueLandeplatz={this.state.landingplace}
-                        valueXcdistance={this.state.xcdistance}
                         startDate={this.state.startDate}
                         handleChange={this.handleChangeDate}
                         onChangeDate={this.onChange}
@@ -917,12 +916,10 @@ class FlugdatenFormContainer extends Component {
                         classNameDateFT={`formular__input-wrapper formular__input-Icon-wrapper ${this.errorClass(this.state.formErrors.flighttime)}` }
                         classNameSP={`formular__input-wrapper ${this.errorClass(this.state.formErrors.startplace)}`}
                         classNameDescription={`formular__input-wrapper formular__input--text ${this.errorClass(this.state.formErrors.description)}`}
-                        classNameXcdistance={`formular__input-wrapper ${this.errorClass(this.state.formErrors.xcdistance)}`}
                         errorMessageLP={this.state.formErrors.landingplace}
                         errorMessageST={this.state.formErrors.startplace}
                         errorMessageDate={this.state.formErrors.date}
                         errorMessageFT={this.state.formErrors.flighttime}
-                        errorMessageXC={this.state.formErrors.xcdistance}
                         errorMessageDesc={this.state.formErrors.description}
                     /> }
                 </ReactTransitionGroup> 
@@ -939,16 +936,19 @@ class FlugdatenFormContainer extends Component {
                         valueMaxclimb={this.state.maxclimb}
                         valueStartingtime={this.state.startingtime}
                         valueDistance={this.state.distance}
-                        classNamemaxaltitude={`formular__input-wrapper ${this.errorClass(this.state.formErrors.maxaltitude)}`}
-                        classNameheightgain={`formular__input-wrapper margin-top-0 ${this.errorClass(this.state.formErrors.heightgain)}`}
+                        valueXcdistance={this.state.xcdistance}
+                        classNamemaxaltitude={`formular__input-wrapper margin-top-0 ${this.errorClass(this.state.formErrors.maxaltitude)}`}
+                        classNameheightgain={`formular__input-wrapper ${this.errorClass(this.state.formErrors.heightgain)}`}
                         classNamemaxclimb={`formular__input-wrapper ${this.errorClass(this.state.formErrors.maxclimb)}`}
                         classNamestartingtime={`formular__input-wrapper ${this.errorClass(this.state.formErrors.startingtime)}`}
                         classNamedistance={`formular__input-wrapper ${this.errorClass(this.state.formErrors.distance)}`}
+                        classNameXcdistance={`formular__input-wrapper ${this.errorClass(this.state.formErrors.xcdistance)}`}
                         errorMessagemaxaltitude={this.state.formErrors.maxaltitude}
                         errorMessageheightgain={this.state.formErrors.heightgain}
                         errorMessagemaxclimp={this.state.formErrors.maxclimb}
                         errorMessagestartingtime={this.state.formErrors.startingtime}
                         errorMessagedistance={this.state.formErrors.distance}
+                        errorMessageXC={this.state.formErrors.xcdistance}
                     />}
                 </ReactTransitionGroup> 
                 <ReactTransitionGroup component="div" className="formular-wrapper">

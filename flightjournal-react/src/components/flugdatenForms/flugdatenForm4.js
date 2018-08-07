@@ -31,7 +31,7 @@ class FlugdatenForm4 extends Component {
                     name='syrideLink'
                     autocomp=''
                     value={valueSyrideLink}
-                    classNamesError='formular__validation'
+                    classNamesError='formular__validationBox'
                     errorMessage={errorMessageSyrideLink}
                 />
                 <InputField 
@@ -42,7 +42,7 @@ class FlugdatenForm4 extends Component {
                     name='xcontestLink'
                     autocomp=''
                     value={valueXcontestLink}
-                    classNamesError='formular__validation'
+                    classNamesError='formular__validationBox'
                     errorMessage={errorMessageXcontestLink}
                 />
                 <InputField 
@@ -53,7 +53,7 @@ class FlugdatenForm4 extends Component {
                     name='airtribuneLink'
                     autocomp=''
                     value={valueAirtribuneLink}
-                    classNamesError='formular__validation'
+                    classNamesError='formular__validationBox'
                     errorMessage={errorMessageAirtribuneLink}
                 />
                 <div className="button-group">

@@ -20,9 +20,20 @@ class FlugdatenForm2 extends Component {
         TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px", onComplete: callback});
     }
     render() {
-        const { onChange, onSubmit, goBack, goNext, valueMaxaltitude, valueHeightgain, valueMaxclimb, valueStartingtime, valueDistance, errorMessagemaxaltitude, errorMessageheightgain, errorMessagemaxclimp, errorMessagestartingtime, errorMessagedistance, classNamemaxaltitude, classNameheightgain, classNamemaxclimb, classNamestartingtime, classNamedistance} = this.props;
+        const { onChange, onSubmit, goBack, goNext, valueMaxaltitude, valueHeightgain, valueMaxclimb, valueStartingtime, valueDistance, errorMessagemaxaltitude, errorMessageheightgain, errorMessagemaxclimp, errorMessagestartingtime, errorMessagedistance, classNamemaxaltitude, classNameheightgain, classNamemaxclimb, classNamestartingtime, classNamedistance, classNameXcdistance, valueXcdistance, errorMessageXC} = this.props;
         return (
                 <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
+                    <InputField 
+                        classes={classNameXcdistance}
+                        label='XC-Distanz'
+                        inputAction={onChange}
+                        type='text'
+                        name='xcdistance'
+                        autocomp=''
+                        value={valueXcdistance}
+                        classNamesError='formular__validationBox' 
+                        errorMessage={errorMessageXC}
+                    />
                     <InputField 
                         classes={classNamemaxaltitude}
                         label='Max. Flughöhe in Meter'
@@ -31,7 +42,7 @@ class FlugdatenForm2 extends Component {
                         name='maxaltitude'
                         autocomp=''
                         value={valueMaxaltitude}
-                        classNamesError='formular__validation'
+                        classNamesError='formular__validationBox'
                         errorMessage={errorMessagemaxaltitude}
                     />
                     <InputField 
@@ -42,7 +53,7 @@ class FlugdatenForm2 extends Component {
                         name='heightgain'
                         autocomp=''
                         value={valueHeightgain}
-                        classNamesError='formular__validation'
+                        classNamesError='formular__validationBox'
                         errorMessage={errorMessageheightgain}
                     />
                     <InputField 
@@ -53,7 +64,7 @@ class FlugdatenForm2 extends Component {
                         name='maxclimb'
                         autocomp=''
                         value={valueMaxclimb}
-                        classNamesError='formular__validation'
+                        classNamesError='formular__validationBox'
                         errorMessage={errorMessagemaxclimp}
                     />
                     <InputField 
@@ -64,7 +75,7 @@ class FlugdatenForm2 extends Component {
                         name='startingtime'
                         autocomp=''
                         value={valueStartingtime}
-                        classNamesError='formular__validation'
+                        classNamesError='formular__validationBox'
                         errorMessage={errorMessagestartingtime}
                     />
                     <InputField 
@@ -75,7 +86,7 @@ class FlugdatenForm2 extends Component {
                         name='distance'
                         autocomp=''
                         value={valueDistance}
-                        classNamesError='formular__validation'
+                        classNamesError='formular__validationBox'
                         errorMessage={errorMessagedistance}
                     />
                     <div className="button-group">

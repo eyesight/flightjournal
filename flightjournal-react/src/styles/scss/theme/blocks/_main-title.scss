@@ -13,6 +13,17 @@
   @include bp(max, 1023px) {
     margin-top: 0;
   }
+  @include bp(max, $phone) {
+    font-size: $font-s-lead-s;
+    line-height: 1.5;
+  }
+
+  &--mobile-large{
+    @include bp(max, $phone) {
+      font-size: $font-s-lead;
+      line-height: 3.4rem;
+    }
+  }
 }
 
 .button-without-border+.main-title,

@@ -22,7 +22,7 @@ class FlugdatenForm1 extends Component {
     }
 
     render() {
-        const { onChange, onSubmit, valueHour, valueMinute, nameHour, nameMinute, nameComment, valueComment, goNext, nameSP, getOptions, getOptionsHour, getOptionsMinute, goToPage, valueLandeplatz, valueXcdistance, selectedValueSP, handleChange, startDate, classNameDate, classNameDateLP, classNameDateFT, classNameSP, classNameDescription, classNameXcdistance, errorMessageLP, errorMessageST, errorMessageDate, errorMessageFT, errorMessageXC, errorMessageDesc} = this.props;
+        const { onChange, onSubmit, valueHour, valueMinute, nameHour, nameMinute, nameComment, valueComment, goNext, nameSP, getOptions, getOptionsHour, getOptionsMinute, goToPage, valueLandeplatz, selectedValueSP, handleChange, startDate, classNameDate, classNameDateLP, classNameDateFT, classNameSP, classNameDescription, errorMessageLP, errorMessageST, errorMessageDate, errorMessageFT, errorMessageDesc} = this.props;
         return ( 
             <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
                 <div className={classNameDate}>
@@ -57,7 +57,7 @@ class FlugdatenForm1 extends Component {
                     type='text'
                     name='landingplace'
                     value={valueLandeplatz}
-                    autocomp=''
+                    autocomp='' 
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageLP}
                 />
@@ -77,17 +77,7 @@ class FlugdatenForm1 extends Component {
                     </div>
                     <span className='formular__validationBox'>{errorMessageFT}</span>
                 </div>
-                <InputField 
-                    classes={classNameXcdistance}
-                    label='XC-Distanz'
-                    inputAction={onChange}
-                    type='text'
-                    name='xcdistance'
-                    autocomp=''
-                    value={valueXcdistance}
-                    classNamesError='formular__validationBox'
-                    errorMessage={errorMessageXC}
-                />
+                
                 <div className={classNameDescription}>
                     <label className="formular__label">Kommentar:</label>
                     <textarea className="formular__input" type="text" name={nameComment} value={valueComment} onChange={onChange}></textarea>

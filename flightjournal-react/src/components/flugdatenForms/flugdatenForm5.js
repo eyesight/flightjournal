@@ -31,7 +31,7 @@ class FlugdatenForm5 extends Component {
                     name='weatherFoehndiagramm'
                     autocomp=''
                     value={valueWeatherFoehndiagramm}
-                    classNamesError='formular__validation'
+                    classNamesError='formular__validationBox'
                     errorMessage={errorMessageWeatherFoehndiagramm}
                 />
                 <InputField 
@@ -42,7 +42,7 @@ class FlugdatenForm5 extends Component {
                     name='weatherWindBoden'
                     autocomp=''
                     value={valueWeatherWindBoden}
-                    classNamesError='formular__validation'
+                    classNamesError='formular__validationBox'
                     errorMessage={errorMessageWeatherWindBoden}
                 />
                 <InputField 
@@ -53,7 +53,7 @@ class FlugdatenForm5 extends Component {
                     name='weatherWind800m'
                     autocomp=''
                     value={valueWeatherWind800m}
-                    classNamesError='formular__validation'
+                    classNamesError='formular__validationBox'
                     errorMessage={errorMessageWeatherWind800m}
                 />
                 <InputField 
@@ -64,7 +64,7 @@ class FlugdatenForm5 extends Component {
                     name='weatherWind1500m'
                     autocomp=''
                     value={valueWeatherWind1500m}
-                    classNamesError='formular__validation'
+                    classNamesError='formular__validationBox'
                     errorMessage={errorMessageWeatherWind1500m}
                 />
                 <InputField 
@@ -75,7 +75,7 @@ class FlugdatenForm5 extends Component {
                     name='weatherWind3000m'
                     autocomp=''
                     value={valueWeatherWind3000m}
-                    classNamesError='formular__validation'
+                    classNamesError='formular__validationBox'
                     errorMessage={errorMessageWeatherWind3000m}
                 />
                 <InputField 
@@ -86,7 +86,7 @@ class FlugdatenForm5 extends Component {
                     name='weatherRegtherm'
                     autocomp=''
                     value={valueWeatherRegtherm}
-                    classNamesError='formular__validation'
+                    classNamesError='formular__validationBox'
                     errorMessage={errorMessageWeatherRegtherm}
                 />
                 <InputField 
@@ -97,7 +97,7 @@ class FlugdatenForm5 extends Component {
                     name='weatherFronten'
                     autocomp=''
                     value={valueWeatherFronten}
-                    classNamesError='formular__validation'
+                    classNamesError='formular__validationBox'
                     errorMessage={errorMessageWeatherFronten}
                 />
                 <InputField 
@@ -108,7 +108,7 @@ class FlugdatenForm5 extends Component {
                     name='weatherSoaringmeteo'
                     autocomp=''
                     value={valueWeatherSoaringmeteo}
-                    classNamesError='formular__validation'
+                    classNamesError='formular__validationBox'
                     errorMessage={errorMessageWeatherSoaringmeteo}
                 />
                 <InputField 
@@ -119,7 +119,7 @@ class FlugdatenForm5 extends Component {
                     name='weatherBisendiagramm'
                     autocomp=''
                     value={valueWeatherBisendiagramm}
-                    classNamesError='formular__validation'
+                    classNamesError='formular__validationBox'
                     errorMessage={errorMessageWeatherBisendiagramm}
                 />
                 <div className="button-group">

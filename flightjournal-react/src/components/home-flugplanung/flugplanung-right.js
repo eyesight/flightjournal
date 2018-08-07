@@ -231,7 +231,7 @@ class FlugplanungRight extends Component {
                 classNameWrapper='start__lead-wrapper'
                 withAnchor={false}
                 withIcon={false} 
-                classNameH1='main-title'
+                classNameH1='main-title main-title--mobile-large'
                 classNameSpan='main-title--bold'
                 textBold='(R)auf und davon.'
                 textReg='Mit dem Gleitschirm unterwegs.'

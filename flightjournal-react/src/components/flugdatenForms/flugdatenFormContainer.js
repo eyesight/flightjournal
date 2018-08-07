@@ -914,7 +914,7 @@ class FlugdatenFormContainer extends Component {
                         onChangeDate={this.onChange}
                         classNameDate={`formular__input-wrapper ${this.errorClass(this.state.formErrors.date)}`}
                         classNameDateLP={`formular__input-wrapper ${this.errorClass(this.state.formErrors.landingplace)}`}
-                        classNameDateFT={`formular__input-wrapper ${this.errorClass(this.state.formErrors.flighttime)}` }
+                        classNameDateFT={`formular__input-wrapper formular__input-Icon-wrapper ${this.errorClass(this.state.formErrors.flighttime)}` }
                         classNameSP={`formular__input-wrapper ${this.errorClass(this.state.formErrors.startplace)}`}
                         classNameDescription={`formular__input-wrapper formular__input--text ${this.errorClass(this.state.formErrors.description)}`}
                         classNameXcdistance={`formular__input-wrapper ${this.errorClass(this.state.formErrors.xcdistance)}`}

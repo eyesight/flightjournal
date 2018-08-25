@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {TimelineLite} from 'gsap';
-import {weather} from '../../utils/_weatherData';
+import {weather, location} from '../../utils/_weatherData';
 import {Link} from 'react-router-dom';
 import * as routes from '../../constants/routes';
 
@@ -8,7 +8,8 @@ class Logo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            region: ''
+            region: '',
+            regionApi: ''
         };
         this.tropfen1 = React.createRef();
         this.tropfen2 = React.createRef();
@@ -53,7 +54,8 @@ class Logo extends Component {
         const weatherData = weather();
         console.log(weatherData);
         this.setState({
-            region: weatherData.name
+            region: weatherData.name,
+            regionApi: location
         })
         //function to see if its day or night
         const isDay = (sunrise, sunset) =>{
@@ -480,6 +482,7 @@ class Logo extends Component {
                         </svg>
                     </Link>
                     <p className="verySmall">{this.state.region}</p>
+                    <span className="verySmall">{this.state.region}</span>
                 </div>
             </div>
         ); 

@@ -90,7 +90,7 @@ class FlightTableList extends Component {
     }
 
     flugdetails(e, id){
-        e.preventDefault(); 
+        //e.preventDefault(); 
         this.props.history.push({pathname: `/fligth/${id}`, state:{flightID: id}})
     }
 

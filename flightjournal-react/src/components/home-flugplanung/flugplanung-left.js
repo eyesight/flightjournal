@@ -96,11 +96,11 @@ class FlugplanungLeft extends Component {
 
     componentDidMount() {
         window.addEventListener('scroll', this.leftscroll);
-        this.changeImages('assets/img/', 6, 3, 9, 2);
+        this.changeImages('assets/img/', 7, 5, 6, 2);
     }
     componentWillUnmount(){
         window.removeEventListener('scroll', this.leftscroll);
-        this.changeImages('assets/img/', 6, 3, 9, 2);
+        this.changeImages('assets/img/', 7, 5, 6, 2);
     }
 
     render() {

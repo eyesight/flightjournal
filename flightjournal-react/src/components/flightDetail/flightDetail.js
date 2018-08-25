@@ -63,7 +63,10 @@ class FlightDetailContainer extends Component {
         this.props.getPilots();
         if (this.props.user.loading === false && this.props.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
+          }else{
+              console.log(this.props.history);
           }
+          
     }
 
     componentWillReceiveProps(nextProps) {

@@ -9,6 +9,7 @@ export function weather(){
         return Httpreq.responseText;
     }
     let loc = JSON.parse(Get(APIIP));
+    console.log(loc);
     let region = '';
     if(!loc){
         region = 'Zurich';
@@ -33,4 +34,20 @@ export function weather(){
         console.log(region);
     }
     return weather;
+}
+
+export function location(){
+    //changed api for gathering location
+    const APIIP = "https://ipinfo.io/json";
+
+    function Get(yourUrl){
+        let Httpreq = new XMLHttpRequest(); // a new request
+        Httpreq.open("GET",yourUrl,false);
+        Httpreq.send(null);
+        return Httpreq.responseText;
+    }
+    let loc = JSON.parse(Get(APIIP));
+    let region = loc.region;
+
+    return region;
 }

@@ -307,8 +307,8 @@ class FlugdatenFormContainer extends Component {
             fieldValidationErrors.flighttime = flighttimeValid ? '' : `${validation.valField} ${validation.valEmpty}.`;
             break;
         case 'description':
-            descriptionValid = value.length > 0 && value.length <= 1000 && (typeof value === 'string');
-            fieldValidationErrors.description = descriptionValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess1000}.`;
+            descriptionValid = value.length > 0 && value.length <= 5000 && (typeof value === 'string');
+            fieldValidationErrors.description = descriptionValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess5000}.`;
             break;
         case 'xcdistance':
             xcdistanceValid = value.length === 0 || (!isNaN(value) && value.length <= 5);

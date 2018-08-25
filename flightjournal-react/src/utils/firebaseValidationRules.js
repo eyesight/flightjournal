@@ -18,7 +18,7 @@
                           'startingtime',
                           'distance',
                           'description',
-              			  'imgUrl',
+              						'imgUrl',
                           'imgName',
                           'syrideLink',
                           'xcontestLink',
@@ -46,7 +46,7 @@
                 ".validate": "newData.val() > 0 && newData.isNumber()"
             },
             "description": {
-                ".validate": "newData.val().length > 0 && newData.isString() && newData.val().length < 1000"
+                ".validate": "newData.val().length > 0 && newData.isString() && newData.val().length < 5000"
             },
             "xcdistance": {
                 ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 10"

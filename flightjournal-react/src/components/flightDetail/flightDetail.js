@@ -137,6 +137,10 @@ class FlightDetailContainer extends Component {
         let textParagraph = `${this.state.date}, ${this.state.pilotFirstname} ${this.state.pilotLastname}`;
         let textTitelReg = `${utils.timeToHourMinString(this.state.flighttime)}, ${this.state.xcdistance} km`;
         let textTitelBold = `${this.state.startplatz} – ${this.state.startplatzArea}, ${this.state.startplatzAltitude} m`;
+        let startingTimeHour = Math.floor(Number(this.state.startingtime)/60);
+        startingTimeHour = (startingTimeHour<10) ? '0'+ startingTimeHour : startingTimeHour;
+        let startingTimeMinute = Number(this.state.startingtime)%60;
+        startingTimeMinute = (startingTimeMinute<10) ? '0'+ startingTimeMinute : startingTimeMinute;
         return (
             <main className="main">
                     <section className="detail-layout">
@@ -213,8 +217,8 @@ class FlightDetailContainer extends Component {
                                     classNameDetails='details__item'
                                     classNameDetailsTitel= 'details__titel'
                                     classNameDetailsTxt='details__txt'
-                                    title='Starzzeit'
-                                    txt={this.state.startingtime + ' Uhr'}
+                                    title='Startzeit'
+                                    txt={startingTimeHour + ' : ' + startingTimeMinute + ' Uhr'}
                                 />): null}
                                 {this.state.distance ? (
                                 <DetailsItem 

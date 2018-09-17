@@ -26,6 +26,8 @@ import firebase from 'firebase';
 let obj = {};
 let minute = 0;
 let hour = 0;
+let minuteSZ = 0;
+let hourSZ = 0;
 
 class FlugdatenFormContainer extends Component {
     constructor(props) {
@@ -101,6 +103,11 @@ class FlugdatenFormContainer extends Component {
           nameComment: 'description',
           nameStartplace: 'startplace',
           
+          valueStartHour:'',
+          valueStartMinute: '',
+          nameStartHour: 'valueStartHour',
+          nameStartMinute: 'valueStartMinute',
+          
           //data for database
           date: '',
           description: '',
@@ -135,6 +142,7 @@ class FlugdatenFormContainer extends Component {
 
         this.getOptions = this.getOptions.bind(this);
         this.getOptionsTime = this.getOptionsTime.bind(this);
+        this.getOptionsStartTime = this.getOptionsStartTime.bind(this);
         this.goToPage = this.goToPage.bind(this);
         this.onChange = this.onChange.bind(this);
         
@@ -187,6 +195,10 @@ class FlugdatenFormContainer extends Component {
                 const akthour = Math.floor(Number(currentFlight.flighttime)/60);
                 const aktminute = Number(currentFlight.flighttime)%60;
 
+                //get the hours and minutes and set into state
+                const akthourstart = Math.floor(Number(currentFlight.startingtime)/60);
+                const aktminutestart = Number(currentFlight.startingtime)%60;
+
                 //convert date-string to dateobject for the datepicker
                 let dateParts = currentFlight.date.split(".");
                 let dateObject = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);    
@@ -194,6 +206,9 @@ class FlugdatenFormContainer extends Component {
                 this.setState({
                     valueHour: akthour,
                     valueMinute: aktminute,
+
+                    valueStartHour: akthourstart,
+                    valueStartMinute: aktminutestart,
 
                     flightID: this.props.history.location.state.flightID,
                     IDtoUpdate: this.props.history.location.state.flightID,
@@ -336,8 +351,8 @@ class FlugdatenFormContainer extends Component {
             fieldValidationErrors.maxsink = maxsinkValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
             break;
         case 'startingtime':
-            startingtimeValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
-            fieldValidationErrors.startingtime = startingtimeValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
+            startingtimeValid = value === 0 || !isNaN(value);
+            fieldValidationErrors.startingtime = startingtimeValid ? '' : `${validation.valField} ${validation.valNumber}.`;
             break;
         case 'distance':
             distanceValid = value.length === 0 || (!isNaN(value) && value.length <= 5);
@@ -493,6 +508,7 @@ class FlugdatenFormContainer extends Component {
         const name = e.target.name;
         const value = e.target.value;
         let ftime = 0;
+        let ftimestart = 0;
         this.setState({[name]: value},
             () => { this.validateField(name, value) });
 
@@ -509,7 +525,19 @@ class FlugdatenFormContainer extends Component {
                 flighttime: ftime},
                 () => { this.validateField('flighttime', ftime) 
               });
+        }else if(name === 'valueStartMinute' || name === 'valueStartHour'){
+            if(name === 'valueStartMinute'){
+                minuteSZ = Number(value);
+             }  else if(name === 'valueStartHour'){
+                hourSZ = Number(value*60);
+             }
+             ftimestart = hourSZ + minuteSZ;
+             this.setState({
+                startingtime: ftimestart},
+                () => { this.validateField('startingtime', ftimestart) 
+              });
         }
+        console.log(name + ' ' + value + ' dd ' + ftimestart);
      };
 
     handleChangeDate(d) {
@@ -576,6 +604,16 @@ class FlugdatenFormContainer extends Component {
 
     goNext2(e){
         e.preventDefault();
+        let ftimestart = 0;
+        
+        if(Number(this.state.valueStartHour) > 0){
+            ftimestart = (Number(this.state.valueStartHour)*60) + Number(this.state.valueStartMinute);
+        }else{
+            ftimestart = Number(this.state.valueStartMinute);
+        }
+        this.setState({startingtime: ftimestart},
+            () => { this.validateField('startingtime', ftimestart) 
+          })
         if(this.state.formValid){
             this.setState({
                 errorAlert: false,
@@ -804,6 +842,21 @@ class FlugdatenFormContainer extends Component {
         }
         return option;
     }
+    getOptionsStartTime(number, multiplied){
+        let option = [];
+        let numberTxt = '';
+        for(let i=0; i<=number; i=i+multiplied){
+            if(i===0){
+                numberTxt='00'
+            }else if (i<10){
+                numberTxt='0'+i
+            }else{
+                numberTxt=i
+            }
+            option.push(<option key={i.toString()} className="formular__dropdown-option" value={i.toString()}>{numberTxt}</option>)
+        }
+        return option;
+    }
 
     goToPage(e){
         e.preventDefault();
@@ -965,6 +1018,13 @@ class FlugdatenFormContainer extends Component {
                         errorMessagedistance={this.state.formErrors.distance}
                         errorMessageXC={this.state.formErrors.xcdistance}
                         errorMessagemaxsink={this.state.formErrors.maxsink}
+
+                        nameStartHour={this.state.nameStartHour} 
+                        valueStartHour={this.state.valueStartHour}
+                        getOptionsStartHour={this.getOptionsStartTime(24, 1)} 
+                        nameStartMinute={this.state.nameStartMinute} 
+                        valueStartMinute={this.state.valueStartMinute}
+                        getOptionsStartMinute={this.getOptionsStartTime(59, 1)}
                     />}
                 </ReactTransitionGroup> 
                 <ReactTransitionGroup component="div" className="formular-wrapper">

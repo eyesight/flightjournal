@@ -20,7 +20,7 @@ class FlugdatenForm2 extends Component {
         TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px", onComplete: callback});
     }
     render() {
-        const { onChange, onSubmit, goBack, goNext, valueMaxaltitude, valueHeightgain, valueMaxclimb, valueStartingtime, valueDistance, errorMessagemaxaltitude, errorMessageheightgain, errorMessagemaxclimp, errorMessagestartingtime, errorMessagedistance, classNamemaxaltitude, classNameheightgain, classNamemaxclimb, classNamestartingtime, classNamedistance, classNameXcdistance, valueXcdistance, errorMessageXC, classNameMaxsink, valueMaxsink, errorMessagemaxsink} = this.props;
+        const { onChange, onSubmit, goBack, goNext, valueMaxaltitude, valueHeightgain, valueMaxclimb, nameStartHour, valueStartHour, getOptionsStartHour, nameStartMinute, valueStartMinute, getOptionsStartMinute, valueDistance, errorMessagemaxaltitude, errorMessageheightgain, errorMessagemaxclimp, errorMessagestartingtime, errorMessagedistance, classNamemaxaltitude, classNameheightgain, classNamemaxclimb, classNamestartingtime, classNamedistance, classNameXcdistance, valueXcdistance, errorMessageXC, classNameMaxsink, valueMaxsink, errorMessagemaxsink} = this.props;
         return (
                 <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
                     <InputField 
@@ -67,7 +67,7 @@ class FlugdatenForm2 extends Component {
                         classNamesError='formular__validationBox'
                         errorMessage={errorMessagemaxclimp}
                     />
-                    <InputField 
+                    {/* <InputField 
                         classes={classNamestartingtime}
                         label='Startzeit'
                         inputAction={onChange}
@@ -77,7 +77,24 @@ class FlugdatenForm2 extends Component {
                         value={valueStartingtime}
                         classNamesError='formular__validationBox'
                         errorMessage={errorMessagestartingtime}
-                    />
+                    /> */}
+                    <div className={classNamestartingtime}>
+                        <label className="formular__label">Startzeit</label>
+                        <div className="formular__select formular__select--20">
+                            <i className="fas fa-angle-down"></i>
+                            <select className="formular__dropdown-select" name={nameStartHour} value={valueStartHour} onChange={onChange}>
+                                {getOptionsStartHour}
+                            </select> 
+                        </div> 
+                        <p className="formular__select formular__select--15">:</p>
+                        <div className="formular__select formular__select--20"><i className="fas fa-angle-down"></i>
+                            <select className="formular__dropdown-select" name={nameStartMinute} value={valueStartMinute} onChange={onChange}>
+                                {getOptionsStartMinute}
+                            </select> 
+                        </div>
+                        <p className="formular__select formular__select--15">Uhr</p>
+                        <span className='formular__validationBox'>{errorMessagestartingtime}</span>
+                    </div>
                     <InputField 
                         classes={classNamedistance}
                         label='Geflogene Distanz'

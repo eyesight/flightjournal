@@ -20,12 +20,12 @@ class FlugdatenForm2 extends Component {
         TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px", onComplete: callback});
     }
     render() {
-        const { onChange, onSubmit, goBack, goNext, valueMaxaltitude, valueHeightgain, valueMaxclimb, valueStartingtime, valueDistance, errorMessagemaxaltitude, errorMessageheightgain, errorMessagemaxclimp, errorMessagestartingtime, errorMessagedistance, classNamemaxaltitude, classNameheightgain, classNamemaxclimb, classNamestartingtime, classNamedistance, classNameXcdistance, valueXcdistance, errorMessageXC} = this.props;
+        const { onChange, onSubmit, goBack, goNext, valueMaxaltitude, valueHeightgain, valueMaxclimb, valueStartingtime, valueDistance, errorMessagemaxaltitude, errorMessageheightgain, errorMessagemaxclimp, errorMessagestartingtime, errorMessagedistance, classNamemaxaltitude, classNameheightgain, classNamemaxclimb, classNamestartingtime, classNamedistance, classNameXcdistance, valueXcdistance, errorMessageXC, classNameMaxsink, valueMaxsink, errorMessagemaxsink} = this.props;
         return (
                 <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
                     <InputField 
                         classes={classNameXcdistance}
-                        label='XC-Distanz'
+                        label='XC-Distanz in Kilometer'
                         inputAction={onChange}
                         type='text'
                         name='xcdistance'
@@ -88,6 +88,17 @@ class FlugdatenForm2 extends Component {
                         value={valueDistance}
                         classNamesError='formular__validationBox'
                         errorMessage={errorMessagedistance}
+                    />
+                    <InputField 
+                        classes={classNameMaxsink}
+                        label='Max. Sinken (Meter/Sekunde)'
+                        inputAction={onChange}
+                        type='text'
+                        name='maxsink'
+                        autocomp=''
+                        value={valueMaxsink}
+                        classNamesError='formular__validationBox'
+                        errorMessage={errorMessagemaxsink}
                     />
                     <div className="button-group">
                         <div className="button-wrapper">

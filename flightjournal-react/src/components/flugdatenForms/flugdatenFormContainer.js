@@ -48,8 +48,8 @@ class FlugdatenFormContainer extends Component {
           validationTxt: '',
           errorAlert: false,
 
-          formErrors: {landingplace: '', date: '', startplace: '', flighttime: '', valueHour: '', valueMinute: '', description: '', xcdistance: '', maxaltitude: '', heightgain: '', maxclimb: '', startingtime: '', distance: '', imgUrl:'', syrideLink: '', xcontestLink: '', airtribuneLink: '',weatherFoehndiagramm: '', weatherWindBoden: '', weatherWind800m: '', weatherWind1500m: '', weatherWind3000m: '', weatherRegtherm: '', weatherFronten: '', weatherSoaringmeteo: '', weatherBisendiagramm: ''},
-          formErrorsValid: {landingplace: false, date: true, startplace: false, flighttime: false, description: false, xcdistance: true, maxaltitude: true, heightgain: true, maxclimb: true, startingtime: true, distance: true, imgUrl: true, syrideLink: true, xcontestLink: true, airtribuneLink: true, weatherFoehndiagramm: true, weatherWindBoden: true, weatherWind800m: true, weatherWind1500m: true, weatherWind3000m: true, weatherRegtherm: true, weatherFronten: true, weatherSoaringmeteo: true, weatherBisendiagramm: true},
+          formErrors: {landingplace: '', date: '', startplace: '', flighttime: '', valueHour: '', valueMinute: '', description: '', xcdistance: '', maxaltitude: '', heightgain: '', maxclimb: '', startingtime: '', distance: '', imgUrl:'', syrideLink: '', xcontestLink: '', airtribuneLink: '',weatherFoehndiagramm: '', weatherWindBoden: '', weatherWind800m: '', weatherWind1500m: '', weatherWind3000m: '', weatherRegtherm: '', weatherFronten: '', weatherSoaringmeteo: '', weatherBisendiagramm: '', maxsink: ''},
+          formErrorsValid: {landingplace: false, date: true, startplace: false, flighttime: false, description: false, xcdistance: true, maxaltitude: true, heightgain: true, maxclimb: true, maxsink: true, startingtime: true, distance: true, imgUrl: true, syrideLink: true, xcontestLink: true, airtribuneLink: true, weatherFoehndiagramm: true, weatherWindBoden: true, weatherWind800m: true, weatherWind1500m: true, weatherWind3000m: true, weatherRegtherm: true, weatherFronten: true, weatherSoaringmeteo: true, weatherBisendiagramm: true},
           //form1
           landingplaceValid: false,
           dateValid: true,
@@ -62,6 +62,7 @@ class FlugdatenFormContainer extends Component {
           maxaltitudeValid: true, 
           heightgainValid: true,
           maxclimbValid: true, 
+          maxsinkValid: true,
           startingtimeValid: true, 
           distanceValid: true,
           //form3
@@ -110,6 +111,7 @@ class FlugdatenFormContainer extends Component {
           maxaltitude: '',
           heightgain:'',
           maxclimb: '',
+          maxsink: '',
           startingtime:'',
           distance: '',
           imgUrl: [''],
@@ -205,6 +207,7 @@ class FlugdatenFormContainer extends Component {
                     maxaltitude: currentFlight.maxaltitude,
                     heightgain: currentFlight.heightgain,
                     maxclimb: currentFlight.maxclimb,
+                    maxsink: currentFlight.maxsink,
                     startingtime: currentFlight.startingtime,
                     distance: currentFlight.distance,
                     imgUrl: currentFlight.imgUrl,
@@ -270,6 +273,7 @@ class FlugdatenFormContainer extends Component {
         let maxaltitudeValid = this.state.maxaltitudeValid;
         let heightgainValid = this.state.heightgainValid;
         let maxclimbValid = this.state.maxclimbValid;
+        let maxsinkValid = this.state.maxsinkValid;
         let startingtimeValid = this.state.startingtimeValid;
         let distanceValid = this.state.distanceValid;
         //form3
@@ -326,6 +330,10 @@ class FlugdatenFormContainer extends Component {
         case 'maxclimb':
             maxclimbValid = value.length === 0 || (!isNaN(value) && value.length <= 5);
             fieldValidationErrors.maxclimb = maxclimbValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
+            break;
+        case 'maxsink':
+            maxsinkValid = value.length === 0 || (!isNaN(value) && value.length <= 5);
+            fieldValidationErrors.maxsink = maxsinkValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
             break;
         case 'startingtime':
             startingtimeValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
@@ -403,6 +411,7 @@ class FlugdatenFormContainer extends Component {
             maxaltitude: maxaltitudeValid,
             heightgain: heightgainValid,
             maxclimb: maxclimbValid,
+            maxsink: maxsinkValid,
             startingtime: startingtimeValid,
             distance: distanceValid,
             imgUrl: imgUrlValid,
@@ -428,6 +437,7 @@ class FlugdatenFormContainer extends Component {
                         maxaltitudeValid: maxaltitudeValid,
                         heightgainValid: heightgainValid,
                         maxclimbValid: maxclimbValid,
+                        maxsinkValid: maxsinkValid,
                         startingtimeValid: startingtimeValid,
                         distanceValid: distanceValid,
                         imgUrlValid: imgUrlValid,
@@ -456,6 +466,7 @@ class FlugdatenFormContainer extends Component {
             this.state.maxaltitudeValid &&
             this.state.heightgainValid &&
             this.state.maxclimbValid &&
+            this.state.maxsinkValid &&
             this.state.startingtimeValid &&
             this.state.distanceValid &&
             this.state.imgUrlValid &&
@@ -577,6 +588,7 @@ class FlugdatenFormContainer extends Component {
                 maxaltitude: this.state.maxaltitude,
                 heightgain: this.state.heightgain,
                 maxclimb: this.state.maxclimb,
+                maxsink: this.state.maxsink,
                 startingtime: this.state.startingtime,
                 distance: this.state.distance,
                 formTitleH2: 'Bilder hochladen.'
@@ -718,6 +730,7 @@ class FlugdatenFormContainer extends Component {
             maxaltitude: this.state.maxaltitude,
             heightgain: this.state.heightgain,
             maxclimb: this.state.maxclimb,
+            maxsink: this.state.maxsink,
             startingtime: this.state.startingtime,
             distance: this.state.distance,
             description: this.state.description,
@@ -937,18 +950,21 @@ class FlugdatenFormContainer extends Component {
                         valueStartingtime={this.state.startingtime}
                         valueDistance={this.state.distance}
                         valueXcdistance={this.state.xcdistance}
+                        valueMaxsink={this.state.maxsink}
                         classNamemaxaltitude={`formular__input-wrapper margin-top-0 ${this.errorClass(this.state.formErrors.maxaltitude)}`}
                         classNameheightgain={`formular__input-wrapper ${this.errorClass(this.state.formErrors.heightgain)}`}
                         classNamemaxclimb={`formular__input-wrapper ${this.errorClass(this.state.formErrors.maxclimb)}`}
                         classNamestartingtime={`formular__input-wrapper ${this.errorClass(this.state.formErrors.startingtime)}`}
                         classNamedistance={`formular__input-wrapper ${this.errorClass(this.state.formErrors.distance)}`}
                         classNameXcdistance={`formular__input-wrapper ${this.errorClass(this.state.formErrors.xcdistance)}`}
+                        classNameMaxsink={`formular__input-wrapper ${this.errorClass(this.state.formErrors.maxsink)}`}
                         errorMessagemaxaltitude={this.state.formErrors.maxaltitude}
                         errorMessageheightgain={this.state.formErrors.heightgain}
                         errorMessagemaxclimp={this.state.formErrors.maxclimb}
                         errorMessagestartingtime={this.state.formErrors.startingtime}
                         errorMessagedistance={this.state.formErrors.distance}
                         errorMessageXC={this.state.formErrors.xcdistance}
+                        errorMessagemaxsink={this.state.formErrors.maxsink}
                     />}
                 </ReactTransitionGroup> 
                 <ReactTransitionGroup component="div" className="formular-wrapper">

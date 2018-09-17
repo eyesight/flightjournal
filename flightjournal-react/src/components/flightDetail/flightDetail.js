@@ -122,8 +122,8 @@ class FlightDetailContainer extends Component {
                 } else {
                     this.setState({showWeatherLinks: false});
                 } 
-            if(currentFlight.syrideLink !== '' &&
-                currentFlight.xcontestLink !== '' &&
+            if(currentFlight.syrideLink !== '' ||
+                currentFlight.xcontestLink !== '' ||
                 currentFlight.airtribuneLink !== ''){ 
                     this.setState({showFurtherDetailsLinks: true})
                 } else {

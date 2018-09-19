@@ -208,19 +208,23 @@
       &.formular__dropdown-select{
         padding-left: rem-calc(40px);
         padding-top: rem-calc(5px);
+        @include bp(1200px, 1400px) {
+          padding-left: rem-calc(30px); 
+        }
       }
+      
 
       &::-ms-expand { /* for IE 11 */
         display: none;
       }
-    }
+    } 
 
     &--half{
       width: 50%;
       float:left;
     }
-    &--20{
-      width: 20%;
+    &--25{
+      width: 25%;
       float:left;
     }
     &--15{
@@ -228,7 +232,10 @@
       float:left;
       text-align: center;
       padding-top: 23px;
-      padding-left: 15px;
+      font-family: $font-family-primary;
+    }
+    &--last{
+      padding-top: 23px;
       font-family: $font-family-primary;
     }
 
@@ -238,6 +245,9 @@
       margin-left: rem-calc(15px);
       color: $color-primary;
       position: absolute;
+      @include bp(1200px, 1400px) {
+        margin-left: rem-calc(10px);
+      }
     }
   }
 

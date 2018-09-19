@@ -321,6 +321,7 @@ class Logo extends Component {
                 //animation fog
                 tl2.add(cloud(14, this.nebelWoke.current), 0);
                 tl2.add(fog());
+                tl2.delay(1).play();
                 break
             case 802:
             case 803:

@@ -80,19 +80,19 @@ class FlugdatenForm2 extends Component {
                     /> */}
                     <div className={classNamestartingtime}>
                         <label className="formular__label">Startzeit</label>
-                        <div className="formular__select formular__select--20">
+                        <div className="formular__select formular__select--25">
                             <i className="fas fa-angle-down"></i>
                             <select className="formular__dropdown-select" name={nameStartHour} value={valueStartHour} onChange={onChange}>
                                 {getOptionsStartHour}
                             </select> 
                         </div> 
                         <p className="formular__select formular__select--15">:</p>
-                        <div className="formular__select formular__select--20"><i className="fas fa-angle-down"></i>
+                        <div className="formular__select formular__select--25"><i className="fas fa-angle-down"></i>
                             <select className="formular__dropdown-select" name={nameStartMinute} value={valueStartMinute} onChange={onChange}>
                                 {getOptionsStartMinute}
                             </select> 
                         </div>
-                        <p className="formular__select formular__select--15">Uhr</p>
+                        <p className="formular__select formular__select--25 formular__select--last">Uhr</p>
                         <span className='formular__validationBox'>{errorMessagestartingtime}</span>
                     </div>
                     <InputField 
@@ -104,7 +104,7 @@ class FlugdatenForm2 extends Component {
                         autocomp=''
                         value={valueDistance}
                         classNamesError='formular__validationBox'
-                        errorMessage={errorMessagedistance}
+                        errorMessage={errorMessagedistance} 
                     />
                     <InputField 
                         classes={classNameMaxsink}

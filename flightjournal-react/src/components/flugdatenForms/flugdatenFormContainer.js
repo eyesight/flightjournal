@@ -198,6 +198,8 @@ class FlugdatenFormContainer extends Component {
                 //get the hours and minutes and set into state
                 const akthourstart = Math.floor(Number(currentFlight.startingtime)/60);
                 const aktminutestart = Number(currentFlight.startingtime)%60;
+                console.log(akthourstart);
+                console.log(aktminutestart);
 
                 //convert date-string to dateobject for the datepicker
                 let dateParts = currentFlight.date.split(".");
@@ -537,7 +539,6 @@ class FlugdatenFormContainer extends Component {
                 () => { this.validateField('startingtime', ftimestart) 
               });
         }
-        console.log(name + ' ' + value + ' dd ' + ftimestart);
      };
 
     handleChangeDate(d) {
@@ -747,11 +748,20 @@ class FlugdatenFormContainer extends Component {
     onSubmit(e){
         e.preventDefault();
         let ftime = 0;
+        let ftimestart = 0;
+
         if(Number(this.state.valueHour) > 0){
             ftime = (Number(this.state.valueHour)*60) + Number(this.state.valueMinute);
         }else{
             ftime = Number(this.state.valueMinute);
         }
+        
+        if(Number(this.state.valueStartHour) > 0){
+            ftimestart = (Number(this.state.valueStartHour)*60) + Number(this.state.valueStartMinute);
+        }else{
+            ftimestart = Number(this.state.valueStartMinute);
+        }
+
         this.setState({flighttime: ftime, flightID: ''},
             () => { this.validateField('flighttime', ftime) 
           })
@@ -769,7 +779,7 @@ class FlugdatenFormContainer extends Component {
             heightgain: this.state.heightgain,
             maxclimb: this.state.maxclimb,
             maxsink: this.state.maxsink,
-            startingtime: this.state.startingtime,
+            startingtime: ftimestart,
             distance: this.state.distance,
             description: this.state.description,
             imgUrl: this.state.imgUrl,

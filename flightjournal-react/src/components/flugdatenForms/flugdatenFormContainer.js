@@ -198,13 +198,10 @@ class FlugdatenFormContainer extends Component {
                 //get the hours and minutes and set into state
                 const akthourstart = Math.floor(Number(currentFlight.startingtime)/60);
                 const aktminutestart = Number(currentFlight.startingtime)%60;
-                console.log(akthourstart);
-                console.log(aktminutestart);
 
                 //convert date-string to dateobject for the datepicker
                 let dateParts = currentFlight.date.split(".");
                 let dateObject = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);    
-                console.log(currentFlight.date);
                 this.setState({
                     valueHour: akthour,
                     valueMinute: aktminute,
@@ -671,7 +668,6 @@ class FlugdatenFormContainer extends Component {
                 formTitleH2: 'Links zu anderen Flugplatformen.'
         });
         }else{
-            console.log('dfdf');
             this.setState({errorAlert: true})
                 Object.keys(this.state.formErrorsValid).map((fieldName, i) => {
                     this.errorClass(this.state.formErrors[fieldName]);
@@ -709,7 +705,6 @@ class FlugdatenFormContainer extends Component {
                 formTitleH2: 'Screenshots zum Wetter hochladen.'
             });
         }else{
-            console.log('dfdf');
             this.setState({errorAlert: true})
                 Object.keys(this.state.formErrorsValid).map((fieldName, i) => {
                     this.errorClass(this.state.formErrors[fieldName]);
@@ -765,6 +760,14 @@ class FlugdatenFormContainer extends Component {
         this.setState({flighttime: ftime, flightID: ''},
             () => { this.validateField('flighttime', ftime) 
           })
+        //to delete the first empty value of array imgURL and imgName, shift first empty value, when there are several urls and names
+        if(this.state.imgUrl.length>1 && this.state.imgUrl[0]===''){
+            this.state.imgUrl.shift();
+            this.state.imgName.shift();
+        }else{
+            console.log('no images');
+        }
+
         if(this.state.formValid){
          this.setState({errorAlert: false})
         obj = {
@@ -881,7 +884,6 @@ class FlugdatenFormContainer extends Component {
 
     //image-upload (Form3) functions
     onChangeImgUpload(picture){
-        console.log(picture);
         if(picture.length === 0){
             this.setState({
                 successPreview: false

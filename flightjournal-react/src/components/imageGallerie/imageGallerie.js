@@ -6,7 +6,7 @@ class ImageGallerie extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isActive: 1,
+            isActive: 0,
             classNameDot: 'image-galerie__dot'
         }
         this.prevFunction = this.prevFunction.bind(this);
@@ -17,7 +17,7 @@ class ImageGallerie extends Component {
     renderImages(url, name){
         let items = [];
         let classNameImg = 'image-galerie__image';
-        for(let i=1; i<name.length; i++){
+        for(let i=0; i<name.length; i++){
             classNameImg = (this.state.isActive === i) ? 'image-galerie__image js-active' : 'image-galerie__image';
             items.push(<img key={i.toString()} className={classNameImg} src={url[i]} alt={name[i]} />)
         }
@@ -26,10 +26,9 @@ class ImageGallerie extends Component {
 
     nextFunction(e){
         e.preventDefault();
-        //TODO: image-object shouldn't have a empty object on position 1. If is corrected, delete -1 before this.state.imagesName
         if(this.props.name.length-1 <= this.state.isActive){
             this.setState({
-                isActive: 1 
+                isActive: 0
             })
         }else{
             this.setState({
@@ -39,8 +38,7 @@ class ImageGallerie extends Component {
     }
     prevFunction(e){
         e.preventDefault();
-        //TODO: image-object shouldn't have a empty object on position 1. If is corrected, delete -1 before this.state.imagesName
-        if(this.props.name.length-1 > this.state.isActive){
+        if(this.state.isActive-1 === -1){
             this.setState({
                 isActive: this.props.name.length-1
             })

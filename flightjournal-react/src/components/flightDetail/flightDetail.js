@@ -160,7 +160,7 @@ class FlightDetailContainer extends Component {
                         classNameParagraph=''
                         paragraphTxt={textParagraph}
                     />
-                    {this.state.imagesName[1] !== undefined ? (
+                    {this.state.imagesName[0] !== '' ? (
                         <ImageGallerie 
                             url={this.state.imagesUrl}
                             name={this.state.imagesName}

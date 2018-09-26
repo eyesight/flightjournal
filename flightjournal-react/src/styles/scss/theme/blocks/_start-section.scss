@@ -19,13 +19,16 @@
             @include bp(max, $phone) {
                 padding-right: 0;
                 border-right: none;
-                margin-top: rem-calc(50px);
+                margin-top: rem-calc(100px);
             }
         }
         .start__twocolumn:nth-child(3){
-            padding-left: 10%;
+            padding-left: 15%;
+            @include bp(max, $screen-m){
+                padding-left: 10%;
+            }
             @include bp(max, $ipad-ls) {
-                padding-left: 5%;
+                padding-left: 14%;
             }
             @include bp(max, $phone) {
                 padding-left: 0;
@@ -88,11 +91,10 @@
     &__twocolumn{
         margin-top: rem-calc(100px);
         float: left;
-        width: 39.7%;
+        width: 50%;
 
         @include bp(max, $ipad-ls){
             margin-top: 0;
-            width: 44.7%;
         }
 
         @include bp(max, $phone){
@@ -101,4 +103,12 @@
             margin-top: rem-calc(100px);
         }
     }
+
+    &-container--logged-out{ 
+        .start__right{
+            @include bp(max, $phone){
+                margin-bottom: rem-calc(100px);
+            }
+        }
+    } 
 }

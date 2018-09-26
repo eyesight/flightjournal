@@ -35,8 +35,8 @@ class StartMainContainer extends Component {
                     <Flugplanung />
                     <FlightTable />
                   </div> :
-                    <div>
-                        <Flugplanung />
+                    <div className="start-container--logged-out">
+                        <Flugplanung/>
                     </div>
                 }
 

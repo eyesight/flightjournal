@@ -7,7 +7,7 @@
   font-size: $font-s-anchor;
   line-height: 2.3rem;
 
-  @include bp(max, $screen-m) {
+  @include bp(max, $screen-ml) {
     font-size: $font-s-anchor-small;
   }
 

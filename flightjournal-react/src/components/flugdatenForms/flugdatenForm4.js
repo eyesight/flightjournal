@@ -47,7 +47,7 @@ class FlugdatenForm4 extends Component {
                 />
                 <InputField 
                     classes={classNameAirtribuneLink}
-                    label='Airtribune Link hinzufügenn'
+                    label='Airtribune Link hinzufügen'
                     inputAction={onChange}
                     type='text'
                     name='airtribuneLink'

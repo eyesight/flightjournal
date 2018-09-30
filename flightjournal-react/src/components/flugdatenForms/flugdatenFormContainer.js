@@ -919,7 +919,7 @@ class FlugdatenFormContainer extends Component {
             };
             reader.readAsDataURL(element);
             
-            let img = firebase.storage().ref('images/' + date + '-' + pilotID + randomNo + '/' + element.name).put(element);
+            let img = firebase.storage().ref('images/' + date + '-' + pilotID + '/' + randomNo + '/' + element.name).put(element);
             img.on('state_changed', function(snapshot){
                 let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 let obj = {name: element.name, progressbar: progress, uploaded: false};

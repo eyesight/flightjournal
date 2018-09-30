@@ -76,8 +76,6 @@ class FlightTableList extends Component {
           setTimeout(() => {
             this.deletePhotos(this.state.deleteImages);
             this.props.deleteFlights(this.state.deleteID);
-            console.log(this.state.deleteID);
-            console.log(this.state.deleteImages);
             this.setState({
                 showMessageBox: false,
                 deleteID: '',

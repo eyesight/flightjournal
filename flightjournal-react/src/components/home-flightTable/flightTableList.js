@@ -11,6 +11,7 @@ import MessageBox from '../messageBox/messageBox';
 import ReactTransitionGroup from 'react-addons-transition-group';
 import {TweenLite, TimelineLite} from 'gsap';
 import * as utils from '../../utils/timeToHourMinString';
+import firebase from 'firebase';
 
 const tl = new TimelineLite();
 
@@ -22,7 +23,8 @@ class FlightTableList extends Component {
           itemsToShow: 3,
           expanded: false,
           showMessageBox: false,
-          deleteID: ''
+          deleteID: '',
+          deleteImages: []
         };
         this.row = React.createRef();
         this.renderFlights = this.renderFlights.bind(this);
@@ -32,6 +34,7 @@ class FlightTableList extends Component {
         this.showMessageBox = this.showMessageBox.bind(this);
         this.flugdetails = this.flugdetails.bind(this);
         this.updateFlight = this.updateFlight.bind(this);
+        this.deletePhotos = this.deletePhotos.bind(this);
       }
 
     componentWillMount() {
@@ -50,11 +53,12 @@ class FlightTableList extends Component {
             )
     }
 
-    showMessageBox(e, id){
+    showMessageBox(e, id, images){
         e.preventDefault();
         this.setState({
             showMessageBox: true, 
-            deleteID: id
+            deleteID: id,
+            deleteImages: images
         })
     }
 
@@ -70,12 +74,31 @@ class FlightTableList extends Component {
           .fromTo(document.querySelector('.checkmark__stem'), 0.2, {height: '0'}, {height: '25px'}, "scene1+=0.2");
 
           setTimeout(() => {
-            this.props.deleteFlights(this.state.deleteID)
+            this.deletePhotos(this.state.deleteImages);
+            this.props.deleteFlights(this.state.deleteID);
+            console.log(this.state.deleteID);
+            console.log(this.state.deleteImages);
             this.setState({
                 showMessageBox: false,
                 deleteID: '',
+                deleteImages: []
             })
         }, 600);
+    }
+
+    deletePhotos(imgUrls) {
+        imgUrls.map((x)=>{
+            // Create a reference to the file to delete
+            let desertRef = firebase.storage().refFromURL(x);
+            // Delete the file
+            return desertRef.delete().then(function() {
+                // File deleted successfully
+                console.log('file deleted' + x);
+                }).catch(function(error) {
+                // Uh-oh, an error occurred!
+                console.log(error);
+            });
+        })
     }
 
     cancelFunc(e){
@@ -85,6 +108,7 @@ class FlightTableList extends Component {
             this.setState({
                 showMessageBox: false,
                 deleteID: '',
+                deleteImages: []
             }) 
         }, 150);  
     }
@@ -131,7 +155,7 @@ class FlightTableList extends Component {
                                     <td className="table__distance">{x.xcdistance} Kilometer</td>
                                     <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.flugdetails(event, x.id)}}>Flugdetails</a></td>
                                     {isactiveuser ? <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.updateFlight(event, x.id)}}>Bearbeiten</a></td> : null}
-                                    {isactiveuser ? <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.showMessageBox(event, x.id)}}>Löschen</a></td> : null}
+                                    {isactiveuser ? <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.showMessageBox(event, x.id, x.imgUrl)}}>Löschen</a></td> : null}
                                 </tr>
                             );
                         }

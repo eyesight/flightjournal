@@ -900,6 +900,10 @@ class FlugdatenFormContainer extends Component {
         e.preventDefault();
         let file = this.state.pictures;
         let that = this;
+
+        const date = this.state.date.split(".").reverse().join('');
+        const pilotID = this.props.user.uid;
+
         this.setState({
             renderButtonSave: false,
             renderButtons: false

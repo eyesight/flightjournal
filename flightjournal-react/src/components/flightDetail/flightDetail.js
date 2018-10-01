@@ -39,17 +39,11 @@ class FlightDetailContainer extends Component {
             syrideLink: '',
             xcontestLink: '',
             airtribuneLink: '',
-            weatherFoehndiagramm: '',
-            weatherWind800m: '',
-            weatherWind1500m: '',
-            weatherWind3000m: '',
-            weatherFronten: '',
-            weatherRegtherm: '',
-            weatherSoaringmeteo: '',
+            weatherDescription: '',
             imagesUrl: [],
             imagesName: [],
 
-            showWeatherLinks: false,
+            showWeather: false,
             showFurtherDetailsLinks: false,
             isActive: 1
         };
@@ -101,34 +95,14 @@ class FlightDetailContainer extends Component {
                 syrideLink: currentFlight.syrideLink,
                 xcontestLink: currentFlight.xcontestLink,
                 airtribuneLink: currentFlight.airtribuneLink,
-                weatherFoehndiagramm: currentFlight.weatherFoehndiagramm,
-                weatherWind800m: currentFlight.weatherWind800m,
-                weatherWind1500m: currentFlight.weatherWind1500m,
-                weatherWind3000m: currentFlight.weatherWind3000m,
-                weatherFronten: currentFlight.weatherFronten,
-                weatherRegtherm: currentFlight.weatherRegtherm,
-                weatherSoaringmeteo: currentFlight.weatherSoaringmeteo,
+                weatherDescription: currentFlight.weatherDescription,
                 imagesUrl: currentFlight.imgUrl,
                 imagesName: currentFlight.imgName
             });
-            if(currentFlight.weatherFoehndiagramm !== '' && 
-                currentFlight.weatherWind800m !== '' && 
-                currentFlight.weatherWind1500m !== '' && 
-                currentFlight.weatherWind3000m !== '' && 
-                currentFlight.weatherFronten !== '' && 
-                currentFlight.weatherRegtherm !== '' && 
-                currentFlight.weatherSoaringmeteo !== ''){ 
-                    this.setState({showWeatherLinks: true})
-                } else {
-                    this.setState({showWeatherLinks: false});
-                } 
-            if(currentFlight.syrideLink !== '' ||
+            (currentFlight.weatherDescription !== '') ? this.setState({showWeather: true}) : this.setState({showWeather: false});
+            (currentFlight.syrideLink !== '' ||
                 currentFlight.xcontestLink !== '' ||
-                currentFlight.airtribuneLink !== ''){ 
-                    this.setState({showFurtherDetailsLinks: true})
-                } else {
-                    this.setState({showFurtherDetailsLinks: false});
-                } 
+                currentFlight.airtribuneLink !== '') ? this.setState({showFurtherDetailsLinks: true}) : this.setState({showFurtherDetailsLinks: false});
             }
         }   
     }
@@ -167,7 +141,7 @@ class FlightDetailContainer extends Component {
                     />) : null}
                     <div className="detail-layout__right">
                         <Paragraph 
-                            classNameParagraph='text'
+                            classNameParagraph='details__txt-long'
                             paragraphTxt={this.state.description}
                         />
                         <div className="details">
@@ -242,19 +216,14 @@ class FlightDetailContainer extends Component {
                                 ) : null} 
                             </div>
                         </div>
-                        {this.state.showWeatherLinks ? (
-                            <div className="details">
-                        <h2 className="title-h2">Wetter. <span className="title--regular">Screenshots der Prognosen.</span></h2>
-                            <div className="details__columns">
-                                <a><span className="anchor" href={this.state.weatherFoehndiagramm}>Föhndiagramm</span></a>
-                                <a><span className="anchor" href={this.state.weatherWind800m}>Wind 800 m</span></a>
-                                <a><span className="anchor" href={this.state.weatherWind1500m}>Wind 1500 m</span></a>
-                                <a><span className="anchor" href={this.state.weatherWind3000m}>Wind 3000 m</span></a>
-                                <a><span className="anchor" href={this.state.weatherFronten}>Fronten</span></a>
-                                <a><span className="anchor" href={this.state.weatherRegtherm}>Regtherm</span></a>
-                                <a><span className="anchor" href={this.state.weatherSoaringmeteo}>Soaringmeteo</span></a>
-                            </div>
-                        </div>) : null}
+                        {this.state.showWeather ? (
+                            <DetailsItem 
+                                    classNameDetails='details details--margin-top'
+                                    classNameDetailsTitel= 'details__titel'
+                                    classNameDetailsTxt='details__txt-long'
+                                    title='Wetter'
+                                    txt={this.state.weatherDescription}
+                                />) : null}
                     </div>
                 </section>
             </main>

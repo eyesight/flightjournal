@@ -12,11 +12,11 @@
   }
 
   &__titel{
-    font-family: $font-family-secundary;
+    font-weight: $font-bold;
   }
 
   &__txt{
-    font-weight: $font-bold;
+    font-family: $font-family-secundary;
   }
 
   &__titel-anchors{
@@ -25,7 +25,17 @@
     margin-top: rem-calc(40px);
   }
   &__txt-anchors{
+    font-family: $font-family-secundary;
     margin-bottom: rem-calc(10px);
+  }
+
+  &__txt-long{
+    font-size: $font-s-copytext-l;
+    line-height: 150%;
+  }
+
+  &--margin-top{
+    margin-top: rem-calc(50px);
   }
 
   a{

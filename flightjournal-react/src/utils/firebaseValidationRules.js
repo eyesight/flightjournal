@@ -15,6 +15,7 @@
                           'maxaltitude',
                           'heightgain',
                           'maxclimb',
+                          'maxsink',
                           'startingtime',
                           'distance',
                           'description',
@@ -23,15 +24,7 @@
                           'syrideLink',
                           'xcontestLink',
                           'airtribuneLink',
-                          'weatherFoehndiagramm',
-                          'weatherWindBoden',
-                          'weatherWind800m',
-                          'weatherWind1500m',
-                          'weatherWind3000m',
-                          'weatherRegtherm',
-                          'weatherFronten',
-                          'weatherSoaringmeteo',
-                          'weatherBisendiagramm',
+                          'weatherDescription',
                           'rating'])",
            "date": {
                ".validate": "newData.val().length > 0 && newData.val().length <= 10 "
@@ -63,8 +56,11 @@
             "maxclimb": {
                 ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 10"
             },
+              "maxsink": {
+                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 10"
+            },
             "startingtime": {
-                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 100"
+                ".validate": "newData.val() > 0 || newData.isNumber()"
             },
             "distance": {
                 ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 50"
@@ -78,32 +74,8 @@
             "airtribuneLink": {
                 ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 100"
             },
-            "weatherFoehndiagramm": {
-                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 100"
-            },
-            "weatherWindBoden": {
-                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 100"
-            },
-            "weatherWind800m": {
-                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 100"
-            },
-            "weatherWind1500m": {
-                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 100"
-            },
-            "weatherWind3000m": {
-                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 100"
-            },
-            "weatherRegtherm": {
-                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 100"
-            },
-            "weatherFronten": {
-                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 100"
-            },
-            "weatherSoaringmeteo": {
-                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 100"
-            },
-            "weatherBisendiagramm": {
-                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 100"
+            "weatherDescription": {
+                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 5000"
             },
             "rating": {
                 ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 10"

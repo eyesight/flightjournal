@@ -20,7 +20,7 @@ class FlugdatenForm2 extends Component {
         TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px", onComplete: callback});
     }
     render() {
-        const { onChange, onSubmit, goBack, goNext, valueMaxaltitude, valueHeightgain, valueMaxclimb, nameStartHour, valueStartHour, getOptionsStartHour, nameStartMinute, valueStartMinute, getOptionsStartMinute, valueDistance, errorMessagemaxaltitude, errorMessageheightgain, errorMessagemaxclimp, errorMessagestartingtime, errorMessagedistance, classNamemaxaltitude, classNameheightgain, classNamemaxclimb, classNamestartingtime, classNamedistance, classNameXcdistance, valueXcdistance, errorMessageXC, classNameMaxsink, valueMaxsink, errorMessagemaxsink} = this.props;
+        const { onChange, onSubmit, goBack, goNext, valueMaxaltitude, valueHeightgain, valueMaxclimb, nameStartHour, valueStartHour, getOptionsStartHour, nameStartMinute, valueStartMinute, getOptionsStartMinute, valueDistance, errorMessagemaxaltitude, errorMessageheightgain, errorMessagemaxclimp, errorMessagestartingtime, errorMessagedistance, classNamemaxaltitude, classNameheightgain, classNamemaxclimb, classNamestartingtime, classNamedistance, classNameXcdistance, valueXcdistance, errorMessageXC, classNameMaxsink, valueMaxsink, errorMessagemaxsink, classNameWeatherDescription, labelWeatherDescription, nameWeatherDescription, valueWeatherDescription, errorMessageWeatherDescription} = this.props;
         return (
                 <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
                     <InputField 
@@ -117,6 +117,11 @@ class FlugdatenForm2 extends Component {
                         classNamesError='formular__validationBox'
                         errorMessage={errorMessagemaxsink}
                     />
+                    <div className={classNameWeatherDescription}>
+                    <label className="formular__label">{labelWeatherDescription}</label>
+                    <textarea className="formular__input" type="text" name={nameWeatherDescription} value={valueWeatherDescription} onChange={onChange}></textarea>
+                    <span className='formular__validationBox'>{errorMessageWeatherDescription}</span>
+                </div>
                     <div className="button-group">
                         <div className="button-wrapper">
                             <button type="button" onClick={goBack} className="button">Zurück</button>

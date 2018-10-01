@@ -22,7 +22,7 @@ class FlugdatenForm1 extends Component {
     }
 
     render() {
-        const { onChange, onSubmit, valueHour, valueMinute, nameHour, nameMinute, nameComment, valueComment, goNext, nameSP, getOptions, getOptionsHour, getOptionsMinute, goToPage, valueLandeplatz, selectedValueSP, handleChange, startDate, classNameDate, classNameDateLP, classNameDateFT, classNameSP, classNameDescription, errorMessageLP, errorMessageST, errorMessageDate, errorMessageFT, errorMessageDesc} = this.props;
+        const { onChange, onSubmit, valueHour, valueMinute, nameHour, nameMinute, nameComment, valueComment, goNext, nameSP, getOptions, getOptionsHour, getOptionsMinute, goToPage, valueLandeplatz, selectedValueSP, handleChange, startDate, classNameDate, classNameDateLP, classNameDateFT, classNameSP, classNameDescription, errorMessageLP, errorMessageST, errorMessageDate, errorMessageFT, errorMessageDesc, labelDescription} = this.props;
         return ( 
             <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
                 <div className={classNameDate}>
@@ -79,7 +79,7 @@ class FlugdatenForm1 extends Component {
                 </div>
                 
                 <div className={classNameDescription}>
-                    <label className="formular__label">Kommentar:</label>
+                    <label className="formular__label">{labelDescription}</label>
                     <textarea className="formular__input" type="text" name={nameComment} value={valueComment} onChange={onChange}></textarea>
                     <span className='formular__validationBox'>{errorMessageDesc}</span>
                 </div>

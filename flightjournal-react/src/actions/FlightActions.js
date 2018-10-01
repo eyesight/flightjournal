@@ -12,13 +12,15 @@ export function getFlights () {
   }
 }
 
+//Todo: add id and overridign ID may easier to add/have one function for both
 export function saveFlights(flight) {
   return dispatch => {
-    const newRef = database.push();
-    const newItem = {
+    let newRef = database.push();
+    let newItem = {
       id: newRef.key,
       ...flight
     };
+    newItem.id = newRef.key;
     return newRef.set(newItem);
   }
 }

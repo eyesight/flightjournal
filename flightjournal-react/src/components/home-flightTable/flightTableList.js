@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as routes from '../../constants/routes';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getFlights, deleteFlights } from '../../actions/FlightActions';
+import { getFlights, deleteFlights, saveFlights } from '../../actions/FlightActions';
 import { getFilterFlights } from '../../selectors/flightSelector';
 import { getStartplaces } from '../../actions/StartplacesActions';
 import { getPilots } from '../../actions/PilotActions';
@@ -12,6 +12,7 @@ import ReactTransitionGroup from 'react-addons-transition-group';
 import {TweenLite, TimelineLite} from 'gsap';
 import * as utils from '../../utils/timeToHourMinString';
 import firebase from 'firebase';
+import  _ from 'lodash';
 
 const tl = new TimelineLite();
 
@@ -24,7 +25,8 @@ class FlightTableList extends Component {
           expanded: false,
           showMessageBox: false,
           deleteID: '',
-          deleteImages: []
+          deleteImages: [],
+          flightToCopy: []
         };
         this.row = React.createRef();
         this.renderFlights = this.renderFlights.bind(this);
@@ -35,6 +37,7 @@ class FlightTableList extends Component {
         this.flugdetails = this.flugdetails.bind(this);
         this.updateFlight = this.updateFlight.bind(this);
         this.deletePhotos = this.deletePhotos.bind(this);
+        this.copyFlight = this.copyFlight.bind(this);
       }
 
     componentWillMount() {
@@ -74,7 +77,10 @@ class FlightTableList extends Component {
           .fromTo(document.querySelector('.checkmark__stem'), 0.2, {height: '0'}, {height: '25px'}, "scene1+=0.2");
 
           setTimeout(() => {
-            this.deletePhotos(this.state.deleteImages);
+            //Delete the images, when some exists
+            if(this.state.deleteImages[0] !== ""){
+                this.deletePhotos(this.state.deleteImages);
+            }
             this.props.deleteFlights(this.state.deleteID);
             this.setState({
                 showMessageBox: false,
@@ -91,12 +97,33 @@ class FlightTableList extends Component {
             // Delete the file
             return desertRef.delete().then(function() {
                 // File deleted successfully
-                console.log('file deleted' + x);
+                console.log('file deleted');
                 }).catch(function(error) {
                 // Uh-oh, an error occurred!
                 console.log(error);
             });
         })
+    }
+
+    copyFlight(e, id){
+        e.preventDefault();
+        let flightToCopyNow = _.find(this.props.flights, { id: id });
+        //delete data, which need to be new -> Images, FlightID, PilotID
+        flightToCopyNow.id = '';
+        flightToCopyNow.imgName = [''];
+        flightToCopyNow.imgUrl = [''];
+        //overwrite User with active-User
+        flightToCopyNow.pilot = this.props.activeUser;
+        flightToCopyNow.pilotID = this.props.activeUserID;
+        this.setState({
+            flightToCopy: flightToCopyNow
+        })
+        this.props.saveFlights(flightToCopyNow).then(
+            console.log('flug kopiert'),
+            this.setState({
+                flightToCopy: []
+            })
+        );
     }
 
     cancelFunc(e){
@@ -153,6 +180,7 @@ class FlightTableList extends Component {
                                     <td className="table__distance">{x.xcdistance} Kilometer</td>
                                     <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.flugdetails(event, x.id)}}>Flugdetails</a></td>
                                     {isactiveuser ? <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.updateFlight(event, x.id)}}>Bearbeiten</a></td> : null}
+                                    <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.copyFlight(event, x.id)}}>Kopieren</a></td>
                                     {isactiveuser ? <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.showMessageBox(event, x.id, x.imgUrl)}}>Löschen</a></td> : null}
                                 </tr>
                             );
@@ -214,8 +242,9 @@ function mapStateToProps(state, props) {
         pilots: state.pilots,
         filter: state.filter,
         activeUser: state.user.email,
+        activeUserID: state.user.uid,
         filteredFlights: getFilterFlights(state.flights, state.filter)
     };
 }
 
-export default withRouter(connect(mapStateToProps, { getFlights, deleteFlights, getStartplaces, getPilots }) (FlightTableList));
+export default withRouter(connect(mapStateToProps, { getFlights, deleteFlights, saveFlights, getStartplaces, getPilots }) (FlightTableList));

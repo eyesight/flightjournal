@@ -66,6 +66,8 @@ class FlightTableSort extends Component {
                 </th>
                 <th className="table__header table--sort js-table--sort">&nbsp;
                 </th>
+                <th className="table__header table--sort js-table--sort">&nbsp;
+                </th>
             </tr>
             </thead>
         );

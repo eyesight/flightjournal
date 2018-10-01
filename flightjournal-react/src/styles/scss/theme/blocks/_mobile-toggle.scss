@@ -33,7 +33,7 @@
     position: absolute;
 
     &:first-child{
-      transition: transform 0.5s;
+      transition: all 0.5s;
       position: absolute;
       top: 0;
       transform: rotate(0deg);
@@ -50,7 +50,7 @@
       transform:rotate(0deg);
       position:absolute;
       top:20px;
-      transition: transform 0.5s;
+      transition: all 0.5s;
     }
   }
 
@@ -59,9 +59,9 @@
   }
 }
 
-.js-mobile-logo--visible + .mobile-toggle{
+.mobile-toggle.js-mobile-toggle--active{
   .mobile-toggle__menu{
-    &:before{
+    &:after{
       content: 'close';
       transition: content 0.5s;
     }
@@ -70,7 +70,7 @@
      &:first-child{
        transform:rotate(45deg);
        position:absolute;
-       bottom:0;
+       top: 10px;
        transition: transform 0.5s;
      }
 
@@ -81,7 +81,7 @@
      &:nth-child(3){
        transform:rotate(-45deg);
        position:absolute;
-       bottom:0;
+       top: 10px;
        transition: transform 0.5s;
      }
     }

@@ -33,7 +33,7 @@
     z-index:100;
     color: $color-black;
     position: fixed;
-    top: 15px;
+    top: 27px;
 
     .header__anchor{
       color: $color-black;
@@ -53,6 +53,7 @@
 
     @include bp(max, $ipad-ls) {
       color: $color-black;
+      top: 20px;
     }
     @include bp(max, $ipad-p) {
       margin-top: -20px; 

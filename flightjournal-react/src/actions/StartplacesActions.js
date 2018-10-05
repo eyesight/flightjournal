@@ -19,7 +19,6 @@ export function saveStartplaces(post) {
       id: newRef.key,
       ...post
     };
-    console.log(newItem);
     return newRef.set(newItem);
   }
 }

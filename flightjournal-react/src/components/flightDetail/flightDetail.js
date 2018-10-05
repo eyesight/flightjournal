@@ -3,6 +3,7 @@ import { getUser } from '../../actions/UserActions';
 import { getFlights} from '../../actions/FlightActions';
 import { getStartplaces } from '../../actions/StartplacesActions';
 import { getPilots } from '../../actions/PilotActions';
+import { getParagliders } from '../../actions/ParaglidersActions';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -27,6 +28,9 @@ class FlightDetailContainer extends Component {
             startplatzArea: '',
             flughoehe: '',
             xcdistance: '',
+            paraglider: '',
+            paragliderBrand: '',
+            paragliderModel: '',
             pilotFirstname: '',
             pilotLastname: '',
             description: '',
@@ -55,6 +59,7 @@ class FlightDetailContainer extends Component {
         this.props.getUser();
         this.props.getStartplaces();
         this.props.getPilots();
+        this.props.getParagliders();
         if (this.props.user.loading === false && this.props.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
           }else{
@@ -72,8 +77,9 @@ class FlightDetailContainer extends Component {
             const currentFlight = nextProps.flight;
             const currentPilot = _.find(nextProps.pilots, {email:currentFlight.pilot});
             const currentStartplace = _.find(nextProps.startplaces, {id:currentFlight.startplace});
+            const currentParaglider = _.find(nextProps.paragliders, {id:currentFlight.paraglider});
 
-            if(currentPilot !== undefined && currentStartplace !== undefined){
+            if(currentPilot !== undefined && currentStartplace !== undefined && currentParaglider !== undefined){
                 this.setState({
                 flighttime: currentFlight.flighttime,
                 date: currentFlight.date,
@@ -97,7 +103,10 @@ class FlightDetailContainer extends Component {
                 airtribuneLink: currentFlight.airtribuneLink,
                 weatherDescription: currentFlight.weatherDescription,
                 imagesUrl: currentFlight.imgUrl,
-                imagesName: currentFlight.imgName
+                imagesName: currentFlight.imgName,
+                paraglider: currentParaglider,
+                paragliderBrand: currentParaglider.brand,
+                paragliderModel: currentParaglider.model
             });
             (currentFlight.weatherDescription !== '') ? this.setState({showWeather: true}) : this.setState({showWeather: false});
             (currentFlight.syrideLink !== '' ||
@@ -115,6 +124,7 @@ class FlightDetailContainer extends Component {
         startingTimeHour = (startingTimeHour<10) ? '0'+ startingTimeHour : startingTimeHour;
         let startingTimeMinute = Number(this.state.startingtime)%60;
         startingTimeMinute = (startingTimeMinute<10) ? '0'+ startingTimeMinute : startingTimeMinute;
+        let glider = `${this.state.paragliderBrand} ${this.state.paragliderModel}`;
         return (
             <main className="main">
                     <section className="detail-layout">
@@ -202,6 +212,14 @@ class FlightDetailContainer extends Component {
                                     title='Geflogene Distanz'
                                     txt={this.state.distance + ' km'}
                                 />): null}
+                                {this.state.paraglider ? (
+                                <DetailsItem 
+                                    classNameDetails='details__item'
+                                    classNameDetailsTitel= 'details__titel'
+                                    classNameDetailsTxt='details__txt'
+                                    title='Gleitschirm Modell'
+                                    txt={glider}
+                                />): null}
                                 {this.state.showFurtherDetailsLinks ? (
                                     <div className="details__item">
                                     <p className="details__titel-anchors">Weitere Daten</p>
@@ -237,8 +255,9 @@ function mapStateToProps(state, props) {
         user: state.user,
         flight: _.find(state.flights, {id:key}),
         startplaces: state.startplaces,
-        pilots: state.pilots
+        pilots: state.pilots,
+        paragliders: state.paragliders
     };
 } 
 
-export default withRouter(connect(mapStateToProps, { getUser, getFlights, getStartplaces, getPilots })(FlightDetailContainer));
+export default withRouter(connect(mapStateToProps, { getUser, getFlights, getStartplaces, getPilots, getParagliders })(FlightDetailContainer));

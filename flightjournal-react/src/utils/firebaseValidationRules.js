@@ -21,6 +21,7 @@
                           'description',
               						'imgUrl',
                           'imgName',
+                          'paraglider',
                           'syrideLink',
                           'xcontestLink',
                           'airtribuneLink',
@@ -40,6 +41,9 @@
             },
             "description": {
                 ".validate": "newData.val().length > 0 && newData.isString() && newData.val().length < 5000"
+            },
+            "paraglider": {
+                ".validate": "newData.val().length == 0 || newData.isString() && newData.val().length < 100"
             },
             "xcdistance": {
                 ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 10"

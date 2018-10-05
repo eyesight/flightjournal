@@ -6,6 +6,7 @@ import { getFlights, saveFlights, deleteFlights, updateFlights } from '../../act
 import { getStartplaces } from '../../actions/StartplacesActions';
 import { getUser } from '../../actions/UserActions';
 import { getPilots } from '../../actions/PilotActions';
+import { getParagliders } from '../../actions/ParaglidersActions';
 import * as routes from '../../constants/routes';
 import ReactTransitionGroup from 'react-addons-transition-group';
 import FlugdatenForm1 from './flugdatenForm1';
@@ -44,13 +45,14 @@ class FlugdatenFormContainer extends Component {
           flightID: '',
           IDtoUpdate: '',
           formTitleH2: 'Erfasse deine Flugdaten.',
+          activePilot: [],
           
           //validation-states
           validationTxt: '',
           errorAlert: false,
 
-          formErrors: {landingplace: '', date: '', startplace: '', flighttime: '', valueHour: '', valueMinute: '', description: '', xcdistance: '', maxaltitude: '', heightgain: '', maxclimb: '', startingtime: '', distance: '', imgUrl:'', syrideLink: '', xcontestLink: '', airtribuneLink: '', weatherDescription: '', maxsink: ''},
-          formErrorsValid: {landingplace: false, date: true, startplace: false, flighttime: false, description: false, xcdistance: true, maxaltitude: true, heightgain: true, maxclimb: true, maxsink: true, startingtime: true, distance: true, imgUrl: true, syrideLink: true, xcontestLink: true, airtribuneLink: true, weatherDescription: true},
+          formErrors: {landingplace: '', date: '', startplace: '', flighttime: '', valueHour: '', valueMinute: '', description: '', xcdistance: '', maxaltitude: '', heightgain: '', maxclimb: '', startingtime: '', distance: '', imgUrl:'', syrideLink: '', xcontestLink: '', airtribuneLink: '', weatherDescription: '', maxsink: '', paragliders: ''},
+          formErrorsValid: {landingplace: false, date: true, startplace: false, flighttime: false, description: false, xcdistance: true, maxaltitude: true, heightgain: true, maxclimb: true, maxsink: true, startingtime: true, distance: true, imgUrl: true, syrideLink: true, xcontestLink: true, airtribuneLink: true, weatherDescription: true, paragliders: true},
           //form1
           landingplaceValid: false,
           dateValid: true,
@@ -67,6 +69,7 @@ class FlugdatenFormContainer extends Component {
           startingtimeValid: true, 
           weatherDescriptionValid: true, 
           distanceValid: true,
+          paraglidersValid: true,
           //form3
           imgUrlValid: true,
           pictures: [],
@@ -92,6 +95,7 @@ class FlugdatenFormContainer extends Component {
           nameMinute: 'valueMinute',
           nameComment: 'description',
           nameStartplace: 'startplace',
+          nameParagliders: 'paragliders',
           nameWeatherDescription: 'weatherDescription',
           
           valueStartHour:'',
@@ -120,7 +124,8 @@ class FlugdatenFormContainer extends Component {
           weatherDescription: '',
           rating: '',
           writeDate: '',
-          lastUpdate: ''
+          lastUpdate: '',
+          paraglider: ''
         };
 
         this.getOptions = this.getOptions.bind(this);
@@ -158,6 +163,7 @@ class FlugdatenFormContainer extends Component {
         this.props.getUser();
         this.props.getPilots();
         this.props.getStartplaces();
+        this.props.getParagliders();
         if (this.props.user.loading === false && this.props.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
           }
@@ -167,10 +173,19 @@ class FlugdatenFormContainer extends Component {
         if (nextProps.user.loading === false && nextProps.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
           }
+          //set data of active pilot
+          for(let i = 0; i<nextProps.pilots.length; i++){
+            if(nextProps.pilots && nextProps.user.email === nextProps.pilots[i].email){
+                this.setState({
+                    activePilot: this.props.pilots[i],
+                    paragliders: nextProps.pilots[i].paraglider
+                }) 
+            }
+          }
+         
         //if history.location.state is set (if someone likes to update a Flight), set the values of Form-Input-Field
         if( nextProps.flight && this.props.history.location.state!==undefined && this.props.history.location.state.flightID !== '' && this.props.history.location.state.flightID !== []){
             let currentFlight = nextProps.flight;
-
             if(currentFlight !==null || currentFlight !==undefined || currentFlight !==[]){
                 //get the hours and minutes and set into state
                 const akthour = Math.floor(Number(currentFlight.flighttime)/60);
@@ -199,6 +214,7 @@ class FlugdatenFormContainer extends Component {
                     flighttime: currentFlight.flighttime,
                     xcdistance: currentFlight.xcdistance,
                     description: currentFlight.description,
+                    paragliders: currentFlight.paraglider,
                     maxaltitude: currentFlight.maxaltitude,
                     heightgain: currentFlight.heightgain,
                     maxclimb: currentFlight.maxclimb,
@@ -223,6 +239,7 @@ class FlugdatenFormContainer extends Component {
                     //TODO: find a better solution
                     landingplaceValid: true,
                     startplaceValid: true,
+                    paraglidersValid: true,
                     formValid: true, 
                     flighttimeValid: true,
                     descriptionValid: true,
@@ -265,6 +282,7 @@ class FlugdatenFormContainer extends Component {
         let startingtimeValid = this.state.startingtimeValid;
         let distanceValid = this.state.distanceValid;
         let weatherDescriptionValid = this.state.weatherDescriptionValid;
+        let paraglidersValid = this.state.paraglidersValid;
         //form3
         let imgUrlValid = this.state.imgUrlValid
         //form4
@@ -326,6 +344,10 @@ class FlugdatenFormContainer extends Component {
             weatherDescriptionValid = value.length === 0 || (value.length > 1 && value.length <= 5000 && (typeof value === 'string'));
             fieldValidationErrors.weatherDescription = weatherDescriptionValid ? '' : `${validation.valField} ${validation.valLess5000}.`;
             break;
+        case 'paragliders':
+            paraglidersValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.paragliders = paraglidersValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess50}.`;
+            break;
         //form3
         case 'imgUrl':
             imgUrlValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
@@ -353,6 +375,7 @@ class FlugdatenFormContainer extends Component {
             startplace: startplaceValid, 
             flighttime: flighttimeValid, 
             description: descriptionValid, 
+            paragliders: paraglidersValid,
             xcdistance: xcdistanceValid, 
             maxaltitude: maxaltitudeValid,
             heightgain: heightgainValid,
@@ -371,6 +394,7 @@ class FlugdatenFormContainer extends Component {
                         startplaceValid: startplaceValid,
                         flighttimeValid: flighttimeValid,
                         descriptionValid: descriptionValid,
+                        paraglidersValid: paraglidersValid,
                         xcdistanceValid: xcdistanceValid,
                         maxaltitudeValid: maxaltitudeValid,
                         heightgainValid: heightgainValid,
@@ -392,6 +416,7 @@ class FlugdatenFormContainer extends Component {
             this.state.startplaceValid && 
             this.state.flighttimeValid && 
             this.state.descriptionValid && 
+            this.state.paraglidersValid &&
             this.state.xcdistanceValid &&
             this.state.maxaltitudeValid &&
             this.state.heightgainValid &&
@@ -418,7 +443,6 @@ class FlugdatenFormContainer extends Component {
         let ftimestart = 0;
         this.setState({[name]: value},
             () => { this.validateField(name, value) });
-
         //validate flighttime on change
         //TODO: make it as function - i use the same in onSubmit
         if(name === 'valueMinute' || name === 'valueHour'){
@@ -534,6 +558,7 @@ class FlugdatenFormContainer extends Component {
                 startingtime: this.state.startingtime,
                 distance: this.state.distance,
                 weatherDescription: this.state.weatherDescription,
+                paragliders: this.state.paragliders,
                 formTitleH2: 'Bilder hochladen.'
             });
         }else{
@@ -673,6 +698,7 @@ class FlugdatenFormContainer extends Component {
             startingtime: ftimestart,
             distance: this.state.distance,
             description: this.state.description,
+            paraglider: this.state.paragliders,
             imgUrl: this.state.imgUrl,
             imgName: this.state.imgName,
             syrideLink: this.state.syrideLink,
@@ -701,16 +727,15 @@ class FlugdatenFormContainer extends Component {
         }
     }
 
-    getOptions(sp){
+    getOptions(sp, text, keyForOption, keyForOption2){
         const startplacesData = Object.keys(sp).map(i => sp[i]);
         const startplacesDatakey = Object.keys(sp);
-
         return startplacesData.map(function (item, index) {
+                let keyName = keyForOption2 ? (item[keyForOption2] + ' ' + item[keyForOption]) : item[keyForOption];
                 if(startplacesDatakey[index] === '0'){
-                    return <option key={startplacesDatakey[index]} value={startplacesDatakey[index]}>Startplatz wählen</option>;
-                }
-                else{
-                    return <option key={startplacesDatakey[index]} value={startplacesDatakey[index]}>{item.name}</option>;
+                    return <option key={startplacesDatakey[index]} value={startplacesDatakey[index]}>{text}</option>;
+                }else{
+                    return <option key={startplacesDatakey[index]} value={startplacesDatakey[index]}>{keyName}</option>;
                 }
             });
     }
@@ -862,7 +887,7 @@ class FlugdatenFormContainer extends Component {
                         nameComment={this.state.nameComment}
                         valueComment={this.state.description}
                         ani={this.state.ani} 
-                        getOptions={this.getOptions(this.props.startplaces)}
+                        getOptions={this.getOptions(this.props.startplaces, 'Startplatz wählen', 'name')}
                         getOptionsHour={this.getOptionsTime(8, 'Std.', 1, '')}
                         getOptionsMinute={this.getOptionsTime(60, 'Min.', 5, '')}
                         nameSP={this.state.nameStartplace}
@@ -926,6 +951,13 @@ class FlugdatenFormContainer extends Component {
                         nameStartMinute={this.state.nameStartMinute} 
                         valueStartMinute={this.state.valueStartMinute}
                         getOptionsStartMinute={this.getOptionsStartTime(59, 1)}
+
+                        classNameGlider={`formular__input-wrapper ${this.errorClass(this.state.formErrors.paragliders)}`}
+                        gliderLabel={'Gleitschirm-Modell'}
+                        nameGlider={this.state.nameParagliders}
+                        valueGlider={this.state.paragliders}
+                        getOptionsGlider={this.getOptions(this.props.paragliders, 'Gleitschirm wählen', 'model', 'brand')}
+                        errorMessageGlider={this.state.formErrors.paragliders}
                     />}
                 </ReactTransitionGroup> 
                 <ReactTransitionGroup component="div" className="formular-wrapper">
@@ -967,42 +999,6 @@ class FlugdatenFormContainer extends Component {
                         errorMessageAirtribuneLink={this.state.formErrors.airtribuneLink}
                     />}
                 </ReactTransitionGroup> 
-                {/* <ReactTransitionGroup component="div" className="formular-wrapper">
-                    {this.state.form5 &&
-                    <FlugdatenForm5 
-                        onChange={this.onChange}
-                        onSubmit={this.onSubmit}
-                        goBack={this.goBack5}
-                        ani5={this.state.ani}
-                        valueWeatherFoehndiagramm={this.state.weatherFoehndiagramm}
-                        valueWeatherWindBoden={this.state.weatherWindBoden}
-                        valueWeatherWind800m={this.state.weatherWind800m}
-                        valueWeatherWind1500m={this.state.weatherWind1500m}
-                        valueWeatherWind3000m={this.state.weatherWind3000m}
-                        valueWeatherRegtherm={this.state.weatherRegtherm}
-                        valueWeatherFronten={this.state.weatherFronten}
-                        valueWeatherSoaringmeteo={this.state.weatherSoaringmeteo}
-                        valueWeatherBisendiagramm={this.state.weatherBisendiagramm}
-                        classNameweatherFoehndiagramm={`formular__input-wrapper ${this.errorClass(this.state.formErrors.weatherFoehndiagramm)}`}
-                        classNamevalueWeatherWindBoden={`formular__input-wrapper margin-top-0 ${this.errorClass(this.state.formErrors.weatherWindBoden)}`}
-                        classNameweatherWind800m={`formular__input-wrapper ${this.errorClass(this.state.formErrors.weatherWind800m)}`}
-                        classNameweatherWind1500m={`formular__input-wrapper ${this.errorClass(this.state.formErrors.weatherWind1500m)}`}
-                        classNameweatherWind3000m={`formular__input-wrapper ${this.errorClass(this.state.formErrors.weatherWind3000m)}`}
-                        classNameweatherRegtherm={`formular__input-wrapper ${this.errorClass(this.state.formErrors.weatherRegtherm)}`}
-                        classNameweatherFronten={`formular__input-wrapper ${this.errorClass(this.state.formErrors.weatherFronten)}`}
-                        classNameweatherSoaringmeteo={`formular__input-wrapper ${this.errorClass(this.state.formErrors.weatherSoaringmeteo)}`}
-                        classNameweatherBisendiagramm={`formular__input-wrapper ${this.errorClass(this.state.formErrors.weatherBisendiagramm)}`}
-                        errorMessageWeatherFoehndiagramm={this.state.formErrors.weatherFoehndiagramm}
-                        errorMessageWeatherWindBoden={this.state.formErrors.weatherWindBoden}
-                        errorMessageWeatherWind800m={this.state.formErrors.weatherWind800m}
-                        errorMessageWeatherWind1500m={this.state.formErrors.weatherWind1500m}
-                        errorMessageWeatherWind3000m={this.state.formErrors.weatherWind3000m}
-                        errorMessageWeatherRegtherm={this.state.formErrors.weatherRegtherm}
-                        errorMessageWeatherFronten={this.state.formErrors.weatherFronten}
-                        errorMessageWeatherSoaringmeteo={this.state.formErrors.weatherSoaringmeteo}
-                        errorMessageWeatherBisendiagramm={this.state.formErrors.weatherBisendiagramm}
-                    />}
-                </ReactTransitionGroup>  */}
                 {this.state.errorAlert && <FormErrorAlert>{validation.valForm}</FormErrorAlert>}
              </section>
            </main>
@@ -1026,8 +1022,9 @@ let flightform = reduxForm({
           flight: _.find(state.flights, { id: key }),
           user: state.user,
           pilots: state.pilots,
-          startplaces: state.startplaces
+          startplaces: state.startplaces,
+          paragliders: state.paragliders
     };
-}, { saveFlights, getFlights, deleteFlights, getUser, updateFlights, getPilots, getStartplaces })(flightform);
+}, { saveFlights, getFlights, deleteFlights, getUser, updateFlights, getPilots, getStartplaces, getParagliders })(flightform);
 
 export default withRouter(flightform);

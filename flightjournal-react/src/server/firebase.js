@@ -18,5 +18,7 @@ export const database = firebase.database().ref('Flights/');
 export const databaseDetail = firebase.database().ref(`Flights/${id}`);
 export const startplacesdb = firebase.database().ref('startplaces/');
 export const pilotsdb = firebase.database().ref('Pilots/');
+export const paraglidersdb = firebase.database().ref('paragliders/');
+
 
 

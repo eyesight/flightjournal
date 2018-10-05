@@ -4,6 +4,7 @@ import UserReducer from './UserReducers';
 import FlightReducers from './FlightReducers';
 import StartplacesReducer from './StartplacesReducer';
 import PilotReducer from './PilotReducer'
+import ParaglidersReducer from './ParaglidersReducers'
 import FilterReducers from './FilterReducers';
 
 const rootReducer = combineReducers({
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     flights: FlightReducers,
     startplaces: StartplacesReducer,
     pilots: PilotReducer,
-    filter: FilterReducers
+    filter: FilterReducers,
+    paragliders: ParaglidersReducer,
 });
 
 export default rootReducer;

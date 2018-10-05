@@ -10,6 +10,8 @@ export const FETCH_SP = 'fetch_startplaces';
 
 export const FETCH_Pilots = 'fetch_pilots';
 
+export const FETCH_Paragliders = 'fetch_paragliders';
+
 export const GET_USER = 'get_user';
 
 export const ADD_FLIGHT = 'add_flight';

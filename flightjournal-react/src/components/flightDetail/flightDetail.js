@@ -78,6 +78,7 @@ class FlightDetailContainer extends Component {
             const currentPilot = _.find(nextProps.pilots, {email:currentFlight.pilot});
             const currentStartplace = _.find(nextProps.startplaces, {id:currentFlight.startplace});
             const currentParaglider = _.find(nextProps.paragliders, {id:currentFlight.paraglider});
+            console.log(currentFlight.paraglider);
 
             if(currentPilot !== undefined && currentStartplace !== undefined && currentParaglider !== undefined){
                 this.setState({
@@ -118,7 +119,7 @@ class FlightDetailContainer extends Component {
 
     render() {
         let textParagraph = `${this.state.date}, ${this.state.pilotFirstname} ${this.state.pilotLastname}`;
-        let textTitelReg = `${utils.timeToHourMinString(this.state.flighttime)}, ${this.state.xcdistance} km`;
+        let textTitelReg = this.state.xcdistance ? `${utils.timeToHourMinString(this.state.flighttime)}, ${this.state.xcdistance} km` : `${utils.timeToHourMinString(this.state.flighttime)}`;
         let textTitelBold = `${this.state.startplatz} – ${this.state.startplatzArea}, ${this.state.startplatzAltitude} m`;
         let startingTimeHour = Math.floor(Number(this.state.startingtime)/60);
         startingTimeHour = (startingTimeHour<10) ? '0'+ startingTimeHour : startingTimeHour;
@@ -156,6 +157,22 @@ class FlightDetailContainer extends Component {
                         />
                         <div className="details">
                             <div className="details__columns">
+                            {this.state.flighttime ? (
+                                <DetailsItem 
+                                    classNameDetails='details__item'
+                                    classNameDetailsTitel= 'details__titel'
+                                    classNameDetailsTxt='details__txt'
+                                    title='Flugzeit'
+                                    txt={utils.timeToHourMinString(this.state.flighttime)}
+                                />): null}
+                            {this.state.xcdistance ? (
+                            <DetailsItem 
+                                classNameDetails='details__item'
+                                classNameDetailsTitel= 'details__titel'
+                                classNameDetailsTxt='details__txt'
+                                title='XC-Distanz'
+                                txt={`${this.state.xcdistance} km`}
+                            />): null}
                             {this.state.landeplatz ? (
                                 <DetailsItem 
                                     classNameDetails='details__item'

@@ -114,7 +114,7 @@ class FlightTableList extends Component {
         flightToCopyNow.imgUrl = [''];
         //overwrite User with active-User
         flightToCopyNow.pilot = this.props.activeUser;
-        flightToCopyNow.pilotID = this.props.activeUserID;
+        flightToCopyNow.pilotId = this.props.activeUserID;
         this.setState({
             flightToCopy: flightToCopyNow
         })
@@ -140,7 +140,7 @@ class FlightTableList extends Component {
 
     flugdetails(e, id){
         //e.preventDefault(); 
-        this.props.history.push({pathname: `/fligth/${id}`, state:{flightID: id}})
+        this.props.history.push({pathname: `/fligth/${id}`, state:{flightId: id}})
     }
 
     updateFlight(e, id){
@@ -152,7 +152,7 @@ class FlightTableList extends Component {
         this.props.history.push({
             pathname: routes.FLUGDATEN_ERFASSEN,
             state: {
-              flightID: id,
+              flightId: id,
               pilotData: this.props.flights[id]
             }
           })

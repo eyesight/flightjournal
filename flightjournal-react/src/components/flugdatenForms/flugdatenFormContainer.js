@@ -805,7 +805,7 @@ class FlugdatenFormContainer extends Component {
         let that = this;
 
         const date = this.state.date.split(".").reverse().join('');
-        const pilotID = this.props.user.uid;
+        const pilotId = this.props.user.uid;
         const randomNo = Math.floor((Math.random() * 100));
 
         this.setState({
@@ -822,7 +822,7 @@ class FlugdatenFormContainer extends Component {
             };
             reader.readAsDataURL(element);
             
-            let img = firebase.storage().ref('images/' + date + '-' + pilotID + '/' + randomNo + '/' + element.name).put(element);
+            let img = firebase.storage().ref('images/' + date + '-' + pilotId + '/' + randomNo + '/' + element.name).put(element);
             img.on('state_changed', function(snapshot){
                 let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 let obj = {name: element.name, progressbar: progress, uploaded: false};

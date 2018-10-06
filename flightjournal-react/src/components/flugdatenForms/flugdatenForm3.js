@@ -101,7 +101,7 @@ class FlugdatenForm3 extends Component {
       }
 
     render() {
-        const { onChange, onSubmit, onSubmitImageUpload, goBack, goNext, renderImageUploader, renderButtonSave, renderButtonClose, pictures, progressObj, previewUrl, renderButtons} = this.props;
+        const { onChange, onSubmit, goBack, goNext, renderImageUploader, renderButtonSave, renderButtonClose, pictures, progressObj, previewUrl, renderButtons, renderButtonSaveClose, renderButtonNext, onSubmitImageUploadClose} = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={this.onSub}>
                 {renderImageUploader &&  <ImageUploader
@@ -121,16 +121,21 @@ class FlugdatenForm3 extends Component {
             {!renderImageUploader && <div className="progress-wrapper">{this.renderProgressBar(pictures, progressObj, previewUrl)}</div>}
             {renderButtons &&
                 <div className="button-group">
+                <div className="button-wrapper">
+                    <button type="button" onClick={goBack} className="button">Zurück</button>
+                </div>
                 {renderButtonSave &&
                     <div className="button-wrapper">
-                        <button type="submit" onClick={onSubmitImageUpload} className="button">Speichern</button>
+                        <button type="button" onClick={goNext} className="button">Speichern und weiter</button>
                     </div>}
+                {renderButtonSaveClose &&
                     <div className="button-wrapper">
-                        <button type="button" onClick={goBack} className="button">Zurück</button>
-                    </div>
+                        <button type="button" onClick={onSubmitImageUploadClose} className="button">Speichern und schliessen</button>
+                    </div>}
+                {renderButtonNext &&
                     <div className="button-wrapper">
                         <button type="button" onClick={goNext} className="button">Weiter</button>
-                    </div>
+                    </div>}
                 {renderButtonClose && 
                     <div className="button-wrapper">
                         <button type="submit" className="button" onClick={onSubmit}>Schliessen</button>

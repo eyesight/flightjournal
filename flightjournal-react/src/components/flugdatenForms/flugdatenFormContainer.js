@@ -28,7 +28,7 @@ let minute = 0;
 let hour = 0;
 let minuteSZ = 0;
 let hourSZ = 0;
-
+//TODO: better solution for image-upload
 class FlugdatenFormContainer extends Component {
     constructor(props) {
         super(props);
@@ -80,11 +80,14 @@ class FlugdatenFormContainer extends Component {
           renderImageUploader: true,
           renderButtonSave: false,
           renderButtons: true,
+          renderButtonNext: true, 
           renderButtonClose: false,
+          renderButtonSaveClose: false,
           progressObj: [],
           previewUrl: [],
           uploadfinished: false,
           clickedOnWeiterBtn: false,
+          clickedOnCloseBtn: false,
           //form4
           syrideLinkValid: true,
           xcontestLinkValid: true,
@@ -147,6 +150,7 @@ class FlugdatenFormContainer extends Component {
         this.goBack3 = this.goBack3.bind(this);
         this.goNext3 = this.goNext3.bind(this);
         this.goNext3_setState = this.goNext3_setState.bind(this);
+        this.onSubmitImageUploadClose = this.onSubmitImageUploadClose.bind(this);
 
         this.goBack4 = this.goBack4.bind(this);
         this.goNext4 = this.goNext4.bind(this);
@@ -271,9 +275,21 @@ class FlugdatenFormContainer extends Component {
     }
 
     componentDidUpdate(){
+        console.log(this.state.clickedOnWeiterBtn);
         //update state to jump to next page, only when images-upload is finished (when goNext3 is called and images have to be uploaded)
-        if(this.state.uploadfinished === true){
+        if(this.state.uploadfinished === true && this.state.clickedOnWeiterBtn === true){
+            this.setState({
+                clickedOnWeiterBtn: false,
+                renderButtonSaveClose: false,
+            });
             this.goNext3_setState(true);
+        }
+
+        if(this.state.uploadfinished === true && this.state.clickedOnCloseBtn === true){
+            this.setState({
+                clickedOnCloseBtn: false
+            });
+            this.onSubmit();
         }
     }
 
@@ -595,6 +611,7 @@ class FlugdatenFormContainer extends Component {
     }
 
     goNext3(e){
+        console.log(this.state.pictures.length);
         e.preventDefault();
         this.setState({
             clickedOnWeiterBtn: true
@@ -634,6 +651,23 @@ class FlugdatenFormContainer extends Component {
         }
     }
 
+    onSubmitImageUploadClose(e){
+        e.preventDefault();
+        this.setState({
+            clickedOnCloseBtn: true
+        })
+        if(this.state.formValid){
+            this.onSubmitImgUpload(e);
+        }else{
+            this.setState({errorAlert: true})
+                Object.keys(this.state.formErrorsValid).map((fieldName, i) => {
+                    this.errorClass(this.state.formErrors[fieldName]);
+                    this.validateField(fieldName, this.state[fieldName]);
+                    return '';
+        });
+        }
+    }
+
     goBack3(e){
         e.preventDefault();
         this.setState({
@@ -642,7 +676,12 @@ class FlugdatenFormContainer extends Component {
             form3: false,
             form4: false,
             ani: 'form2',
-            formTitleH2: 'Weitere optionale Daten zum Flug.'
+            formTitleH2: 'Weitere optionale Daten zum Flug.',
+            pictures: [],
+            successPreview: false,
+            renderButtonSave: false,
+            renderButtonSaveClose: false,
+            renderButtonNext: true
         });
     }
 
@@ -680,8 +719,7 @@ class FlugdatenFormContainer extends Component {
         });
     }
 
-    onSubmit(e){
-        e.preventDefault();
+    onSubmit(){
         let ftime = 0;
         let ftimestart = 0;
 
@@ -815,23 +853,28 @@ class FlugdatenFormContainer extends Component {
     onChangeImgUpload(picture){
         if(picture.length === 0){
             this.setState({
+                pictures: picture,
                 successPreview: false,
-                renderButtonSave: false
+                renderButtonSave: false,
+                renderButtonSaveClose: false,
+                renderButtonNext: true
             });
         }else{
             this.setState({
                 pictures: picture,
                 successPreview: true,
-                renderButtonSave: true
+                renderButtonSave: true,
+                renderButtonSaveClose: true,
+                renderButtonNext: false
             });
-        }    
+        }
       }
 
      onSubmitImgUpload(e){
         e.preventDefault();
         let file = this.state.pictures;
         let that = this;
-
+        console.log(file);
         const date = this.state.date.split(".").reverse().join('');
         const pilotId = this.props.user.uid;
         const randomNo = Math.floor((Math.random() * 100));
@@ -892,7 +935,6 @@ class FlugdatenFormContainer extends Component {
     }
 
     render() {
-        console.log(this.state.uploadfinished);
         return ( 
             <main className="main">
                 <section className="centered-layout">
@@ -995,7 +1037,7 @@ class FlugdatenFormContainer extends Component {
                     <FlugdatenForm3 
                         onChange={this.onChangeImgUpload}
                         onSubmit={this.onSubmit}
-                        onSubmitImageUpload= {this.onSubmitImgUpload}
+                        onSubmitImageUploadClose={this.onSubmitImageUploadClose}
                         goBack={this.goBack3}
                         goNext={this.goNext3}
                         ani3={this.state.ani}
@@ -1005,6 +1047,8 @@ class FlugdatenFormContainer extends Component {
                         renderImageUploader={this.state.renderImageUploader}
                         renderButtonSave={this.state.renderButtonSave}
                         renderButtonClose={this.state.renderButtonClose}
+                        renderButtonSaveClose={this.state.renderButtonSaveClose}
+                        renderButtonNext={this.state.renderButtonNext}
                         renderButtons={this.state.renderButtons}
                         pictures={this.state.pictures}
                         progressObj= {this.state.progressObj}

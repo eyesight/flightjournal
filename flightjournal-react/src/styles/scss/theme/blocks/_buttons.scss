@@ -98,6 +98,10 @@
   }
 
   &--large{
+    width: 100%;
+  }
+
+  &--large-white{
     color: $color-black;
     background-color: $color-white;
     width: 100%;

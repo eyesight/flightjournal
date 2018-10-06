@@ -280,8 +280,7 @@ class FlugdatenFormContainer extends Component {
         if(this.state.uploadfinished === true && this.state.clickedOnWeiterBtn === true){
             this.setState({
                 clickedOnWeiterBtn: false,
-                renderButtonSaveClose: false,
-                classNameBackButton: 'button button--single'
+                renderButtonSaveClose: false
             });
             this.goNext3_setState(true);
         }
@@ -682,7 +681,8 @@ class FlugdatenFormContainer extends Component {
             successPreview: false,
             renderButtonSave: false,
             renderButtonSaveClose: false,
-            renderButtonNext: true
+            renderButtonNext: true,
+            classNameBackButton: 'button'
         });
     }
 
@@ -716,7 +716,8 @@ class FlugdatenFormContainer extends Component {
             form3: true,
             form4: false,
             ani: 'form3',
-            formTitleH2: 'Bilder hochladen.'
+            formTitleH2: 'Bilder hochladen.',
+            renderButtonNext: true
         });
     }
 

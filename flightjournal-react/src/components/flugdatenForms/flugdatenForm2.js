@@ -138,7 +138,7 @@ class FlugdatenForm2 extends Component {
                             <button type="button" onClick={goNext} className="button">Weiter</button>
                         </div>
                         <div className="button-wrapper">
-                            <button type="submit" className="button button--large">Speichern und schliessen</button>
+                            <button type="submit" className="button button--large-white">Speichern und schliessen</button>
                         </div>
                     </div>
                 </form>

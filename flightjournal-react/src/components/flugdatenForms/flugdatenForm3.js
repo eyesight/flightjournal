@@ -132,11 +132,11 @@ class FlugdatenForm3 extends Component {
                  </div>
                 {renderButtonSaveClose &&
                     <div className="button-wrapper">
-                        <button type="button" onClick={onSubmitImageUploadClose} className="button button--large">Speichern und schliessen</button>
+                        <button type="button" onClick={onSubmitImageUploadClose} className="button button--large-white">Speichern und schliessen</button>
                     </div>}
                 {renderButtonClose && 
                     <div className="button-wrapper">
-                        <button type="submit" className="button button--large" onClick={onSubmit}>Speichern und schliessen</button>
+                        <button type="submit" className="button button--large-white" onClick={onSubmit}>Speichern und schliessen</button>
                     </div>} 
                 </div>}
             </form>

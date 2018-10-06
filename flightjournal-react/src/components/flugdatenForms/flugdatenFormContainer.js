@@ -42,7 +42,7 @@ class FlugdatenFormContainer extends Component {
           form5: false,
           inputPilot: props.inputPilot,
           ani: 'form1',
-          flightID: '',
+          flightId: '',
           IDtoUpdate: '',
           formTitleH2: 'Erfasse deine Flugdaten.',
           activePilot: [],
@@ -78,11 +78,13 @@ class FlugdatenFormContainer extends Component {
           successPreview: false,
           progress: [],
           renderImageUploader: true,
-          renderButtonSave: true,
+          renderButtonSave: false,
           renderButtons: true,
           renderButtonClose: false,
           progressObj: [],
           previewUrl: [],
+          uploadfinished: false,
+          clickedOnWeiterBtn: false,
           //form4
           syrideLinkValid: true,
           xcontestLinkValid: true,
@@ -108,6 +110,7 @@ class FlugdatenFormContainer extends Component {
           description: '',
           startplace:'',
           landingplace: '',
+          landingplaceLink: '',
           flighttime: '',
           xcdistance: '',
           maxaltitude: '',
@@ -143,6 +146,7 @@ class FlugdatenFormContainer extends Component {
 
         this.goBack3 = this.goBack3.bind(this);
         this.goNext3 = this.goNext3.bind(this);
+        this.goNext3_setState = this.goNext3_setState.bind(this);
 
         this.goBack4 = this.goBack4.bind(this);
         this.goNext4 = this.goNext4.bind(this);
@@ -184,7 +188,7 @@ class FlugdatenFormContainer extends Component {
           }
          
         //if history.location.state is set (if someone likes to update a Flight), set the values of Form-Input-Field
-        if( nextProps.flight && this.props.history.location.state!==undefined && this.props.history.location.state.flightID !== '' && this.props.history.location.state.flightID !== []){
+        if( nextProps.flight && this.props.history.location.state!==undefined && this.props.history.location.state.flightId !== '' && this.props.history.location.state.flightId !== []){
             let currentFlight = nextProps.flight;
             if(currentFlight !==null || currentFlight !==undefined || currentFlight !==[]){
                 //get the hours and minutes and set into state
@@ -205,8 +209,8 @@ class FlugdatenFormContainer extends Component {
                     valueStartHour: akthourstart,
                     valueStartMinute: aktminutestart,
 
-                    flightID: this.props.history.location.state.flightID,
-                    IDtoUpdate: this.props.history.location.state.flightID,
+                    flightId: this.props.history.location.state.flightId,
+                    IDtoUpdate: this.props.history.location.state.flightId,
                     date: currentFlight.date,
                     startDate: moment(dateObject),
                     startplace: currentFlight.startplace,
@@ -263,6 +267,13 @@ class FlugdatenFormContainer extends Component {
                   day: "2-digit",
                 })
             })
+        }
+    }
+
+    componentDidUpdate(){
+        //update state to jump to next page, only when images-upload is finished (when goNext3 is called and images have to be uploaded)
+        if(this.state.uploadfinished === true){
+            this.goNext3_setState(true);
         }
     }
 
@@ -585,18 +596,15 @@ class FlugdatenFormContainer extends Component {
 
     goNext3(e){
         e.preventDefault();
+        this.setState({
+            clickedOnWeiterBtn: true
+        })
         if(this.state.formValid){
-            this.setState({
-                errorAlert: false,
-                form1: false,
-                form2: false,
-                form3: false,
-                form4: true,
-                ani: 'form4',
-                imgUrl: this.state.imgUrl,
-                imgName: this.state.imgName,
-                formTitleH2: 'Links zu anderen Flugplatformen.'
-        });
+            if(this.state.pictures.length !== 0 && this.state.clickedOnWeiterBtn === false){
+                this.onSubmitImgUpload(e);
+            }else{
+                this.goNext3_setState(false);
+            }
         }else{
             this.setState({errorAlert: true})
                 Object.keys(this.state.formErrorsValid).map((fieldName, i) => {
@@ -604,6 +612,25 @@ class FlugdatenFormContainer extends Component {
                     this.validateField(fieldName, this.state[fieldName]);
                     return '';
         });
+        }
+    }
+
+    goNext3_setState(withImages){
+        this.setState({
+            errorAlert: false,
+            form1: false,
+            form2: false,
+            form3: false,
+            form4: true,
+            ani: 'form4',
+            imgUrl: this.state.imgUrl,
+            imgName: this.state.imgName,
+            formTitleH2: 'Links zu anderen Flugplatformen.'
+        });
+        if (withImages){
+            this.setState({
+                uploadfinished: false
+            });
         }
     }
 
@@ -670,15 +697,13 @@ class FlugdatenFormContainer extends Component {
             ftimestart = Number(this.state.valueStartMinute);
         }
 
-        this.setState({flighttime: ftime, flightID: ''},
+        this.setState({flighttime: ftime, flightId: ''},
             () => { this.validateField('flighttime', ftime) 
           })
         //to delete the first empty value of array imgURL and imgName, shift first empty value, when there are several urls and names
         if(this.state.imgUrl.length>1 && this.state.imgUrl[0]===''){
             this.state.imgUrl.shift();
             this.state.imgName.shift();
-        }else{
-            console.log('no images');
         }
 
         if(this.state.formValid){
@@ -689,6 +714,7 @@ class FlugdatenFormContainer extends Component {
             date: this.state.date,
             startplace: this.state.startplace,
             landingplace: this.state.landingplace,
+            landingplaceLink: this.state.landingplaceLink,
             flighttime: ftime,
             xcdistance: this.state.xcdistance,
             maxaltitude: this.state.maxaltitude,
@@ -781,7 +807,7 @@ class FlugdatenFormContainer extends Component {
 
     componentWillUnmount() {
         this.setState({
-            flightID: ''
+            flightId: ''
         });
     }
 
@@ -789,12 +815,14 @@ class FlugdatenFormContainer extends Component {
     onChangeImgUpload(picture){
         if(picture.length === 0){
             this.setState({
-                successPreview: false
+                successPreview: false,
+                renderButtonSave: false
             });
         }else{
             this.setState({
                 pictures: picture,
-                successPreview: true
+                successPreview: true,
+                renderButtonSave: true
             });
         }    
       }
@@ -851,7 +879,8 @@ class FlugdatenFormContainer extends Component {
                         successPreview: false,
                         imgName: that.state.imgName.concat(element.name),
                         renderButtonClose: true,
-                        renderButtons: true
+                        renderButtons: true,
+                        uploadfinished: true
                     });
                     console.log('Uploaded a blob or file!');
               });
@@ -863,6 +892,7 @@ class FlugdatenFormContainer extends Component {
     }
 
     render() {
+        console.log(this.state.uploadfinished);
         return ( 
             <main className="main">
                 <section className="centered-layout">
@@ -1013,7 +1043,7 @@ let flightform = reduxForm({
   flightform = connect((state, props) => {
       let key = '';
       if(props.history.location.state){
-         key = props.history.location.state.flightID;
+         key = props.history.location.state.flightId;
       }else{
           key = '';
       }

@@ -119,7 +119,6 @@ class FlightTableList extends Component {
             flightToCopy: flightToCopyNow
         })
         this.props.saveFlights(flightToCopyNow).then(
-            console.log('flug kopiert'),
             this.setState({
                 flightToCopy: []
             })

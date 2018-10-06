@@ -121,16 +121,16 @@ class FlugdatenForm3 extends Component {
             {!renderImageUploader && <div className="progress-wrapper">{this.renderProgressBar(pictures, progressObj, previewUrl)}</div>}
             {renderButtons &&
                 <div className="button-group">
+                {renderButtonSave &&
+                    <div className="button-wrapper">
+                        <button type="submit" onClick={onSubmitImageUpload} className="button">Speichern</button>
+                    </div>}
                     <div className="button-wrapper">
                         <button type="button" onClick={goBack} className="button">Zurück</button>
                     </div>
                     <div className="button-wrapper">
                         <button type="button" onClick={goNext} className="button">Weiter</button>
                     </div>
-                {renderButtonSave &&
-                    <div className="button-wrapper">
-                        <button type="submit" onClick={onSubmitImageUpload} className="button">Speichern</button>
-                    </div>}
                 {renderButtonClose && 
                     <div className="button-wrapper">
                         <button type="submit" className="button" onClick={onSubmit}>Schliessen</button>

@@ -62,10 +62,7 @@ class FlightDetailContainer extends Component {
         this.props.getParagliders();
         if (this.props.user.loading === false && this.props.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
-          }else{
-              console.log(this.props.history);
           }
-          
     }
 
     componentWillReceiveProps(nextProps) {
@@ -78,7 +75,6 @@ class FlightDetailContainer extends Component {
             const currentPilot = _.find(nextProps.pilots, {email:currentFlight.pilot});
             const currentStartplace = _.find(nextProps.startplaces, {id:currentFlight.startplace});
             const currentParaglider = _.find(nextProps.paragliders, {id:currentFlight.paraglider});
-            console.log(currentFlight.paraglider);
 
             if(currentPilot !== undefined && currentStartplace !== undefined && currentParaglider !== undefined){
                 this.setState({

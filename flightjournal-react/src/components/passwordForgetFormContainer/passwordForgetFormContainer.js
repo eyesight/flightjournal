@@ -89,7 +89,7 @@ class PasswordForgetFormContainer extends Component {
                                             })}
                                 />
                                 <div className="button-wrapper">
-                                    <button className="button">Passwort zurücksetzen</button>
+                                    <button className="button button--single">Passwort zurücksetzen</button>
                                 </div>
                             </form>
                         </div>

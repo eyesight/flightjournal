@@ -1,19 +1,25 @@
 .button{
   min-width: rem-calc(200px);
+  width: 46%;
   font-size: $font-s-button;
-  color: $color-black;
-  background-color: $color-white;
+  background-color: $color-primary;
+  color: $color-white;
   border: 1px solid $color-primary;
   padding: rem-calc(15px);
   transition: all 0.3s ease-in-out 0s;
   margin-top: rem-calc(50px);
 
   &-wrapper{
-    @include grid-column(22, $grid-24);
-    @include grid-push(1, $grid-24);
+    @include grid-column(24, $grid-24);
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items:center;
     font-family: $font-family-primary;
+
+    &__text{
+      width: 100%;
+      text-align: center;
+    }
 
     &--top{
       margin-top: rem-calc(50px);
@@ -42,6 +48,9 @@
          }
       }
     }
+    @include bp(max, $ipad-p) {
+      flex-direction: column;
+     }
   }
 
   &-group{
@@ -53,6 +62,11 @@
       .button{
         margin-top: 0;
         min-width: rem-calc(250px);
+      &:not(:first-of-type){
+        @include bp(max, $ipad-p) {
+          margin-top: rem-calc(20px);
+         }
+        }
       }
     }
   }
@@ -82,4 +96,19 @@
     box-shadow: 10px 10px $color-yellow;
     transition: all 0.3s ease-in-out 0s;
   }
+
+  &--large{
+    color: $color-black;
+    background-color: $color-white;
+    width: 100%;
+  }
+
+  &--single{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @include bp(max, $ipad-p) {
+    width: 100%;
+   }
 }

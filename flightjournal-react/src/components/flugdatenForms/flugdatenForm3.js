@@ -101,7 +101,7 @@ class FlugdatenForm3 extends Component {
       }
 
     render() {
-        const { onChange, onSubmit, goBack, goNext, renderImageUploader, renderButtonSave, renderButtonClose, pictures, progressObj, previewUrl, renderButtons, renderButtonSaveClose, renderButtonNext, onSubmitImageUploadClose} = this.props;
+        const { onChange, onSubmit, goBack, goNext, renderImageUploader, renderButtonSave, renderButtonClose, pictures, progressObj, previewUrl, renderButtons, renderButtonSaveClose, renderButtonNext, onSubmitImageUploadClose, classNameBackButton} = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={this.onSub}>
                 {renderImageUploader &&  <ImageUploader
@@ -122,23 +122,21 @@ class FlugdatenForm3 extends Component {
             {renderButtons &&
                 <div className="button-group">
                 <div className="button-wrapper">
-                    <button type="button" onClick={goBack} className="button">Zurück</button>
-                </div>
+                    <button type="button" onClick={goBack} className={classNameBackButton}>Zurück</button>
                 {renderButtonSave &&
-                    <div className="button-wrapper">
-                        <button type="button" onClick={goNext} className="button">Speichern und weiter</button>
-                    </div>}
+                    <button type="button" onClick={goNext} className="button">Speichern und weiter</button>
+                }
+                {renderButtonNext &&
+                    <button type="button" onClick={goNext} className="button">Weiter</button>
+                }
+                 </div>
                 {renderButtonSaveClose &&
                     <div className="button-wrapper">
-                        <button type="button" onClick={onSubmitImageUploadClose} className="button">Speichern und schliessen</button>
-                    </div>}
-                {renderButtonNext &&
-                    <div className="button-wrapper">
-                        <button type="button" onClick={goNext} className="button">Weiter</button>
+                        <button type="button" onClick={onSubmitImageUploadClose} className="button button--large">Speichern und schliessen</button>
                     </div>}
                 {renderButtonClose && 
                     <div className="button-wrapper">
-                        <button type="submit" className="button" onClick={onSubmit}>Schliessen</button>
+                        <button type="submit" className="button button--large" onClick={onSubmit}>Speichern und schliessen</button>
                     </div>} 
                 </div>}
             </form>

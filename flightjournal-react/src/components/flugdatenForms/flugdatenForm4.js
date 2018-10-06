@@ -58,10 +58,10 @@ class FlugdatenForm4 extends Component {
                 />
                 <div className="button-group">
                     <div className="button-wrapper">
-                        <button type="button" onClick={goBack} className="button">Zurück</button>
+                        <button type="button" onClick={goBack} className="button button--single">Zurück</button>
                     </div>
                     <div className="button-wrapper">
-                        <button type="submit" className="button">Speichern und schliessen</button>
+                        <button type="submit" className="button button--large">Speichern und schliessen</button>
                     </div>
                 </div>
             </form>

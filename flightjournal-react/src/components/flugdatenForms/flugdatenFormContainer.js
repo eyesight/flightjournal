@@ -88,6 +88,7 @@ class FlugdatenFormContainer extends Component {
           uploadfinished: false,
           clickedOnWeiterBtn: false,
           clickedOnCloseBtn: false,
+          classNameBackButton: 'button',
           //form4
           syrideLinkValid: true,
           xcontestLinkValid: true,
@@ -275,12 +276,12 @@ class FlugdatenFormContainer extends Component {
     }
 
     componentDidUpdate(){
-        console.log(this.state.clickedOnWeiterBtn);
         //update state to jump to next page, only when images-upload is finished (when goNext3 is called and images have to be uploaded)
         if(this.state.uploadfinished === true && this.state.clickedOnWeiterBtn === true){
             this.setState({
                 clickedOnWeiterBtn: false,
                 renderButtonSaveClose: false,
+                classNameBackButton: 'button button--single'
             });
             this.goNext3_setState(true);
         }
@@ -1053,6 +1054,7 @@ class FlugdatenFormContainer extends Component {
                         pictures={this.state.pictures}
                         progressObj= {this.state.progressObj}
                         previewUrl= {this.state.previewUrl}
+                        classNameBackButton={this.state.classNameBackButton}
                     />}
                 </ReactTransitionGroup> 
                 <ReactTransitionGroup component="div" className="formular-wrapper">

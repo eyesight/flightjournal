@@ -69,7 +69,7 @@ class LoginFormContainer extends Component {
                                 <a className="link link--black" onClick={(event) => {event.preventDefault(); this.props.history.push(routes.PASSWORD_FORGET)}}><span className="link__sign">?</span> Passwort vergessen</a>
                             </div>
                             <div className="button-wrapper">
-                                <button className="button">Jetzt einloggen</button>
+                                <button className="button button--single">Jetzt einloggen</button>
                             </div>
                         </form>
                     </div>

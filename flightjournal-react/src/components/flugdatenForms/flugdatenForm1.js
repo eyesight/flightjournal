@@ -85,11 +85,13 @@ class FlugdatenForm1 extends Component {
                 </div>
                 <div className="button-group">
                     <div className="button-wrapper">
-                        <button type="button" className="button" onClick={goNext}>Weitere Infos erfassen</button>
+                        <button type="button" className="button button--single" onClick={goNext}>Weitere Infos erfassen</button>
                     </div>
-                    <div className="button-wrapper">oder</div>
                     <div className="button-wrapper">
-                        <button type="submit" className="button">Speichern und schliessen</button>
+                        <p className="button-wrapper__text">oder</p>
+                    </div>
+                    <div className="button-wrapper">
+                        <button type="submit" className="button button--large">Speichern und schliessen</button>
                     </div>
                 </div>
             </form>

@@ -89,6 +89,7 @@ class FlugdatenFormContainer extends Component {
           clickedOnWeiterBtn: false,
           clickedOnCloseBtn: false,
           classNameBackButton: 'button',
+          checkifImageFinished: [],
           //form4
           syrideLinkValid: true,
           xcontestLinkValid: true,
@@ -287,7 +288,9 @@ class FlugdatenFormContainer extends Component {
 
         if(this.state.uploadfinished === true && this.state.clickedOnCloseBtn === true){
             this.setState({
-                clickedOnCloseBtn: false
+                clickedOnCloseBtn: false,
+                renderButtonSaveClose: false,
+                renderButtons: false
             });
             this.onSubmit();
         }
@@ -611,7 +614,6 @@ class FlugdatenFormContainer extends Component {
     }
 
     goNext3(e){
-        console.log(this.state.pictures.length);
         e.preventDefault();
         this.setState({
             clickedOnWeiterBtn: true
@@ -640,8 +642,6 @@ class FlugdatenFormContainer extends Component {
             form3: false,
             form4: true,
             ani: 'form4',
-            imgUrl: this.state.imgUrl,
-            imgName: this.state.imgName,
             formTitleH2: 'Links zu anderen Flugplatformen.'
         });
         if (withImages){
@@ -853,17 +853,19 @@ class FlugdatenFormContainer extends Component {
 
     //image-upload (Form3) functions
     onChangeImgUpload(picture){
+        this.setState({
+            pictures: picture,
+            checkifImageFinished: []
+        });
         if(picture.length === 0){
             this.setState({
-                pictures: picture,
                 successPreview: false,
                 renderButtonSave: false,
                 renderButtonSaveClose: false,
-                renderButtonNext: true
+                renderButtonNext: true,
             });
         }else{
             this.setState({
-                pictures: picture,
                 successPreview: true,
                 renderButtonSave: true,
                 renderButtonSaveClose: true,
@@ -876,7 +878,6 @@ class FlugdatenFormContainer extends Component {
         e.preventDefault();
         let file = this.state.pictures;
         let that = this;
-        console.log(file);
         const date = this.state.date.split(".").reverse().join('');
         const pilotId = this.props.user.uid;
         const randomNo = Math.floor((Math.random() * 100));
@@ -919,15 +920,22 @@ class FlugdatenFormContainer extends Component {
                 that.setState({errorMessageImage: error})
                 console.log(error);
               }, function() {
+                    console.log('Uploaded a blob or file!');
                     that.setState({
                         imgUrl: that.state.imgUrl.concat(img.snapshot.downloadURL),
                         successPreview: false,
                         imgName: that.state.imgName.concat(element.name),
-                        renderButtonClose: true,
-                        renderButtons: true,
-                        uploadfinished: true
+                        checkifImageFinished: that.state.checkifImageFinished.concat(true)
                     });
-                    console.log('Uploaded a blob or file!');
+                    //Detect numbers of images, which will be uploaded, set in a variable all to true, if reached the number of images, set state uf uploadfinished to its state
+                    //TODO: find a better solution, maybe with a promise?
+                    if(that.state.checkifImageFinished.length>0 && that.state.checkifImageFinished.length === file.length){
+                        that.setState({
+                            uploadfinished: that.state.checkifImageFinished[file.length-1],
+                            renderButtonClose: true,
+                            renderButtons: true,
+                        })
+                    }
               });
         });
      }

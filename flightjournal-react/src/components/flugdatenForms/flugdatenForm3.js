@@ -54,7 +54,6 @@ class FlugdatenForm3 extends Component {
         return items.map((value, index)=>{
             let styles = [];
             let progressitem = [];
-            console.log('ss');
             //map through the progressbar-object of each item
              objects.map((item)=>{ 
                 let counter = 0;
@@ -136,7 +135,7 @@ class FlugdatenForm3 extends Component {
                     </div>}
                 {renderButtonClose && 
                     <div className="button-wrapper">
-                        <button type="submit" className="button button--large-white" onClick={onSubmit}>Speichern und schliessen</button>
+                        <button type="submit" className="button button--large-white" onClick={onSubmit}>Speichern und schliessen sub</button>
                     </div>} 
                 </div>}
             </form>

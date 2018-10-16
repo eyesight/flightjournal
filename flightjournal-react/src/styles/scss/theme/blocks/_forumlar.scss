@@ -79,6 +79,29 @@
         }
       }
 
+      &--fullwith{
+        width: 100%;
+        margin-right: 0;
+      }
+
+      &--margin-left{
+        margin-left: 8%;
+        margin-right: 0;
+          &:nth-child(2n-1) {
+            margin-right: 0;
+          }
+          @include bp(max, $ipad-p) {
+            margin-left: rem-calc(0px);
+          }
+      }
+
+      &--checkboxes{
+        border: none;
+        width: 100%;
+        margin-right: 0;
+        height: auto;
+      }
+
       &.formular__input-wrapper--centered {
         display: block;
         margin: auto;
@@ -249,6 +272,87 @@
         margin-left: rem-calc(10px);
       }
     }
+  }
+
+  &__part{
+    padding-top: rem-calc(80px);
+    clear: both;
+
+    + .button-group{
+      padding-top: rem-calc(80px);
+    }
+  }
+
+  &__checkbox-wrapper{
+    margin-top: rem-calc(20px);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  //Style of the checkbox: TODO: add animation
+  &__checkbox-item{
+    font-family: $font-family-primary;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+
+   input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+      margin-right: 10px;
+    }
+
+    &:hover input ~ .formular__checkbox {
+      &:after,
+      &:before{
+        background-color: $color-gray-light;
+        display: block;
+        position: absolute;
+      }
+    }
+
+    input:checked ~ .formular__checkbox:after,
+    input:checked ~ .formular__checkbox:before,
+    &:hover input:checked ~ .formular__checkbox:after,
+    &:hover input:checked ~ .formular__checkbox:before {
+      display: block;
+      position: absolute;
+      background-color: $color-black;
+    }
+    
+   .formular__checkbox {
+    &:after,
+    &:before{
+        display: none;
+        height: 32px;
+        background-color: $color-black;
+        content: ' ';
+        width: 1px;
+        left: 11px;
+        margin-top: -5px;
+      }
+    &:before{
+      transform: rotate(45deg);
+      }
+    &:after{
+      transform: rotate(-45deg);
+      }
+    } 
+  } 
+
+  &__checkbox{
+    height: 25px;
+    width: 25px;
+    margin-right: 10px;
+    border: 1px solid $color-black;
+    position: relative;
+  }
+
+  &__checkbox-text{
+    text-transform: uppercase;
   }
 
   &__validation { 

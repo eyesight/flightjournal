@@ -8,6 +8,7 @@ export const ACCOUNT = '/account';
 export const FLUGDATEN_ERFASSEN = '/enter-flight-data';
 export const FLUGDATEN_DETAIL = '/fligth/:id';
 export const STARTPLATZ_ERFASSEN = '/enter-startplace-data';
+export const STARTAREA_ERFASSEN = '/enter-startarea-data';
 export const FLUGDATEN = '/flight-data';
 export const TEST = '/test';
 

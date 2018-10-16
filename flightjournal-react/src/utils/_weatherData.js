@@ -10,12 +10,7 @@ export function weather(){
     }
     let loc = JSON.parse(Get(APIIP));
     console.log(loc);
-    let region = '';
-    if(!loc){
-        region = 'Zurich';
-    }else{
-        region = loc.region;
-    }
+    let region = (loc) ? loc.region : 'Zurich';
 
     let url = "https://api.openweathermap.org/data/2.5/weather?q="+region+"&appid=f747ad7fcba6ef4fe91531b6e4c9cf90";
 
@@ -47,7 +42,7 @@ export function location(){
         return Httpreq.responseText;
     }
     let loc = JSON.parse(Get(APIIP));
-    let region = loc.region;
+    let region = (loc) ? loc.region : 'Zurich';
 
     return region;
 }

@@ -6,6 +6,9 @@ import StartplacesReducer from './StartplacesReducer';
 import PilotReducer from './PilotReducer'
 import ParaglidersReducer from './ParaglidersReducers'
 import FilterReducers from './FilterReducers';
+import RegionReducer from './RegionReducer';
+import StartareasReducer from './StartareasReducer';
+import WinddirectionReducer from './WinddirectionReducer';
 
 const rootReducer = combineReducers({
     form: formReducer,
@@ -15,6 +18,9 @@ const rootReducer = combineReducers({
     pilots: PilotReducer,
     filter: FilterReducers,
     paragliders: ParaglidersReducer,
+    regions: RegionReducer,
+    startareas: StartareasReducer,
+    winddirections: WinddirectionReducer
 });
 
 export default rootReducer;

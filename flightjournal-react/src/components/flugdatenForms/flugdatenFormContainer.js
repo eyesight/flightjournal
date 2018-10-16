@@ -792,7 +792,7 @@ class FlugdatenFormContainer extends Component {
          });
         }
     }
-
+    //TODO outsorce as function/Component -> it's used in startplaces-formular as well
     getOptions(sp, text, keyForOption, keyForOption2){
         const startplacesData = Object.keys(sp).map(i => sp[i]);
         const startplacesDatakey = Object.keys(sp);

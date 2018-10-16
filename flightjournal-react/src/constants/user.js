@@ -7,6 +7,9 @@ export const SHOW_FILTERED = 'SHOW_FILTERED';
 export const SHOW_SORT = 'SHOW_SORT';
 
 export const FETCH_SP = 'fetch_startplaces';
+export const FETCH_STARTAREAS = 'fetch_startareas';
+export const FETCH_REGIONS = 'fetch_regions';
+export const FETCH_WINDDIRECTION = 'fetch_winddirections';
 
 export const FETCH_Pilots = 'fetch_pilots';
 

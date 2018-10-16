@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import InputField from '../formInputfield/formInputfield';
 import {TweenLite} from 'gsap';
 import DatePicker from 'react-datepicker';
-
+//TODO: make parts to components. e.g. dropdown, and textarea
 class FlugdatenForm1 extends Component {
     constructor(props) {
         super(props);

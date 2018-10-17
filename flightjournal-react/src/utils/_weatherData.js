@@ -4,12 +4,11 @@ export function weather(){
 
     function Get(yourUrl){
         let Httpreq = new XMLHttpRequest(); // a new request
-        Httpreq.open("GET",yourUrl,false);
+        Httpreq.open("GET", yourUrl, false);
         Httpreq.send(null);
         return Httpreq.responseText;
     }
     let loc = JSON.parse(Get(APIIP));
-    console.log(loc);
     let region = (loc) ? loc.region : 'Zurich';
 
     let url = "https://api.openweathermap.org/data/2.5/weather?q="+region+"&appid=f747ad7fcba6ef4fe91531b6e4c9cf90";
@@ -29,20 +28,4 @@ export function weather(){
         console.log(region);
     }
     return weather;
-}
-
-export function location(){
-    //changed api for gathering location
-    const APIIP = "https://ipinfo.io/json";
-
-    function Get(yourUrl){
-        let Httpreq = new XMLHttpRequest(); // a new request
-        Httpreq.open("GET",yourUrl,false);
-        Httpreq.send(null);
-        return Httpreq.responseText;
-    }
-    let loc = JSON.parse(Get(APIIP));
-    let region = (loc) ? loc.region : 'Zurich';
-
-    return region;
 }

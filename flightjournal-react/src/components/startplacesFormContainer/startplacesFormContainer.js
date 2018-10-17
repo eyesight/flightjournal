@@ -343,7 +343,6 @@ class StartplaceFormContainer extends Component {
                             xyz = {this.state.ani}
                         />}
                         classes = 'centered-layout__header'
-                        pageTitle = ''
                         titleH2 = {this.state.titleForm}
                     />
             <ReactTransitionGroup component="div" className="formular-wrapper">

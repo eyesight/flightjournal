@@ -304,20 +304,13 @@
       width: 0;
       margin-right: 10px;
     }
-
+ 
     &:hover input ~ .formular__checkbox {
-      &:after,
-      &:before{
-        background-color: $color-gray-light;
-        display: block;
-        position: absolute;
-      }
+        cursor: pointer;
     }
 
     input:checked ~ .formular__checkbox:after,
-    input:checked ~ .formular__checkbox:before,
-    &:hover input:checked ~ .formular__checkbox:after,
-    &:hover input:checked ~ .formular__checkbox:before {
+    input:checked ~ .formular__checkbox:before {
       display: block;
       position: absolute;
       background-color: $color-black;

@@ -953,7 +953,6 @@ class FlugdatenFormContainer extends Component {
                             xyz = {this.state.ani}
                         />}
                         classes = 'centered-layout__header'
-                        pageTitle = 'Pilotenseite'
                         titleH2 = {this.state.formTitleH2}
                     />
                 <ReactTransitionGroup component="div" className="formular-wrapper">

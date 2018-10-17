@@ -51,14 +51,13 @@ class Logo extends Component {
         console.log(weatherData);
         //function to see if its day or night
         const isDay = (sunrise, sunset) =>{
-            let sunriseTime = sunrise ? new Date(1000*sunrise).getHours() : 6; //When no time is given, take 9:00 am
-            let sunsetTime = sunset ? new Date(1000*sunset).getHours() : 21; //When no time is given, take 6:00 pm;
+            let sunriseTime = sunrise ? (new Date(1000*sunrise).getHours()) - 1 : 6; //When no time is given, take 9:00 am
+            let sunsetTime = sunset ? (new Date(1000*sunset).getHours()) + 2 : 21; //When no time is given, take 6:00 pm;
             let time = new Date().getHours(); //actual Time
             let isItDaytime = (sunriseTime < time && sunsetTime > time ) ? true : false;
             return isItDaytime;
         }
         let isItDaytime = (weatherData) ? isDay(weatherData.sys.sunrise, weatherData.sys.sunset) : true;
-        console.log('ist es Tag: '+ isItDaytime);
 
         this.tropfen = [this.tropfen1.current, this.tropfen2.current, this.tropfen3.current, this.tropfen4.current];
 

@@ -1,6 +1,6 @@
 .main-title{
   font-family: $font-family-secundary;
-  font-size: $font-s-lead;
+  font-size: $font-s-maintitle;
   font-weight: 300;
   line-height: 3.4rem;
   margin-bottom: rem-calc(50px);
@@ -11,7 +11,7 @@
   }
 
   @include bp(max, 1023px) {
-    margin-top: 0;
+    margin-top: 0; 
   }
 }
 
@@ -19,4 +19,4 @@
 .anchor-small+.main-title,
 .anchor+.main-title{
   margin-top: 0;
-}
+} 

@@ -341,6 +341,14 @@
       transform: rotate(-45deg);
       }
     } 
+    &:last-of-type{
+      margin-right: 0;
+    }
+    @include bp(max, 700px) {
+      margin-bottom: rem-calc(10px);
+      flex-direction: column;
+      justify-content: center;
+    }
   } 
 
   &__checkbox{
@@ -349,6 +357,9 @@
     margin-right: 10px;
     border: 1px solid $color-black;
     position: relative;
+    @include bp(max, 700px) {
+      margin-right: 0;
+    }
   }
 
   &__checkbox-text{

@@ -1,6 +1,6 @@
 .main-title{
   font-family: $font-family-secundary;
-  font-size: $font-s-lead;
+  font-size: $font-s-main;
   font-weight: 300;
   line-height: 3.4rem;
   //margin-bottom: rem-calc(50px);
@@ -14,13 +14,13 @@
     margin-top: 0;
   }
   @include bp(max, $phone) {
-    font-size: $font-s-lead-s;
+    font-size: $font-s-main-s;
     line-height: 1.5;
   }
 
   &--mobile-large{
     @include bp(max, $phone) {
-      font-size: $font-s-lead;
+      font-size: $font-s-main;
       line-height: 3.4rem;
     }
   }
@@ -29,5 +29,5 @@
 .button-without-border+.main-title,
 .anchor-small+.main-title,
 .anchor+.main-title{
-  margin-top: 0;
+  margin-top: 0; 
 }

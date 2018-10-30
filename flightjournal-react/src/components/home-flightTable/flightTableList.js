@@ -171,8 +171,6 @@ class FlightTableList extends Component {
                             return (
                                 <tr key={x.id}>
                                     <td className="table__date">{x.date}</td>
-                                    {/* <td className="table__pilot"><a className="table__link">{y.firstname}</a></td>
-                                    <td className="table__start"><a className="table__link">{z.name}</a></td> */}
                                     <td className="table__pilot">{y.firstname}</td>
                                     <td className="table__start">{z.name}</td>
                                     <td className="table__duration">{utils.timeToHourMinString(x.flighttime)}</td>
@@ -234,7 +232,7 @@ class FlightTableList extends Component {
     }
 }
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
     return { 
         flights: state.flights,
         startplaces: state.startplaces,

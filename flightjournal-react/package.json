@@ -25,6 +25,7 @@
     "redux": "^4.0.0",
     "redux-form": "^7.3.0",
     "redux-thunk": "^2.2.0",
+    "require-context": "^1.1.0",
     "reselect": "^3.0.1",
     "serve": "^6.5.8"
   },

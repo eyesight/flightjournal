@@ -48,7 +48,6 @@ class Logo extends Component {
 
     componentWillAppear (callback) {
         const weatherData = weather();
-        console.log(weatherData);
         //function to see if its day or night
         const isDay = (sunrise, sunset) =>{
             let sunriseTime = sunrise ? (new Date(1000*sunrise).getHours()) - 1 : 6; //When no time is given, take 9:00 am

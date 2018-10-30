@@ -86,6 +86,7 @@ class StartplaceFormContainer extends Component {
             xc: '',
             areaDescription: '',
             startplaces: [],
+            imagesUrl: ''
         };
         this.onChange = this.onChange.bind(this);  
         this.onSubmit = this.onSubmit.bind(this);
@@ -300,7 +301,8 @@ class StartplaceFormContainer extends Component {
             therikForecast: this.state.therikForecast,
             xc: this.state.xc,
             description: this.state.areaDescription,
-            rating: ''
+            rating: '',
+            imagesUrl: this.state.imagesUrl
         }
         //when new Object is added, state saveRegionIds will set to true, so function in componentDidUpdate will be continued
         this.props.saveStartareas(obj).then(

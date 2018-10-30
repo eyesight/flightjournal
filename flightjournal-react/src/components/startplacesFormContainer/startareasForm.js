@@ -12,7 +12,6 @@ class StartplacesForm extends Component {
     componentWillAppear(callback) {
         window.scrollTo(0, 0);
         const { delayEnter } = this.props
-        console.log('spani1');
         TweenLite.fromTo(this.formular1.current, 0.5, {opacity:"0", x:"-900px"}, {opacity:"1", x:"0px", onComplete: callback, delay: delayEnter});
     }
 

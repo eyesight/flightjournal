@@ -60,7 +60,6 @@ class FlightTableFilter extends Component {
 
     filterMonth(e){
         e.preventDefault();
-        console.log(e);
         filtermonthArr.push(e.target.getAttribute('data-value'));
         filtermonthArr = removeDuplicates(filtermonthArr, e.target.getAttribute('data-value'))
         this.setState({filtermonth: filtermonthArr}); 

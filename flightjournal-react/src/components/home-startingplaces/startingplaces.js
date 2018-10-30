@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
+import { getStartplaces } from '../../actions/StartplacesActions';
+import { getRegions } from '../../actions/RegionsActions';
+import { getStartareas } from '../../actions/StartareasActions';
+import { getWinddirections } from '../../actions/WinddirectionActions';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class StartingPlaces extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            renderlocationpin: false,
+            urlImage: './assets/img/startplaetze/',
+            urlImageDefault: './assets/img/startplaetze/default.jpg'
+        }
         this.lazyloading = this.lazyloading.bind(this);
+        this.renderStartplaces = this.renderStartplaces.bind(this);
+        this.renderWebcams = this.renderWebcams.bind(this);
     }
 
     lazyloading() {
@@ -19,14 +32,86 @@ class StartingPlaces extends Component {
             }
         }
     }
-    componentDidMount() {
+    componentWillMount() {
         window.addEventListener('scroll', this.lazyloading);
+        this.props.getStartplaces();
+        this.props.getRegions();
+        this.props.getStartareas();
+        this.props.getWinddirections();
     }
     componentWillUnmount(){
         window.addEventListener('scroll', this.lazyloading);
     }
 
+    renderWebcams(arr){
+        if(arr){
+            return arr.map((cam, index) =>{
+                return (<a target="_blank" key={index} href={cam}><i className="fas fa-video"></i></a>)
+            });
+        }
+        return null;
+    }
+
+    renderStartplaces(startplaces, startareas, startregions, winddirection) {
+        const places = Object.keys(startplaces).map(i => startplaces[i]);
+        const areas = Object.keys(startareas).map(i => startareas[i]);
+        const regions = Object.keys(startregions).map(i => startregions[i]);
+        const wind = Object.keys(winddirection).map(i => winddirection[i]);
+        return places.map((z, id)=>{
+            let windstring = '';
+            let placesname = '';
+            let webcamarray = [];
+            let url = this.state.urlImage;
+            areas.map((x)=>{ 
+                let windarray = [];                
+                if(z.startareasId === x.id){
+                    if(z.winddirectionsId){
+                         wind.map((ww) =>{
+                            for(let index = 0; index < z.winddirectionsId.length; index++){
+                                if(ww.id === z.winddirectionsId[index]){
+                                    windarray.push(ww.name);
+                                }
+                            };    
+                            return windstring = windarray.join(', ');
+                        });
+                    }
+                    placesname = x.name;
+                    webcamarray = x.webcams;
+                    url = `${url}${x.imagesUrl}`;
+                    return x;
+                }
+                return null;
+            });
+            return (
+                <div key={id} className="image-box__item">
+                    <div className="image-box__text">
+                        <a href="index.html" className="image-box__link anchor">
+                        {placesname}, {z.name}, {z.altitude}&nbsp;m
+                        </a>
+                        <p className="image-box__txt">{windstring}</p>
+
+                    </div>
+                    <a href="index.html">
+                        <div className="image-box__image-wrapper">
+                            <img className="image-box__image" src="./assets/img/uetliberg/*"
+                                    data-src="./assets/img/startplaetze/default.jpg" alt="Startplatz Uetliberg" />
+                        </div>
+                    </a>
+                    <div className="image-box__icons">
+                        {z.locationpin ? <a target="_blank" href={z.locationpin}><i className="fas fa-map-marker-alt"></i></a> : null} {this.renderWebcams(webcamarray)}
+                    </div>
+                </div>
+            );
+        });
+
+    }
+
     render() {
+        const allstartplaces = this.props.startplaces;
+        const allstartareas = this.props.startareas;
+        const allregions = this.props.regions;
+        const allwind = this.props.winddirections;
+
         return (
             <section id="startplaetze" className="centered-layout">
                 <div className="centered-layout__header">
@@ -61,7 +146,8 @@ class StartingPlaces extends Component {
                     </div>
                 </div>
                 <div className="image-box vertical-divider">
-                    <div className="image-box__item">
+                    {this.renderStartplaces(allstartplaces, allstartareas, allregions, allwind)}
+                    {/* <div className="image-box__item">
                         <div className="image-box__text">
                             <a href="index.html" className="image-box__link anchor">
                                 Uetliberg, 800 m
@@ -187,11 +273,21 @@ class StartingPlaces extends Component {
                         <div className="image-box__icons">
                             <a href="index.html"><i className="fas fa-map-marker-alt"></i></a><a href="index.html"><i className="fas fa-video"></i></a>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </section>
         );
     }
 }
 
-export default StartingPlaces;
+function mapStateToProps(state) {
+    return { 
+        startplaces: state.startplaces,
+        startareas: state.startareas,
+        regions: state.regions,
+        winddirections: state.winddirections,
+        activeUserID: state.user.uid,
+    };
+}
+
+export default withRouter(connect(mapStateToProps, {getStartplaces, getStartareas, getRegions, getWinddirections}) (StartingPlaces));

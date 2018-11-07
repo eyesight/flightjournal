@@ -1,0 +1,19 @@
+.plusicon{
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  margin-left: -42px;
+  margin-top: -2px;
+  &__path{
+    fill: $color-white;
+  }
+  &__circle{
+    fill: $color-primary;
+  }
+}
+
+button:hover .plusicon{
+  &__circle{
+    fill: $color-black;
+  }
+}

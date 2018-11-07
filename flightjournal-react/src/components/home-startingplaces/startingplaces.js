@@ -83,7 +83,6 @@ class StartingPlaces extends Component {
                 }
                 return null;
             });
-            console.log(this.state.urlImageDefault);
             return (
                 <div key={id} className="image-box__item">
                     <div className="image-box__text">

@@ -2,26 +2,20 @@
 .anchor:active,
 .anchor:visited{
   position: relative;
-  display: inline-block;
+  display: inline;
   cursor: pointer;
   font-size: $font-s-anchor;
   line-height: 2.3rem;
+  @extend .help-underline-green;
 
   @include bp(max, $screen-ml) {
     font-size: $font-s-anchor-small;
   }
 
-
-  &::after {
-    @extend .help-underline-green;
-  }
-
-  &:hover,
+  &:hover, 
   &:focus {
     color: $color-primary;
-    &::after {
-      @extend .help-underline-green-hover;
-    } 
+    @extend .help-underline-green-hover;
   }
 }
 

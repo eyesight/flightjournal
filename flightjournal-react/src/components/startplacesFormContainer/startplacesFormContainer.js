@@ -69,6 +69,8 @@ class StartplaceFormContainer extends Component {
             locationpin: '',
             danger: '',
             winddirection: [],
+            writeDateSP: '',
+            lastUpdateSP: '',
             //Values of Form Startingareas
             region: '',
             startareaname: '',
@@ -86,7 +88,10 @@ class StartplaceFormContainer extends Component {
             xc: '',
             areaDescription: '',
             startplaces: [],
-            imagesUrl: ''
+            imagesUrl: '',
+            imagesCount: 0,
+            writeDateSA: '',
+            lastUpdateSA: ''
         };
         this.onChange = this.onChange.bind(this);  
         this.onSubmit = this.onSubmit.bind(this);
@@ -250,6 +255,8 @@ class StartplaceFormContainer extends Component {
     onSubmit(e){
         e.preventDefault();
         obj = {
+            writeDate: this.state.writeDateSP,
+            lastUpdate: this.state.lastUpdateSP,
             name: this.state.name,
             altitude : this.state.altitude,
             locationpin: this.state.locationpin,
@@ -257,7 +264,9 @@ class StartplaceFormContainer extends Component {
             startareasId: this.state.startareasId,
             danger: this.state.danger,
             winddirectionsId: this.state.winddirection,
-            rating: ''
+            rating: '',
+            imagesUrl: this.state.imagesUrl,
+            imagesCount: this.state.imagesCount
         }
         //when new Object is added, state saveAreaIds will set to true, so function in componentDidUpdate will be continued
         this.props.saveStartplaces(obj).then(
@@ -286,6 +295,8 @@ class StartplaceFormContainer extends Component {
         })
 
         obj = {
+            writeDate: this.state.writeDateSA,
+            lastUpdate: this.state.lastUpdateSA,
             name: this.state.startareaname,
             regionsId: this.state.region,
             funicularLink: this.state.funicularLink,

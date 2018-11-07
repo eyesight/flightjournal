@@ -8,6 +8,8 @@
 
 # production
 /build
+/build
+/public/assets/img/startplaetze/*
 
 # misc
 .DS_Store

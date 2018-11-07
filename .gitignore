@@ -64,9 +64,13 @@ prototype_style_bourbon/assets/img/herbst/*
 prototype_style_bourbon/assets/img/sommer/*
 prototype_style_bourbon/assets/img/winter/*
 prototype_style_bourbon/assets/img/startplaetze/*
+prototype_style_bourbon/node_modules
 
 
 flightjournal-react/src/server/Keys.js
+flightjournal-react/build
+flightjournal-react/public/assets/img/startplaetze/*
+
 
 
 

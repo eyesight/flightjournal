@@ -77,11 +77,13 @@ class StartingPlaces extends Component {
                     }
                     placesname = x.name;
                     webcamarray = x.webcams;
-                    url = `${url}${x.imagesUrl}`;
+                    //get the imageurl: when no image-url is set, take default-image
+                    url = (z.imagesUrl !== '') ? `${url}${z.imagesUrl}/0.jpg` : `${this.state.urlImageDefault}`;
                     return x;
                 }
                 return null;
             });
+            console.log(this.state.urlImageDefault);
             return (
                 <div key={id} className="image-box__item">
                     <div className="image-box__text">
@@ -93,8 +95,8 @@ class StartingPlaces extends Component {
                     </div>
                     <a href="index.html">
                         <div className="image-box__image-wrapper">
-                            <img className="image-box__image" src="./assets/img/uetliberg/*"
-                                    data-src="./assets/img/startplaetze/default.jpg" alt="Startplatz Uetliberg" />
+                            <img className="image-box__image" src={this.state.urlImageDefault}
+                                    data-src={url} alt="Startplatz Uetliberg" />
                         </div>
                     </a>
                     <div className="image-box__icons">
@@ -147,133 +149,6 @@ class StartingPlaces extends Component {
                 </div>
                 <div className="image-box vertical-divider">
                     {this.renderStartplaces(allstartplaces, allstartareas, allregions, allwind)}
-                    {/* <div className="image-box__item">
-                        <div className="image-box__text">
-                            <a href="index.html" className="image-box__link anchor">
-                                Uetliberg, 800 m
-                            </a>
-                            <p className="image-box__txt">Nordost, Ost</p>
-
-                        </div>
-                        <a href="index.html">
-                            <div className="image-box__image-wrapper">
-                                <img className="image-box__image" src="./assets/img/default.jpg"
-                                     data-src="./assets/img/startplaetze/default.jpg" alt="Startplatz Uetliberg" />
-                            </div>
-                        </a>
-                        <div className="image-box__icons">
-                            <a href="index.html"><i className="fas fa-map-marker-alt"></i></a><a href="index.html"><i className="fas fa-video"></i></a>
-                        </div>
-                    </div>
-                    <div className="image-box__item">
-                        <div className="image-box__text">
-                            <a href="index.html" className="image-box__link anchor">
-                                Weissenstein, 1200 m
-
-                            </a>
-                            <p className="image-box__txt">Nordost, Ost</p>
-
-                        </div>
-                        <a href="index.html">
-                            <div className="image-box__image-wrapper">
-                                <img className="image-box__image" src="./assets/img/default.jpg"
-                                     data-src="./assets/img/startplaetze/default.jpg" alt="Startplatz Uetliberg" />
-                            </div>
-                        </a>
-                        <div className="image-box__icons">
-                            <a href="index.html"><i className="fas fa-map-marker-alt"></i></a><a href="index.html"><i className="fas fa-video"></i></a>
-                        </div>
-                    </div>
-                    <div className="image-box__item">
-                        <div className="image-box__text">
-                            <a href="index.html" className="image-box__link anchor">
-                                Uetliberg, 800 m
-                            </a>
-                            <p className="image-box__txt">Nordost, Ost</p>
-
-                        </div>
-                        <a href="index.html">
-                            <div className="image-box__image-wrapper">
-                                <img className="image-box__image" src="./assets/img/default.jpg"
-                                     data-src="./assets/img/startplaetze/default.jpg" alt="Startplatz Uetliberg" />
-                            </div>
-                        </a>
-                        <div className="image-box__icons">
-                            <a href="index.html"><i className="fas fa-map-marker-alt"></i></a><a href="index.html"><i className="fas fa-video"></i></a>
-                        </div>
-                    </div>
-                    <div className="image-box__item">
-                        <div className="image-box__text">
-                            <a href="index.html" className="image-box__link anchor">
-                                Uetliberg, 800 m
-                            </a>
-                            <p className="image-box__txt">Nordost, Ost</p>
-
-                        </div>
-                        <a href="index.html">
-                            <div className="image-box__image-wrapper">
-                                <img className="image-box__image" src="./assets/img/default.jpg"
-                                     data-src="./assets/img/startplaetze/default.jpg" alt="Startplatz Uetliberg" />
-                            </div>
-                        </a>
-                        <div className="image-box__icons">
-                            <a href="index.html"><i className="fas fa-map-marker-alt"></i></a><a href="index.html"><i className="fas fa-video"></i></a>
-                        </div>
-                    </div>
-                    <div className="image-box__item">
-                        <div className="image-box__text">
-                            <a href="index.html" className="image-box__link anchor">
-                                Uetliberg, 800 m
-                            </a>
-                            <p className="image-box__txt">Nordost, Ost</p>
-
-                        </div>
-                        <a href="index.html">
-                            <div className="image-box__image-wrapper">
-                                <img className="image-box__image" src="./assets/img/default.jpg"
-                                     data-src="./assets/img/startplaetze/default.jpg" alt="Startplatz Uetliberg" />
-                            </div>
-                        </a>
-                        <div className="image-box__icons">
-                            <a href="index.html"><i className="fas fa-map-marker-alt"></i></a><a href="index.html"><i className="fas fa-video"></i></a>
-                        </div>
-                    </div>
-                    <div className="image-box__item">
-                        <div className="image-box__text">
-                            <a href="index.html" className="image-box__link anchor">
-                                Uetliberg, 800 m
-                            </a>
-                            <p className="image-box__txt">Nordost, Ost</p>
-
-                        </div>
-                        <a href="index.html">
-                            <div className="image-box__image-wrapper">
-                                <img className="image-box__image" src="./assets/img/default.jpg"
-                                     data-src="./assets/img/startplaetze/default.jpg" alt="Startplatz Uetliberg" />
-                            </div>
-                        </a>
-                        <div className="image-box__icons">
-                            <a href="index.html"><i className="fas fa-map-marker-alt"></i></a><a href="index.html"><i className="fas fa-video"></i></a>
-                        </div>
-                    </div>
-                    <div className="image-box__item">
-                        <div className="image-box__text">
-                            <a href="index.html" className="image-box__link anchor">
-                                Uetliberg, 800 m
-                            </a>
-                            <p className="image-box__txt">Nordost, Ost</p>
-
-                        </div>
-                        <a href="index.html">
-                            <div className="image-box__image-wrapper">
-                                <img className="image-box__image" src="./assets/img/default.jpg"
-                                     data-src="./assets/img/startplaetze/default.jpg" alt="Startplatz Uetliberg" />
-                            </div>
-                        </a>
-                        <div className="image-box__icons">
-                            <a href="index.html"><i className="fas fa-map-marker-alt"></i></a><a href="index.html"><i className="fas fa-video"></i></a>
-                        </div>
-                    </div> */}
                 </div>
             </section>
         );

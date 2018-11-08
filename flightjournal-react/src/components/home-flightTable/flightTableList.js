@@ -137,8 +137,7 @@ class FlightTableList extends Component {
         }, 150);  
     }
 
-    flugdetails(e, id){
-        //e.preventDefault(); 
+    flugdetails(id){
         this.props.history.push({pathname: `/fligth/${id}`, state:{flightId: id}})
     }
 
@@ -175,10 +174,28 @@ class FlightTableList extends Component {
                                     <td className="table__start">{z.name}</td>
                                     <td className="table__duration">{utils.timeToHourMinString(x.flighttime)}</td>
                                     <td className="table__distance">{x.xcdistance} Kilometer</td>
-                                    <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.flugdetails(event, x.id)}}>Flugdetails</a></td>
-                                    {isactiveuser ? <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.updateFlight(event, x.id)}}>Bearbeiten</a></td> : null}
-                                    <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.copyFlight(event, x.id)}}>Kopieren</a></td>
-                                    {isactiveuser ? <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.showMessageBox(event, x.id, x.imgUrl)}}>Löschen</a></td> : null}
+                                    <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.flugdetails(x.id)}}>Flugdetails</a></td>
+                                    <td className="table__details table__details--icons"> {isactiveuser ? 
+                                    <a className="table__icon" onClick={(event) => {this.updateFlight(event, x.id)}}>
+                                        <svg version="1.1" className="svg-icon svg-icon--delete" x="0px" y="0px" viewBox="0 0 23.7 23.7">
+                                            <path className="svg-icon__path" d="M20.5,6.3l2.4-2.4l-3.1-3.1l-2.4,2.4"/>
+                                            <path className="svg-icon__path" d="M6.4,20.3l14.1-14l-3.1-3.1l-14.1,14l-2.5,5.5L6.4,20.3z M3.3,17.2l3.1,3.1"/>
+                                        </svg>
+                                    </a> : null}
+                                    <a className="table__icon" onClick={(event) => {this.copyFlight(event, x.id)}}>
+                                        <svg version="1.1" className="svg-icon svg-icon--delete" x="0px" y="0px" viewBox="0 0 23.7 23.7" >
+                                            <path className="svg-icon__path" d="M5.9,6h16.9v16.9H5.9V6z"/>
+                                            <path className="svg-icon__path" d="M5.9,17.7H0.8V0.8h16.9v5.1"/>
+                                        </svg>
+                                    </a>
+                                    {isactiveuser ? <a className="table__icon" onClick={(event) => {this.showMessageBox(event, x.id, x.imgUrl)}}>
+                                        <svg version="1.1" className="svg-icon svg-icon--delete" x="0px" y="0px" viewBox="0 0 23.7 23.7">
+                                            <path className="svg-icon__path" d="M2.2,3.7h19 M8.1,3.7V2.2c0-0.8,0.6-1.4,1.4-1.4H14c0.8,0,1.4,0.6,1.4,1.4l0,0v1.5 M19.2,3.7L18.1,21
+                                                c0,1-0.8,1.8-1.8,1.8H7.1c-1,0-1.8-0.8-1.8-1.8L4.2,3.7"/>
+                                            <path className="svg-icon__path" d="M11.7,6.7v13.2 M8.1,6.7l0.7,13.2 M15.4,6.7l-0.7,13.2"/>
+                                        </svg>
+                                       </a> : null}
+                                    </td>
                                 </tr>
                             );
                         }

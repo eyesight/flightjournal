@@ -31,7 +31,7 @@ class FlightTableSort extends Component {
         }
         
         this.setState({
-            sorting: this.props.sort.sortBy
+            sorting: this.props.sort.sortBy,
         });
         this.props.dispatch(sortBy(e.currentTarget.getAttribute('data-value')));
      }
@@ -41,28 +41,44 @@ class FlightTableSort extends Component {
             <thead>
             <tr>
                 <th onClick={this.setSortby} className="table__header table--sort js-table--sort" data-value='date'><span className={`${(this.props.sort.sortBy === 'date') ? 'active' : ''}`}>Datum</span>
-                    <span className={`arrow-up ${(this.props.sort.sortDirection === 'asc' && this.props.sort.sortBy === 'date') ? 'visible' : ''}`}> &#8593;</span>
-                    <span className={`arrow-up ${(this.props.sort.sortDirection === 'desc' && this.props.sort.sortBy === 'date') ? 'visible' : ''}`}> &#8595;</span>
+                    {this.props.sort.sortBy === 'date' ? <span className={`visible ${(this.props.sort.sortDirection === 'asc') ? 'arrow-up' : 'arrow-down'}`}> 
+                        <svg version="1.1" className="svg-icon svg-icon--arrow" x="0px" y="0px" viewBox="0 0 11.1 13.6">
+                            <path className="svg-icon__path" d="M5.6,12l4-4 M5.6,12l-4-4"/>
+                            <line className="svg-icon__line" x1="5.6" y1="0" x2="5.6" y2="12"/>
+                        </svg>
+                    </span> : null}
                 </th>
                 <th onClick={this.setSortby} className="table__header table--sort js-table--sort" data-value='pilot'><span className={`${(this.props.sort.sortBy === 'pilot') ? 'active' : ''}`}>Pilot</span>
-                    <span className={`arrow-up ${(this.props.sort.sortDirection === 'asc' && this.props.sort.sortBy === 'pilot') ? 'visible' : ''}`}> &#8593;</span>
-                    <span className={`arrow-up ${(this.props.sort.sortDirection === 'desc' && this.props.sort.sortBy === 'pilot') ? 'visible' : ''}`}> &#8595;</span>
+                {this.props.sort.sortBy === 'pilot' ? <span className={`visible ${(this.props.sort.sortDirection === 'asc') ? 'arrow-up' : 'arrow-down'}`}> 
+                        <svg version="1.1" className="svg-icon svg-icon--arrow" x="0px" y="0px" viewBox="0 0 11.1 13.6">
+                            <path className="svg-icon__path" d="M5.6,12l4-4 M5.6,12l-4-4"/>
+                            <line className="svg-icon__line" x1="5.6" y1="0" x2="5.6" y2="12"/>
+                        </svg>
+                    </span> : null}
                 </th>
                 <th onClick={this.setSortby} className="table__header table--sort js-table--sort" data-value='startplace'><span className={`${(this.props.sort.sortBy === 'startplace') ? 'active' : ''}`}>Startplatz</span>
-                    <span className={`arrow-up ${(this.props.sort.sortDirection === 'asc' && this.props.sort.sortBy === 'startplace') ? 'visible' : ''}`}> &#8593;</span>
-                    <span className={`arrow-up ${(this.props.sort.sortDirection === 'desc' && this.props.sort.sortBy === 'startplace') ? 'visible' : ''}`}> &#8595;</span>
+                    {this.props.sort.sortBy === 'startplace' ? <span className={`visible ${(this.props.sort.sortDirection === 'asc') ? 'arrow-up' : 'arrow-down'}`}> 
+                        <svg version="1.1" className="svg-icon svg-icon--arrow" x="0px" y="0px" viewBox="0 0 11.1 13.6">
+                            <path className="svg-icon__path" d="M5.6,12l4-4 M5.6,12l-4-4"/>
+                            <line className="svg-icon__line" x1="5.6" y1="0" x2="5.6" y2="12"/>
+                        </svg>
+                    </span> : null}
                 </th>
                 <th onClick={this.setSortby} className="table__header table--sort js-table--sort" data-value='flighttime'><span className={`${(this.props.sort.sortBy === 'flighttime') ? 'active' : ''}`}>Flugzeit</span>
-                    <span className={`arrow-up ${(this.props.sort.sortDirection === 'asc' && this.props.sort.sortBy === 'flighttime') ? 'visible' : ''}`}> &#8593;</span>
-                    <span className={`arrow-up ${(this.props.sort.sortDirection === 'desc' && this.props.sort.sortBy === 'flighttime') ? 'visible' : ''}`}> &#8595;</span>
+                    {this.props.sort.sortBy === 'flighttime' ? <span className={`visible ${(this.props.sort.sortDirection === 'asc') ? 'arrow-up' : 'arrow-down'}`}> 
+                        <svg version="1.1" className="svg-icon svg-icon--arrow" x="0px" y="0px" viewBox="0 0 11.1 13.6">
+                            <path className="svg-icon__path" d="M5.6,12l4-4 M5.6,12l-4-4"/>
+                            <line className="svg-icon__line" x1="5.6" y1="0" x2="5.6" y2="12"/>
+                        </svg>
+                    </span> : null}
                 </th>
                 <th onClick={this.setSortby} className="table__header table--sortjs-table--sort" data-value='xcdistance'><span className={`${(this.props.sort.sortBy === 'xcdistance') ? 'active' : ''}`}>XC-Distanz</span>
-                    <span className={`arrow-up ${(this.props.sort.sortDirection === 'asc' && this.props.sort.sortBy === 'xcdistance') ? 'visible' : ''}`}> &#8593;</span>
-                    <span className={`arrow-up ${(this.props.sort.sortDirection === 'desc' && this.props.sort.sortBy === 'xcdistance') ? 'visible' : ''}`}> &#8595;</span>
-                </th>
-                <th className="table__header table--sort js-table--sort">&nbsp;
-                </th>
-                <th className="table__header table--sort js-table--sort">&nbsp;
+                    {this.props.sort.sortBy === 'xcdistance' ? <span className={`visible ${(this.props.sort.sortDirection === 'asc') ? 'arrow-up' : 'arrow-down'}`}> 
+                        <svg version="1.1" className="svg-icon svg-icon--arrow" x="0px" y="0px" viewBox="0 0 11.1 13.6">
+                            <path className="svg-icon__path" d="M5.6,12l4-4 M5.6,12l-4-4"/>
+                            <line className="svg-icon__line" x1="5.6" y1="0" x2="5.6" y2="12"/>
+                        </svg>
+                    </span> : null}
                 </th>
                 <th className="table__header table--sort js-table--sort">&nbsp;
                 </th>

@@ -18,6 +18,7 @@ import moment from 'moment';
 import 'moment/locale/de-ch'
 import 'react-datepicker/dist/react-datepicker.css';
 import * as validation from '../../utils/validationText';
+import { compare } from '../../utils/compare';
 import FormAnimation from '../formAnimation/formAnimation';
 import FormTitle from '../formTitle/formTitle';
 import FormErrorAlert from '../formErrorAlert/formErrorAlert';
@@ -792,18 +793,26 @@ class FlugdatenFormContainer extends Component {
          });
         }
     }
+    
+      
     //TODO outsorce as function/Component -> it's used in startplaces-formular as well
-    getOptions(sp, text, keyForOption, keyForOption2){
+    getOptions(sp, text, keyForOption, sorting, keyForOption2){
+        let arr = [<option key={'0'} value={0}>{text}</option>];
         const startplacesData = Object.keys(sp).map(i => sp[i]);
         const startplacesDatakey = Object.keys(sp);
-        return startplacesData.map(function (item, index) {
+        startplacesData.sort((a, b)=>{return compare(a, b, sorting)});
+        let all = startplacesData.map(function (item, index) {
+                
                 let keyName = keyForOption2 ? (item[keyForOption2] + ' ' + item[keyForOption]) : item[keyForOption];
+                
                 if(startplacesDatakey[index] === '0'){
                     return <option key={startplacesDatakey[index]} value={startplacesDatakey[index]}>{text}</option>;
                 }else{
                     return <option key={startplacesDatakey[index]} value={startplacesDatakey[index]}>{keyName}</option>;
                 }
             });
+        arr.push(all);
+        return arr;
     }
     getOptionsTime(number, text, multiplied, endTxtPlural){
         let option = [];
@@ -968,7 +977,7 @@ class FlugdatenFormContainer extends Component {
                         nameComment={this.state.nameComment}
                         valueComment={this.state.description}
                         ani={this.state.ani} 
-                        getOptions={this.getOptions(this.props.startplaces, 'Startplatz wählen', 'name')}
+                        getOptions={this.getOptions(this.props.startplaces, 'Startplatz wählen', 'name', 'name')}
                         getOptionsHour={this.getOptionsTime(8, 'Std.', 1, '')}
                         getOptionsMinute={this.getOptionsTime(60, 'Min.', 5, '')}
                         nameSP={this.state.nameStartplace}
@@ -1037,7 +1046,7 @@ class FlugdatenFormContainer extends Component {
                         gliderLabel={'Gleitschirm-Modell'}
                         nameGlider={this.state.nameParagliders}
                         valueGlider={this.state.paragliders}
-                        getOptionsGlider={this.getOptions(this.props.paragliders, 'Gleitschirm wählen', 'model', 'brand')}
+                        getOptionsGlider={this.getOptions(this.props.paragliders, 'Gleitschirm wählen', 'model', 'brand', 'brand')}
                         errorMessageGlider={this.state.formErrors.paragliders}
                     />}
                 </ReactTransitionGroup> 

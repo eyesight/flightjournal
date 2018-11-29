@@ -127,7 +127,7 @@ class FlightDetailContainer extends Component {
                     <section className="detail-layout">
                     <MainTitleWrapper 
                         classNameWrapper='detail-layout__header'
-                        withAnchor={true}
+                        withAnchor={false}
                         classNameAnchor='anchor-small anchor--green'
                         withIcon={true} 
                         classNameIcon='fas fa-angle-left'

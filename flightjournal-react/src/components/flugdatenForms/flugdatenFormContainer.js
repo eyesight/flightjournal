@@ -793,23 +793,15 @@ class FlugdatenFormContainer extends Component {
          });
         }
     }
-    
       
     //TODO outsorce as function/Component -> it's used in startplaces-formular as well
     getOptions(sp, text, keyForOption, sorting, keyForOption2){
         let arr = [<option key={'0'} value={0}>{text}</option>];
         const startplacesData = Object.keys(sp).map(i => sp[i]);
-        const startplacesDatakey = Object.keys(sp);
         startplacesData.sort((a, b)=>{return compare(a, b, sorting)});
-        let all = startplacesData.map(function (item, index) {
-                
+        let all = startplacesData.map(function (item) {
                 let keyName = keyForOption2 ? (item[keyForOption2] + ' ' + item[keyForOption]) : item[keyForOption];
-                
-                if(startplacesDatakey[index] === '0'){
-                    return <option key={startplacesDatakey[index]} value={startplacesDatakey[index]}>{text}</option>;
-                }else{
-                    return <option key={startplacesDatakey[index]} value={startplacesDatakey[index]}>{keyName}</option>;
-                }
+                return <option key={item.id} value={item.id}>{keyName}</option>;
             });
         arr.push(all);
         return arr;

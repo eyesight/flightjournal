@@ -13,7 +13,9 @@ import StartplacesForm from './startplacesForm';
 import StartareasForm from './startareasForm';
 import FormAnimation from '../formAnimation/formAnimation';
 import FormTitle from '../formTitle/formTitle';
+import { updateLastUpdateArray } from '../../utils/updateLastUpdateArray';
 import  _ from 'lodash';
+import moment from 'moment';
 
 let obj = {};
 
@@ -254,9 +256,10 @@ class StartplaceFormContainer extends Component {
 
     onSubmit(e){
         e.preventDefault();
+        let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");
         obj = {
             writeDate: this.state.writeDateSP,
-            lastUpdate: this.state.lastUpdateSP,
+            lastUpdate: updateLastUpdateArray(this.state.lastUpdateSP, actualTimestamp),
             name: this.state.name,
             altitude : this.state.altitude,
             locationpin: this.state.locationpin,
@@ -283,6 +286,7 @@ class StartplaceFormContainer extends Component {
 
     onSubmitArea(e){
         e.preventDefault();
+        let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");
         let webcamarr = [];
         if(this.state.webcam){webcamarr.push(this.state.webcam)};
         if(this.state.webcam2){webcamarr.push(this.state.webcam2)};
@@ -296,7 +300,7 @@ class StartplaceFormContainer extends Component {
 
         obj = {
             writeDate: this.state.writeDateSA,
-            lastUpdate: this.state.lastUpdateSA,
+            lastUpdate: updateLastUpdateArray(this.state.lastUpdateSA, actualTimestamp),
             name: this.state.startareaname,
             regionsId: this.state.region,
             funicularLink: this.state.funicularLink,

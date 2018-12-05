@@ -18,6 +18,7 @@ import moment from 'moment';
 import 'moment/locale/de-ch'
 import 'react-datepicker/dist/react-datepicker.css';
 import * as validation from '../../utils/validationText';
+import { updateLastUpdateArray } from '../../utils/updateLastUpdateArray';
 import { compare } from '../../utils/compare';
 import FormAnimation from '../formAnimation/formAnimation';
 import FormTitle from '../formTitle/formTitle';
@@ -208,7 +209,7 @@ class FlugdatenFormContainer extends Component {
 
                 //convert date-string to dateobject for the datepicker
                 let dateParts = currentFlight.date.split(".");
-                let dateObject = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);    
+                let dateObject = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);  
                 this.setState({
                     valueHour: akthour,
                     valueMinute: aktminute,
@@ -239,12 +240,7 @@ class FlugdatenFormContainer extends Component {
                     airtribuneLink: currentFlight.airtribuneLink,
                     weatherDescription: currentFlight.weatherDescription,
                     writeDate: currentFlight.writeDate,
-                    lastUpdate: new Date().toLocaleDateString("de-ch",
-                    {
-                      year: "numeric",
-                      month: "2-digit",
-                      day: "2-digit",
-                    }),
+                    lastUpdate: currentFlight.lastUpdate,
 
                     //set state of forminput
                     //TODO: find a better solution
@@ -720,11 +716,12 @@ class FlugdatenFormContainer extends Component {
             formTitleH2: 'Bilder hochladen.',
             renderButtonNext: true
         });
-    }
+    } 
 
     onSubmit(){
         let ftime = 0;
         let ftimestart = 0;
+        let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");
 
         if(Number(this.state.valueHour) > 0){
             ftime = (Number(this.state.valueHour)*60) + Number(this.state.valueMinute);
@@ -746,7 +743,7 @@ class FlugdatenFormContainer extends Component {
             this.state.imgUrl.shift();
             this.state.imgName.shift();
         }
-
+        
         if(this.state.formValid){
          this.setState({errorAlert: false})
         obj = {
@@ -774,7 +771,7 @@ class FlugdatenFormContainer extends Component {
             weatherDescription: this.state.weatherDescription,
             rating: this.state.rating,
             writeDate: this.state.writeDate,
-            lastUpdate: this.state.lastUpdate
+            lastUpdate: updateLastUpdateArray(this.state.lastUpdate, actualTimestamp)
         }
 
         //if there is set an ID to update a fligt -> "Speichern" means update. Otherwise save a new flight

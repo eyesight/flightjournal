@@ -67,9 +67,6 @@ class StartplacesForm extends Component {
                 />
                 <div className="button-group">
                     <div className="button-wrapper">
-                        <button type="button" onClick={goBack} className="button button--large">Abbrechen und zurück</button>
-                    </div>
-                    <div className="button-wrapper">
                         <button type="submit" className="button button--large-white">Speichern und zurück</button>
                     </div>
                 </div>

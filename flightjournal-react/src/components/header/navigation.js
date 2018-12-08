@@ -39,7 +39,9 @@ class Navigation extends Component {
     render() {
         //if Landingpage is home and the user is authorised show the hole navigation, else just show logout/login
         let isHome = (this.props.location.pathname === '/' || this.props.location.pathname === routes.HOME) ? true : false;
-        let isForm = (this.props.location.pathname === routes.FLUGDATEN_ERFASSEN || this.props.location.pathname === routes.STARTPLATZ_ERFASSEN) ? true : false;
+        let isForm = (this.props.location.pathname === routes.FLUGDATEN_ERFASSEN) ? true : false;
+        let isFormStartplatz = (this.props.location.pathname === routes.STARTPLATZ_ERFASSEN) ? true : false;
+        let isFormStartarea = (this.props.location.pathname === routes.STARTAREA_ERFASSEN) ? true : false;
         let navi;
 
         if(!this.state.authUser){
@@ -67,6 +69,30 @@ class Navigation extends Component {
             navi = <ul className="main-nav__wrapper main-nav__wrapper--single">
                         <li className="main-nav__link">
                             <Link className="main-nav__link-close-icon" to={routes.HOME}>
+                            <div className="main-nav__icon-text">Abbrechen</div>
+                                <div className="main-nav__icon">
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </Link>
+                        </li> 
+                    </ul>
+        }else if(this.state.authUser && isFormStartplatz){
+            navi = <ul className="main-nav__wrapper main-nav__wrapper--single">
+                        <li className="main-nav__link">
+                            <Link className="main-nav__link-close-icon" to={routes.FLUGDATEN_ERFASSEN}>
+                            <div className="main-nav__icon-text">Abbrechen</div>
+                                <div className="main-nav__icon">
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </Link>
+                        </li> 
+                    </ul>
+        }else if(this.state.authUser && isFormStartarea){
+            navi = <ul className="main-nav__wrapper main-nav__wrapper--single">
+                        <li className="main-nav__link">
+                            <Link className="main-nav__link-close-icon" to={this.props.history.goBack}>
                             <div className="main-nav__icon-text">Abbrechen</div>
                                 <div className="main-nav__icon">
                                     <span></span>

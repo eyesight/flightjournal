@@ -10,9 +10,10 @@ import { getUser } from '../../actions/UserActions';
 import * as routes from '../../constants/routes';
 import ReactTransitionGroup from 'react-addons-transition-group';
 import StartplacesForm from './startplacesForm';
+import BackButton from './../backButton/backButton';
 import StartareasForm from './startareasForm';
 import FormAnimation from '../formAnimation/formAnimation';
-import FormTitle from '../formTitle/formTitle';
+import FormTitle from '../formTitle/formTitle'; 
 import { updateLastUpdateArray } from '../../utils/updateLastUpdateArray';
 import  _ from 'lodash';
 import moment from 'moment';
@@ -26,7 +27,8 @@ class StartplaceFormContainer extends Component {
             ani:'',
             formisvisible: true,
             formstartareaisvisible: false,
-            titleForm: 'neuen Startplatz erfassen.',
+            titleForm: 'Neuen Startplatz erfassen.',
+            _isMounted: false,
 
             saveAreaIds: false,
             startplaceIds: [],
@@ -98,10 +100,10 @@ class StartplaceFormContainer extends Component {
         this.onChange = this.onChange.bind(this);  
         this.onSubmit = this.onSubmit.bind(this);
         this.onSubmitArea = this.onSubmitArea.bind(this);
-        this.goBack = this.goBack.bind(this);
         this.goToPage = this.goToPage.bind(this);
         this.getOptions = this.getOptions.bind(this);
         this.getOptionsCheckbox = this.getOptionsCheckbox.bind(this);
+        this.goBack = this.goBack.bind(this);
     }
     
     componentWillMount() {
@@ -111,6 +113,9 @@ class StartplaceFormContainer extends Component {
         this.props.getRegions();
         this.props.getStartareas();
         this.props.getWinddirections();
+        this.setState({
+            _isMounted: true
+        })
         if (this.props.user.loading === false && this.props.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
           }
@@ -132,7 +137,10 @@ class StartplaceFormContainer extends Component {
 
     componentWillUnmount() {
         console.log('unmount');
-        this.props.history.push(routes.FLUGDATEN_ERFASSEN);
+        this.setState({
+            _isMounted: false
+        });
+        
       }
     
     componentDidUpdate(){
@@ -334,10 +342,17 @@ class StartplaceFormContainer extends Component {
 
     goBack(e){
         e.preventDefault();
-        this.props.dispatch(reset('NewPost'));
-        this.setState({
-            formisvisible: false
-        });
+        //Check if we are on Form Startarea or Startplaces by variable formstartareaisvisible. When Startarea is true, return to startplaces by change variables. When not, then return to Flightform
+        if(this.state.formstartareaisvisible){
+            this.setState({
+                formstartareaisvisible: false,
+                formisvisible: true,
+                titleForm: 'neuen Startplatz erfassen.',
+            });
+        }else{
+            this.props.dispatch(reset('NewPost'));
+            this.props.history.push(routes.FLUGDATEN_ERFASSEN)
+        }
     }
 
     goToPage(e){
@@ -355,6 +370,11 @@ class StartplaceFormContainer extends Component {
         return ( 
             <main className="main">
                 <section className="centered-layout">
+                    <BackButton 
+                        backto = {false}
+                        backfunction={this.goBack}
+                        text = 'Abbrechen'
+                    />
                     <FormTitle 
                         children = {<FormAnimation
                             xyz = {this.state.ani}
@@ -365,12 +385,9 @@ class StartplaceFormContainer extends Component {
             <ReactTransitionGroup component="div" className="formular-wrapper">
             {this.state.formisvisible ? 
                 <StartplacesForm 
-                    history={this.props.history}
                     onChange={this.onChange}
                     onSubmit={this.onSubmit}
-                    goBack={this.goBack}
                     goToPage={this.goToPage}
-                    ani={this.state.ani}
                     delayEnter={0.2}
                     delayLeave={0.2}
                     
@@ -413,9 +430,11 @@ class StartplaceFormContainer extends Component {
             <ReactTransitionGroup component="div" className="formular-wrapper">
             {this.state.formstartareaisvisible ? 
                 <StartareasForm 
+                    delayEnter={0.75}
+                    delayLeave={0.2}
+
                     onChange={this.onChange}
                     onSubmitArea={this.onSubmitArea}
-                    goBack={this.goBack}
                     classNameRegio={this.state.classNameAreas}
                     regioLabel='Region wählen'
                     nameRegio='region'

@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import FormErrorAlert from '../formErrorAlert/formErrorAlert';
 import FormTitle from '../formTitle/formTitle';
+import BackButton from './../backButton/backButton';
 import * as validation from '../../utils/validationText';
 import * as routes from '../../constants/routes';
 
@@ -53,7 +54,6 @@ class PasswordForgetFormContainer extends Component {
         })
     }
 
-
     render() {
         return (
             <main className="main">
@@ -72,6 +72,11 @@ class PasswordForgetFormContainer extends Component {
                         </div>
                     </section> :
                     <section id="loginForm" className="centered-layout">
+                        <BackButton 
+                            backto = {false} 
+                            text = 'Abbrechen'
+                            backfunction={event => {this.goBack(event, routes.LOGIN)}}
+                        />
                         <FormTitle 
                             classes = 'centered-layout__header centered-layout__header--no-marginbottom'
                             pageTitle = 'Passwort vergessen'

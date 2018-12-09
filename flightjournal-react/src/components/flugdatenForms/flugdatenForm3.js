@@ -32,6 +32,7 @@ class FlugdatenForm3 extends Component {
 
     componentWillLeave (callback) {
         TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px", onComplete: callback});
+        console.log('leave3');
     }
     onChange(picture) {
         console.log(picture);

@@ -7,6 +7,10 @@ class StartplacesForm extends Component {
         super(props);
         this.formular1 = React.createRef();
     }   
+    componentDidEnter(callback){
+        const { delayEnter } = this.props
+        TweenLite.fromTo(this.formular1.current, 0.5, {opacity:"0", x:"-900px"}, {opacity:"1", x:"0px", onComplete: callback, delay: delayEnter});
+    }
 
     componentWillAppear(callback) {
         window.scrollTo(0, 0);
@@ -18,9 +22,12 @@ class StartplacesForm extends Component {
         const { delayLeave } = this.props
         TweenLite.to(this.formular1.current, 0.5, {opacity:"0", x:"900px", onComplete: callback, delay: delayLeave});
     }
+    componentWillUnmount() {
+        console.log('unmount startplaces');
+      }
     
     render() {
-        const { onChange, onSubmit, goBack, goToPage, classNameAreas, areasLabel, nameAreas, valueAreas, getOptionsAreas, errorMessageAreas, valueDescription, errorMessageDesc, classNameName, labelName, typeName, nameStartplaceName, classNameAltitude, labelAltitude, typeAltitude, nameAltitude, classNamePlace, labelPlace, typePlace, namePlace, labelDescription, typeDescription, nameDescription,
+        const { onChange, onSubmit, goToPage, classNameAreas, areasLabel, nameAreas, valueAreas, getOptionsAreas, errorMessageAreas, valueDescription, errorMessageDesc, classNameName, labelName, typeName, nameStartplaceName, classNameAltitude, labelAltitude, typeAltitude, nameAltitude, classNamePlace, labelPlace, typePlace, namePlace, labelDescription, typeDescription, nameDescription,
                 cbClassNameWrapper, cbClassNameLabel, cbLabel, classNameCheckboxWrapper, cbOptions, cbClassNameLabelItem, cbName, cbSelectedOptions, classNameCheckbox, classNameCheckboxTxt} = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={onSubmit}>

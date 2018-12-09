@@ -13,6 +13,7 @@ import FlugdatenForm1 from './flugdatenForm1';
 import FlugdatenForm2 from './flugdatenForm2';
 import FlugdatenForm3 from './flugdatenForm3';
 import FlugdatenForm4 from './flugdatenForm4';
+import BackButton from './../backButton/backButton';
 import  _ from 'lodash';
 import moment from 'moment';
 import 'moment/locale/de-ch'
@@ -145,6 +146,7 @@ class FlugdatenFormContainer extends Component {
         this.onChange = this.onChange.bind(this);
         
         this.onSubmit = this.onSubmit.bind(this);
+        this.abort = this.abort.bind(this);
         
         this.goNext = this.goNext.bind(this);
 
@@ -942,10 +944,20 @@ class FlugdatenFormContainer extends Component {
         firebase.storage().ref('images').child(filename).getDownloadURL().then(url => this.setState({flightPictureURL: url}));
     }
 
+    abort(e){
+        e.preventDefault();
+        this.props.history.push(routes.LANDING);
+    }
+
     render() {
         return ( 
             <main className="main">
                 <section className="centered-layout">
+                    <BackButton 
+                        backto = {false}
+                        backfunction={this.abort}
+                        text = 'Abbrechen'
+                    />
                     <FormTitle 
                         children = {<FormAnimation
                             xyz = {this.state.ani}

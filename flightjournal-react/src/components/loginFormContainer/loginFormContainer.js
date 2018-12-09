@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import FormErrorAlert from '../formErrorAlert/formErrorAlert';
 import FormTitle from '../formTitle/formTitle';
 import FormAnimation from '../formAnimation/formAnimation';
+import BackButton from './../backButton/backButton';
 import * as validation from '../../utils/validationText';
 import * as routes from '../../constants/routes';
 
@@ -47,6 +48,10 @@ class LoginFormContainer extends Component {
         return (
             <main className="main">
                 <section id="loginForm" className="centered-layout">
+                    <BackButton 
+                        backto = {true}
+                        text = 'Zurück zur Übersicht'
+                    />
                     <FormTitle 
                         children = {<FormAnimation
                             xyz = {ani}

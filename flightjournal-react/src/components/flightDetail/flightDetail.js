@@ -4,6 +4,7 @@ import { getFlights} from '../../actions/FlightActions';
 import { getStartplaces } from '../../actions/StartplacesActions';
 import { getPilots } from '../../actions/PilotActions';
 import { getParagliders } from '../../actions/ParaglidersActions';
+import BackButton from './../backButton/backButton';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -125,6 +126,10 @@ class FlightDetailContainer extends Component {
         return (
             <main className="main">
                     <section className="detail-layout">
+                    <BackButton 
+                        backto = {true}
+                        text = 'Zurück zur Übersicht'
+                    />
                     <MainTitleWrapper 
                         classNameWrapper='detail-layout__header'
                         withAnchor={false}

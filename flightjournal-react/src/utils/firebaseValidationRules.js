@@ -31,7 +31,7 @@
                ".validate": "newData.val().length > 0 && newData.val().length <= 10 "
             },
             "startplace": {
-                ".validate": "newData.val().length > 0 && newData.isString() && newData.val().length < 100"
+                ".validate": "newData.val().length > 0 && newData.isString() && newData.val().length < 150"
             },
             "landingplace": {
                 ".validate": "newData.val().length > 0 && newData.isString()"
@@ -70,13 +70,13 @@
                 ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 50"
             },
             "syrideLink": {
-                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 100"
+                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 200"
             },
             "xcontestLink": {
-                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 100"
+                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 200"
             },
             "airtribuneLink": {
-                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 100"
+                ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 200"
             },
             "weatherDescription": {
                 ".validate": "newData.val().length == null || newData.isString() && newData.val().length < 5000"

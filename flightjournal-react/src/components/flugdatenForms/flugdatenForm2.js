@@ -67,17 +67,7 @@ class FlugdatenForm2 extends Component {
                         classNamesError='formular__validationBox'
                         errorMessage={errorMessagemaxclimp}
                     />
-                    {/* <InputField 
-                        classes={classNamestartingtime}
-                        label='Startzeit'
-                        inputAction={onChange}
-                        type='text'
-                        name='startingtime'
-                        autocomp=''
-                        value={valueStartingtime}
-                        classNamesError='formular__validationBox'
-                        errorMessage={errorMessagestartingtime}
-                    /> */}
+                    
                     <div className={classNamestartingtime}>
                         <label className="formular__label">Startzeit</label>
                         <div className="formular__select formular__select--25">

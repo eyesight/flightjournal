@@ -321,16 +321,16 @@ class FlugdatenFormContainer extends Component {
 
         switch(fieldName) {
           case 'landingplace':
-            landingplaceValid = value.length > 0 && value.length <= 50 && value !== '' && (typeof value === 'string');
-            fieldValidationErrors.landingplace = landingplaceValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess50}.`;
+            landingplaceValid = value.length > 0 && value.length <= 150 && value !== '' && (typeof value === 'string');
+            fieldValidationErrors.landingplace = landingplaceValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess150}.`;
             break;
           case 'date':
             dateValid = (/^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{4}$/i).test(this.state.date);
             fieldValidationErrors.date = dateValid ? '' : `${validation.valField} ${validation.valDate}.`;
             break;
-          case 'startplace':
-            startplaceValid = value.length > 0 && value.length <= 50 && (typeof value === 'string') && value !== '0';
-            fieldValidationErrors.startplace = startplaceValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess50}.`;
+          case 'startplace': 
+            startplaceValid = value.length > 0 && value.length <= 150 && (typeof value === 'string') && value !== '0';
+            fieldValidationErrors.startplace = startplaceValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess150}.`;
             break;
           case 'flighttime':
             flighttimeValid = value !== 0 && !isNaN(value);
@@ -374,26 +374,26 @@ class FlugdatenFormContainer extends Component {
             fieldValidationErrors.weatherDescription = weatherDescriptionValid ? '' : `${validation.valField} ${validation.valLess5000}.`;
             break;
         case 'paragliders':
-            paraglidersValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
-            fieldValidationErrors.paragliders = paraglidersValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess50}.`;
+            paraglidersValid = value.length === 0 || (value.length <= 150 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.paragliders = paraglidersValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess150}.`;
             break;
         //form3
         case 'imgUrl':
-            imgUrlValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
-            fieldValidationErrors.imgUrl = imgUrlValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            imgUrlValid = value.length === 0 || (value.length <= 150 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.imgUrl = imgUrlValid ? '' : `${validation.valField} ${validation.valLess150}.`;
             break;
         //form4
         case 'syrideLink':
-            syrideLinkValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
-            fieldValidationErrors.syrideLink = syrideLinkValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            syrideLinkValid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.syrideLink = syrideLinkValid ? '' : `${validation.valField} ${validation.valLess200}.`;
             break;
         case 'xcontestLink':
-            xcontestLinkValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
-            fieldValidationErrors.xcontestLink = xcontestLinkValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            xcontestLinkValid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.xcontestLink = xcontestLinkValid ? '' : `${validation.valField} ${validation.valLess200}.`;
             break;
         case 'airtribuneLink':
-            airtribuneLinkValid = value.length === 0 || (value.length <= 50 && (typeof value === 'string') && value !== '0');
-            fieldValidationErrors.airtribuneLink = airtribuneLinkValid ? '' : `${validation.valField} ${validation.valLess50}.`;
+            airtribuneLinkValid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.airtribuneLink = airtribuneLinkValid ? '' : `${validation.valField} ${validation.valLess200}.`;
             break;
           default:
             break;
@@ -1041,7 +1041,7 @@ class FlugdatenFormContainer extends Component {
                         getOptionsStartHour={this.getOptionsStartTime(24, 1)} 
                         nameStartMinute={this.state.nameStartMinute} 
                         valueStartMinute={this.state.valueStartMinute}
-                        getOptionsStartMinute={this.getOptionsStartTime(59, 1)}
+                        getOptionsStartMinute={this.getOptionsStartTime(59, 5)}
 
                         classNameGlider={`formular__input-wrapper ${this.errorClass(this.state.formErrors.paragliders)}`}
                         gliderLabel={'Gleitschirm-Modell'}

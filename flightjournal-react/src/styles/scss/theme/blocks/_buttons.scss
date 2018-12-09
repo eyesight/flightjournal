@@ -94,6 +94,10 @@
     &--small{
       font-size: rem-calc(18px);
     }
+
+    &--with-icon{
+      padding-left: 32px;
+    }
   }
 
   &:hover,

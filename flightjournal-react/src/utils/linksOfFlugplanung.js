@@ -26,7 +26,7 @@ export const allLinks = {
             {
                 title:'Gleitschirmmeteo', 
                 link:'http://gleitschirmmeteo.ch/'
-            }
+            },
         ]
     },
 

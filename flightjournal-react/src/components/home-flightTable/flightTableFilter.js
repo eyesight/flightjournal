@@ -83,7 +83,7 @@ class FlightTableFilter extends Component {
     renderMonthFilter(filterM){
         let filterMonthArr = [];
         let valNr = '';
-        let monthArr = ['Jan.', 'Feb.', 'Mär.', 'Apr.', 'Mai.', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Okt.', 'Nov.', 'Dez.']
+        let monthArr = ['Jan.', 'Feb.', 'März', 'April', 'Mai', 'Juni', 'Juli', 'Aug.', 'Sep.', 'Okt.', 'Nov.', 'Dez.']
         for (let i=0; i < filterM; i++) { 
             valNr = (i<9) ? `0${i+1}`: i+1;
             let classesM = `filter__list-item ${(this.state.filtermonth.includes(valNr.toString())) ? 'active' : '' }`

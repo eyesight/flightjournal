@@ -29,7 +29,7 @@ class StartplacesForm extends Component {
       }
     
     render() {
-        const { onChange, onSubmitArea, classNameRegio, regioLabel, nameRegio, valueRegio, getOptionsRegio, errorMessageRegio,
+        const { onChange, onSubmitArea, classNameRegio, regioLabel, nameRegio, valueRegio, getOptionsRegio, errorMessageRegio, valueDescription,
             errorMessageAreaName, errorMessageFunicularLink, errorMessageSandortpin, errorMessageWebcams1, errorMessageWebcams2, errorMessageWebcams3, errorMessageShvInfo, errorMessageWindMeteocentrale, errorMessageLiveWindmap, errorMessageThermikhotspots, errorMessageMeteoswiss, errorMessageThermikforecast, errorMessageXc, errorMessageAreaDescription } = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={onSubmitArea}>
@@ -160,15 +160,11 @@ class StartplacesForm extends Component {
                     autocomp=''
                     classNamesError={errorMessageXc}
                 />
-                <InputField 
-                    classes='formular__input-wrapper formular__input--text'
-                    label='Beschrieb'
-                    inputAction={onChange}
-                    type='text'
-                    name='areaDescription'
-                    autocomp=''
-                    classNamesError={errorMessageAreaDescription}
-                /> 
+                <div className='formular__input-wrapper formular__input--text'>
+                    <label className="formular__label">Beschrieb</label>
+                    <textarea className="formular__input" type='text' name='areaDescription' value={valueDescription} onChange={onChange}></textarea>
+                    <span className='formular__validationBox'>{errorMessageAreaDescription}</span>
+                </div>
                 <div className="button-group">
                     <div className="button-wrapper">
                         <button type="submit" className="button button--large-white">Speichern und zurück</button>

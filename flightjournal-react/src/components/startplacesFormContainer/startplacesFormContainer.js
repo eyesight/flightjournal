@@ -71,7 +71,6 @@ class StartplaceFormContainer extends Component {
             locationpin: '',
             danger: '',
             winddirection: [],
-            writeDateSP: '',
             lastUpdateSP: '',
             //Values of Form Startingareas
             region: '',
@@ -90,7 +89,6 @@ class StartplaceFormContainer extends Component {
             startplaces: [],
             imagesUrl: '',
             imagesCount: 0,
-            writeDateSA: '',
             lastUpdateSA: ''
         };
         this.onChange = this.onChange.bind(this);  
@@ -262,7 +260,7 @@ class StartplaceFormContainer extends Component {
         e.preventDefault();
         let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");
         obj = {
-            writeDate: this.state.writeDateSP,
+            writeDate: actualTimestamp,
             lastUpdate: updateLastUpdateArray(this.state.lastUpdateSP, actualTimestamp),
             name: this.state.name,
             altitude : this.state.altitude,
@@ -303,7 +301,7 @@ class StartplaceFormContainer extends Component {
         })
 
         obj = {
-            writeDate: this.state.writeDateSA,
+            writeDate: actualTimestamp,
             lastUpdate: updateLastUpdateArray(this.state.lastUpdateSA, actualTimestamp),
             name: this.state.startareaname,
             regionsId: this.state.region,

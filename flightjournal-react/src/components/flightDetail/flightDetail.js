@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { getUser } from '../../actions/UserActions';
 import { getFlights} from '../../actions/FlightActions';
 import { getStartplaces } from '../../actions/StartplacesActions';
+import { getStartareas } from '../../actions/StartareasActions';
 import { getPilots } from '../../actions/PilotActions';
 import { getParagliders } from '../../actions/ParaglidersActions';
 import BackButton from './../backButton/backButton';
@@ -61,6 +62,7 @@ class FlightDetailContainer extends Component {
         this.props.getStartplaces();
         this.props.getPilots();
         this.props.getParagliders();
+        this.props.getStartareas();
         if (this.props.user.loading === false && this.props.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
           }
@@ -72,19 +74,23 @@ class FlightDetailContainer extends Component {
           } 
           
         if( nextProps.flight !== undefined){
+            let currentArea = '';
             const currentFlight = nextProps.flight;
             const currentPilot = _.find(nextProps.pilots, {email:currentFlight.pilot});
             const currentStartplace = _.find(nextProps.startplaces, {id:currentFlight.startplace});
+            if(currentStartplace){
+                currentArea = _.find(nextProps.startareas, {id:currentStartplace.startareasId});
+            }
             const currentParaglider = _.find(nextProps.paragliders, {id:currentFlight.paraglider});
-
-            if(currentPilot !== undefined && currentStartplace !== undefined && currentParaglider !== undefined){
+            
+            if(currentPilot !== undefined && currentStartplace !== undefined && currentParaglider !== undefined && currentArea !== undefined){
                 this.setState({
                 flighttime: currentFlight.flighttime,
                 date: currentFlight.date,
                 landeplatz: currentFlight.landingplace,
                 startplatz: currentStartplace.name,
                 startplatzAltitude: currentStartplace.altitude,
-                startplatzArea: currentStartplace.area,
+                startplatzArea: currentArea.name,
                 flughoehe: currentFlight.maxaltitude,
                 xcdistance: currentFlight.xcdistance,
                 pilotFirstname: currentPilot.firstname,
@@ -273,9 +279,10 @@ function mapStateToProps(state, props) {
         user: state.user,
         flight: _.find(state.flights, {id:key}),
         startplaces: state.startplaces,
+        startareas: state.startareas,
         pilots: state.pilots,
         paragliders: state.paragliders
     };
 } 
 
-export default withRouter(connect(mapStateToProps, { getUser, getFlights, getStartplaces, getPilots, getParagliders })(FlightDetailContainer));
+export default withRouter(connect(mapStateToProps, { getUser, getFlights, getStartplaces, getPilots, getParagliders, getStartareas })(FlightDetailContainer));

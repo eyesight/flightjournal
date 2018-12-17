@@ -143,7 +143,7 @@ class FlightDetailContainer extends Component {
                         textBold={textTitelBold}
                         textReg={textTitelReg}
                         withParagraph={true}
-                        classNameParagraph=''
+                        classNameParagraph='main-title-text'
                         paragraphTxt={textParagraph}
                     />
                     {this.state.imagesName[0] !== '' ? (

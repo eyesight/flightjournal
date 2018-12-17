@@ -3,8 +3,6 @@
   font-size: $font-s-main;
   font-weight: 300;
   line-height: 3.4rem;
-  //margin-bottom: rem-calc(50px);
-  margin-top: rem-calc(200px);
   &--bold{
     font-family: $font-family-primary;
     font-weight: 600;
@@ -23,6 +21,10 @@
       font-size: $font-s-main;
       line-height: 3.4rem;
     }
+  }
+
+  &-text{
+    margin-top: rem-calc(35px);
   }
 }
 

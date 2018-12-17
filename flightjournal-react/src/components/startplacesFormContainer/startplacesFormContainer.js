@@ -47,8 +47,6 @@ class StartplaceFormContainer extends Component {
             errorMessageAreaName: '',
             errorMessageFunicularLink: '',
             errorMessageSandortpin: '', 
-            errorMessageSBB: '', 
-            errorMessageGoogleMaps: '', 
             errorMessageWebcams1: '', 
             errorMessageWebcams2: '', 
             errorMessageWebcams3: '', 
@@ -80,8 +78,6 @@ class StartplaceFormContainer extends Component {
             startareaname: '',
             funicularLink: '',
             arealocationpin: '',
-            googleMaps: '',
-            sbb: '',
             webcams: [],
             shvInfo: '',
             windMeteocentrale: '',
@@ -313,8 +309,6 @@ class StartplaceFormContainer extends Component {
             regionsId: this.state.region,
             funicularLink: this.state.funicularLink,
             locationpin: this.state.arealocationpin,
-            googleMaps: this.state.googleMaps,
-            sbb: this.state.sbb,
             webcams: webcamarr,
             shvInfo: this.state.shvInfo,
             windMeteocentrale: this.state.windMeteocentrale,
@@ -444,8 +438,6 @@ class StartplaceFormContainer extends Component {
                     errorMessageAreaName= {this.state.errorMessageAreaName}
                     errorMessageFunicularLink={this.state.errorMessageFunicularLink} 
                     errorMessageSandortpin={this.state.errorMessageSandortpin}
-                    errorMessageSBB={this.state.errorMessageSBB}
-                    errorMessageGoogleMaps={this.state.errorMessageGoogleMaps}
                     errorMessageWebcams1={this.state.errorMessageWebcams1}
                     errorMessageWebcams2={this.state.errorMessageWebcams2}
                     errorMessageWebcams3={this.state.errorMessageWebcams3}

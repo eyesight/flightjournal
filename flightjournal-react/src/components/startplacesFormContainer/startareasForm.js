@@ -30,7 +30,7 @@ class StartplacesForm extends Component {
     
     render() {
         const { onChange, onSubmitArea, classNameRegio, regioLabel, nameRegio, valueRegio, getOptionsRegio, errorMessageRegio,
-            errorMessageAreaName, errorMessageFunicularLink, errorMessageSandortpin, errorMessageSBB, errorMessageGoogleMaps, errorMessageWebcams1, errorMessageWebcams2, errorMessageWebcams3, errorMessageShvInfo, errorMessageWindMeteocentrale, errorMessageLiveWindmap, errorMessageThermikhotspots, errorMessageMeteoswiss, errorMessageThermikforecast, errorMessageXc, errorMessageAreaDescription } = this.props;
+            errorMessageAreaName, errorMessageFunicularLink, errorMessageSandortpin, errorMessageWebcams1, errorMessageWebcams2, errorMessageWebcams3, errorMessageShvInfo, errorMessageWindMeteocentrale, errorMessageLiveWindmap, errorMessageThermikhotspots, errorMessageMeteoswiss, errorMessageThermikforecast, errorMessageXc, errorMessageAreaDescription } = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={onSubmitArea}>
                 <div className={classNameRegio}>
@@ -69,24 +69,6 @@ class StartplacesForm extends Component {
                     name='locationpin'
                     autocomp=''
                     classNamesError={errorMessageSandortpin}
-                />
-                <InputField 
-                    classes='formular__input-wrapper'
-                    label='Anreise SBB'
-                    inputAction={onChange}
-                    type='text'
-                    name='sbb'
-                    autocomp=''
-                    classNamesError={errorMessageSBB}
-                />
-                <InputField 
-                    classes='formular__input-wrapper'
-                    label='Anreise Google'
-                    inputAction={onChange}
-                    type='text'
-                    name='googleMaps'
-                    autocomp=''
-                    classNamesError={errorMessageGoogleMaps}
                 />
                 <InputField 
                     classes='formular__input-wrapper'

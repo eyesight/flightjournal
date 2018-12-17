@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as routes from '../../constants/routes';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getFlights, deleteFlights, saveFlights } from '../../actions/FlightActions';
 import { getFilterFlights } from '../../selectors/flightSelector';
@@ -174,7 +174,7 @@ class FlightTableList extends Component {
                                     <td className="table__start">{z.name}</td>
                                     <td className="table__duration">{utils.timeToHourMinString(x.flighttime)}</td>
                                     <td className="table__distance">{x.xcdistance} Kilometer</td>
-                                    <td className="table__details"><a className="anchor table__link" onClick={(event) => {this.flugdetails(x.id)}}>Flugdetails</a></td>
+                                    <td className="table__details"><Link className="anchor table__link" to={routes.FLUG + x.id}>Flugdetails</Link></td>
                                     <td className="table__details table__details--icons"> {isactiveuser ? 
                                     <a className="table__icon" onClick={(event) => {this.updateFlight(event, x.id)}}>
                                         <svg version="1.1" className="svg-icon svg-icon--delete" x="0px" y="0px" viewBox="0 0 23.7 23.7">

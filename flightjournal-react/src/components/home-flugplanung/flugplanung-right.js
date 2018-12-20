@@ -11,7 +11,6 @@ class FlugplanungRight extends Component {
             classNameTitleReg: 'title title--regular',
             classNameAnchor: 'link-box__link anchor'
         };
-        //this.showMoreText = this.showMoreText.bind(this);
         this.slideshowInit = this.slideshowInit.bind(this);
         this.dotfunc = this.dotfunc.bind(this);
         this.prevNext = this.prevNext.bind(this);
@@ -29,9 +28,7 @@ class FlugplanungRight extends Component {
 
         // media query change
         function WidthChange2(mq2) {
-
             const parents = document.getElementsByClassName('js-linkbox-slideshow-container');
-
             for (let j = 0; j < parents.length; j++) {
                 const slides = parents[j].getElementsByClassName("js-linkbox");
                 const dots = parents[j].getElementsByClassName("js-dot");
@@ -105,7 +102,6 @@ class FlugplanungRight extends Component {
     //prev/next functionality
     prevNext(){
         const prev_next = document.querySelectorAll('.link-box__prev-next a');
-
         for (let ind = 0; ind < prev_next.length; ind++) {
             prev_next[ind].onclick = function () {
                 let current = this.parentNode.parentNode;

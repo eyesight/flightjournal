@@ -8,8 +8,12 @@
     font-weight: 600;
   }
 
-  @include bp(max, 1023px) {
-    margin-top: 0;
+  .start__lead-wrapper &{
+    margin-top: rem-calc(200px);
+
+    @include bp(max, 1023px) {
+      margin-top: 0;
+    }
   }
   @include bp(max, $phone) {
     font-size: $font-s-main-s;

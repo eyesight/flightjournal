@@ -2,7 +2,7 @@
   font-family: $font-family-secundary;
   font-size: $font-s-main;
   font-weight: 300;
-  line-height: 3.4rem;
+  line-height: 3.9rem;
   &--bold{
     font-family: $font-family-primary;
     font-weight: 600;
@@ -17,7 +17,7 @@
   }
   @include bp(max, $phone) {
     font-size: $font-s-main-s;
-    line-height: 1.5;
+    line-height: 1.4;
   }
 
   &--mobile-large{

@@ -6,6 +6,7 @@ export const HOME = '/home';
 export const HOME_ANCHOR_FLIGHTS = '/home#fluege';
 export const ACCOUNT = '/account';
 export const FLUGDATEN_ERFASSEN = '/enter-flight-data';
+export const FLUGDATEN_DETAIL_ERFASSEN = '/enter-flight-data/:id';
 export const FLUGDATEN_DETAIL = '/fligth/:id';
 export const FLUG = '/fligth/';
 export const FLUGDATEN_DETAIL_withoutID = '/fligth';

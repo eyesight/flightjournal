@@ -8,12 +8,11 @@ class MessageBox extends Component{
     }
 
     componentWillEnter(callback) {
-        console.log('componentWillEnter');
         TweenLite.fromTo(this.messageBoxe.current, 0.2, {opacity:"0", scale : 0.1, y:"900px"}, {opacity:"1", y:"0px", scale : 1, onComplete: callback});
     }
 
     render() {
-        const {txt, functionDelete, functionCancel, buttonDeleteTxt, buttonCancelTxt, buttonDelClass, buttonCancClass } = this.props;
+        const {txt, functionBtn1, functionBtn2, button1Txt, button2Txt, button1Class, button2Class } = this.props;
 
     return (
         <div className="messageBox-Background">
@@ -25,8 +24,8 @@ class MessageBox extends Component{
                         <div className="checkmark__kick"></div> 
                     </div>
                     <div className="button-wrapper button-wrapper__row">
-                        <button onClick={functionDelete} className={buttonDelClass}>{buttonDeleteTxt}</button>
-                        <button onClick={functionCancel} className={buttonCancClass}>{buttonCancelTxt}</button>
+                        <button onClick={functionBtn1} className={button1Class}>{button1Txt}</button>
+                        <button onClick={functionBtn2} className={button2Class}>{button2Txt}</button>
                     </div>
                 </div>
             </div>

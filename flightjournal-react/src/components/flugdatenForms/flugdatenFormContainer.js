@@ -184,7 +184,7 @@ class FlugdatenFormContainer extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.user.loading === false && nextProps.user.email === undefined) {
+        if (nextProps.user.loading === false && nextProps.user.uid === undefined) {
             this.props.history.replace(routes.LANDING);
           }
           //set data of active pilot
@@ -196,9 +196,8 @@ class FlugdatenFormContainer extends Component {
                 }) 
             }
           }
-         
-        //if history.location.state is set (if someone likes to update a Flight), set the values of Form-Input-Field
-        if( nextProps.flight && this.props.history.location.state!==undefined && this.props.history.location.state.flightId !== '' && this.props.history.location.state.flightId !== []){
+          //if history.location.state is set (if someone likes to update a Flight), set the values of Form-Input-Field
+        if( nextProps.flight && nextProps.flight.pilotId !== undefined && nextProps.flight.pilotId === nextProps.user.uid){
             let currentFlight = nextProps.flight;
             if(currentFlight !==null || currentFlight !==undefined || currentFlight !==[]){
                 //get the hours and minutes and set into state
@@ -219,8 +218,8 @@ class FlugdatenFormContainer extends Component {
                     valueStartHour: akthourstart,
                     valueStartMinute: aktminutestart,
 
-                    flightId: this.props.history.location.state.flightId,
-                    IDtoUpdate: this.props.history.location.state.flightId,
+                    flightId: nextProps.flight.id,
+                    IDtoUpdate: nextProps.flight.id,
                     date: currentFlight.date,
                     startDate: moment(dateObject),
                     startplace: currentFlight.startplace,
@@ -1106,8 +1105,8 @@ let flightform = reduxForm({
 
   flightform = connect((state, props) => {
       let key = '';
-      if(props.history.location.state){
-         key = props.history.location.state.flightId;
+      if(props.match.params.id){
+         key = props.match.params.id;
       }else{
           key = '';
       }

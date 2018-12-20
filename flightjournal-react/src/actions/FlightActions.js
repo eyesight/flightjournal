@@ -21,7 +21,6 @@ export function saveFlights(flight) {
       ...flight
     };
     newItem.id = newRef.key;
-    console.log(newItem.id);
     return newRef.set(newItem);
   }
 }

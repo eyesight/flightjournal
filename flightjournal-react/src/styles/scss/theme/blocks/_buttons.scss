@@ -80,7 +80,7 @@
     border: none;
     background: none;
     font-family: $font-family-primary;
-
+    
     &:hover,
     &:focus{
       color: $color-black;
@@ -124,4 +124,12 @@
   @include bp(max, $ipad-p) {
     width: 100%;
    }
+}
+
+a.button-without-border{
+  color: $color-primary;
+  &:hover,
+  &:focus{
+    color: $color-black;
+  }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as routes from '../../constants/routes';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUser } from '../../actions/UserActions';
 import FlightTableFilter from './flightTableFilter';
@@ -14,7 +14,7 @@ class FlightTable extends Component {
                 <div className="centered-layout__header">
                     <h2 className="title-h2">Flugtagebuch.<br /><span className="title--regular">Unsere Flüge im Überblick.</span>
                     </h2>
-                    <button className="button-without-border button-without-border--with-icon" onClick={(event) => {event.preventDefault(); this.props.history.push(routes.FLUGDATEN_ERFASSEN)}}>
+                    <Link className="button-without-border button-without-border--with-icon" to={routes.FLUGDATEN_ERFASSEN}>
                     <svg version="1.1" className="svg-icon svg-icon--plus" x="0px" y="0px" viewBox="0 0 32 32">
                         <g>
                             <circle className="svg-icon__circle" cx="16" cy="16" r="16"/>
@@ -22,7 +22,7 @@ class FlightTable extends Component {
                         </g>
                     </svg>
                     Flug hinzufügen
-                    </button>
+                    </Link>
                 </div>
                 <FlightTableFilter />
                 <FlightTableList />

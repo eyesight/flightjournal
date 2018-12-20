@@ -30,6 +30,7 @@ class App extends Component {
                     <Route exact path={routes.STARTPLATZ_ERFASSEN} component={() => <StartplaceFormContainer />} />
                     <Route path={routes.FLUGDATEN_DETAIL} component={() => <FlightDetail/>} />
                      <Route exact path={routes.FLUGDATEN_ERFASSEN} component={() => <FlugdatenFormContainer />} />
+                     <Route exact path={routes.FLUGDATEN_DETAIL_ERFASSEN} component={() => <FlugdatenFormContainer />} />
                      <Route exact path={routes.LOGIN} component={() => <LoginFormContainer />} />
                      <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetFormContainer />} />
                      <Route exact path={routes.HOME} component={() => <StartMainContainer />} />

@@ -34,8 +34,28 @@
     line-height: 150%;
   }
 
-  &--margin-top{
-    margin-top: rem-calc(50px);
+  &--1column-small{
+    border-right: 1px solid $color-gray-light;
+    margin-top: rem-calc(0);
+    padding-right: 7%;
+    @include grid-column(4, $grid-12);
+
+    @include bp(max, $ipad-p){
+      padding-right: 0;
+      border-right: none;
+      @include grid-column(12, $grid-12);
+      @include grid-push(0, $grid-12);
+    }
+  }
+
+  &--1column-large{ 
+    margin-top: rem-calc(0);
+    @include grid-column(7, $grid-12);
+    @include grid-push(1, $grid-12);
+    @include bp(max, $ipad-p){
+      @include grid-column(12, $grid-12);
+      @include grid-push(0, $grid-12);
+    }
   }
 
   a{

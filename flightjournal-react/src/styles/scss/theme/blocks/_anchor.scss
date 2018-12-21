@@ -42,3 +42,9 @@
     color: $color-black;
   }
 }
+
+.anchor-wrapper{
+  &--margin-top{
+    margin-top: rem-calc(20px);
+  }
+}

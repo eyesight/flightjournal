@@ -11,17 +11,15 @@
 
 
   &__menu{
-    float:left;
     margin-right: 10px;
-    font-size: $font-s-copytext;
-
-    &:before{
+    font-size: $font-s-menu;
+    margin-top: 30px;
+    &:after{
       content: 'Menu';
     }
   }
 
   &__burger{
-    float:left;
     width: 30px;
   }
 
@@ -35,22 +33,24 @@
     position: absolute;
 
     &:first-child{
-      transition: transform 0.5s;
+      transition: all 0.5s;
       position: absolute;
-      bottom: -10px;
+      top: 0;
       transform: rotate(0deg);
     }
 
     &:nth-child(2){
       opacity: 1;
       transition: opacity 0.5s;
+      position: absolute;
+      top: 10px;
     }
 
     &:nth-child(3){
       transform:rotate(0deg);
       position:absolute;
-      bottom:0;
-      transition: transform 0.5s;
+      top:20px;
+      transition: all 0.5s;
     }
   }
 
@@ -59,9 +59,9 @@
   }
 }
 
-.js-mobile-logo--visible + .mobile-toggle{
+.mobile-toggle.js-mobile-toggle--active{
   .mobile-toggle__menu{
-    &:before{
+    &:after{
       content: 'close';
       transition: content 0.5s;
     }
@@ -70,7 +70,7 @@
      &:first-child{
        transform:rotate(45deg);
        position:absolute;
-       bottom:0;
+       top: 10px;
        transition: transform 0.5s;
      }
 
@@ -81,7 +81,7 @@
      &:nth-child(3){
        transform:rotate(-45deg);
        position:absolute;
-       bottom:0;
+       top: 10px;
        transition: transform 0.5s;
      }
     }

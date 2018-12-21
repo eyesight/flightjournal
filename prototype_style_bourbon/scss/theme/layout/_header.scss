@@ -8,8 +8,8 @@
 
   &__logo-wrapper{
     width: 200px;
-    @include bp(max, $ipad-ls) {
-      width: 150px;
+    @include bp(max, $phone) {
+      width: 220px;
     }
   }
 
@@ -33,7 +33,7 @@
     z-index:100;
     color: $color-black;
     position: fixed;
-    top: 15px;
+    top: 27px;
 
     .header__anchor{
       color: $color-black;
@@ -53,9 +53,11 @@
 
     @include bp(max, $ipad-ls) {
       color: $color-black;
+      top: 20px;
     }
     @include bp(max, $ipad-p) {
-      margin-top: -15px;
+      margin-top: -20px; 
+      margin-left: 2%;
     }
   }
 
@@ -101,10 +103,6 @@
     .header__anchor{
       color: $color-black;
     }
-  }
-
-  @include bp(max, $ipad-ls) {
-    background-color: $color-white;
   }
 }
 

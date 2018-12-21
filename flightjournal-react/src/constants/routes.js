@@ -11,6 +11,7 @@ export const FLUGDATEN_DETAIL = '/fligth/:id';
 export const FLUG = '/fligth/';
 export const FLUGDATEN_DETAIL_withoutID = '/fligth';
 export const STARTPLATZ_ERFASSEN = '/enter-startplace-data';
+export const STARTPLATZ = '/startplace/:id';
 export const STARTAREA_ERFASSEN = '/enter-startarea-data';
 export const FLUGDATEN = '/flight-data';
 export const TEST = '/test';

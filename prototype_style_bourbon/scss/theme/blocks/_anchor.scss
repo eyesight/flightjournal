@@ -2,41 +2,49 @@
 .anchor:active,
 .anchor:visited{
   position: relative;
-  display: inline-block;
+  display: inline;
   cursor: pointer;
   font-size: $font-s-anchor;
   line-height: 2.3rem;
+  @extend .help-underline-green;
 
-  @include bp(max, $screen-m) {
+  @include bp(max, $screen-ml) {
     font-size: $font-s-anchor-small;
   }
 
-
-  &::after {
-    @extend .help-underline-green;
-  }
-
-  &:hover,
+  &:hover, 
   &:focus {
     color: $color-primary;
-    &::after {
-      @extend .help-underline-green-hover;
-    } 
+    @extend .help-underline-green-hover;
   }
 }
 
 .anchor-small{
   font-size: $font-s-anchor-small;
   cursor: pointer;
+
+  .fas{
+    padding-right: 5px;
+  }
+
+  + .main-title{
+    margin-top: 20px;
+  }
 }
 
-.anchor--green{
+.anchor--green,
+.anchor-small.anchor--green{
   color: $color-primary;
 
   &:active,
-  &:visited,
   &:hover,
   &:focus{
     color: $color-black;
+  }
+}
+
+.anchor-wrapper{
+  &--margin-top{
+    margin-top: rem-calc(20px);
   }
 }

@@ -56,10 +56,32 @@
     }
   }
 
-  &__start,
-  &__details{
+  &__start{
     @include bp(max, $ipad-p) {
       flex: 1 100%;
+    }
+  }
+  &__details--icons{
+    display: flex;
+    justify-content: space-around;
+    opacity: 0;
+    transition: opacity 0.3s;
+    @include bp(max, $ipad-ls) {
+      opacity: 1;
+    }
+    @include bp(max, $ipad-p) {
+      justify-content: flex-start;
+    }
+  }
+
+  tr{
+    &:hover,
+    &:active,
+    &:focus{
+      .table__details--icons{
+        opacity: 1;
+        transition: opacity 0.5s;
+      }
     }
   }
 
@@ -87,6 +109,18 @@
       font-family: $font-family-secundary;
     }
   }
+  &__distance,
+  &__details,
+  &__details--icons{
+    @include bp(max, $ipad-p){
+      flex: 1 50%;
+    }
+  }
+  &__details{
+    @include bp(max, 450px){
+      flex: none;
+    }
+  }
 
   &__date,
   &__duration{
@@ -105,8 +139,8 @@
 
     span{
       display:inline-block;
-     // position: absolute;
       z-index:10;
+      position: relative;
 
       &::after {
         @extend .help-underline-yellow;
@@ -117,7 +151,7 @@
       &.active{
         color: $color-black;
         transition: color .5s ease 0s;
-
+        
         &::after {
           @extend .help-underline-yellow-hover;
         }
@@ -138,29 +172,25 @@
 
   &__link{
     display:inherit;
-
-    &:hover,
-    &:active,
-    &:focus {
-      &::after {
-        transform: scaleX(0);
-      }
-    }
-
-    &:after {
-      content: "";
-      width: 100%;
-      height: 3px;
-      left: 0;
-      background-color: $color-primary;
-      display: block;
-      margin-top: 3px;
-      transform: scaleX(1);
-      transition: $transition-underline-center;
-    }
-
     @include bp(max, $ipad-p){
       display:inline-block;
+    }
+  }
+  &__icon{
+    background: transparent;
+    border: none;
+    padding: 1px 7px 2px;
+    + & {
+      margin-left: 20px;
+    }
+    &:first-of-type{
+    @include bp(max, $phone){
+        margin-left: 40px;
+      }
+    }
+    @include bp(max, $ipad-p){
+      margin-left: 40px;
+      margin-top: 5px;
     }
   }
 }

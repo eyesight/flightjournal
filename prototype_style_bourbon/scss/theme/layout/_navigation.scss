@@ -9,6 +9,9 @@
 
     &--single{
       justify-content: flex-end;
+      @include bp(max, $ipad-ls) {
+        display: flex;
+      }
     }
   }
 
@@ -24,9 +27,48 @@
     &:first-child{
       margin-left:0;
     }
-    &:after{
+  }
 
+  &__link-close-icon,
+  &__link-back-icon{
+    display: flex;
+    span{
+      width: 30px;
+      height: 3px;
+      margin-bottom: 6px;
+      border-radius: 1000px;
+      background: $color-primary;
+      display: block;
+      transform: rotate(-45deg);
+      position: absolute;
+      top: 10px;
     }
+    span:first-child{
+      transform: rotate(45deg);
+      position: absolute;
+      top: 10px;
+    }
+  }
+
+  &__link-back-icon{
+    span{
+      width: 20px;
+      top: 2px;
+    }
+    span:first-child{
+      top: 15px;
+    }
+  }
+
+  &__icon{
+    display: block;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    margin-top: -2px;
+  }
+  &__icon-text{
+    margin-right: 30px;
   }
 
   &.js-mobile-nav--visible{

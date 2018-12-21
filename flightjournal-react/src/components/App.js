@@ -5,6 +5,7 @@ import LoginFormContainer from './loginFormContainer/loginFormContainer';
 import FlugdatenFormContainer from './flugdatenForms/flugdatenFormContainer';
 import StartplaceFormContainer from './startplacesFormContainer/startplacesFormContainer';
 import FlightDetail from './flightDetail/flightDetail';
+import StartplaceDetail from './startplaceDetail/startplaceDetail';
 import PasswordForgetFormContainer from './passwordForgetFormContainer/passwordForgetFormContainer';
 import { applyMiddleware, createStore } from 'redux';
 import reducers from '../reducers/index';
@@ -27,6 +28,7 @@ class App extends Component {
                 <div className="page">
                  <Header />
                  <Switch>
+                    <Route path={routes.STARTPLATZ} component={() => <StartplaceDetail />} />
                     <Route exact path={routes.STARTPLATZ_ERFASSEN} component={() => <StartplaceFormContainer />} />
                     <Route path={routes.FLUGDATEN_DETAIL} component={() => <FlightDetail/>} />
                      <Route exact path={routes.FLUGDATEN_ERFASSEN} component={() => <FlugdatenFormContainer />} />

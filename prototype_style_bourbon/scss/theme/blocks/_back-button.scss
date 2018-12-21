@@ -1,0 +1,54 @@
+.back-button{
+    position: fixed;
+    display: flex;
+    z-index: 1000;
+    right: 4.16667%;
+    top: rem-calc(41px);
+    font-size: $font-s-button;
+    cursor: pointer;
+    @include bp(max, $ipad-ls) {
+        top: rem-calc(35px);
+    }
+    @include bp(max, $ipad-ls) {
+        top: rem-calc(39px);
+    }
+    span{
+      width: 30px;
+      height: 3px;
+      margin-bottom: 6px;
+      border-radius: 1000px;
+      background: $color-primary;
+      display: block;
+      transform: rotate(-45deg);
+      position: absolute;
+      top: 10px;
+    }
+    span:first-child{
+      transform: rotate(45deg);
+      position: absolute;
+      top: 10px;
+    }
+
+    &__icon{
+        display: block;
+        position: relative;
+        width: 30px;
+        height: 30px;
+      }
+      &__icon-text{
+        margin-right: 30px;
+        @include bp(max, $phone) {
+            display: none;
+          }
+      }
+    
+    &__backto{
+        span{
+            width: 20px;
+            top: 2px;
+        }
+        span:first-child{
+            top: 15px;
+        }
+    }
+}

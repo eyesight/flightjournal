@@ -1,0 +1,123 @@
+.svg-icon{
+  width: 25px;
+  height: 25px;
+  overflow: visible;
+  &__path{
+    fill:none;
+    stroke: $color-primary;
+    stroke-width:1.5;
+    stroke-linejoin:round;
+    stroke-miterlimit:10;
+  }
+  &__circle{
+    fill: $color-primary;
+  }
+  &__ellipse{
+    fill: $color-white;
+   }
+}
+
+button:hover .svg-icon,
+button:active .svg-icon,
+button:focus .svg-icon,
+a:hover .svg-icon,
+a:active .svg-icon,
+a:focus .svg-icon{
+  cursor: pointer;
+
+  &__circle{
+    fill: $color-black;
+  }
+
+  &__path{
+    stroke: $color-black;
+  }
+  &.svg-icon--video,
+  &.svg-icon--pin,
+  &.svg-icon--xc,
+  &.svg-icon--zoom{
+    .svg-icon__path{
+      stroke: none;
+      fill: $color-black;
+    }
+  }
+
+  &.svg-icon--plus{
+    .svg-icon__path{
+      fill: $color-white;
+      stroke: none;
+    }
+  }
+}
+
+.svg-icon--plus{
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  margin-left: -42px;
+  margin-top: -2px;
+  .svg-icon__path{
+    fill: $color-white;
+    stroke: none;
+  }
+}
+  .svg-icon--edit,
+  .svg-icon--copy{
+    margin-right: 10px;
+  }
+  .svg-icon--video,
+  .svg-icon--pin,
+  .svg-icon--xc{
+    display: block;
+    margin-right: 25px;
+    float: left;
+    .svg-icon__path,{
+      fill: $color-primary;
+      stroke: none;
+    }
+  }
+  .svg-icon--video,
+  .svg-icon--xc{
+    width: auto;
+    height: 17px;
+    margin-top: 5px;
+  }
+  .svg-icon--zoom{
+    .svg-icon__path,{
+      fill: $color-primary;
+      stroke: none;
+    }
+  }
+  .svg-icon--arrow{
+    width: 11px;
+    height: auto;
+    transform: rotate(0deg);
+    transition: transform 0.5s;
+    &:after{
+      content: none;
+    }
+    .svg-icon__path{
+      fill:none;
+      stroke: $color-black;
+      stroke-width:2;
+      stroke-linecap:square;
+      stroke-linejoin:round;
+      stroke-miterlimit:1;
+    }
+    .svg-icon__line{
+      fill:none;
+      stroke: $color-black;
+      stroke-width:2;
+      stroke-linejoin:round;
+      stroke-miterlimit:1;
+    }
+  }
+svg.svg-icon{
+  overflow: visible;
+}
+
+.arrow-up .svg-icon--arrow{
+  transform: rotate(180deg);
+  transition: transform 0.5s;
+}
+

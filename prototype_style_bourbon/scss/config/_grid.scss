@@ -4,8 +4,13 @@ $grid-24: (
 );
 
 $grid-22: (
-        columns: 23,
-        gutter: 0px,
+   columns: 23,
+   gutter: 0px,
+);
+
+$grid-12: (
+   columns: 12,
+   gutter: 0px,
 );
 
 //Variables for size in breakpoints

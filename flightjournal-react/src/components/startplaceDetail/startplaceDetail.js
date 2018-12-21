@@ -17,7 +17,7 @@ import Paragraph from '../paragraph/paragraph';
 import DetailsItem from '../detailsItem/detailsItem';
 import ImageGallerie from '../imageGallerie/imageGallerie';
 
-class FlightDetail extends Component {
+class StartplaceDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -285,4 +285,4 @@ function mapStateToProps(state, props) {
     };
 } 
 
-export default withRouter(connect(mapStateToProps, { getUser, getFlights, getStartplaces, getPilots, getParagliders, getStartareas })(FlightDetail));
+export default withRouter(connect(mapStateToProps, { getUser, getFlights, getStartplaces, getPilots, getParagliders, getStartareas })(StartplaceDetail));

@@ -12,7 +12,7 @@
     @include grid-push(1, $grid-24);
 
     @include bp(max, $phone){
-      padding-top: rem-calc(20px);
+      padding-top: rem-calc(50px);
       margin-bottom: rem-calc(60px);
     }
   }
@@ -36,15 +36,29 @@
       @include grid-column(22, $grid-24);
       @include grid-push(1, $grid-24);
     }
+
+    &--small{
+      @include grid-column(10, $grid-24);
+
+      @include bp(max, $ipad-p){
+        @include grid-column(22, $grid-24);
+        @include grid-push(1, $grid-24);
+      }
+    }
   }
   &__right{
-    @include grid-column(10, $grid-24);
+    @include grid-column(12, $grid-24);
     @include grid-push(1, $grid-24);
 
     @include bp(max, $ipad-p){
       @include grid-column(22, $grid-24);
       @include grid-push(1, $grid-24);
     }
+  }
+
+  &__grid12{
+    @include grid-collapse($grid-12);
+    @include grid-container;
   }
 
   &--no-images{

@@ -122,8 +122,8 @@ class FlightDetail extends Component {
     //TODO: Linklist as Components? Component for DetailsItem is made with a Link-Variable -> evt. to use with this or to update this component
     render() {
         let textParagraph = `${this.state.date}, ${this.state.pilotFirstname} ${this.state.pilotLastname}`;
-        let textTitelReg = this.state.xcdistance ? `${utils.timeToHourMinString(this.state.flighttime)}, ${this.state.xcdistance} km` : `${utils.timeToHourMinString(this.state.flighttime)}`;
-        let textTitelBold = `${this.state.startplatz} – ${this.state.startplatzArea}, ${this.state.startplatzAltitude} m`;
+        let textTitelReg = this.state.xcdistance ? `${utils.timeToHourMinString(this.state.flighttime)}, ${this.state.xcdistance}\u00a0km` : `${utils.timeToHourMinString(this.state.flighttime)}`;
+        let textTitelBold = `${this.state.startplatz} – ${this.state.startplatzArea}, ${this.state.startplatzAltitude}\u00a0m`;
         let startingTimeHour = Math.floor(Number(this.state.startingtime)/60);
         startingTimeHour = (startingTimeHour<10) ? '0'+ startingTimeHour : startingTimeHour;
         let startingTimeMinute = Number(this.state.startingtime)%60;
@@ -179,7 +179,7 @@ class FlightDetail extends Component {
                                 classNameDetailsTitel= 'details__titel'
                                 classNameDetailsTxt='details__txt'
                                 title='XC-Distanz'
-                                txt={`${this.state.xcdistance} km`}
+                                txt={`${this.state.xcdistance}\u00a0km`}
                             />): null}
                             {this.state.landeplatz ? (
                                 <DetailsItem 
@@ -195,7 +195,7 @@ class FlightDetail extends Component {
                                     classNameDetailsTitel= 'details__titel'
                                     classNameDetailsTxt='details__txt'
                                     title='Maximale Flughöhe'
-                                    txt={this.state.maxaltitude + ' m'}
+                                    txt={this.state.maxaltitude + '\u00a0m'}
                                 />): null}
                                 {this.state.heightgain ? (
                                 <DetailsItem 
@@ -203,7 +203,7 @@ class FlightDetail extends Component {
                                     classNameDetailsTitel= 'details__titel'
                                     classNameDetailsTxt='details__txt'
                                     title='Maximaler Höhengewinn'
-                                    txt={this.state.heightgain + ' m'}
+                                    txt={this.state.heightgain + '\u00a0m'}
                                 />): null}
                                 {this.state.maxclimb ? (
                                 <DetailsItem 
@@ -211,7 +211,7 @@ class FlightDetail extends Component {
                                     classNameDetailsTitel= 'details__titel'
                                     classNameDetailsTxt='details__txt'
                                     title='Maximales Steigen'
-                                    txt={this.state.maxclimb + ' m/s'}
+                                    txt={this.state.maxclimb + '\u00a0m/s'}
                                 />): null}
                                 {this.state.maxsink ? (
                                 <DetailsItem 
@@ -219,7 +219,7 @@ class FlightDetail extends Component {
                                     classNameDetailsTitel= 'details__titel'
                                     classNameDetailsTxt='details__txt'
                                     title='Maximales Sinken'
-                                    txt={this.state.maxsink + ' m/s'}
+                                    txt={this.state.maxsink + '\u00a0m/s'}
                                 />): null}
                                 {this.state.startingtime ? (
                                 <DetailsItem 
@@ -227,7 +227,7 @@ class FlightDetail extends Component {
                                     classNameDetailsTitel= 'details__titel'
                                     classNameDetailsTxt='details__txt'
                                     title='Startzeit'
-                                    txt={startingTimeHour + ' : ' + startingTimeMinute + ' Uhr'}
+                                    txt={startingTimeHour + ' : ' + startingTimeMinute + '\u00a0Uhr'}
                                 />): null}
                                 {this.state.distance ? (
                                 <DetailsItem 

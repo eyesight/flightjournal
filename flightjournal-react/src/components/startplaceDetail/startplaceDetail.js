@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { getUser } from '../../actions/UserActions';
-import { getFlights} from '../../actions/FlightActions';
+import { getRegions } from '../../actions/RegionsActions';
 import { getStartplaces } from '../../actions/StartplacesActions';
 import { getStartareas } from '../../actions/StartareasActions';
-import { getPilots } from '../../actions/PilotActions';
-import { getParagliders } from '../../actions/ParaglidersActions';
+import { getWinddirections } from '../../actions/WinddirectionActions';
 import BackButton from './../backButton/backButton';
 
 import { connect } from 'react-redux';
@@ -12,123 +11,148 @@ import { withRouter } from 'react-router-dom';
 import  _ from 'lodash';
 import MainTitleWrapper from '../mainTitleWrapper/mainTitleWrapper';
 import * as routes from '../../constants/routes';
-import * as utils from '../../utils/timeToHourMinString';
 import Paragraph from '../paragraph/paragraph';
-import DetailsItem from '../detailsItem/detailsItem';
 import ImageGallerie from '../imageGallerie/imageGallerie';
+import ArticleItem from '../articleItem/articleItem'
+import DetailsItem from '../detailsItem/detailsItem';
 
 class StartplaceDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            flighttime: '',
-            date: '',
-            name: '',
-            landeplatz: '',
-            startplatz: '',
-            startplatzAltitude: 0,
-            startplatzArea: '',
-            flughoehe: '',
-            xcdistance: '',
-            paraglider: '',
-            paragliderBrand: '',
-            paragliderModel: '',
-            pilotFirstname: '',
-            pilotLastname: '',
-            description: '',
-            maxaltitude: 0,
-            heightgain: 0,
-            maxclimb: 0,
-            maxsink: 0,
-            startingtime: '',
-            distance: 0,
-            syrideLink: '',
-            xcontestLink: '',
-            airtribuneLink: '',
-            weatherDescription: '',
-            imagesUrl: [],
-            imagesName: [],
+            classNameDetails: 'details__item',
+            classNameDetailsTitel: 'details__titel',
+            classNameDetailsTxt: 'anchor',
+            classNameDetailsTxt_txt: 'details__txt',
+            classNameLink: 'anchor-wrapper',
+            startplatz: 'Startplatz',
 
-            showWeather: false,
-            showFurtherDetailsLinks: false,
-            isActive: 1
+            currentArea: {},
+            allcurrentStartplaces: [],
+            allWind: [],
+            areadesc: '',
+            areatitle: '',
+            allWinddirectionsArea: [],
+            regionsname: '',
+            regionscountry: '',
+            imagesName: [],
+            imagesUrl: [],
+            arealocationpin: '',
+            funicularLink: '',
+            webcams: [],
+            haswebcams: false,
+            shvInfo: '',
+            weatherstations: [],
+            xc: ''
         };
+        this.renderArray = this.renderArray.bind(this);
+        this.getWinddirectionsnames = this.getWinddirectionsnames.bind(this);
+        this.filterimages = this.filterimages.bind(this);
     }
 
     componentWillMount() {
         window.scrollTo(0, 0);
-        this.props.getFlights();
         this.props.getUser();
         this.props.getStartplaces();
-        this.props.getPilots();
-        this.props.getParagliders();
         this.props.getStartareas();
+        this.props.getRegions();
+        this.props.getWinddirections();
         if (this.props.user.loading === false && this.props.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
           }
+    }
+
+    getWinddirectionsnames(thewinddirections, windasobj){
+        let allWinddirections = _.uniq([].concat.apply([], thewinddirections));
+        let windarray = [];
+        let windstring = '';
+            windasobj.map((ww) =>{
+            for(let index = 0; index < allWinddirections.length; index++){
+                if(ww.id === allWinddirections[index]){
+                    windarray.push(ww.name);
+                }
+            };    
+            windstring = windarray.join(', ');
+            return windstring;
+        });
+        return windarray;
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.user.loading === false && nextProps.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
           } 
-          
-        if( nextProps.flight !== undefined){
-            let currentArea = '';
-            const currentFlight = nextProps.flight;
-            const currentPilot = _.find(nextProps.pilots, {email:currentFlight.pilot});
-            const currentStartplace = _.find(nextProps.startplaces, {id:currentFlight.startplace});
-            if(currentStartplace){
-                currentArea = _.find(nextProps.startareas, {id:currentStartplace.startareasId});
-            }
-            const currentParaglider = _.find(nextProps.paragliders, {id:currentFlight.paraglider});
-            
-            if(currentPilot !== undefined && currentStartplace !== undefined && currentParaglider !== undefined && currentArea !== undefined){
-                this.setState({
-                flighttime: currentFlight.flighttime,
-                date: currentFlight.date,
-                landeplatz: currentFlight.landingplace,
-                startplatz: currentStartplace.name,
-                startplatzAltitude: currentStartplace.altitude,
-                startplatzArea: currentArea.name,
-                flughoehe: currentFlight.maxaltitude,
-                xcdistance: currentFlight.xcdistance,
-                pilotFirstname: currentPilot.firstname,
-                pilotLastname: currentPilot.lastname,
-                description: currentFlight.description,
-                maxaltitude: currentFlight.maxaltitude,
-                heightgain: currentFlight.heightgain,
-                maxclimb: currentFlight.maxclimb,
-                maxsink: currentFlight.maxsink,
-                startingtime: currentFlight.startingtime,
-                distance: currentFlight.distance,
-                syrideLink: currentFlight.syrideLink,
-                xcontestLink: currentFlight.xcontestLink,
-                airtribuneLink: currentFlight.airtribuneLink,
-                weatherDescription: currentFlight.weatherDescription,
-                imagesUrl: currentFlight.imgUrl,
-                imagesName: currentFlight.imgName,
-                paraglider: currentParaglider,
-                paragliderBrand: currentParaglider.brand,
-                paragliderModel: currentParaglider.model
-            });
-            (currentFlight.weatherDescription !== '') ? this.setState({showWeather: true}) : this.setState({showWeather: false});
-            (currentFlight.syrideLink !== '' ||
-                currentFlight.xcontestLink !== '' ||
-                currentFlight.airtribuneLink !== '') ? this.setState({showFurtherDetailsLinks: true}) : this.setState({showFurtherDetailsLinks: false});
+        if( nextProps.allstartplaces !== undefined && nextProps.startplace !== undefined && nextProps.allstartareas !== undefined && nextProps.regions){
+            let currentRegio = {}
+            let currentArea = _.find(nextProps.allstartareas, {id:nextProps.startplace.startareasId});
+            let allCurrentStartplaces = [];
+            let allWinddirections = [];
+            let allimagesUrl = [];
+            let allimagesNames = [];
+            allCurrentStartplaces.push(nextProps.startplace); //add the current startplace (the selected one) as first element in the array so it will be displayed as first one
+            const wind = Object.keys(nextProps.winddirections).map(i => nextProps.winddirections[i]);
+            if(currentArea){
+                currentRegio = _.find(nextProps.regions, {id:currentArea.regionsId});
+                //concat different values of all startplaces, which belong to the area
+                for(let i = 0; i<currentArea.startplaces.length; i++){
+                    let findstartplace = _.find(nextProps.allstartplaces, {id:currentArea.startplaces[i]});
+                    //the selected element is allready in the array; push the others in the array, don't add the selected item a second time
+                    if(currentArea.startplaces[i] !== nextProps.startplace.id){
+                        allCurrentStartplaces.push(findstartplace);
+                    };
+                    allWinddirections.push(findstartplace.winddirectionsId);
+                    //Get the URl out of the images-count-variable and the images-url. 
+                    //Loop the images count for each startplace and push url in variable
+                    for(let y = 0; y<findstartplace.imagesCount; y++){
+                        let urlstring = `${routes.STARTPLACESIMAGES}${findstartplace.imagesUrl}/${y}.jpg`;
+                        allimagesUrl.push(urlstring);
+                        allimagesNames.push(`${y}.jpg`);
+                    }
+                }
+                if(currentRegio){
+                    this.setState({
+                        areadesc: currentArea.description,
+                        arealocationpin: currentArea.locationpin,
+                        areatitle: currentArea.name,
+                        allWind: wind,
+                        allWinddirectionsArea: this.getWinddirectionsnames(allWinddirections, wind).join(', '),//to get the Winddirections as Strings, map throw all the Winddirections
+                        regionsname: currentRegio.name,
+                        regionscountry: currentRegio.country,
+                        imagesUrl: allimagesUrl,
+                        imagesName: allimagesNames,
+                        funicularLink: currentArea.funicularLink,
+                        webcams: currentArea.webcams,
+                        shvInfo: currentArea.shvInfo,
+                        weatherstations: currentArea.weatherstations,
+                        xc: currentArea.xc,
+                        allcurrentStartplaces: allCurrentStartplaces
+                    });
+                    if(currentArea.webcams && currentArea.webcams[0] !== ''){
+                        this.setState({
+                            haswebcams: true
+                        })
+                    }
+                }
             }
         }   
     }
+    renderArray(obj, text){
+        return obj.map((item, index) =>{
+            let linkName = `${text} ${index+1}`;
+            return (
+                <a key={item+index} className={this.state.classNameLink} target="_blank" href={item}><span className={this.state.classNameDetailsTxt}>{linkName}</span></a>
+            )
+        });
+    }
+
+    filterimages(e, id){
+        e.preventDefault();
+        console.log(id);
+    }
 
     render() {
-        let textParagraph = `${this.state.date}, ${this.state.pilotFirstname} ${this.state.pilotLastname}`;
-        let textTitelReg = this.state.xcdistance ? `${utils.timeToHourMinString(this.state.flighttime)}, ${this.state.xcdistance} km` : `${utils.timeToHourMinString(this.state.flighttime)}`;
-        let textTitelBold = `${this.state.startplatz} – ${this.state.startplatzArea}, ${this.state.startplatzAltitude} m`;
-        let startingTimeHour = Math.floor(Number(this.state.startingtime)/60);
-        startingTimeHour = (startingTimeHour<10) ? '0'+ startingTimeHour : startingTimeHour;
-        let startingTimeMinute = Number(this.state.startingtime)%60;
-        startingTimeMinute = (startingTimeMinute<10) ? '0'+ startingTimeMinute : startingTimeMinute;
-        let glider = `${this.state.paragliderBrand} ${this.state.paragliderModel}`;
+        let textTitelBold = `${this.state.areatitle}`;
+        let textTitelSmall = `${this.state.regionsname}, ${this.state.regionscountry}`;
         return (
             <main className="main">
                     <section className="detail-layout">
@@ -147,125 +171,116 @@ class StartplaceDetail extends Component {
                         classNameH1='main-title'
                         classNameSpan='main-title--bold'
                         textBold={textTitelBold}
-                        textReg={textTitelReg}
+                        textReg={this.state.allWinddirectionsArea}
                         withParagraph={true}
                         classNameParagraph='main-title-text'
-                        paragraphTxt={textParagraph}
+                        paragraphTxt={textTitelSmall}
                     />
-                    {this.state.imagesName[0] !== '' ? (
+                    {this.state.imagesUrl[0] !== '' ? (
                         <ImageGallerie 
                             url={this.state.imagesUrl}
                             name={this.state.imagesName}
+                            classnamesWrapper='detail-layout__left detail-layout__left--small image-galerie'
                     />) : null}
                     <div className="detail-layout__right">
-                        <Paragraph 
-                            classNameParagraph='details__txt-long'
-                            paragraphTxt={this.state.description}
-                        />
-                        <div className="details">
-                            <div className="details__columns">
-                            {this.state.flighttime ? (
+                        <div className="detail-layout__grid12">
+                            <div className="details details--1column-small">
+                            {this.state.arealocationpin ? (
                                 <DetailsItem 
-                                    classNameDetails='details__item'
-                                    classNameDetailsTitel= 'details__titel'
-                                    classNameDetailsTxt='details__txt'
-                                    title='Flugzeit'
-                                    txt={utils.timeToHourMinString(this.state.flighttime)}
+                                    classNameDetails={this.state.classNameDetails}
+                                    classNameDetailsTitel={this.state.classNameDetailsTitel}
+                                    classNameDetailsTxt={this.state.classNameDetailsTxt}
+                                    title='Anreise'
+                                    txt='Google Standort'
+                                    hasLink={true}
+                                    linkUrl={this.state.arealocationpin}
+                                    classNameLink={this.state.classNameLink}
                                 />): null}
-                            {this.state.xcdistance ? (
-                            <DetailsItem 
-                                classNameDetails='details__item'
-                                classNameDetailsTitel= 'details__titel'
-                                classNameDetailsTxt='details__txt'
-                                title='XC-Distanz'
-                                txt={`${this.state.xcdistance} km`}
-                            />): null}
-                            {this.state.landeplatz ? (
+                                {this.state.funicularLink ? (
                                 <DetailsItem 
-                                    classNameDetails='details__item'
-                                    classNameDetailsTitel= 'details__titel'
-                                    classNameDetailsTxt='details__txt'
-                                    title='Landeplatz'
-                                    txt={this.state.landeplatz}
-                                />): null}
-                                {this.state.maxaltitude ? (
+                                    classNameDetails={this.state.classNameDetails}
+                                    classNameDetailsTitel={this.state.classNameDetailsTitel}
+                                    classNameDetailsTxt={this.state.classNameDetailsTxt}
+                                    title='Seilbahn'
+                                    txt='Ja, Infos gibts hier'
+                                    hasLink={true}
+                                    linkUrl={this.state.funicularLink}
+                                    classNameLink={this.state.classNameLink}
+                                />): 
                                 <DetailsItem 
-                                    classNameDetails='details__item'
-                                    classNameDetailsTitel= 'details__titel'
-                                    classNameDetailsTxt='details__txt'
-                                    title='Maximale Flughöhe'
-                                    txt={this.state.maxaltitude + ' m'}
-                                />): null}
-                                {this.state.heightgain ? (
-                                <DetailsItem 
-                                    classNameDetails='details__item'
-                                    classNameDetailsTitel= 'details__titel'
-                                    classNameDetailsTxt='details__txt'
-                                    title='Maximaler Höhengewinn'
-                                    txt={this.state.heightgain + ' m'}
-                                />): null}
-                                {this.state.maxclimb ? (
-                                <DetailsItem 
-                                    classNameDetails='details__item'
-                                    classNameDetailsTitel= 'details__titel'
-                                    classNameDetailsTxt='details__txt'
-                                    title='Maximales Steigen'
-                                    txt={this.state.maxclimb + ' m/s'}
-                                />): null}
-                                {this.state.maxsink ? (
-                                <DetailsItem 
-                                    classNameDetails='details__item'
-                                    classNameDetailsTitel= 'details__titel'
-                                    classNameDetailsTxt='details__txt'
-                                    title='Maximales Sinken'
-                                    txt={this.state.maxsink + ' m/s'}
-                                />): null}
-                                {this.state.startingtime ? (
-                                <DetailsItem 
-                                    classNameDetails='details__item'
-                                    classNameDetailsTitel= 'details__titel'
-                                    classNameDetailsTxt='details__txt'
-                                    title='Startzeit'
-                                    txt={startingTimeHour + ' : ' + startingTimeMinute + ' Uhr'}
-                                />): null}
-                                {this.state.distance ? (
-                                <DetailsItem 
-                                    classNameDetails='details__item'
-                                    classNameDetailsTitel= 'details__titel'
-                                    classNameDetailsTxt='details__txt'
-                                    title='Geflogene Distanz'
-                                    txt={this.state.distance + ' km'}
-                                />): null}
-                                {this.state.paraglider ? (
-                                <DetailsItem 
-                                    classNameDetails='details__item'
-                                    classNameDetailsTitel= 'details__titel'
-                                    classNameDetailsTxt='details__txt'
-                                    title='Gleitschirm Modell'
-                                    txt={glider}
-                                />): null}
-                                {this.state.showFurtherDetailsLinks ? (
-                                    <div className="details__item">
-                                    <p className="details__titel-anchors">Weitere Daten</p>
-                                    <p className="details__txt-anchors">Kartenansicht und mehr.</p>
-                                    {this.state.syrideLink ? (
-                                        <a target="_blank" href={this.state.syrideLink}><span className="anchor">Syride</span></a>): null}
-                                    {this.state.xcontestLink ? (
-                                    <a target="_blank" href={this.state.xcontestLink}><span className="anchor">XContest</span></a>): null}
-                                    {this.state.airtribuneLink ? (
-                                    <a target="_blank" href={this.state.airtribuneLink}><span className="anchor">Airtribune</span></a>): null}
+                                    classNameDetails={this.state.classNameDetails}
+                                    classNameDetailsTitel={this.state.classNameDetailsTitel}
+                                    classNameDetailsTxt={this.state.classNameDetailsTxt_txt}
+                                    title='Seilbahn'
+                                    txt='Gibt es leider nicht'
+                                    hasLink={false}
+                                />}
+                                {this.state.haswebcams ? (<div className="details__item">
+                                    <p className="details__titel">Webcams</p>
+                                    {this.renderArray(this.state.webcams, 'Webcam')}
+                                </div>) : null}
+                                {this.state.shvInfo ? (<DetailsItem 
+                                    classNameDetails={this.state.classNameDetails}
+                                    classNameDetailsTitel={this.state.classNameDetailsTitel}
+                                    classNameDetailsTxt={this.state.classNameDetailsTxt}
+                                    title='SHV-Infotafel'
+                                    txt='Hier ansehen'
+                                    hasLink={true}
+                                    linkUrl={this.state.shvInfo}
+                                    classNameLink={this.state.classNameLink}
+                                />) : null}
+                                {this.state.weatherstations ? (<div className="details__item">
+                                    <p className="details__titel">Wind</p>
+                                    <a className={this.state.classNameLink} rel="noopener noreferrer" target="_blank" href='https://www.burnair.ch/windmap/'><span className={this.state.classNameDetailsTxt}>Live-Wind-Karte</span></a>
+                                    {this.renderArray(this.state.weatherstations, 'Windstation')}
+                                </div>) : 
+                                <div className="details__item">
+                                    <p className="details__titel">Wind</p>
+                                    <a className={this.state.classNameLink} rel="noopener noreferrer" target="_blank" href='https://www.burnair.ch/windmap/'><span className={this.state.classNameDetailsTxt}>Live-Wind-Karte</span></a>
+                                </div>}
+                                <div className="details__item">
+                                    <p className="details__titel">Thermik</p>
+                                    <a className={this.state.classNameLink} rel="noopener noreferrer" target="_blank" href='https://wetter.kk7.ch/#regtherm'><span className={this.state.classNameDetailsTxt}>KK7</span></a>
+                                    <a className={this.state.classNameLink} rel="noopener noreferrer" target="_blank" href='https://thermal.kk7.ch'><span className={this.state.classNameDetailsTxt}>Hotspots</span></a>
                                 </div>
-                                ) : null} 
+                                <DetailsItem 
+                                    classNameDetails={this.state.classNameDetails}
+                                    classNameDetailsTitel={this.state.classNameDetailsTitel}
+                                    classNameDetailsTxt={this.state.classNameDetailsTxt}
+                                    title='Wetterprognose'
+                                    txt='Meteoswiss'
+                                    hasLink={true}
+                                    linkUrl='https://www.meteoschweiz.admin.ch/home.html?tab=report'
+                                    classNameLink={this.state.classNameLink}
+                                />
+                                {this.state.xc ? (<DetailsItem 
+                                    classNameDetails={this.state.classNameDetails}
+                                    classNameDetailsTitel={this.state.classNameDetailsTitel}
+                                    classNameDetailsTxt={this.state.classNameDetailsTxt}
+                                    title='Streckenflug'
+                                    txt='XC-Einträge'
+                                    hasLink={true}
+                                    linkUrl={this.state.xc}
+                                    classNameLink={this.state.classNameLink}
+                                />) : null}
+                            </div>
+                            <div className="details details--1column-large">
+                            <Paragraph 
+                                    classNameParagraph='text'
+                                    paragraphTxt={this.state.areadesc}
+                                />
+                            {this.state.allcurrentStartplaces.map((spitem)=>{
+                                return (<ArticleItem key={spitem.id}
+                                    themeTitle={this.state.startplatz}
+                                    titleBold={`${spitem.name}, ${spitem.altitude}\u00a0m`}
+                                    titleReg={this.getWinddirectionsnames(spitem.winddirectionsId, this.state.allWind).join(', ')}
+                                    txt={spitem.description}
+                                    onclickfunction={(event)=>{this.filterimages(event, spitem.id)}}
+                                    link='Startplatz ansehen'
+                                />)
+                            })}
                             </div>
                         </div>
-                        {this.state.showWeather ? (
-                            <DetailsItem 
-                                    classNameDetails='details details--margin-top'
-                                    classNameDetailsTitel= 'details__titel'
-                                    classNameDetailsTxt='details__txt-long'
-                                    title='Wetter'
-                                    txt={this.state.weatherDescription}
-                                />) : null}
                     </div>
                 </section>
             </main>
@@ -277,12 +292,12 @@ function mapStateToProps(state, props) {
     const key = props.match.params.id;
     return { 
         user: state.user,
-        flight: _.find(state.flights, {id:key}),
-        startplaces: state.startplaces,
-        startareas: state.startareas,
-        pilots: state.pilots,
-        paragliders: state.paragliders
+        startplace: _.find(state.startplaces, {id:key}),
+        regions: state.regions,
+        allstartplaces: state.startplaces,
+        allstartareas: state.startareas,
+        winddirections: state.winddirections
     };
 } 
 
-export default withRouter(connect(mapStateToProps, { getUser, getFlights, getStartplaces, getPilots, getParagliders, getStartareas })(StartplaceDetail));
+export default withRouter(connect(mapStateToProps, { getUser, getStartplaces, getStartareas, getRegions, getWinddirections })(StartplaceDetail));

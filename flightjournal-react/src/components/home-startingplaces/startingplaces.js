@@ -5,14 +5,15 @@ import { getStartareas } from '../../actions/StartareasActions';
 import { getWinddirections } from '../../actions/WinddirectionActions';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import * as routes from '../../constants/routes';
 
 class StartingPlaces extends Component {
     constructor(props) {
         super(props);
         this.state = {
             renderlocationpin: false,
-            urlImage: './assets/img/startplaetze/',
-            urlImageDefault: './assets/img/startplaetze/default.jpg'
+            urlImage: routes.LANDINGPAGESTARTPLACESIMAGES,
+            urlImageDefault: routes.LANDINGPAGESTARTPLACESIMAGES + 'default.jpg'
         }
         this.lazyloading = this.lazyloading.bind(this);
         this.renderStartplaces = this.renderStartplaces.bind(this);
@@ -59,7 +60,6 @@ class StartingPlaces extends Component {
     renderStartplaces(startplaces, startareas, startregions, winddirection) {
         const places = Object.keys(startplaces).map(i => startplaces[i]);
         const areas = Object.keys(startareas).map(i => startareas[i]);
-        const regions = Object.keys(startregions).map(i => startregions[i]);
         const wind = Object.keys(winddirection).map(i => winddirection[i]);
         return places.map((z, id)=>{
             let windstring = '';
@@ -92,13 +92,13 @@ class StartingPlaces extends Component {
             return (
                 <div key={id} className="image-box__item">
                     <div className="image-box__text">
-                        <a href="index.html" className="image-box__link anchor">
+                        <a href={`${routes.STARTPLATZOHNEID}${z.id}`} className="image-box__link anchor">
                         {placesname}, {z.name}, {z.altitude}&nbsp;m
                         </a>
                         <p className="image-box__txt">{windstring}</p>
 
                     </div>
-                    <a href="index.html">
+                    <a href={`${routes.STARTPLATZOHNEID}${z.id}`}>
                         <div className="image-box__image-wrapper">
                             <img className="image-box__image" src={this.state.urlImageDefault}
                                     data-src={url} alt="Startplatz Uetliberg" />

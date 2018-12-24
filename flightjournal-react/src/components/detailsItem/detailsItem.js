@@ -4,7 +4,10 @@ const DetailsItem = (props) => {
     return (
         <div className={props.classNameDetails}>
             <p className={props.classNameDetailsTitel}>{props.title}</p>
-            <p className={props.classNameDetailsTxt}>{props.txt}</p>
+            {props.hasLink ? 
+                <a className={props.classNameLink} target="_blank" href={props.linkUrl}><span className={props.classNameDetailsTxt}>{props.txt}</span></a>:
+                <p className={props.classNameDetailsTxt}>{props.txt}</p>
+            }
         </div>
     );
 }; 

@@ -55,7 +55,7 @@ class ImageGallerie extends Component {
     }
     render() {
     return (
-        <div className="detail-layout__left image-galerie">
+        <div className={this.props.classnamesWrapper}>
             <div className="image-galerie__wrapper">
                 {this.renderImages(this.props.url, this.props.name)}
             </div>

@@ -84,6 +84,12 @@ img[data-src] {
 opacity: 0;
 }
 
+button, html input[type="button"], input[type="reset"], input[type="submit"]{
+  -webkit-appearance: none;
+  border: none;
+  padding: 0;
+}
+
 .only-show-on-mobile{
 display:none;
 

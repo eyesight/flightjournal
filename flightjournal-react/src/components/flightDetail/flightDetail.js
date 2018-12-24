@@ -119,7 +119,7 @@ class FlightDetail extends Component {
             }
         }   
     }
-
+    //TODO: Linklist as Components? Component for DetailsItem is made with a Link-Variable -> evt. to use with this or to update this component
     render() {
         let textParagraph = `${this.state.date}, ${this.state.pilotFirstname} ${this.state.pilotLastname}`;
         let textTitelReg = this.state.xcdistance ? `${utils.timeToHourMinString(this.state.flighttime)}, ${this.state.xcdistance} km` : `${utils.timeToHourMinString(this.state.flighttime)}`;
@@ -156,6 +156,7 @@ class FlightDetail extends Component {
                         <ImageGallerie 
                             url={this.state.imagesUrl}
                             name={this.state.imagesName}
+                            classnamesWrapper='detail-layout__left image-galerie'
                     />) : null}
                     <div className="detail-layout__right">
                         <Paragraph 

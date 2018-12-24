@@ -29,8 +29,8 @@ class StartplacesForm extends Component {
       }
     
     render() {
-        const { onChange, onSubmitArea, classNameRegio, regioLabel, nameRegio, valueRegio, getOptionsRegio, errorMessageRegio, valueDescription,
-            errorMessageAreaName, errorMessageFunicularLink, errorMessageSandortpin, errorMessageWebcams1, errorMessageWebcams2, errorMessageWebcams3, errorMessageShvInfo, errorMessageWindMeteocentrale, errorMessageLiveWindmap, errorMessageThermikhotspots, errorMessageMeteoswiss, errorMessageThermikforecast, errorMessageXc, errorMessageAreaDescription } = this.props;
+        const { onChange, onSubmitArea, classNameRegio, regioLabel, nameRegio, valueRegio, getOptionsRegio, errorMessageRegio, valueDescription, errorMessageWindstation1, errorMessageWindstation2, errorMessageWindstation3,
+            errorMessageAreaName, errorMessageFunicularLink, errorMessageSandortpin, errorMessageWebcams1, errorMessageWebcams2, errorMessageWebcams3, errorMessageShvInfo, errorMessageXc, errorMessageAreaDescription } = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={onSubmitArea}>
                 <div className={classNameRegio}>
@@ -108,48 +108,30 @@ class StartplacesForm extends Component {
                 />
                 <InputField 
                     classes='formular__input-wrapper'
-                    label='Wind-Meteocentrale'
+                    label='Windstation #1'
                     inputAction={onChange}
                     type='text'
-                    name='windMeteocentrale'
+                    name='windstation1'
                     autocomp=''
-                    classNamesError={errorMessageWindMeteocentrale}
-                />
-                 <InputField 
-                    classes='formular__input-wrapper'
-                    label='Live-Wind-Map'
-                    inputAction={onChange}
-                    type='text'
-                    name='liveWindmap'
-                    autocomp=''
-                    classNamesError={errorMessageLiveWindmap}
+                    classNamesError={errorMessageWindstation1}
                 />
                 <InputField 
                     classes='formular__input-wrapper'
-                    label='Thermik-Hotspots'
+                    label='Windstation #2'
                     inputAction={onChange}
                     type='text'
-                    name='thermikHotspots'
+                    name='windstation2'
                     autocomp=''
-                    classNamesError={errorMessageThermikhotspots}
+                    classNamesError={errorMessageWindstation2}
                 />
                 <InputField 
                     classes='formular__input-wrapper'
-                    label='Wetterprognose Meteoswiss'
+                    label='Windstation #3'
                     inputAction={onChange}
                     type='text'
-                    name='meteoswiss'
+                    name='windstation3'
                     autocomp=''
-                    classNamesError={errorMessageMeteoswiss}
-                />
-                <InputField 
-                    classes='formular__input-wrapper'
-                    label='Thermikprognose'
-                    inputAction={onChange}
-                    type='text'
-                    name='therikForecast'
-                    autocomp=''
-                    classNamesError={errorMessageThermikforecast}
+                    classNamesError={errorMessageWindstation3}
                 />
                 <InputField 
                     classes='formular__input-wrapper'

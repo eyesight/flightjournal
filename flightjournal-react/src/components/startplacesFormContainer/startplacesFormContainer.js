@@ -50,11 +50,10 @@ class StartplaceFormContainer extends Component {
             errorMessageWebcams1: '', 
             errorMessageWebcams2: '', 
             errorMessageWebcams3: '', 
+            errorMessageWindstation1: '',
+            errorMessageWindstation2: '',
+            errorMessageWindstation3: '',
             errorMessageShvInfo: '', 
-            errorMessageWindMeteocentrale: '', 
-            errorMessageLiveWindmap: '', 
-            errorMessageThermikhotspots: '', 
-            errorMessageMeteoswiss: '', 
             errorMessageThermikforecast: '', 
             errorMessageXc: '', 
             errorMessageAreaDescription: '',
@@ -69,7 +68,6 @@ class StartplaceFormContainer extends Component {
             startareasId: '',
             description : '',
             locationpin: '',
-            danger: '',
             winddirection: [],
             lastUpdateSP: '',
             //Values of Form Startingareas
@@ -79,17 +77,14 @@ class StartplaceFormContainer extends Component {
             arealocationpin: '',
             webcams: [],
             shvInfo: '',
-            windMeteocentrale: '',
-            liveWindmap: '',
-            thermikHotspots: '',
-            meteoswiss: '',
-            therikForecast: '',
+            weatherstations: [],
             xc: '',
             areaDescription: '',
             startplaces: [],
             imagesUrl: '',
             imagesCount: 0,
-            lastUpdateSA: ''
+            lastUpdateSA: '',
+            landingplaces: []
         };
         this.onChange = this.onChange.bind(this);  
         this.onSubmit = this.onSubmit.bind(this);
@@ -267,7 +262,6 @@ class StartplaceFormContainer extends Component {
             locationpin: this.state.locationpin,
             description : this.state.description,
             startareasId: this.state.startareasId,
-            danger: this.state.danger,
             winddirectionsId: this.state.winddirection,
             rating: '',
             imagesUrl: this.state.imagesUrl,
@@ -290,34 +284,42 @@ class StartplaceFormContainer extends Component {
         e.preventDefault();
         let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");
         let webcamarr = [];
+        let windstationarr = [];
         if(this.state.webcam){webcamarr.push(this.state.webcam)};
         if(this.state.webcam2){webcamarr.push(this.state.webcam2)};
         if(this.state.webcam3){webcamarr.push(this.state.webcam3)};
+        if(this.state.windstation1){windstationarr.push(this.state.windstation1)};
+        if(this.state.windstation2){windstationarr.push(this.state.windstation2)};
+        if(this.state.windstation3){windstationarr.push(this.state.windstation3)};
+
         this.setState({
             webcams: webcamarr,
             webcam: '',
             webcam2: '',
-            webcam3: ''
+            webcam3: '',
+            weatherstations: windstationarr,
+            windstation1: '',
+            windstation2: '',
+            windstation3: ''
         })
 
         obj = {
-            writeDate: actualTimestamp,
-            lastUpdate: updateLastUpdateArray(this.state.lastUpdateSA, actualTimestamp),
-            name: this.state.startareaname,
-            regionsId: this.state.region,
-            funicularLink: this.state.funicularLink,
-            locationpin: this.state.arealocationpin,
-            webcams: webcamarr,
-            shvInfo: this.state.shvInfo,
-            windMeteocentrale: this.state.windMeteocentrale,
-            liveWindmap: this.state.liveWindmap,
-            thermikHotspots: this.state.thermikHotspots,
-            meteoswiss: this.state.meteoswiss,
-            therikForecast: this.state.therikForecast,
-            xc: this.state.xc,
             description: this.state.areaDescription,
+            funicularLink: this.state.funicularLink,
+            imagesUrl: this.state.imagesUrl,
+            landingplaces: this.state.landingplaces,
+            lastUpdate: updateLastUpdateArray(this.state.lastUpdateSA, actualTimestamp),
+            locationpin: this.state.arealocationpin,
+            name: this.state.startareaname,
             rating: '',
-            imagesUrl: this.state.imagesUrl
+            regionsId: this.state.region,
+            shvInfo: this.state.shvInfo,
+            
+            weatherstations: this.state.weatherstations,
+            webcams: webcamarr,
+            weatherstations: windstationarr,
+            writeDate: actualTimestamp,
+            xc: this.state.xc
         }
         //when new Object is added, state saveRegionIds will set to true, so function in componentDidUpdate will be continued
         this.props.saveStartareas(obj).then(
@@ -439,11 +441,10 @@ class StartplaceFormContainer extends Component {
                     errorMessageWebcams1={this.state.errorMessageWebcams1}
                     errorMessageWebcams2={this.state.errorMessageWebcams2}
                     errorMessageWebcams3={this.state.errorMessageWebcams3}
+                    errorMessageWindstation1={this.state.errorMessageWindstation1}
+                    errorMessageWindstation2={this.state.errorMessageWindstation2}
+                    errorMessageWindstation3={this.state.errorMessageWindstation3}
                     errorMessageShvInfo={this.state.errorMessageShvInfo}
-                    errorMessageWindMeteocentrale={this.state.errorMessageWindMeteocentrale}
-                    errorMessageLiveWindmap={this.state.errorMessageLiveWindmap}
-                    errorMessageThermikhotspots={this.state.errorMessageThermikhotspots}
-                    errorMessageMeteoswiss={this.state.errorMessageMeteoswiss}
                     errorMessageThermikforecast={this.state.errorMessageThermikforecast}
                     errorMessageXc={this.state.errorMessageXc}
                     errorMessageAreaDescription={this.state.errorMessageAreaDescription}

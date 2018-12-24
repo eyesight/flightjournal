@@ -147,7 +147,6 @@ class StartplaceDetail extends Component {
 
     filterimages(e, id){
         e.preventDefault();
-        console.log(id);
     }
 
     render() {

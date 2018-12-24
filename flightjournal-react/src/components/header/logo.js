@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {TimelineLite} from 'gsap';
+import CSSPlugin from 'gsap/CSSPlugin';
 import {weather} from '../../utils/_weatherData';
 import {Link} from 'react-router-dom';
 import * as routes from '../../constants/routes';
+const C = CSSPlugin; 
 
 class Logo extends Component {
     constructor(props) {

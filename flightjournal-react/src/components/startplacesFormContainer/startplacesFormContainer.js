@@ -57,6 +57,8 @@ class StartplaceFormContainer extends Component {
             errorMessageThermikforecast: '', 
             errorMessageXc: '', 
             errorMessageAreaDescription: '',
+            errorMessageImagesUrl: '',
+            errorMessageimagesCount: '',
 
             startplaceClassName: 'formular__input-wrapper',
             classNameAltitude: 'formular__input-wrapper formular__input-wrapper--margin-left',
@@ -70,6 +72,8 @@ class StartplaceFormContainer extends Component {
             locationpin: '',
             winddirection: [],
             lastUpdateSP: '',
+            imagesUrl: '',
+            imagesCount: 0,
             //Values of Form Startingareas
             region: '',
             startareaname: '',
@@ -81,8 +85,6 @@ class StartplaceFormContainer extends Component {
             xc: '',
             areaDescription: '',
             startplaces: [],
-            imagesUrl: '',
-            imagesCount: 0,
             lastUpdateSA: '',
             landingplaces: []
         };
@@ -341,7 +343,7 @@ class StartplaceFormContainer extends Component {
             this.setState({
                 formstartareaisvisible: false,
                 formisvisible: true,
-                titleForm: 'neuen Startplatz erfassen.',
+                titleForm: 'Neuen Startplatz erfassen.',
             });
         }else{
             this.props.dispatch(reset('NewPost'));
@@ -397,6 +399,8 @@ class StartplaceFormContainer extends Component {
                     namePlace='locationpin'
                     nameDescription='description'
                     nameAreas='startareasId'
+                    nameImages='imagesUrl'
+                    nameImagesCount='imagesCount'
                     valueDescription={this.state.startplacesDescription}
                     typeName='text'
                     typeAltitude='text'
@@ -407,7 +411,11 @@ class StartplaceFormContainer extends Component {
                     labelPlace='Standortpin'
                     labelDescription='Beschrieb'
                     areasLabel='Fluggebiet wählen'
+                    labelImages='Bildordner'
+                    labelImagesCount='Anzahl Bilder'
                     errorMessageDesc={this.state.errorMessageDesc}
+                    errorMessageImagesUrl={this.state.errorMessageImagesUrl}
+                    errorMessageimagesCount={this.state.errorMessageimagesCount}
 
                     cbClassNameWrapper='formular__input-wrapper formular__input-wrapper--checkboxes'
                     cbClassNameLabel='formular__part-title'

@@ -98,6 +98,9 @@
     &--with-icon{
       padding-left: 32px;
     }
+    .formular__input-wrapper + & {
+      margin-top: rem-calc(20px);
+    }
   }
 
   &:hover,

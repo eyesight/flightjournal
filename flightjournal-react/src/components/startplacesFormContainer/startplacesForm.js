@@ -27,8 +27,8 @@ class StartplacesForm extends Component {
       }
     
     render() {
-        const { onChange, onSubmit, goToPage, classNameAreas, areasLabel, nameAreas, valueAreas, getOptionsAreas, errorMessageAreas, valueDescription, errorMessageDesc, classNameName, labelName, typeName, nameStartplaceName, classNameAltitude, labelAltitude, typeAltitude, nameAltitude, classNamePlace, labelPlace, typePlace, namePlace, labelDescription, typeDescription, nameDescription,
-                cbClassNameWrapper, cbClassNameLabel, cbLabel, classNameCheckboxWrapper, cbOptions, cbClassNameLabelItem, cbName, cbSelectedOptions, classNameCheckbox, classNameCheckboxTxt} = this.props;
+        const { onChange, onSubmit, goToPage, classNameAreas, areasLabel, nameAreas, valueAreas, getOptionsAreas, errorMessageAreas, valueDescription, errorMessageDesc, classNameName, labelName, typeName, nameStartplaceName, classNameAltitude, labelAltitude, typeAltitude, nameAltitude, classNamePlace, labelPlace, typePlace, namePlace, labelDescription, typeDescription, nameDescription, 
+                errorMessageImagesUrl, errorMessageimagesCount, cbClassNameWrapper, cbClassNameLabel, cbLabel, classNameCheckboxWrapper, cbOptions, cbClassNameLabelItem, cbName, cbSelectedOptions, classNameCheckbox, classNameCheckboxTxt, labelImages, labelImagesCount, nameImages, nameImagesCount} = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
                 <div className={classNameAreas}>
@@ -71,6 +71,12 @@ class StartplacesForm extends Component {
                     cbSelectedOptions={cbSelectedOptions}
                     classNameCheckbox={classNameCheckbox}
                     classNameCheckboxTxt={classNameCheckboxTxt}
+                    errorMessageImagesUrl={errorMessageImagesUrl} 
+                    errorMessageimagesCount={errorMessageimagesCount}
+                    labelImages={labelImages}
+                    labelImagesCount={labelImagesCount}
+                    nameImages={nameImages}
+                    nameImagesCount={nameImagesCount}
                 />
                 <div className="button-group">
                     <div className="button-wrapper">

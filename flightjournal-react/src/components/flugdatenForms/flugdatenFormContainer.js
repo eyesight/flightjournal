@@ -719,7 +719,8 @@ class FlugdatenFormContainer extends Component {
         });
     } 
 
-    onSubmit(){
+    onSubmit(e){
+        e.preventDefault();
         let ftime = 0;
         let ftimestart = 0;
         let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");

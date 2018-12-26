@@ -22,6 +22,7 @@ const Checkbox = (props) => {
                     );
                 })}
             </div>
+            <span className={props.classNamesError}>{props.errorMessage}</span>
         </div>
     )
 };

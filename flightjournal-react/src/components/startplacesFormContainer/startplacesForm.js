@@ -28,7 +28,8 @@ class StartplacesForm extends Component {
     
     render() {
         const { onChange, onSubmit, goToPage, classNameAreas, areasLabel, nameAreas, valueAreas, getOptionsAreas, errorMessageAreas, valueDescription, errorMessageDesc, classNameName, labelName, typeName, nameStartplaceName, classNameAltitude, labelAltitude, typeAltitude, nameAltitude, classNamePlace, labelPlace, typePlace, namePlace, labelDescription, typeDescription, nameDescription, 
-                errorMessageImagesUrl, errorMessageimagesCount, cbClassNameWrapper, cbClassNameLabel, cbLabel, classNameCheckboxWrapper, cbOptions, cbClassNameLabelItem, cbName, cbSelectedOptions, classNameCheckbox, classNameCheckboxTxt, labelImages, labelImagesCount, nameImages, nameImagesCount} = this.props;
+                errorMessageImagesUrl, errorMessageimagesCount, cbClassNameWrapper, cbClassNameLabel, cbLabel, classNameCheckboxWrapper, cbOptions, cbClassNameLabelItem, cbName, cbSelectedOptions, classNameCheckbox, classNameCheckboxTxt, classNameDesc, labelImages, labelImagesCount, nameImages, nameImagesCount,
+                errorMessageName, errorMessageAltitude, errorMessagePlace, errorMessagecb, classNameImageUrl, classNameImageNumber} = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
                 <div className={classNameAreas}>
@@ -71,12 +72,19 @@ class StartplacesForm extends Component {
                     cbSelectedOptions={cbSelectedOptions}
                     classNameCheckbox={classNameCheckbox}
                     classNameCheckboxTxt={classNameCheckboxTxt}
+                    classNameDesc={classNameDesc}
                     errorMessageImagesUrl={errorMessageImagesUrl} 
                     errorMessageimagesCount={errorMessageimagesCount}
                     labelImages={labelImages}
                     labelImagesCount={labelImagesCount}
                     nameImages={nameImages}
                     nameImagesCount={nameImagesCount}
+                    errorMessageName={errorMessageName}
+                    errorMessageAltitude={errorMessageAltitude}
+                    errorMessagePlace={errorMessagePlace}
+                    errorMessagecb={errorMessagecb}
+                    classNameImageUrl={classNameImageUrl}
+                    classNameImageNumber={classNameImageNumber}
                 />
                 <div className="button-group">
                     <div className="button-wrapper">

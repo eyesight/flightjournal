@@ -417,7 +417,12 @@
       margin-top: 17px;
     }
   }
+  &__input-wrapper--checkboxes.formular--error{
+    border: none;
+  }
 }
+
+
 
 textarea:focus, input:focus{
   outline: none;

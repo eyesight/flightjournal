@@ -15,8 +15,10 @@ import StartareasForm from './startareasForm';
 import FormAnimation from '../formAnimation/formAnimation';
 import FormTitle from '../formTitle/formTitle'; 
 import { updateLastUpdateArray } from '../../utils/updateLastUpdateArray';
+import * as validation from '../../utils/validationText';
 import  _ from 'lodash';
 import moment from 'moment';
+import FormErrorAlert from '../formErrorAlert/formErrorAlert';
 
 let obj = {};
 
@@ -41,8 +43,6 @@ class StartplaceFormContainer extends Component {
             areasLabel: '',
             nameAreas: '',
             getOptionsAreas: '',
-            errorMessageAreas: '',
-            errorMessageDesc: '',
             errorMessageRegion: '',
             errorMessageAreaName: '',
             errorMessageFunicularLink: '',
@@ -57,13 +57,27 @@ class StartplaceFormContainer extends Component {
             errorMessageThermikforecast: '', 
             errorMessageXc: '', 
             errorMessageAreaDescription: '',
-            errorMessageImagesUrl: '',
-            errorMessageimagesCount: '',
 
-            startplaceClassName: 'formular__input-wrapper',
-            classNameAltitude: 'formular__input-wrapper formular__input-wrapper--margin-left',
-            classNamePlace: 'formular__input-wrapper formular__input-wrapper--fullwith',
             classNameAreas: `formular__input-wrapper formular__input-wrapper--fullwith`,
+
+            //validation-states
+            validationTxt: '',
+            errorAlert: false,
+            formValid: false, 
+
+            formErrors: {startareasId: '', name: '', altitude: '', locationpin: '', winddirection: '', description: '', imagesUrl: '', imagesCount:''},
+            formErrorsValid: {startareasId: false, name: false, altitude: false, locationpin:true, winddirection: false, description: true, imagesUrl: true, imagesCount: true},
+
+            //startplaces-form
+            startareasIdValid: false,
+            nameValid: false,
+            altitudeValid: false,
+            locationpinValid: true,
+            winddirectionValid: false,
+            descriptionValid: true,
+            imagesUrlValid: true,
+            imagesCountValid: true,
+          
             //Values of Form Startingplaces
             name : '',
             altitude : '',
@@ -95,6 +109,9 @@ class StartplaceFormContainer extends Component {
         this.getOptions = this.getOptions.bind(this);
         this.getOptionsCheckbox = this.getOptionsCheckbox.bind(this);
         this.goBack = this.goBack.bind(this);
+        this.validateField = this.validateField.bind(this);
+        this.validateForm = this.validateForm.bind(this);
+        this.errorClass = this.errorClass.bind(this);
     }
     
     componentWillMount() {
@@ -218,18 +235,108 @@ class StartplaceFormContainer extends Component {
         }
     }
 
-    onChange(theEvent){
-        if(theEvent.target.name === 'winddirection'){
-            let indexOfItem = this.state.winddirection.indexOf(theEvent.target.value);
-            indexOfItem === -1 ? this.state.winddirection.push(theEvent.target.value) : this.state.winddirection.splice(indexOfItem, 1);
-            this.setState({
-                [theEvent.target.name]: this.state.winddirection
-            });
-        }else{
-            this.setState({
-                [theEvent.target.name]: theEvent.target.value,
-            });
+    validateField(fieldName, value) {
+        let fieldValidationErrors = this.state.formErrors;
+        //Startplaces-Form
+        let startareasIdValid = this.state.startareasIdValid;
+        let nameValid = this.state.nameValid;
+        let altitudeValid = this.state.altitudeValid;
+        let locationpinValid = this.state.locationpinValid;
+        let winddirectionValid = this.state.winddirectionValid;
+        let descriptionValid = this.state.descriptionValid;
+        let imagesUrlValid = this.state.imagesUrlValid;
+        let imagesValid = false;
+        let imagesCountValid = this.state.imagesCountValid;
+        switch(fieldName) {
+        //Startplaces
+        case 'startareasId': 
+            startareasIdValid = value.length > 0 && value.length <= 150 && (typeof value === 'string') && value !== '0';
+            fieldValidationErrors.startareasId = startareasIdValid ? '' : `${validation.valField} ${validation.valEmpty}.`;
+            break;
+        case 'name': 
+            nameValid = value.length > 0 && value.length <= 150 && (typeof value === 'string') && value !== '0';
+            fieldValidationErrors.name = nameValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess150}.`;
+            break;
+        case 'altitude':
+            altitudeValid = value.length > 0 && (!isNaN(value) && value.length <= 5);
+            fieldValidationErrors.altitude = altitudeValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
+            break;
+        case 'locationpin': 
+            locationpinValid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.locationpin = locationpinValid ? '' : `${validation.valField} ${validation.valLess200}.`;
+            break;
+        case 'winddirection': 
+            winddirectionValid = value.length > 0 && value.length <= 8 && (typeof value[0] === 'string') && value !== '0';
+            fieldValidationErrors.winddirection = winddirectionValid ? '' : `${validation.valField} ${validation.valEmpty}.`;
+            break;
+        case 'description':
+            descriptionValid = value.length === 0 || value.length <= 5000 && (typeof value === 'string');
+            fieldValidationErrors.description = descriptionValid ? '' : `${validation.valField} ${validation.valLess5000}.`;
+            break;
+        case 'imagesUrl':
+            imagesValid = (/^[a-zA-Z0-9\_]*$/gi).test(this.state.imagesUrl);
+            imagesUrlValid = value.length === 0 || imagesValid === true && value.length <= 50 && value !== '' && (typeof value === 'string');
+            fieldValidationErrors.imagesUrl = imagesUrlValid ? '' : `${validation.valField} ${validation.specialChars} und ${validation.valLess50}.`;
+            break;
+        case 'imagesCount':
+            imagesCountValid = value === 0 || value.length < 2 && !isNaN(value);
+            fieldValidationErrors.imagesCount = imagesCountValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess1}.`;
+            break;
+          default:
+            break;
         }
+        this.setState({formErrorsValid: {
+            startareasId: startareasIdValid,
+            name: nameValid,
+            altitude: altitudeValid,
+            locationpin: locationpinValid,
+            winddirection: winddirectionValid,
+            description: descriptionValid,
+            imagesUrl: imagesUrlValid,
+            imagesCount: imagesCountValid
+        },
+        startareasIdValid: startareasIdValid,
+        nameValid: nameValid,
+        altitudeValid: altitudeValid,
+        locationpinValid: locationpinValid,
+        winddirectionValid: winddirectionValid,
+        descriptionValid: descriptionValid,
+        imagesUrlValid: imagesUrlValid,
+        imagesCountValid: imagesCountValid
+        }, this.validateForm);
+      } 
+
+      validateForm() {
+        this.setState({formValid: 
+            this.state.startareasIdValid &&
+            this.state.nameValid &&
+            this.state.altitudeValid &&
+            this.state.locationpinValid &&
+            this.state.winddirectionValid &&
+            this.state.descriptionValid &&
+            this.state.imagesUrlValid &&
+            this.state.imagesCountValid
+        });
+      }
+
+      errorClass(error) {
+        return(error.length === 0 ? '' : 'formular--error');
+      }
+
+    onChange(e){
+        const name = e.target.name;
+        const value = e.target.value;
+        if(name === 'winddirection'){
+            let indexOfItem = this.state.winddirection.indexOf(value);
+            indexOfItem === -1 ? this.state.winddirection.push(value) : this.state.winddirection.splice(indexOfItem, 1);
+            this.setState({
+                [name]: this.state.winddirection
+            }, () => { this.validateField(name, this.state.winddirection) });
+        }else{
+            this.setState({[name]: value}, 
+                () => { this.validateField(name, value) });
+        }
+        console.log(name + ': ' + value);
     };
 
     getOptions(sp, text, keyForOption, keyForOption2){
@@ -256,6 +363,8 @@ class StartplaceFormContainer extends Component {
     onSubmit(e){
         e.preventDefault();
         let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");
+        if(this.state.formValid){
+            this.setState({errorAlert: false})
         obj = {
             writeDate: actualTimestamp,
             lastUpdate: updateLastUpdateArray(this.state.lastUpdateSP, actualTimestamp),
@@ -280,6 +389,14 @@ class StartplaceFormContainer extends Component {
             console.log(err)
           }
         );      
+     }else{
+        this.setState({errorAlert: true})
+        Object.keys(this.state.formErrorsValid).map((fieldName, i) => {
+               this.errorClass(this.state.formErrors[fieldName]);
+               this.validateField(fieldName, this.state[fieldName]);
+               return '';
+         });
+        } 
     }
 
     onSubmitArea(e){
@@ -390,12 +507,16 @@ class StartplaceFormContainer extends Component {
                     valueAreas={this.state.startareasId}
                     getOptionsAreas={this.getOptions(this.props.startareas, 'Fluggebiet wählen', 'name')}  
 
-                    classNameName={this.state.startplaceClassName}
-                    classNameAltitude={this.state.classNameAltitude}
-                    classNamePlace={this.state.classNamePlace}
-                    classNameAreas={this.state.classNameAreas}
+                    classNameAreas={`formular__input-wrapper formular__input-wrapper--fullwith ${this.errorClass(this.state.formErrors.startareasId)}`}
+                    classNameName={`formular__input-wrapper ${this.errorClass(this.state.formErrors.name)}`}
+                    classNameAltitude={`formular__input-wrapper formular__input-wrapper--margin-left ${this.errorClass(this.state.formErrors.altitude)}`}
+                    classNamePlace={`formular__input-wrapper formular__input-wrapper--fullwith ${this.errorClass(this.state.formErrors.locationpin)}`}
+                    classNameDesc={`formular__input-wrapper formular__input--text ${this.errorClass(this.state.formErrors.description)}`}
+                    classNameImageUrl={`formular__input-wrapper ${this.errorClass(this.state.formErrors.imagesUrl)}`}
+                    classNameImageNumber={`formular__input-wrapper ${this.errorClass(this.state.formErrors.imagesCount)}`}
+                    
                     nameStartplaceName='name'
-                    nameAltitude='altitude'
+                    nameAltitude='altitude' 
                     namePlace='locationpin'
                     nameDescription='description'
                     nameAreas='startareasId'
@@ -413,11 +534,17 @@ class StartplaceFormContainer extends Component {
                     areasLabel='Fluggebiet wählen'
                     labelImages='Bildordner'
                     labelImagesCount='Anzahl Bilder'
-                    errorMessageDesc={this.state.errorMessageDesc}
-                    errorMessageImagesUrl={this.state.errorMessageImagesUrl}
-                    errorMessageimagesCount={this.state.errorMessageimagesCount}
 
-                    cbClassNameWrapper='formular__input-wrapper formular__input-wrapper--checkboxes'
+                    errorMessageAreas={this.state.formErrors.startareasId}
+                    errorMessageName={this.state.formErrors.name}
+                    errorMessageAltitude={this.state.formErrors.altitude}
+                    errorMessagePlace={this.state.formErrors.locationpin}
+                    errorMessagecb={this.state.formErrors.winddirection}
+                    errorMessageDesc={this.state.formErrors.description}
+                    errorMessageImagesUrl={this.state.formErrors.imagesUrl}
+                    errorMessageimagesCount={this.state.formErrors.imagesCount}
+
+                    cbClassNameWrapper={`formular__input-wrapper formular__input-wrapper--checkboxes ${this.errorClass(this.state.formErrors.winddirection)}`}
                     cbClassNameLabel='formular__part-title'
                     cbLabel='Windrichtungen'
                     classNameCheckboxWrapper='formular__checkbox-wrapper'
@@ -429,6 +556,7 @@ class StartplaceFormContainer extends Component {
                     classNameCheckboxTxt='formular__checkbox-text'
                 /> : null}
             </ReactTransitionGroup>
+            {this.state.errorAlert && <FormErrorAlert>{validation.valForm}</FormErrorAlert>}
             <ReactTransitionGroup component="div" className="formular-wrapper">
             {this.state.formstartareaisvisible ? 
                 <StartareasForm 

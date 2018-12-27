@@ -999,6 +999,7 @@ class FlugdatenFormContainer extends Component {
                         errorMessageFT={this.state.formErrors.flighttime}
                         errorMessageDesc={this.state.formErrors.description}
                         labelDescription='Kommentar'
+                        hrefStartplaces={routes.STARTPLATZ_ERFASSEN}
                     /> }
                 </ReactTransitionGroup> 
                 <ReactTransitionGroup component="div" className="formular-wrapper">

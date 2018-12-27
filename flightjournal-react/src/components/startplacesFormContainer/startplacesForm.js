@@ -41,7 +41,7 @@ class StartplacesForm extends Component {
                         </select> 
                      </div> 
                 <span className='formular__validationBox'>{errorMessageAreas}</span>
-                <a className="link link--black link-with-icon" onClick={goToPage}><i className="fas fa-plus"></i> neues Fluggebiet erfassen </a>
+                <button className="link link--black link-with-icon" onClick={goToPage}><i className="fas fa-plus"></i> neues Fluggebiet erfassen </button>
                 </div>
                 <StartplacesFormPart 
                     onChange={onChange}

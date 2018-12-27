@@ -100,17 +100,18 @@ class FlightTableFilter extends Component {
     }
 
     render() {
+        //TODO: add Dropdown Accessibility, for example: https://www.w3schools.com/bootstrap/bootstrap_dropdowns.asp
             return (
                 <div className="filter">
-                    <ul className="filter__list">
+                    <div className="filter__list">
                         {
                            this.renderMonthFilter(12)
                         }
-                    </ul>
+                    </div>
                     <div className="filter__list-dropdown">
                         <div className="filter__dropdown-item">{!this.state.dropdownYearTxt ? 'Jahr wählen': this.state.dropdownYearTxt} <i className="fas fa-angle-down"></i>
                             <div className="filter__sub-dropdown filter__dropdown--short">
-                            <a data-value='' data-filter='year' onClick={this.chooseFilter} className="filter__sub-dropdown-item">alle Jahre</a>
+                            <button data-value='' data-filter='year' onClick={this.chooseFilter} className="filter__sub-dropdown-item">alle Jahre</button>
                                 {
                                     this.renderYearFilter(this.state.startYearFilter, this.state.currentYearFilter)
                                 }
@@ -118,7 +119,7 @@ class FlightTableFilter extends Component {
                         </div>
                         <div className="filter__dropdown-item">{!this.state.dropdownPilotTxt ? 'Pilot wählen': this.state.dropdownPilotTxt}<i className="fas fa-angle-down"></i>
                             <div className="filter__sub-dropdown filter__dropdown--short">
-                                <a data-value='' data-filter='pilot' onClick={this.chooseFilter} className="filter__sub-dropdown-item">Jonas & Claudia</a>
+                                <button data-value='' data-filter='pilot' onClick={this.chooseFilter} className="filter__sub-dropdown-item">Jonas & Claudia</button>
                                 {
                                     this.renderPilotFilter(this.props.pilots)
                                 }

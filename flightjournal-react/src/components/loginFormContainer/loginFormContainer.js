@@ -71,7 +71,7 @@ class LoginFormContainer extends Component {
                                         inputAction={(event) => this.setState({ password: event.target.value, formClassPW: 'formular__input-wrapper margin-top-0 formular__input--target'})}
                             />
                             <div className="link-wrapper link-wrapper--right">
-                                <a className="link link--black" onClick={(event) => {event.preventDefault(); this.props.history.push(routes.PASSWORD_FORGET)}}><span className="link__sign">?</span> Passwort vergessen</a>
+                                <a href={routes.PASSWORD_FORGET} className="link link--black"><span className="link__sign">?</span> Passwort vergessen</a>
                             </div>
                             <div className="button-wrapper">
                                 <button className="button button--single">Jetzt einloggen</button>

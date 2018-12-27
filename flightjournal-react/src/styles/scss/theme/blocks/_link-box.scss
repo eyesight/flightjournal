@@ -4,7 +4,6 @@
   display: inline-block;
   min-height: rem-calc(400px);
 
-
   @include bp(max, $phone){
     padding-bottom:0;
     margin-bottom:0;
@@ -44,6 +43,9 @@
 
     @include bp(max, $screen-m) {
       font-size: $font-s-anchor-small;
+    }
+    @include bp(max, $phone) {
+      width: 100%;
     }
 
     &:hover,
@@ -124,7 +126,7 @@
   }
 
   &__prev{
-    left: -10px;
+    left: -30px;
   }
 
   &__next{

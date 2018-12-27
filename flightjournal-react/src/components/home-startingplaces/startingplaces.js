@@ -47,7 +47,7 @@ class StartingPlaces extends Component {
     renderWebcams(arr){
         if(arr){
             return arr.map((cam, index) =>{
-                return (<a target="_blank" key={index} href={cam}>
+                return (<a rel="noopener noreferrer" target="_blank" key={index} href={cam}>
                 <svg version="1.1" className="svg-icon svg-icon--video" x="0px" y="0px" viewBox="0 0 46 25">
                     <path className="svg-icon__path" d="M46,1.6L30.7,9.4V0H0v25h30.7v-9.4L46,23.4V1.6z"/>
                 </svg>
@@ -105,14 +105,14 @@ class StartingPlaces extends Component {
                         </div>
                     </a>
                     <div className="image-box__icons">
-                        {z.locationpin ? <a target="_blank" href={z.locationpin}>
+                        {z.locationpin ? <a rel="noopener noreferrer" target="_blank" href={z.locationpin}>
                             <svg version="1.1" className="svg-icon svg-icon--pin" x="0px" y="0px" viewBox="0 0 25 35">
                                 <path className="svg-icon__path" d="M12.5,0C5.6,0,0,5.6,0,12.6C0,23.9,12.5,35,12.5,35S25,23.9,25,12.6C25,5.7,19.4,0,12.5,0z"/>
                                 <ellipse className="svg-icon__ellipse" cx="12.5" cy="12.5" rx="5.8" ry="5.8"/>
                             </svg>
                         </a> : null} 
                         {this.renderWebcams(webcamarray)}
-                        {xc ? <a target="_blank" href={xc}>
+                        {xc ? <a rel="noopener noreferrer" target="_blank" href={xc}>
                             <svg version="1.1" className="svg-icon svg-icon--xc" x="0px" y="0px" viewBox="0 0 36 19">
                                 <path className="svg-icon__path" d="M17,0.3h-4.8L8.6,6.2L5,0.3H0.1L6,9.4l-5.9,9.1h4.8l3.6-5.9l3.6,5.9H17l-5.9-9.1L17,0.3z M27.1,19c5.7,0,8.1-3.9,8.7-6.4
                                     l-3.9-1.1c-0.4,1.3-1.6,3.4-4.8,3.4c-2.7,0-5.2-2-5.2-5.4c0-3.8,2.8-5.6,5.2-5.6c3.2,0,4.4,2.1,4.7,3.4l3.8-1.2
@@ -145,30 +145,30 @@ class StartingPlaces extends Component {
                     </button>
                 </div>
                 <div className="filter">
-                    <ul className="filter__list">
-                        <li><a className="filter__list-item active" href="index.html">Nord</a></li>
-                        <li><a className="filter__list-item active" href="index.html">Nordorst</a></li>
-                        <li><a className="filter__list-item" href="index.html">Ost</a></li>
-                        <li><a className="filter__list-item" href="index.html">Südost</a></li>
-                        <li><a className="filter__list-item" href="index.html">Süd</a></li>
-                        <li><a className="filter__list-item" href="index.html">Südwest</a></li>
-                        <li><a className="filter__list-item" href="index.html">West</a></li>
-                        <li><a className="filter__list-item" href="index.html">Nordwest</a></li>
-                    </ul>
+                    <div className="filter__list">
+                        <button className="filter__list-item active">Nord</button>
+                        <button className="filter__list-item active">Nordorst</button>
+                        <button className="filter__list-item">Ost</button>
+                        <button className="filter__list-item">Südost</button>
+                        <button className="filter__list-item">Süd</button>
+                        <button className="filter__list-item">Südwest</button>
+                        <button className="filter__list-item">West</button>
+                        <button className="filter__list-item">Nordwest</button>
+                    </div>
                     <div className="filter__list-dropdown">
-                        <button className="filter__dropdown-item">Starthöhe <i className="fas fa-angle-down"></i>
+                        <div className="filter__dropdown-item">Starthöhe <i className="fas fa-angle-down"></i>
                             <div className="filter__sub-dropdown">
-                                <a className="filter__sub-dropdown-item">1000</a>
-                                <a className="filter__sub-dropdown-item">1500</a>
-                                <a className="filter__sub-dropdown-item">2000</a>
+                                <button className="filter__sub-dropdown-item">1000</button>
+                                <button className="filter__sub-dropdown-item">1500</button>
+                                <button className="filter__sub-dropdown-item">2000</button>
                             </div>
-                        </button>
-                        <button className="filter__dropdown-item">Region <i className="fas fa-angle-down"></i>
+                        </div>
+                        <div className="filter__dropdown-item">Region <i className="fas fa-angle-down"></i>
                             <div className="filter__sub-dropdown">
-                                <a className="filter__sub-dropdown-item">Engelberg</a>
-                                <a className="filter__sub-dropdown-item">Berner Oberland</a>
+                                <button className="filter__sub-dropdown-item">Engelberg</button>
+                                <button className="filter__sub-dropdown-item">Berner Oberland</button>
                             </div>
-                        </button>
+                        </div>
                     </div>
                 </div>
                 <div className="image-box vertical-divider">

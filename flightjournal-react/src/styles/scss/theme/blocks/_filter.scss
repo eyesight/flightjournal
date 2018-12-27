@@ -25,13 +25,17 @@
     justify-content: center;
     flex-wrap: wrap;
 
-    li{
+    li,
+    button{
       margin-right: 2.5%;
       padding-bottom: 10px;
       cursor: pointer;
     }
-
-    a{
+    button{
+      background: transparent;
+    }
+    a,
+    button{
       &.filter__list-item{
         color: $color-primary;
         z-index:10;
@@ -77,6 +81,7 @@
     border:none;
     background-color: $color-white;
     padding: 0;
+
     cursor: pointer;
 
     i{
@@ -125,6 +130,7 @@
     border-bottom: 1px solid $color-white;
     transition: .8s ease background-color;
     font-size: $font-s-dropdown-item;
+    color: $color-black;
 
     &:hover,
     &:focus{

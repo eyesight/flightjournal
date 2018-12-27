@@ -86,9 +86,9 @@ class Linkbox extends Component {
                                 <ul className={this.state.isActiveAll[index] ?  this.state.classNameLinklistLess : this.state.classNameLinklist}>
                                     {linkList}
                                 </ul>
-                                <a onClick={()=> this.showMoreFunction(index)} className={this.state.classNameShowMore}>
+                                <button onClick={()=> this.showMoreFunction(index)} className={this.state.classNameShowMore}>
                                     {this.state.isActiveAll[index] ? this.state.buttonTxtLess : this.state.buttonTxt}
-                                </a>
+                                </button>
                             </div>
                         </div>
                 );
@@ -105,9 +105,9 @@ class Linkbox extends Component {
                              <ul className={this.state.isActiveAll[index] ?  this.state.classNameLinklistLess : this.state.classNameLinklist}>
                                 {linkList}
                             </ul>
-                            <a onClick={()=> this.showMoreFunction(index)} className={this.state.classNameShowMore}>
+                            <button onClick={()=> this.showMoreFunction(index)} className={this.state.classNameShowMore}>
                                 {this.state.isActiveAll[index] ? this.state.buttonTxtLess : this.state.buttonTxt}
-                            </a>
+                            </button>
                         </div>
                     </div>
                     );
@@ -120,8 +120,8 @@ class Linkbox extends Component {
                     <div className="start__twocolumn js-linkbox-slideshow-container">
                         {even}
                         <div className="link-box__prev-next only-show-on-mobile">
-                            <a className="link-box__prev js-prev"><span className="link-box__prev-text"></span><i className="fas fa-chevron-left link-box__fa"></i></a>
-                            <a className="link-box__next js-next"><i className="fas fa-chevron-right link-box__fa"></i><span className="link-box__next-text"></span></a>
+                            <button className="link-box__prev js-prev"><span className="link-box__prev-text"></span><i className="fas fa-chevron-left link-box__fa"></i></button>
+                            <button className="link-box__next js-next"><i className="fas fa-chevron-right link-box__fa"></i><span className="link-box__next-text"></span></button>
                         </div>
                         <div className="link-box__dots only-show-on-mobile">
                             <span className="link-box__dot js-dot" data-dot="1"></span>
@@ -132,8 +132,8 @@ class Linkbox extends Component {
                     <div className="start__twocolumn js-linkbox-slideshow-container">
                         {odd}
                         <div className="link-box__prev-next only-show-on-mobile">
-                            <a className="link-box__prev js-prev"><span className="link-box__prev-text"></span><i className="fas fa-chevron-left link-box__fa"></i></a>
-                            <a className="link-box__next js-next"><i className="fas fa-chevron-right link-box__fa"></i><span className="link-box__next-text"></span></a>
+                            <button className="link-box__prev js-prev"><span className="link-box__prev-text"></span><i className="fas fa-chevron-left link-box__fa"></i></button>
+                            <button className="link-box__next js-next"><i className="fas fa-chevron-right link-box__fa"></i><span className="link-box__next-text"></span></button>
                         </div>
                         <div className="link-box__dots only-show-on-mobile">
                             <span className="link-box__dot js-dot" data-dot="1"></span>

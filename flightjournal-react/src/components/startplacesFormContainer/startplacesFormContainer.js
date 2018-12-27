@@ -77,6 +77,12 @@ class StartplaceFormContainer extends Component {
             descriptionValid: true,
             imagesUrlValid: true,
             imagesCountValid: true,
+
+            //validation-states area
+            errorAlertArea: false,
+            formValidArea: false,
+            formErrorsArea:{},
+            formErrorsValidValid: {},
           
             //Values of Form Startingplaces
             name : '',
@@ -236,8 +242,8 @@ class StartplaceFormContainer extends Component {
     }
 
     validateField(fieldName, value) {
-        let fieldValidationErrors = this.state.formErrors;
         //Startplaces-Form
+        let fieldValidationErrors = this.state.formErrors;
         let startareasIdValid = this.state.startareasIdValid;
         let nameValid = this.state.nameValid;
         let altitudeValid = this.state.altitudeValid;
@@ -247,6 +253,9 @@ class StartplaceFormContainer extends Component {
         let imagesUrlValid = this.state.imagesUrlValid;
         let imagesValid = false;
         let imagesCountValid = this.state.imagesCountValid;
+
+        //Startarea-Form
+        let fieldValidationErrorsArea = this.state.formErrorsArea;
         switch(fieldName) {
         //Startplaces
         case 'startareasId': 
@@ -266,22 +275,24 @@ class StartplaceFormContainer extends Component {
             fieldValidationErrors.locationpin = locationpinValid ? '' : `${validation.valField} ${validation.valLess200}.`;
             break;
         case 'winddirection': 
-            winddirectionValid = value.length > 0 && value.length <= 8 && (typeof value[0] === 'string') && value !== '0';
+            winddirectionValid = value.length > 0 && (value.length <= 8) && (typeof value[0] === 'string') && value !== '0';
             fieldValidationErrors.winddirection = winddirectionValid ? '' : `${validation.valField} ${validation.valEmpty}.`;
             break;
         case 'description':
-            descriptionValid = value.length === 0 || value.length <= 5000 && (typeof value === 'string');
+            descriptionValid = (value.length === 0) || (value.length <= 5000 && (typeof value === 'string'));
             fieldValidationErrors.description = descriptionValid ? '' : `${validation.valField} ${validation.valLess5000}.`;
             break;
         case 'imagesUrl':
+            // eslint-disable-next-line
             imagesValid = (/^[a-zA-Z0-9\_]*$/gi).test(this.state.imagesUrl);
-            imagesUrlValid = value.length === 0 || imagesValid === true && value.length <= 50 && value !== '' && (typeof value === 'string');
+            imagesUrlValid = value.length === 0 || (imagesValid === true && value.length <= 50 && value !== '' && (typeof value === 'string'));
             fieldValidationErrors.imagesUrl = imagesUrlValid ? '' : `${validation.valField} ${validation.specialChars} und ${validation.valLess50}.`;
             break;
         case 'imagesCount':
-            imagesCountValid = value === 0 || value.length < 2 && !isNaN(value);
+            imagesCountValid = value === 0 || (value.length < 2 && !isNaN(value));
             fieldValidationErrors.imagesCount = imagesCountValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess1}.`;
             break;
+        //Areas
           default:
             break;
         }
@@ -304,6 +315,7 @@ class StartplaceFormContainer extends Component {
         imagesUrlValid: imagesUrlValid,
         imagesCountValid: imagesCountValid
         }, this.validateForm);
+        
       } 
 
       validateForm() {
@@ -434,7 +446,6 @@ class StartplaceFormContainer extends Component {
             regionsId: this.state.region,
             shvInfo: this.state.shvInfo,
             
-            weatherstations: this.state.weatherstations,
             webcams: webcamarr,
             weatherstations: windstationarr,
             writeDate: actualTimestamp,

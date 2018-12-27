@@ -250,11 +250,11 @@ class FlightDetail extends Component {
                                     <p className="details__titel-anchors">Weitere Daten</p>
                                     <p className="details__txt-anchors">Kartenansicht und mehr.</p>
                                     {this.state.syrideLink ? (
-                                        <a target="_blank" href={this.state.syrideLink}><span className="anchor">Syride</span></a>): null}
+                                        <a rel="noopener noreferrer" target="_blank" href={this.state.syrideLink}><span className="anchor">Syride</span></a>): null}
                                     {this.state.xcontestLink ? (
-                                    <a target="_blank" href={this.state.xcontestLink}><span className="anchor">XContest</span></a>): null}
+                                    <a rel="noopener noreferrer" target="_blank" href={this.state.xcontestLink}><span className="anchor">XContest</span></a>): null}
                                     {this.state.airtribuneLink ? (
-                                    <a target="_blank" href={this.state.airtribuneLink}><span className="anchor">Airtribune</span></a>): null}
+                                    <a rel="noopener noreferrer" target="_blank" href={this.state.airtribuneLink}><span className="anchor">Airtribune</span></a>): null}
                                 </div>
                                 ) : null} 
                             </div>

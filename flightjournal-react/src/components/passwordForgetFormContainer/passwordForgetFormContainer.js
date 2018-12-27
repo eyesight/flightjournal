@@ -68,7 +68,7 @@ class PasswordForgetFormContainer extends Component {
                         <div className="centered-layout--center-txt">
                             Bitte benutzen Sie den gesendeten Link, um
                             ihr Passwort zurückzusetzen und melden Sie sich erneut an.<br /><br /><br />
-                            <a onClick={event => {this.goBack(event, routes.LOGIN)}} className="anchor">zurück zum Login</a>
+                            <a href={routes.LOGIN} onClick={event => {this.goBack(event, routes.LOGIN)}} className="anchor">zurück zum Login</a>
                         </div>
                     </section> :
                     <section id="loginForm" className="centered-layout">

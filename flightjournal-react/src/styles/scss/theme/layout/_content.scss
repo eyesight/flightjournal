@@ -83,6 +83,9 @@ transition: opacity 0.5s 0.3s;
 img[data-src] {
 opacity: 0;
 }
+button{
+  background: transparent;
+}
 
 button, html input[type="button"], input[type="reset"], input[type="submit"]{
   -webkit-appearance: none;

@@ -140,7 +140,7 @@ class StartplaceDetail extends Component {
         return obj.map((item, index) =>{
             let linkName = `${text} ${index+1}`;
             return (
-                <a key={item+index} className={this.state.classNameLink} target="_blank" href={item}><span className={this.state.classNameDetailsTxt}>{linkName}</span></a>
+                <a rel="noopener noreferrer" key={item+index} className={this.state.classNameLink} target="_blank" href={item}><span className={this.state.classNameDetailsTxt}>{linkName}</span></a>
             )
         });
     }

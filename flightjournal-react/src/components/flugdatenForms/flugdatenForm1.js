@@ -22,7 +22,7 @@ class FlugdatenForm1 extends Component {
     }
 
     render() {
-        const { onChange, onSubmit, valueHour, valueMinute, nameHour, nameMinute, nameComment, valueComment, goNext, nameSP, getOptions, getOptionsHour, getOptionsMinute, goToPage, valueLandeplatz, selectedValueSP, handleChange, startDate, classNameDate, classNameDateLP, classNameDateFT, classNameSP, classNameDescription, errorMessageLP, errorMessageST, errorMessageDate, errorMessageFT, errorMessageDesc, labelDescription} = this.props;
+        const { onChange, onSubmit, valueHour, valueMinute, nameHour, nameMinute, nameComment, valueComment, goNext, nameSP, getOptions, getOptionsHour, getOptionsMinute, goToPage, valueLandeplatz, selectedValueSP, handleChange, startDate, classNameDate, classNameDateLP, classNameDateFT, classNameSP, classNameDescription, errorMessageLP, errorMessageST, errorMessageDate, errorMessageFT, errorMessageDesc, labelDescription, hrefStartplaces} = this.props;
         return ( 
             <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
                 <div className={classNameDate}>
@@ -47,7 +47,7 @@ class FlugdatenForm1 extends Component {
                     </div>
                     <span className='formular__validationBox'>{errorMessageST}</span>
                 </div>
-                <a className="link link--black link-with-icon" onClick={goToPage}><i className="fas fa-plus"></i> Startplatz erfassen </a>
+                <a href={hrefStartplaces} className="link link--black link-with-icon" onClick={goToPage}><i className="fas fa-plus"></i> Startplatz erfassen </a>
                 </div>
                 <div className="formular__input-Icon-wrapper">
                 <InputField 
@@ -61,7 +61,7 @@ class FlugdatenForm1 extends Component {
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageLP}
                 />
-                <a className="link link--black link-with-icon" ><i className="fas fa-map-marker-alt"></i> Aktueller Standort </a>
+                <button className="link link--black link-with-icon" ><i className="fas fa-map-marker-alt"></i> Aktueller Standort </button>
                 </div>
                 <div className={classNameDateFT}>
                     <label className="formular__label">Flugzeit</label>

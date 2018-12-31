@@ -30,7 +30,8 @@ class StartplacesForm extends Component {
     
     render() {
         const { onChange, onSubmitArea, classNameRegio, regioLabel, nameRegio, valueRegio, getOptionsRegio, errorMessageRegio, valueDescription, errorMessageWindstation1, errorMessageWindstation2, errorMessageWindstation3,
-            errorMessageAreaName, errorMessageFunicularLink, errorMessageSandortpin, errorMessageWebcams1, errorMessageWebcams2, errorMessageWebcams3, errorMessageShvInfo, errorMessageXc, errorMessageAreaDescription } = this.props;
+            errorMessageAreaName, errorMessageFunicularLink, errorMessageSandortpin, errorMessageWebcams1, errorMessageWebcams2, errorMessageWebcams3, errorMessageShvInfo, errorMessageXc, errorMessageAreaDescription,
+            classNameAreaName, classNameAreaFuniculare, classNameArealocation, classNameAreawebcam, classNameAreawebcam2, classNameAreawebcam3, classNameAreashv, classNameAreawindstation, classNameAreawindstation2, classNameAreawindstation3, classNameAreaXc, classNameAreaDesc } = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={onSubmitArea}>
                 <div className={classNameRegio}>
@@ -44,105 +45,116 @@ class StartplacesForm extends Component {
                 <span className='formular__validationBox'>{errorMessageRegio}</span>
                 </div>
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameAreaName}
                     label='Fluggebiet Name'
                     inputAction={onChange}
                     type='text'
                     name='startareaname'
                     autocomp=''
-                    classNamesError={errorMessageAreaName}
+                    classNamesError='formular__validationBox'
+                    errorMessage={errorMessageAreaName}
                 />
                 <InputField 
-                    classes='formular__input-wrapper formular__input-wrapper--margin-left'
+                    classes={classNameAreaFuniculare}
                     label='Seilbahn Link'
                     inputAction={onChange}
                     type='text'
                     name='funicularLink'
                     autocomp=''
-                    classNamesError={errorMessageFunicularLink}
+                    classNamesError='formular__validationBox'
+                    errorMessage={errorMessageFunicularLink}
                 />
                 <InputField 
-                    classes='formular__input-wrapper formular__input-wrapper--fullwith'
+                    classes={classNameArealocation}
                     label='Standortpin'
                     inputAction={onChange}
                     type='text'
                     name='locationpin'
                     autocomp=''
-                    classNamesError={errorMessageSandortpin}
+                    classNamesError='formular__validationBox'
+                    errorMessage={errorMessageSandortpin}
                 />
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameAreawebcam}
                     label='Webcam #1'
                     inputAction={onChange}
                     type='text'
-                    name='webcam'
+                    name='webcam' 
                     autocomp=''
-                    classNamesError={errorMessageWebcams1}
+                    classNamesError='formular__validationBox'
+                    errorMessage={errorMessageWebcams1}
                 />
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameAreawebcam2}
                     label='Webcam #2'
                     inputAction={onChange}
                     type='text'
                     name='webcam2'
                     autocomp=''
-                    classNamesError={errorMessageWebcams2}
+                    classNamesError='formular__validationBox'
+                    errorMessage={errorMessageWebcams2}
                 />
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameAreawebcam3}
                     label='Webcam #3'
                     inputAction={onChange}
                     type='text'
                     name='webcam3'
                     autocomp=''
-                    classNamesError={errorMessageWebcams3}
+                    classNamesError='formular__validationBox'
+                    errorMessage={errorMessageWebcams3}
                 />
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameAreashv}
                     label='SHV-Infotafel'
                     inputAction={onChange}
                     type='text'
                     name='shvInfo'
                     autocomp=''
-                    classNamesError={errorMessageShvInfo}
+                    classNamesError='formular__validationBox'
+                    errorMessage={errorMessageShvInfo}
                 />
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameAreawindstation}
                     label='Windstation #1'
                     inputAction={onChange}
                     type='text'
                     name='windstation1'
                     autocomp=''
-                    classNamesError={errorMessageWindstation1}
+                    classNamesError='formular__validationBox'
+                    errorMessage={errorMessageWindstation1}
                 />
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameAreawindstation2}
                     label='Windstation #2'
                     inputAction={onChange}
                     type='text'
                     name='windstation2'
                     autocomp=''
-                    classNamesError={errorMessageWindstation2}
+                    classNamesError='formular__validationBox'
+                    errorMessage={errorMessageWindstation2}
                 />
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameAreawindstation3}
                     label='Windstation #3'
                     inputAction={onChange}
                     type='text'
                     name='windstation3'
                     autocomp=''
-                    classNamesError={errorMessageWindstation3}
+                    classNamesError='formular__validationBox'
+                    errorMessage={errorMessageWindstation3}
                 />
                 <InputField 
-                    classes='formular__input-wrapper'
+                    classes={classNameAreaXc}
                     label='Streckenflug-XContest'
                     inputAction={onChange}
                     type='text'
                     name='xc'
                     autocomp=''
-                    classNamesError={errorMessageXc}
+                    classNamesError='formular__validationBox'
+                    errorMessage={errorMessageXc}
                 />
-                <div className='formular__input-wrapper formular__input--text'>
+                <div className={classNameAreaDesc}>
                     <label className="formular__label">Beschrieb</label>
                     <textarea className="formular__input" type='text' name='areaDescription' value={valueDescription} onChange={onChange}></textarea>
                     <span className='formular__validationBox'>{errorMessageAreaDescription}</span>

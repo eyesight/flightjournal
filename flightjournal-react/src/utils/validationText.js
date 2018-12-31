@@ -14,6 +14,7 @@ export const valLess150 = 'darf nicht mehr als 150 Zeichen enthalten';
 export const valLess200 = 'darf nicht mehr als 200 Zeichen enthalten';
 export const valLess5 = 'darf nicht mehr als 5 Zeichen enthalten';
 export const valLess1 = 'darf nicht mehr als 1 Zeichen enthalten';
+export const valLess3000 = 'darf nicht mehr als 3000 Zeichen enthalten';
 export const valLess5000 = 'darf nicht mehr als 5000 Zeichen enthalten';
 export const valDate = 'muss dem Format dd.mm.jjjj entsprechen' ;
 export const valNumber = 'muss eine Zahl sein' ;

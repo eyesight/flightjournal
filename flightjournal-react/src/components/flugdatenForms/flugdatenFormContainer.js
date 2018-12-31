@@ -293,8 +293,8 @@ class FlugdatenFormContainer extends Component {
             this.onSubmit();
         }
     }
-
-      validateField(fieldName, value) {
+    //TODO: Validation for Links and set and test it on the right places!
+    validateField(fieldName, value) {
         let fieldValidationErrors = this.state.formErrors;
         let landingplaceValid = this.state.landingplaceValid;
         let startplaceValid = this.state.startplaceValid;
@@ -319,19 +319,19 @@ class FlugdatenFormContainer extends Component {
         let airtribuneLinkValid = this.state.airtribuneLinkValid
 
         switch(fieldName) {
-          case 'landingplace':
+            case 'landingplace':
             landingplaceValid = value.length > 0 && value.length <= 150 && value !== '' && (typeof value === 'string');
             fieldValidationErrors.landingplace = landingplaceValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess150}.`;
             break;
-          case 'date':
+            case 'date':
             dateValid = (/^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{4}$/i).test(this.state.date);
             fieldValidationErrors.date = dateValid ? '' : `${validation.valField} ${validation.valDate}.`;
             break;
-          case 'startplace': 
+            case 'startplace': 
             startplaceValid = value.length > 0 && value.length <= 150 && (typeof value === 'string') && value !== '0';
             fieldValidationErrors.startplace = startplaceValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess150}.`;
             break;
-          case 'flighttime':
+            case 'flighttime':
             flighttimeValid = value !== 0 && !isNaN(value);
             fieldValidationErrors.flighttime = flighttimeValid ? '' : `${validation.valField} ${validation.valEmpty}.`;
             break;
@@ -394,7 +394,7 @@ class FlugdatenFormContainer extends Component {
             airtribuneLinkValid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
             fieldValidationErrors.airtribuneLink = airtribuneLinkValid ? '' : `${validation.valField} ${validation.valLess200}.`;
             break;
-          default:
+            default:
             break;
         }
         this.setState({ formErrorsValid: {
@@ -435,10 +435,10 @@ class FlugdatenFormContainer extends Component {
                         xcontestLinkValid: xcontestLinkValid,
                         airtribuneLinkValid: airtribuneLinkValid,
                         weatherDescriptionValid: weatherDescriptionValid
-                      }, this.validateForm);
-      } 
-    
-      validateForm() {
+                        }, this.validateForm);
+    } 
+
+    validateForm() {
         this.setState({formValid: this.state.landingplaceValid && 
             this.state.dateValid && 
             this.state.startplaceValid && 
@@ -458,11 +458,11 @@ class FlugdatenFormContainer extends Component {
             this.state.airtribuneLinkValid &&
             this.state.weatherDescriptionValid
         });
-      }
+    }
 
-      errorClass(error) {
-        return(error.length === 0 ? '' : 'formular--error');
-      }
+    errorClass(error) {
+    return(error.length === 0 ? '' : 'formular--error');
+    }
 
     onChange(e){
         const name = e.target.name;
@@ -950,6 +950,7 @@ class FlugdatenFormContainer extends Component {
     }
 
     render() {
+        console.log('flight '+ this.state.formValid);
         return ( 
             <main className="main">
                 <section className="centered-layout">

@@ -28,11 +28,11 @@ class StartplaceFormContainer extends Component {
         this.state = {
             ani:'',
             formisvisible: true,
-            formstartareaisvisible: false,
+            formstartareaisvisible: false, //To check if we are on the area-part (true) or not (false).
             titleForm: 'Neuen Startplatz erfassen.',
             _isMounted: false,
 
-            saveAreaIds: false,
+            saveAreaIds: false, 
             startplaceIds: [],
             firstcall: true,
 
@@ -81,9 +81,23 @@ class StartplaceFormContainer extends Component {
             //validation-states area
             errorAlertArea: false,
             formValidArea: false,
-            formErrorsArea:{},
-            formErrorsValidValid: {},
-          
+            formErrorsArea:{region: '', startareaname: '', funicularLink: '', locationpin: '', webcam: '', webcam2:'', webcam3:'', shvInfo: '', windstation1: '', windstation2: '', windstation3: '', xc: '', areaDescription: ''},
+            formErrorsValidArea: {region: false, startareaname: false, funicularLink: true, locationpin: true, webcam: true, webcam2:true, webcam3: true, shvInfo: true, windstation1: true, windstation2: true, windstation3: true, xc: true, areaDescription: true},
+            
+            startareanameValid: false,
+            regionValid: false,
+            funicularLinkValid: true,
+            locationpinValidArea: true,
+            webcamValid: true,
+            webcam2Valid: true,
+            webcam3Valid: true,
+            shvInfoValid: true,
+            windstation1Valid: true,
+            windstation2Valid: true,
+            windstation3Valid: true,
+            xcValid: true,
+            areaDescriptionValid: true,
+
             //Values of Form Startingplaces
             name : '',
             altitude : '',
@@ -100,8 +114,14 @@ class StartplaceFormContainer extends Component {
             funicularLink: '',
             arealocationpin: '',
             webcams: [],
+            webcam: '',
+            webcam2: '',
+            webcam3: '',
             shvInfo: '',
             weatherstations: [],
+            windstation1: '',
+            windstation2: '',
+            windstation3: '',
             xc: '',
             areaDescription: '',
             startplaces: [],
@@ -117,6 +137,7 @@ class StartplaceFormContainer extends Component {
         this.goBack = this.goBack.bind(this);
         this.validateField = this.validateField.bind(this);
         this.validateForm = this.validateForm.bind(this);
+        this.validateFormArea = this.validateFormArea.bind(this);
         this.errorClass = this.errorClass.bind(this);
     }
     
@@ -240,7 +261,7 @@ class StartplaceFormContainer extends Component {
             );
         }
     }
-
+    //TODO: Validation for Links and set and test it on the right places!
     validateField(fieldName, value) {
         //Startplaces-Form
         let fieldValidationErrors = this.state.formErrors;
@@ -256,6 +277,19 @@ class StartplaceFormContainer extends Component {
 
         //Startarea-Form
         let fieldValidationErrorsArea = this.state.formErrorsArea;
+        let startareanameValid = this.state.startareanameValid;
+        let regionValid = this.state.regionValid;
+        let funicularLinkValid = this.state.funicularLinkValid;
+        let locationpinValidArea = this.state.locationpinValidArea;
+        let webcamValid = this.state.webcamValid;
+        let webcam2Valid = this.state.webcam2Valid;
+        let webcam3Valid = this.state.webcam3Valid;
+        let shvInfoValid = this.state.shvInfoValid;
+        let windstation1Valid = this.state.windstation1Valid;
+        let windstation2Valid = this.state.windstation2Valid;
+        let windstation3Valid = this.state.windstation3Valid;
+        let xcValid = this.state.xcValid;
+        let areaDescriptionValid = this.state.areaDescriptionValid;
         switch(fieldName) {
         //Startplaces
         case 'startareasId': 
@@ -270,17 +304,24 @@ class StartplaceFormContainer extends Component {
             altitudeValid = value.length > 0 && (!isNaN(value) && value.length <= 5);
             fieldValidationErrors.altitude = altitudeValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
             break;
+        //locationpin is used in the startplaces-form and in the area-form. I made a if/else-loop to check which one to validate
         case 'locationpin': 
-            locationpinValid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
-            fieldValidationErrors.locationpin = locationpinValid ? '' : `${validation.valField} ${validation.valLess200}.`;
-            break;
+            if(this.state.formstartareaisvisible===false){
+                locationpinValid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+                fieldValidationErrors.locationpin = locationpinValid ? '' : `${validation.valField} ${validation.valLess200}.`;
+                break;
+            }else{
+                locationpinValidArea = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+                fieldValidationErrorsArea.locationpin = locationpinValidArea ? '' : `${validation.valField} ${validation.valLess200}.`;
+                break;
+            }
         case 'winddirection': 
             winddirectionValid = value.length > 0 && (value.length <= 8) && (typeof value[0] === 'string') && value !== '0';
             fieldValidationErrors.winddirection = winddirectionValid ? '' : `${validation.valField} ${validation.valEmpty}.`;
             break;
         case 'description':
-            descriptionValid = (value.length === 0) || (value.length <= 5000 && (typeof value === 'string'));
-            fieldValidationErrors.description = descriptionValid ? '' : `${validation.valField} ${validation.valLess5000}.`;
+            descriptionValid = (value.length === 0) || (value.length <= 3000 && (typeof value === 'string'));
+            fieldValidationErrors.description = descriptionValid ? '' : `${validation.valField} ${validation.valLess3000}.`;
             break;
         case 'imagesUrl':
             // eslint-disable-next-line
@@ -293,6 +334,54 @@ class StartplaceFormContainer extends Component {
             fieldValidationErrors.imagesCount = imagesCountValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess1}.`;
             break;
         //Areas
+        case 'startareaname': 
+            startareanameValid = value.length > 0 && value.length <= 150 && (typeof value === 'string') && value !== '0';
+            fieldValidationErrorsArea.startareaname = startareanameValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess150}.`;
+            break;
+        case 'region': 
+            regionValid = value.length > 0 && value.length <= 150 && (typeof value === 'string') && value !== '0';
+            fieldValidationErrorsArea.region = regionValid ? '' : `${validation.valField} ${validation.valEmpty}.`;
+            break;
+        case 'funicularLink': 
+            funicularLinkValid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrorsArea.funicularLink = funicularLinkValid ? '' : `${validation.valField} ${validation.valLess200}.`;
+            break;
+        case 'webcam': 
+            webcamValid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrorsArea.webcam = webcamValid ? '' : `${validation.valField} ${validation.valLess200}.`;
+            break;
+        case 'webcam2': 
+            webcam2Valid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrorsArea.webcam2 = webcam2Valid ? '' : `${validation.valField} ${validation.valLess200}.`;
+            break;
+        case 'webcam3': 
+            webcam3Valid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrorsArea.webcam3 = webcam3Valid ? '' : `${validation.valField} ${validation.valLess200}.`;
+            break;
+        case 'shvInfo': 
+            shvInfoValid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrorsArea.shvInfo = shvInfoValid ? '' : `${validation.valField} ${validation.valLess200}.`;
+            break;
+        case 'windstation1': 
+            windstation1Valid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrorsArea.windstation1 = windstation1Valid ? '' : `${validation.valField} ${validation.valLess200}.`;
+            break;
+        case 'windstation2': 
+            windstation2Valid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrorsArea.windstation2 = windstation2Valid ? '' : `${validation.valField} ${validation.valLess200}.`;
+            break;
+        case 'windstation3': 
+            windstation3Valid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrorsArea.windstation3 = windstation3Valid ? '' : `${validation.valField} ${validation.valLess200}.`;
+            break;
+         case 'xc': 
+            xcValid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrorsArea.xc = xcValid ? '' : `${validation.valField} ${validation.valLess200}.`;
+            break;
+        case 'areaDescription':
+            areaDescriptionValid = (value.length === 0) || (value.length <= 3000 && (typeof value === 'string'));
+            fieldValidationErrorsArea.areaDescription = areaDescriptionValid ? '' : `${validation.valField} ${validation.valLess3000}.`;
+            break;
           default:
             break;
         }
@@ -314,21 +403,69 @@ class StartplaceFormContainer extends Component {
         descriptionValid: descriptionValid,
         imagesUrlValid: imagesUrlValid,
         imagesCountValid: imagesCountValid
-        }, this.validateForm);
-        
+        }, this.validateForm, )
+
+        //areas
+        this.setState({
+        formErrorsValidArea:{
+            region: regionValid,
+            startareaname: startareanameValid,
+            funicularLink: funicularLinkValid,
+            locationpin: locationpinValidArea,
+            webcam: webcamValid,
+            webcam2: webcam2Valid,
+            webcam3: webcam3Valid,
+            shvInfo: shvInfoValid,
+            windstation1: windstation1Valid,
+            windstation2: windstation2Valid,
+            windstation3: windstation3Valid,
+            xc: xcValid,
+            areaDescription: areaDescriptionValid
+        },
+        regionValid: regionValid,
+        startareanameValid: startareanameValid,
+        funicularLinkValid: funicularLinkValid,
+        locationpinValidArea: locationpinValidArea,
+        webcamValid: webcamValid,
+        webcam2Valid: webcam2Valid,
+        webcam3Valid: webcam3Valid,
+        shvInfoValid: shvInfoValid,
+        windstation1Valid: windstation1Valid,
+        windstation2Valid: windstation2Valid,
+        windstation3Valid: windstation3Valid,
+        xcValid: xcValid,
+        areaDescriptionValid: areaDescriptionValid
+        }, this.validateFormArea);
       } 
 
       validateForm() {
-        this.setState({formValid: 
-            this.state.startareasIdValid &&
-            this.state.nameValid &&
-            this.state.altitudeValid &&
-            this.state.locationpinValid &&
-            this.state.winddirectionValid &&
-            this.state.descriptionValid &&
-            this.state.imagesUrlValid &&
-            this.state.imagesCountValid
-        });
+            this.setState({formValid: 
+                this.state.startareasIdValid &&
+                this.state.nameValid &&
+                this.state.altitudeValid &&
+                this.state.locationpinValid &&
+                this.state.winddirectionValid &&
+                this.state.descriptionValid &&
+                this.state.imagesUrlValid &&
+                this.state.imagesCountValid
+            });
+        }
+      validateFormArea() {
+            this.setState({formValidArea: 
+                this.state.startareanameValid &&
+                this.state.regionValid &&
+                this.state.funicularLinkValid &&
+                this.state.locationpinValidArea &&
+                this.state.webcamValid &&
+                this.state.webcam2Valid &&
+                this.state.webcam3Valid &&
+                this.state.shvInfoValid &&
+                this.state.windstation1Valid &&
+                this.state.windstation2Valid &&
+                this.state.windstation3Valid &&
+                this.state.xc &&
+                this.state.areaDescription
+            });
       }
 
       errorClass(error) {
@@ -375,6 +512,7 @@ class StartplaceFormContainer extends Component {
     onSubmit(e){
         e.preventDefault();
         let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");
+        console.log('onSub ' + this.state.formValid);
         if(this.state.formValid){
             this.setState({errorAlert: false})
         obj = {
@@ -422,7 +560,6 @@ class StartplaceFormContainer extends Component {
         if(this.state.windstation1){windstationarr.push(this.state.windstation1)};
         if(this.state.windstation2){windstationarr.push(this.state.windstation2)};
         if(this.state.windstation3){windstationarr.push(this.state.windstation3)};
-
         this.setState({
             webcams: webcamarr,
             webcam: '',
@@ -433,35 +570,44 @@ class StartplaceFormContainer extends Component {
             windstation2: '',
             windstation3: ''
         })
-
-        obj = {
-            description: this.state.areaDescription,
-            funicularLink: this.state.funicularLink,
-            imagesUrl: this.state.imagesUrl,
-            landingplaces: this.state.landingplaces,
-            lastUpdate: updateLastUpdateArray(this.state.lastUpdateSA, actualTimestamp),
-            locationpin: this.state.arealocationpin,
-            name: this.state.startareaname,
-            rating: '',
-            regionsId: this.state.region,
-            shvInfo: this.state.shvInfo,
-            
-            webcams: webcamarr,
-            weatherstations: windstationarr,
-            writeDate: actualTimestamp,
-            xc: this.state.xc
-        }
-        //when new Object is added, state saveRegionIds will set to true, so function in componentDidUpdate will be continued
-        this.props.saveStartareas(obj).then(
-            this.props.dispatch(reset('NewPost')),
-            this.setState({
-                saveRegionIds: true
-            })
-        ).catch((err) => {
-            console.log('error when safe startareas');
-            console.log(err)
-          }
-        );
+        if(this.state.formValidArea){
+            this.setState({errorAlertArea: false})
+            obj = {
+                description: this.state.areaDescription,
+                funicularLink: this.state.funicularLink,
+                imagesUrl: this.state.imagesUrl,
+                landingplaces: this.state.landingplaces,
+                lastUpdate: updateLastUpdateArray(this.state.lastUpdateSA, actualTimestamp),
+                locationpin: this.state.arealocationpin,
+                name: this.state.startareaname,
+                rating: '',
+                regionsId: this.state.region,
+                shvInfo: this.state.shvInfo,
+                
+                webcams: webcamarr,
+                weatherstations: windstationarr,
+                writeDate: actualTimestamp,
+                xc: this.state.xc
+            }
+            //when new Object is added, state saveRegionIds will set to true, so function in componentDidUpdate will be continued
+            this.props.saveStartareas(obj).then(
+                this.props.dispatch(reset('NewPost')),
+                this.setState({
+                    saveRegionIds: true
+                })
+            ).catch((err) => {
+                console.log('error when safe startareas');
+                console.log(err)
+            }
+            );
+        }else{
+            this.setState({errorAlertArea: true})
+            Object.keys(this.state.formErrorsValidArea).map((fieldName, i) => {
+                   this.errorClass(this.state.formErrorsArea[fieldName]);
+                   this.validateField(fieldName, this.state[fieldName]);
+                   return '';
+             });
+            } 
     }
 
     goBack(e){
@@ -576,27 +722,42 @@ class StartplaceFormContainer extends Component {
 
                     onChange={this.onChange}
                     onSubmitArea={this.onSubmitArea}
-                    classNameRegio={this.state.classNameAreas}
                     regioLabel='Region wählen'
                     nameRegio='region'
                     valueRegio={this.state.regionsId}
+
+                    errorMessageRegio={this.state.formErrorsArea.region}
+                    errorMessageAreaName={this.state.formErrorsArea.startareaname}    
+                    errorMessageFunicularLink={this.state.formErrorsArea.funicularLink}
+                    errorMessageSandortpin={this.state.formErrorsArea.locationpin}
+                    errorMessageWebcams1={this.state.formErrorsArea.webcam}
+                    errorMessageWebcams2={this.state.formErrorsArea.webcam2}
+                    errorMessageWebcams3={this.state.formErrorsArea.webcam3}
+                    errorMessageShvInfo={this.state.formErrorsArea.shvInfo}
+                    errorMessageWindstation1={this.state.formErrorsArea.windstation1}
+                    errorMessageWindstation2={this.state.formErrorsArea.windstation2}
+                    errorMessageWindstation3={this.state.formErrorsArea.windstation3}
+                    errorMessageXc={this.state.formErrorsArea.xc}
+                    errorMessageAreaDescription={this.state.formErrorsArea.areaDescription}
+
                     getOptionsRegio={this.getOptions(this.props.regions, 'Region wählen', 'name')}
-                    errorMessageRegio={this.state.errorMessageRegion}
-                    errorMessageAreaName= {this.state.errorMessageAreaName}
-                    errorMessageFunicularLink={this.state.errorMessageFunicularLink} 
-                    errorMessageSandortpin={this.state.errorMessageSandortpin}
-                    errorMessageWebcams1={this.state.errorMessageWebcams1}
-                    errorMessageWebcams2={this.state.errorMessageWebcams2}
-                    errorMessageWebcams3={this.state.errorMessageWebcams3}
-                    errorMessageWindstation1={this.state.errorMessageWindstation1}
-                    errorMessageWindstation2={this.state.errorMessageWindstation2}
-                    errorMessageWindstation3={this.state.errorMessageWindstation3}
-                    errorMessageShvInfo={this.state.errorMessageShvInfo}
-                    errorMessageThermikforecast={this.state.errorMessageThermikforecast}
-                    errorMessageXc={this.state.errorMessageXc}
-                    errorMessageAreaDescription={this.state.errorMessageAreaDescription}
+
+                    classNameAreaName={`formular__input-wrapper ${this.errorClass(this.state.formErrorsArea.startareaname)}`}
+                    classNameRegio={`formular__input-wrapper formular__input-wrapper--fullwith ${this.errorClass(this.state.formErrorsArea.region)}`}
+                    classNameAreaFuniculare={`formular__input-wrapper formular__input-wrapper--margin-left ${this.errorClass(this.state.formErrorsArea.funicularLink)}`}
+                    classNameArealocation={`formular__input-wrapper formular__input-wrapper--fullwith ${this.errorClass(this.state.formErrorsArea.locationpin)}`}
+                    classNameAreawebcam={`formular__input-wrapper ${this.errorClass(this.state.formErrorsArea.webcam)}`}
+                    classNameAreawebcam2={`formular__input-wrapper ${this.errorClass(this.state.formErrorsArea.webcam2)}`}
+                    classNameAreawebcam3={`formular__input-wrapper ${this.errorClass(this.state.formErrorsArea.webcam3)}`}
+                    classNameAreashv={`formular__input-wrapper ${this.errorClass(this.state.formErrorsArea.shvInfo)}`}
+                    classNameAreawindstation={`formular__input-wrapper ${this.errorClass(this.state.formErrorsArea.windstation1)}`}
+                    classNameAreawindstation2={`formular__input-wrapper ${this.errorClass(this.state.formErrorsArea.windstation2)}`}
+                    classNameAreawindstation3={`formular__input-wrapper ${this.errorClass(this.state.formErrorsArea.windstation3)}`}
+                    classNameAreaXc={`formular__input-wrapper ${this.errorClass(this.state.formErrorsArea.xc)}`}
+                    classNameAreaDesc={`formular__input-wrapper formular__input--text ${this.errorClass(this.state.formErrorsArea.areaDescription)}`}
                 /> : null}
             </ReactTransitionGroup>
+            {this.state.errorAlertArea && <FormErrorAlert>{validation.valForm}</FormErrorAlert>}
             </section>
            </main>
         );

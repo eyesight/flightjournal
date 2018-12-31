@@ -463,8 +463,8 @@ class StartplaceFormContainer extends Component {
                 this.state.windstation1Valid &&
                 this.state.windstation2Valid &&
                 this.state.windstation3Valid &&
-                this.state.xc &&
-                this.state.areaDescription
+                this.state.xcValid &&
+                this.state.areaDescriptionValid
             });
       }
 
@@ -637,6 +637,8 @@ class StartplaceFormContainer extends Component {
     }
 
     render() {
+        console.log('sp ' + this.state.formValid);
+        console.log('area ' + this.state.formValidArea);
         return ( 
             <main className="main">
                 <section className="centered-layout">
@@ -713,7 +715,7 @@ class StartplaceFormContainer extends Component {
                     classNameCheckboxTxt='formular__checkbox-text'
                 /> : null}
             </ReactTransitionGroup>
-            {this.state.errorAlert && <FormErrorAlert>{validation.valForm}</FormErrorAlert>}
+            {this.state.errorAlert && !this.state.formstartareaisvisible && <FormErrorAlert>{validation.valForm}</FormErrorAlert>}
             <ReactTransitionGroup component="div" className="formular-wrapper">
             {this.state.formstartareaisvisible ? 
                 <StartareasForm 
@@ -757,7 +759,7 @@ class StartplaceFormContainer extends Component {
                     classNameAreaDesc={`formular__input-wrapper formular__input--text ${this.errorClass(this.state.formErrorsArea.areaDescription)}`}
                 /> : null}
             </ReactTransitionGroup>
-            {this.state.errorAlertArea && <FormErrorAlert>{validation.valForm}</FormErrorAlert>}
+            {this.state.errorAlertArea && this.state.formstartareaisvisible && <FormErrorAlert>{validation.valForm}</FormErrorAlert>}
             </section>
            </main>
         );

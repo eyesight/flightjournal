@@ -64,8 +64,7 @@ class FlugplanungLeft extends Component {
         let actualMonthNumber = 0;
         let season = '';
         let seasonLetter = '';
-
-        if (Month <= 2 && Month > 0) {
+        if (Month <= 2 && Month >= 0) {
             actualMonthNumber = winter;
             season = 'winter';
             seasonLetter = 'w';

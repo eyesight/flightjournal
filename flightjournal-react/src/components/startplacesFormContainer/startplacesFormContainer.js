@@ -485,7 +485,6 @@ class StartplaceFormContainer extends Component {
             this.setState({[name]: value}, 
                 () => { this.validateField(name, value) });
         }
-        console.log(name + ': ' + value);
     };
 
     getOptions(sp, text, keyForOption, keyForOption2){
@@ -512,7 +511,6 @@ class StartplaceFormContainer extends Component {
     onSubmit(e){
         e.preventDefault();
         let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");
-        console.log('onSub ' + this.state.formValid);
         if(this.state.formValid){
             this.setState({errorAlert: false})
         obj = {
@@ -637,8 +635,6 @@ class StartplaceFormContainer extends Component {
     }
 
     render() {
-        console.log('sp ' + this.state.formValid);
-        console.log('area ' + this.state.formValidArea);
         return ( 
             <main className="main">
                 <section className="centered-layout">

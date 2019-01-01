@@ -153,7 +153,6 @@ class FlightTableList extends Component {
         e.preventDefault();
         TweenLite.to(document.querySelector('.messageBox'), 0.3, {opacity:"0", scale : 0.1, y:"500px"});
         if(boxname === 'cancel'){
-            console.log(boxname);
             setTimeout(() => { 
                 this.setState({
                     showMessageBox: false,
@@ -194,15 +193,15 @@ class FlightTableList extends Component {
                                     <td className="table__duration">{utils.timeToHourMinString(x.flighttime)}</td>
                                     <td className="table__distance">{x.xcdistance} Kilometer</td>
                                     <td className="table__details"><Link className="anchor table__link" to={routes.FLUG + x.id}>Flugdetails</Link></td>
-                                    <td className="table__details table__details--icons"> {isactiveuser ? 
-                                    <Link className="table__icon" to={routes.FLUGDATEN_ERFASSEN + "/" + x.id}>
-                                        <svg version="1.1" className="svg-icon svg-icon--delete" x="0px" y="0px" viewBox="0 0 23.7 23.7">
+                                    <td className="table__details table__details--icons"> 
+                                    {isactiveuser ? <Link className="table__icon" to={routes.FLUGDATEN_ERFASSEN + "/" + x.id}>
+                                        <svg version="1.1" className="svg-icon svg-icon--edit" x="0px" y="0px" viewBox="0 0 23.7 23.7">
                                             <path className="svg-icon__path" d="M20.5,6.3l2.4-2.4l-3.1-3.1l-2.4,2.4"/>
                                             <path className="svg-icon__path" d="M6.4,20.3l14.1-14l-3.1-3.1l-14.1,14l-2.5,5.5L6.4,20.3z M3.3,17.2l3.1,3.1"/>
                                         </svg>
                                     </Link> : null}
                                     <button className="table__icon" onClick={(event) => {this.copyFlight(event, x.id)}}>
-                                        <svg version="1.1" className="svg-icon svg-icon--delete" x="0px" y="0px" viewBox="0 0 23.7 23.7" >
+                                        <svg version="1.1" className="svg-icon svg-icon--copy" x="0px" y="0px" viewBox="0 0 23.7 23.7" >
                                             <path className="svg-icon__path" d="M5.9,6h16.9v16.9H5.9V6z"/>
                                             <path className="svg-icon__path" d="M5.9,17.7H0.8V0.8h16.9v5.1"/>
                                         </svg>

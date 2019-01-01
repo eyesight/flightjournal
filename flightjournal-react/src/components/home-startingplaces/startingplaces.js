@@ -97,7 +97,7 @@ class StartingPlaces extends Component {
                         </a>
                         <p className="image-box__txt">{windstring}</p>
 
-                    </div>
+                    </div> 
                     <a href={`${routes.STARTPLATZOHNEID}${z.id}`}>
                         <div className="image-box__image-wrapper">
                             <img className="image-box__image" src={this.state.urlImageDefault}

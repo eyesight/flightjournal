@@ -9,7 +9,8 @@ class StartplacesFormPart extends Component {
             classNameAltitude, labelAltitude, typeAltitude, nameAltitude, labelImages, labelImagesCount,
             cbClassNameWrapper, cbClassNameLabel, cbLabel, classNameCheckboxWrapper, cbOptions, cbClassNameLabelItem, cbName, cbSelectedOptions, classNameCheckbox, classNameCheckboxTxt, errorMessageImagesUrl, errorMessageimagesCount,
             classNamePlace, labelPlace, typePlace, namePlace, labelDescription, nameDescription, typeDescription, classNameImageUrl, classNameImageNumber,
-            errorMessageName, errorMessageAltitude, errorMessagePlace, errorMessagecb } = this.props;
+            errorMessageName, errorMessageAltitude, errorMessagePlace, errorMessagecb,
+            valueName, valueAltitude, valuePlace, valueImageUrl, valueImageNumber } = this.props;
         return (
             <section className='formular__part'>
                 <div className='formular__part-title'>
@@ -24,6 +25,7 @@ class StartplacesFormPart extends Component {
                     autocomp=''
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageName}
+                    value={valueName}
                 />
                 <InputField 
                     classes={classNameAltitude}
@@ -34,6 +36,7 @@ class StartplacesFormPart extends Component {
                     autocomp=''
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageAltitude}
+                    value={valueAltitude}
                 />
                 <InputField 
                     classes={classNamePlace}
@@ -44,6 +47,7 @@ class StartplacesFormPart extends Component {
                     autocomp=''
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessagePlace}
+                    value={valuePlace}
                 />
                 <Checkbox 
                     classNameWrapper={cbClassNameWrapper}
@@ -74,6 +78,7 @@ class StartplacesFormPart extends Component {
                     autocomp=''
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageImagesUrl}
+                    value={valueImageUrl}
                 />
                 <InputField 
                     classes={classNameImageNumber}
@@ -84,6 +89,7 @@ class StartplacesFormPart extends Component {
                     autocomp=''
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageimagesCount}
+                    value={valueImageNumber}
                 />
                 <button className='button-without-border button-without-border--small'>+ mehr Startplätze erfassen</button>
             </section>          

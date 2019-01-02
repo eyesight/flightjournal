@@ -6,6 +6,7 @@ import { getStartplaces, saveStartplaces, updateStartplaces, deleteStartplaces }
 import { getStartareas, updateStartareas, saveStartareas } from '../../actions/StartareasActions';
 import { getRegions, updateRegions } from '../../actions/RegionsActions';
 import { getWinddirections, updateWinddirections } from '../../actions/WinddirectionActions';
+import { getPilots } from '../../actions/PilotActions';
 import { getUser } from '../../actions/UserActions';
 import * as routes from '../../constants/routes';
 import ReactTransitionGroup from 'react-addons-transition-group';
@@ -21,7 +22,7 @@ import moment from 'moment';
 import FormErrorAlert from '../formErrorAlert/formErrorAlert';
 
 let obj = {};
-
+//TODO: split the Form for Startplaces and Startaraes, to make it less confusing
 class StartplaceFormContainer extends Component {
     constructor(props) {
         super(props);
@@ -29,8 +30,15 @@ class StartplaceFormContainer extends Component {
             ani:'',
             formisvisible: true,
             formstartareaisvisible: false, //To check if we are on the area-part (true) or not (false).
-            titleForm: 'Neuen Startplatz erfassen.',
+            titleForm: (props.match.params.id) ? 'Startplatz editieren.' : 'Neuen Startplatz erfassen.',
+            toEditArea: (props.match.params.id) ? true : false,
+            idToEditArea: '',
             _isMounted: false,
+            IDtoUpdateStartplace: '',
+            from: (this.props.location.state) ? this.props.location.state[0].from : undefined,
+            oldstartareasId: '',
+            oldregionsId: '',
+            updateArea: false,
 
             saveAreaIds: false, 
             startplaceIds: [],
@@ -42,23 +50,6 @@ class StartplaceFormContainer extends Component {
 
             areasLabel: '',
             nameAreas: '',
-            getOptionsAreas: '',
-            errorMessageRegion: '',
-            errorMessageAreaName: '',
-            errorMessageFunicularLink: '',
-            errorMessageSandortpin: '', 
-            errorMessageWebcams1: '', 
-            errorMessageWebcams2: '', 
-            errorMessageWebcams3: '', 
-            errorMessageWindstation1: '',
-            errorMessageWindstation2: '',
-            errorMessageWindstation3: '',
-            errorMessageShvInfo: '', 
-            errorMessageThermikforecast: '', 
-            errorMessageXc: '', 
-            errorMessageAreaDescription: '',
-
-            classNameAreas: `formular__input-wrapper formular__input-wrapper--fullwith`,
 
             //validation-states
             validationTxt: '',
@@ -81,11 +72,11 @@ class StartplaceFormContainer extends Component {
             //validation-states area
             errorAlertArea: false,
             formValidArea: false,
-            formErrorsArea:{region: '', startareaname: '', funicularLink: '', locationpin: '', webcam: '', webcam2:'', webcam3:'', shvInfo: '', windstation1: '', windstation2: '', windstation3: '', xc: '', areaDescription: ''},
-            formErrorsValidArea: {region: false, startareaname: false, funicularLink: true, locationpin: true, webcam: true, webcam2:true, webcam3: true, shvInfo: true, windstation1: true, windstation2: true, windstation3: true, xc: true, areaDescription: true},
+            formErrorsArea:{regionsId: '', startareaname: '', funicularLink: '', locationpin: '', webcam: '', webcam2:'', webcam3:'', shvInfo: '', windstation1: '', windstation2: '', windstation3: '', xc: '', areaDescription: ''},
+            formErrorsValidArea: {regionsId: false, startareaname: false, funicularLink: true, locationpin: true, webcam: true, webcam2:true, webcam3: true, shvInfo: true, windstation1: true, windstation2: true, windstation3: true, xc: true, areaDescription: true},
             
             startareanameValid: false,
-            regionValid: false,
+            regionsIdValid: false,
             funicularLinkValid: true,
             locationpinValidArea: true,
             webcamValid: true,
@@ -108,8 +99,10 @@ class StartplaceFormContainer extends Component {
             lastUpdateSP: '',
             imagesUrl: '',
             imagesCount: 0,
+            authorSP: '',
+
             //Values of Form Startingareas
-            region: '',
+            regionsId: '',
             startareaname: '',
             funicularLink: '',
             arealocationpin: '',
@@ -126,7 +119,8 @@ class StartplaceFormContainer extends Component {
             areaDescription: '',
             startplaces: [],
             lastUpdateSA: '',
-            landingplaces: []
+            landingplaces: [],
+            authorArea: ''
         };
         this.onChange = this.onChange.bind(this);  
         this.onSubmit = this.onSubmit.bind(this);
@@ -139,6 +133,8 @@ class StartplaceFormContainer extends Component {
         this.validateForm = this.validateForm.bind(this);
         this.validateFormArea = this.validateFormArea.bind(this);
         this.errorClass = this.errorClass.bind(this);
+        this.editArea = this.editArea.bind(this);
+        this.fillAreaFormToUpdate = this.fillAreaFormToUpdate.bind(this);
     }
     
     componentWillMount() {
@@ -148,6 +144,7 @@ class StartplaceFormContainer extends Component {
         this.props.getRegions();
         this.props.getStartareas();
         this.props.getWinddirections();
+        this.props.getPilots();
         this.setState({
             _isMounted: true
         })
@@ -168,10 +165,38 @@ class StartplaceFormContainer extends Component {
                 firstcall: false
             })
         }
+        //if history.location.state is set (if someone likes to update a Startplace), set the values of Form-Input-Field
+        if( nextProps.currentStartplace && nextProps.currentPilot && nextProps.currentPilot.role === 'admin'){
+            let currentSP = nextProps.currentStartplace;
+            this.setState({
+                oldstartareasId: currentSP.startareasId,
+                IDtoUpdateStartplace: nextProps.match.params.id,
+                startareasId: currentSP.startareasId,
+                name: currentSP.name, 
+                altitude: currentSP.altitude,
+                description: currentSP.description,
+                locationpin: currentSP.locationpin,
+                winddirection: currentSP.winddirectionsId, 
+                lastUpdateSP: currentSP.lastUpdate,
+                imagesUrl: currentSP.imagesUrl,
+                imagesCount: currentSP.imagesCount,
+                rating: currentSP.rating,
+                writeDateSP: currentSP.writeDate,
+                authorSP: (currentSP.author) ? currentSP.author : nextProps.user.email,
+
+                //set state of forminput
+                //TODO: find a better solution
+                formValid: true,
+                startareasIdValid: true,
+                nameValid: true,
+                altitudeValid: true,
+                winddirectionValid: true,
+                idToEditArea: currentSP.startareasId //DELETE
+            })
+        }
     }
 
     componentWillUnmount() {
-        console.log('unmount');
         this.setState({
             _isMounted: false
         });
@@ -189,8 +214,9 @@ class StartplaceFormContainer extends Component {
             startplacesID.map(function (item) {
                 return newarr.push(item.id);
             });
+            //if a flight will be updated; when something is stored in props.match.param.id, the id of the actual flight has to be added in the Startarea
             //compare the new array of startplaces-Objects with the old one, before user clicked on "save" - so Id of new object stored in variable diff
-            let diff = newarr.filter(y => !that.state.startplaceIds.includes(y));
+            let diff = (this.props.match.params.id) ? [this.props.match.params.id] : newarr.filter(y => !that.state.startplaceIds.includes(y));
             //add all the startplaces-IDs whitch are stored in "startplaces" of Object startareas and push the new Id (stored in variable diff)
             keysOfStartareas.map(function (item) {
                 if(item.id === that.state.startareasId){
@@ -211,16 +237,22 @@ class StartplaceFormContainer extends Component {
                 this.setState({
                     saveAreaIds: false
                 }),
-                //When Object is updated, return to flight-form
-                this.props.history.push(routes.FLUGDATEN_ERFASSEN)
+                //When Object is updated, return to flight-Detail-Page
+                //When new and there is nothing in state from; return to frontpage. Otherwise return to the from-state
+                (this.props.match.params.id) ? (
+                    this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.IDtoUpdateStartplace}`)
+                ) : (
+                    (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
+                )
             ).catch((err) => {
                 console.log('error when update startareas when safe startplaces');
                 console.log(err)
               }
             );
         }
+  
         //when state saveRegionIds is set to true, the new Object set in function onSubmitArea
-        if(this.state.region && this.state.saveRegionIds){
+        if(this.state.regionsId && this.state.saveRegionIds){
             let that = this;
             let regioarr = [];
             let newarrArea = [];
@@ -230,9 +262,9 @@ class StartplaceFormContainer extends Component {
                 return newarrArea.push(item.id);
             });
             //compare the new array of startareas-Objects with the old one, before user clicked on "save" - so Id of new object is stored in variable diffArea
-            let diffArea = newarrArea.filter(y => !that.state.startareasIds.includes(y));
+            let diffArea = (this.state.updateArea) ? [this.state.idToEditArea] : newarrArea.filter(y => !that.state.startareasIds.includes(y));
             keysOfRegions.map(function (item) {
-                if(item.id === that.state.region){
+                if(item.id === that.state.regionsId){
                     //if array of startareas exits, add the new Id, otherwise build a new array with first Id in it
                     return (item.startareas) ? (
                         regioarr = item.startareas,
@@ -245,13 +277,13 @@ class StartplaceFormContainer extends Component {
                 startareas: regioarr
             }
             //update Regions with the updated array of startareas-Ids
-            this.props.updateRegions(this.state.region, objRegio).then(
+            this.props.updateRegions(this.state.regionsId, objRegio).then(
                 this.props.dispatch(reset('NewPost')),
                 //When Object is updated, return to startplaces-form by changing states
                 this.setState({
                     formstartareaisvisible: false,
                     formisvisible: true,
-                    titleForm: 'neuen Startplatz erfassen.',
+                    titleForm: (this.props.match.params.id)?'Startplatz editieren.':'Neuen Startplatz erfassen.',
                     saveRegionIds: false
                 })
             ).catch((err) => {
@@ -278,7 +310,7 @@ class StartplaceFormContainer extends Component {
         //Startarea-Form
         let fieldValidationErrorsArea = this.state.formErrorsArea;
         let startareanameValid = this.state.startareanameValid;
-        let regionValid = this.state.regionValid;
+        let regionsIdValid = this.state.regionsIdValid;
         let funicularLinkValid = this.state.funicularLinkValid;
         let locationpinValidArea = this.state.locationpinValidArea;
         let webcamValid = this.state.webcamValid;
@@ -338,9 +370,9 @@ class StartplaceFormContainer extends Component {
             startareanameValid = value.length > 0 && value.length <= 150 && (typeof value === 'string') && value !== '0';
             fieldValidationErrorsArea.startareaname = startareanameValid ? '' : `${validation.valField} ${validation.valEmpty} und ${validation.valLess150}.`;
             break;
-        case 'region': 
-            regionValid = value.length > 0 && value.length <= 150 && (typeof value === 'string') && value !== '0';
-            fieldValidationErrorsArea.region = regionValid ? '' : `${validation.valField} ${validation.valEmpty}.`;
+        case 'regionsId': 
+            regionsIdValid = value.length > 0 && value.length <= 150 && (typeof value === 'string') && value !== '0';
+            fieldValidationErrorsArea.regionsId = regionsIdValid ? '' : `${validation.valField} ${validation.valEmpty}.`;
             break;
         case 'funicularLink': 
             funicularLinkValid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
@@ -408,7 +440,7 @@ class StartplaceFormContainer extends Component {
         //areas
         this.setState({
         formErrorsValidArea:{
-            region: regionValid,
+            regionsId: regionsIdValid,
             startareaname: startareanameValid,
             funicularLink: funicularLinkValid,
             locationpin: locationpinValidArea,
@@ -422,7 +454,7 @@ class StartplaceFormContainer extends Component {
             xc: xcValid,
             areaDescription: areaDescriptionValid
         },
-        regionValid: regionValid,
+        regionsIdValid: regionsIdValid,
         startareanameValid: startareanameValid,
         funicularLinkValid: funicularLinkValid,
         locationpinValidArea: locationpinValidArea,
@@ -453,7 +485,7 @@ class StartplaceFormContainer extends Component {
       validateFormArea() {
             this.setState({formValidArea: 
                 this.state.startareanameValid &&
-                this.state.regionValid &&
+                this.state.regionsIdValid &&
                 this.state.funicularLinkValid &&
                 this.state.locationpinValidArea &&
                 this.state.webcamValid &&
@@ -481,6 +513,13 @@ class StartplaceFormContainer extends Component {
             this.setState({
                 [name]: this.state.winddirection
             }, () => { this.validateField(name, this.state.winddirection) });
+        }else if(name === 'startareasId'){
+            this.setState({[name]: value}, 
+                () => { this.validateField(name, value) 
+            });
+            this.setState({
+                idToEditArea: value
+            });
         }else{
             this.setState({[name]: value}, 
                 () => { this.validateField(name, value) });
@@ -511,10 +550,11 @@ class StartplaceFormContainer extends Component {
     onSubmit(e){
         e.preventDefault();
         let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");
+        let author = this.props.user.email;
         if(this.state.formValid){
             this.setState({errorAlert: false})
         obj = {
-            writeDate: actualTimestamp,
+            writeDate: actualTimestamp, 
             lastUpdate: updateLastUpdateArray(this.state.lastUpdateSP, actualTimestamp),
             name: this.state.name,
             altitude : this.state.altitude,
@@ -524,19 +564,57 @@ class StartplaceFormContainer extends Component {
             winddirectionsId: this.state.winddirection,
             rating: '',
             imagesUrl: this.state.imagesUrl,
-            imagesCount: this.state.imagesCount
+            imagesCount: this.state.imagesCount,
+            author: author,
         }
-        //when new Object is added, state saveAreaIds will set to true, so function in componentDidUpdate will be continued
-        this.props.saveStartplaces(obj).then(
-            this.props.dispatch(reset('NewPost')),
-            this.setState({
-                saveAreaIds: true
-            })
-        ).catch((err) => {
-            console.log('error when safe startplaces');
-            console.log(err)
-          }
-        );      
+        //if there is set an ID to update a fligt. Otherwise save a new flight
+        if(this.state.IDtoUpdateStartplace !== ''){
+            let that = this;
+            let arrayToremove = [];
+            const keysOfOldStartareas = Object.keys(this.props.startareas).map(i => this.props.startareas[i]);
+            keysOfOldStartareas.map(function (item) {
+                if(item.id === that.state.oldstartareasId && item.startplaces){
+                    item.startplaces.splice( item.startplaces.indexOf(that.props.match.params.id), 1 );
+                    return arrayToremove = item.startplaces;
+                }else{
+                    return arrayToremove = [];
+                }
+            });
+            let objArea = {
+                startplaces: arrayToremove
+            }
+            this.props.updateStartareas(this.state.oldstartareasId, objArea).then(
+                this.props.dispatch(reset('NewPost')),
+                this.props.updateStartplaces(this.state.IDtoUpdateStartplace, obj).then(
+                    //when new Object is updated, state saveAreaIds will set to true, so function in componentDidUpdate will be continued
+                    this.props.dispatch(reset('NewPost')),
+                    this.setState({
+                        saveAreaIds: true
+                    })
+                ).catch((err) => {
+                    console.log('error when update startplaces');
+                    console.log(err)
+                    }
+                )
+            ).catch((err) => {
+                console.log('error when update startareas when safe startplaces');
+                console.log(err)
+              }
+            ); 
+        }else{
+            //when new Object is added, state saveAreaIds will set to true, so function in componentDidUpdate will be continued
+            this.props.saveStartplaces(obj).then(
+                this.props.dispatch(reset('NewPost')),
+                this.setState({
+                    saveAreaIds: true
+                })
+            ).catch((err) => {
+                console.log('error when safe startplaces');
+                console.log(err)
+              }
+            );
+        }
+                    
      }else{
         this.setState({errorAlert: true})
         Object.keys(this.state.formErrorsValid).map((fieldName, i) => {
@@ -552,52 +630,89 @@ class StartplaceFormContainer extends Component {
         let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");
         let webcamarr = [];
         let windstationarr = [];
+        let author = this.props.user.email;
         if(this.state.webcam){webcamarr.push(this.state.webcam)};
         if(this.state.webcam2){webcamarr.push(this.state.webcam2)};
         if(this.state.webcam3){webcamarr.push(this.state.webcam3)};
         if(this.state.windstation1){windstationarr.push(this.state.windstation1)};
         if(this.state.windstation2){windstationarr.push(this.state.windstation2)};
         if(this.state.windstation3){windstationarr.push(this.state.windstation3)};
-        this.setState({
-            webcams: webcamarr,
-            webcam: '',
-            webcam2: '',
-            webcam3: '',
-            weatherstations: windstationarr,
-            windstation1: '',
-            windstation2: '',
-            windstation3: ''
-        })
         if(this.state.formValidArea){
+            this.setState({
+                webcams: webcamarr,
+                webcam: '',
+                webcam2: '',
+                webcam3: '',
+                weatherstations: windstationarr,
+                windstation1: '',
+                windstation2: '',
+                windstation3: ''
+            })
+        
             this.setState({errorAlertArea: false})
             obj = {
                 description: this.state.areaDescription,
                 funicularLink: this.state.funicularLink,
-                imagesUrl: this.state.imagesUrl,
                 landingplaces: this.state.landingplaces,
                 lastUpdate: updateLastUpdateArray(this.state.lastUpdateSA, actualTimestamp),
                 locationpin: this.state.arealocationpin,
                 name: this.state.startareaname,
                 rating: '',
-                regionsId: this.state.region,
+                regionsId: this.state.regionsId,
                 shvInfo: this.state.shvInfo,
                 
                 webcams: webcamarr,
                 weatherstations: windstationarr,
                 writeDate: actualTimestamp,
+                author: author,
                 xc: this.state.xc
             }
-            //when new Object is added, state saveRegionIds will set to true, so function in componentDidUpdate will be continued
-            this.props.saveStartareas(obj).then(
-                this.props.dispatch(reset('NewPost')),
-                this.setState({
-                    saveRegionIds: true
-                })
-            ).catch((err) => {
-                console.log('error when safe startareas');
-                console.log(err)
+            if(this.state.updateArea===true && this.state.idToEditArea !==''){
+                let that = this;
+                let arrayToremove = [];
+                const keysOfOldRegions = Object.keys(this.props.regions).map(i => this.props.regions[i]);
+                keysOfOldRegions.map(function (item) {
+                    if(item.id === that.state.oldregionsId){
+                        item.startareas.splice( item.startareas.indexOf(that.state.idToEditArea), 1 );
+                        return arrayToremove = item.startareas;
+                    }
+                    return '';
+                });
+                let objRegio = {
+                    startareas: arrayToremove
+                }
+                this.props.updateRegions(this.state.oldregionsId, objRegio).then(
+                    this.props.dispatch(reset('NewPost')),
+                    this.props.updateStartareas(this.state.idToEditArea, obj).then(
+                        //when new Object is updated, state saveAreaIds will set to true, so function in componentDidUpdate will be continued
+                        this.props.dispatch(reset('NewPost')),
+                        this.setState({
+                            saveRegionIds: true
+                        })
+                    ).catch((err) => {
+                        console.log('error when update startareas');
+                        console.log(err)
+                        }
+                    )
+                ).catch((err) => {
+                    console.log('error when update startareas when safe startplaces');
+                    console.log(err)
+                }
+                ); 
+            }else{
+                //when new Object is added, state saveRegionIds will set to true, so function in componentDidUpdate will be continued
+                this.props.saveStartareas(obj).then(
+                    this.props.dispatch(reset('NewPost')),
+                    this.setState({
+                        saveRegionIds: true
+                    })
+                ).catch((err) => {
+                    console.log('error when safe startareas');
+                    console.log(err)
+                }
+                );
             }
-            );
+            
         }else{
             this.setState({errorAlertArea: true})
             Object.keys(this.state.formErrorsValidArea).map((fieldName, i) => {
@@ -615,7 +730,7 @@ class StartplaceFormContainer extends Component {
             this.setState({
                 formstartareaisvisible: false,
                 formisvisible: true,
-                titleForm: 'Neuen Startplatz erfassen.',
+                titleForm: (this.props.match.params.id)?'Startplatz editieren.':'Neuen Startplatz erfassen.',
             });
         }else{
             this.props.dispatch(reset('NewPost'));
@@ -630,7 +745,67 @@ class StartplaceFormContainer extends Component {
             formstartareaisvisible: true,
             formisvisible: false,
             titleForm: 'Neues Fluggebiet erfassen.',
-            startareasIds: keyStartareas
+            startareasIds: keyStartareas, //Store all Startareas in array, to compare the array before the update state and store the new element in the array, when saved
+
+            oldregionsId: '',
+            regionsId: '',
+            startareaname: '',
+            funicularLink: '',
+            arealocationpin: '',
+            webcam: '',
+            webcam2: '',
+            webcam3: '',
+            shvInfo: '',
+            windstation1: '',
+            windstation2: '',
+            windstation3: '',
+            xc: '',
+            areaDescription: '',
+            lastUpdateSA: '',
+            writeDateArea: '',
+            authorArea: '',
+
+            updateArea: false,
+            startareanameValid: false,
+            regionsIdValid: false
+        });
+    }
+
+    editArea(e, id){
+        e.preventDefault();
+        this.goToPage(e);
+        this.setState({
+            updateArea: true,
+            titleForm: 'Fluggebiet bearbeiten.'
+        })
+        //Fill out the area-form with the current Area to update
+        if(this.state.idToEditArea !== '' && this.props.currentPilot.role === 'admin'){
+            this.fillAreaFormToUpdate(id);
+        }
+    }
+    fillAreaFormToUpdate(id){
+        let currentArea = _.find(this.props.startareas, { id: id });
+        this.setState({
+            oldregionsId: currentArea.regionsId,
+            regionsId: currentArea.regionsId,
+            startareaname: currentArea.name,
+            funicularLink: currentArea.funicularLink,
+            arealocationpin: currentArea.locationpin,
+            webcam: (currentArea.webcams && currentArea.webcams[0]) ? currentArea.webcams[0] : '',
+            webcam2: (currentArea.webcams && currentArea.webcams[1]) ? currentArea.webcams[0] : '',
+            webcam3: (currentArea.webcams && currentArea.webcams[2]) ? currentArea.webcams[0] : '',
+            shvInfo: currentArea.shvInfo,
+            windstation1: (currentArea.weatherstations && currentArea.weatherstations[0]) ? currentArea.weatherstations[0] : '',
+            windstation2: (currentArea.weatherstations && currentArea.weatherstations[1]) ? currentArea.weatherstations[1] : '',
+            windstation3: (currentArea.weatherstations && currentArea.weatherstations[2]) ? currentArea.weatherstations[2] : '',
+            xc: currentArea.xc,
+            areaDescription: currentArea.description,
+            lastUpdateSA: currentArea.lastUpdate,
+            writeDateArea: currentArea.writeDate,
+            authorArea: (currentArea.author) ? currentArea.author : '',
+
+            startareanameValid: true,
+            regionsIdValid: true
         });
     }
 
@@ -658,8 +833,7 @@ class StartplaceFormContainer extends Component {
                     goToPage={this.goToPage}
                     delayEnter={0.2}
                     delayLeave={0.2}
-                    
-                    valueAreas={this.state.startareasId}
+                
                     getOptionsAreas={this.getOptions(this.props.startareas, 'Fluggebiet wählen', 'name')}  
 
                     classNameAreas={`formular__input-wrapper formular__input-wrapper--fullwith ${this.errorClass(this.state.formErrors.startareasId)}`}
@@ -677,7 +851,6 @@ class StartplaceFormContainer extends Component {
                     nameAreas='startareasId'
                     nameImages='imagesUrl'
                     nameImagesCount='imagesCount'
-                    valueDescription={this.state.startplacesDescription}
                     typeName='text'
                     typeAltitude='text'
                     typePlace='text'
@@ -709,6 +882,17 @@ class StartplaceFormContainer extends Component {
                     cbSelectedOptions={this.state.winddirection}
                     classNameCheckbox='formular__checkbox'
                     classNameCheckboxTxt='formular__checkbox-text'
+
+                    valueAreas={this.state.startareasId}
+                    valueName={this.state.name}
+                    valueAltitude={this.state.altitude}
+                    valuePlace={this.state.locationpin}
+                    valueImageUrl={this.state.imagesUrl}
+                    valueImageNumber={this.state.imagesCount}
+                    valueDescription={this.state.description}
+
+                    toEdit={this.state.toEditArea}
+                    editArea={(event)=>{this.editArea(event, this.state.idToEditArea)}}
                 /> : null}
             </ReactTransitionGroup>
             {this.state.errorAlert && !this.state.formstartareaisvisible && <FormErrorAlert>{validation.valForm}</FormErrorAlert>}
@@ -721,10 +905,9 @@ class StartplaceFormContainer extends Component {
                     onChange={this.onChange}
                     onSubmitArea={this.onSubmitArea}
                     regioLabel='Region wählen'
-                    nameRegio='region'
-                    valueRegio={this.state.regionsId}
+                    nameRegio='regionsId'
 
-                    errorMessageRegio={this.state.formErrorsArea.region}
+                    errorMessageRegio={this.state.formErrorsArea.regionsId}
                     errorMessageAreaName={this.state.formErrorsArea.startareaname}    
                     errorMessageFunicularLink={this.state.formErrorsArea.funicularLink}
                     errorMessageSandortpin={this.state.formErrorsArea.locationpin}
@@ -741,7 +924,7 @@ class StartplaceFormContainer extends Component {
                     getOptionsRegio={this.getOptions(this.props.regions, 'Region wählen', 'name')}
 
                     classNameAreaName={`formular__input-wrapper ${this.errorClass(this.state.formErrorsArea.startareaname)}`}
-                    classNameRegio={`formular__input-wrapper formular__input-wrapper--fullwith ${this.errorClass(this.state.formErrorsArea.region)}`}
+                    classNameRegio={`formular__input-wrapper formular__input-wrapper--fullwith ${this.errorClass(this.state.formErrorsArea.regionsId)}`}
                     classNameAreaFuniculare={`formular__input-wrapper formular__input-wrapper--margin-left ${this.errorClass(this.state.formErrorsArea.funicularLink)}`}
                     classNameArealocation={`formular__input-wrapper formular__input-wrapper--fullwith ${this.errorClass(this.state.formErrorsArea.locationpin)}`}
                     classNameAreawebcam={`formular__input-wrapper ${this.errorClass(this.state.formErrorsArea.webcam)}`}
@@ -753,6 +936,20 @@ class StartplaceFormContainer extends Component {
                     classNameAreawindstation3={`formular__input-wrapper ${this.errorClass(this.state.formErrorsArea.windstation3)}`}
                     classNameAreaXc={`formular__input-wrapper ${this.errorClass(this.state.formErrorsArea.xc)}`}
                     classNameAreaDesc={`formular__input-wrapper formular__input--text ${this.errorClass(this.state.formErrorsArea.areaDescription)}`}
+
+                    valueRegio={this.state.regionsId}
+                    valueAreaName={this.state.startareaname}
+                    valueAreaFuniculare={this.state.funicularLink}
+                    valueArealocation={this.state.arealocationpin}
+                    valueAreawebcam={this.state.webcam}
+                    valueAreawebcam2={this.state.webcam2}
+                    valueAreawebcam3={this.state.webcam3}
+                    valueAreashv={this.state.shvInfo}
+                    valueAreawindstation={this.state.windstation1}
+                    valueAreawindstation2={this.state.windstation2}
+                    valueAreawindstation3={this.state.windstation3}
+                    valueAreaXc={this.state.xc} 
+                    valueDescription={this.state.areaDescription}
                 /> : null}
             </ReactTransitionGroup>
             {this.state.errorAlertArea && this.state.formstartareaisvisible && <FormErrorAlert>{validation.valForm}</FormErrorAlert>}
@@ -767,14 +964,18 @@ let flightform = reduxForm({
   })(StartplaceFormContainer);
   
   flightform = connect((state, props) => {
+        let key = (props.match.params.id) ? props.match.params.id : '';
+        
           return  {
                 startplaces: state.startplaces,
+                currentStartplace: _.find(state.startplaces, { id: key }),
                 user: state.user,
                 regions: state.regions,
                 startareas: state.startareas,
-                winddirections: state.winddirections
+                winddirections: state.winddirections,
+                currentPilot: _.find(state.pilots, { email: state.user.email })
             };
-        }, { saveStartplaces, getStartplaces, updateStartplaces, deleteStartplaces, getUser, getStartareas, updateStartareas, saveStartareas, getRegions, updateRegions, getWinddirections, updateWinddirections }
+        }, { saveStartplaces, getStartplaces, updateStartplaces, deleteStartplaces, getUser, getStartareas, updateStartareas, saveStartareas, getRegions, updateRegions, getWinddirections, updateWinddirections, getPilots }
     )(flightform);
 
 export default withRouter(flightform);

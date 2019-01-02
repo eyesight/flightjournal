@@ -31,7 +31,8 @@ class StartplacesForm extends Component {
     render() {
         const { onChange, onSubmitArea, classNameRegio, regioLabel, nameRegio, valueRegio, getOptionsRegio, errorMessageRegio, valueDescription, errorMessageWindstation1, errorMessageWindstation2, errorMessageWindstation3,
             errorMessageAreaName, errorMessageFunicularLink, errorMessageSandortpin, errorMessageWebcams1, errorMessageWebcams2, errorMessageWebcams3, errorMessageShvInfo, errorMessageXc, errorMessageAreaDescription,
-            classNameAreaName, classNameAreaFuniculare, classNameArealocation, classNameAreawebcam, classNameAreawebcam2, classNameAreawebcam3, classNameAreashv, classNameAreawindstation, classNameAreawindstation2, classNameAreawindstation3, classNameAreaXc, classNameAreaDesc } = this.props;
+            classNameAreaName, classNameAreaFuniculare, classNameArealocation, classNameAreawebcam, classNameAreawebcam2, classNameAreawebcam3, classNameAreashv, classNameAreawindstation, classNameAreawindstation2, classNameAreawindstation3, classNameAreaXc, classNameAreaDesc,
+            valueAreaName, valueAreaFuniculare, valueArealocation, valueAreawebcam, valueAreawebcam2, valueAreawebcam3, valueAreashv, valueAreawindstation, valueAreawindstation2, valueAreawindstation3, valueAreaXc } = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={onSubmitArea}>
                 <div className={classNameRegio}>
@@ -53,26 +54,29 @@ class StartplacesForm extends Component {
                     autocomp=''
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageAreaName}
+                    value={valueAreaName}
                 />
                 <InputField 
                     classes={classNameAreaFuniculare}
                     label='Seilbahn Link'
                     inputAction={onChange}
                     type='text'
-                    name='funicularLink'
+                    name='funicularLink' 
                     autocomp=''
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageFunicularLink}
+                    value={valueAreaFuniculare}
                 />
                 <InputField 
                     classes={classNameArealocation}
                     label='Standortpin'
                     inputAction={onChange}
                     type='text'
-                    name='locationpin'
+                    name='arealocationpin'
                     autocomp=''
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageSandortpin}
+                    value={valueArealocation}
                 />
                 <InputField 
                     classes={classNameAreawebcam}
@@ -83,6 +87,7 @@ class StartplacesForm extends Component {
                     autocomp=''
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageWebcams1}
+                    value={valueAreawebcam}
                 />
                 <InputField 
                     classes={classNameAreawebcam2}
@@ -93,6 +98,7 @@ class StartplacesForm extends Component {
                     autocomp=''
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageWebcams2}
+                    value={valueAreawebcam2}
                 />
                 <InputField 
                     classes={classNameAreawebcam3}
@@ -103,6 +109,7 @@ class StartplacesForm extends Component {
                     autocomp=''
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageWebcams3}
+                    value={valueAreawebcam3}
                 />
                 <InputField 
                     classes={classNameAreashv}
@@ -113,6 +120,7 @@ class StartplacesForm extends Component {
                     autocomp=''
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageShvInfo}
+                    value={valueAreashv}
                 />
                 <InputField 
                     classes={classNameAreawindstation}
@@ -123,6 +131,7 @@ class StartplacesForm extends Component {
                     autocomp=''
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageWindstation1}
+                    value={valueAreawindstation}
                 />
                 <InputField 
                     classes={classNameAreawindstation2}
@@ -133,6 +142,7 @@ class StartplacesForm extends Component {
                     autocomp=''
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageWindstation2}
+                    value={valueAreawindstation2}
                 />
                 <InputField 
                     classes={classNameAreawindstation3}
@@ -143,6 +153,7 @@ class StartplacesForm extends Component {
                     autocomp=''
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageWindstation3}
+                    value={valueAreawindstation3}
                 />
                 <InputField 
                     classes={classNameAreaXc}
@@ -153,6 +164,7 @@ class StartplacesForm extends Component {
                     autocomp=''
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageXc}
+                    value={valueAreaXc}
                 />
                 <div className={classNameAreaDesc}>
                     <label className="formular__label">Beschrieb</label>

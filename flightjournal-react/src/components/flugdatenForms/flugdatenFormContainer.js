@@ -186,17 +186,17 @@ class FlugdatenFormContainer extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.user.loading === false && nextProps.user.uid === undefined) {
             this.props.history.replace(routes.LANDING);
-          }
-          //set data of active pilot
-          for(let i = 0; i<nextProps.pilots.length; i++){
+        }
+        //set data of active pilot
+        for(let i = 0; i<nextProps.pilots.length; i++){
             if(nextProps.pilots && nextProps.user.email === nextProps.pilots[i].email){
                 this.setState({
                     activePilot: this.props.pilots[i],
                     paragliders: nextProps.pilots[i].paraglider
                 }) 
             }
-          }
-          //if history.location.state is set (if someone likes to update a Flight), set the values of Form-Input-Field
+        }
+        //if history.location.state is set (if someone likes to update a Flight), set the values of Form-Input-Field
         if( nextProps.flight && nextProps.flight.pilotId !== undefined && nextProps.flight.pilotId === nextProps.user.uid){
             let currentFlight = nextProps.flight;
             if(currentFlight !==null || currentFlight !==undefined || currentFlight !==[]){
@@ -317,7 +317,6 @@ class FlugdatenFormContainer extends Component {
         let syrideLinkValid = this.state.syrideLinkValid
         let xcontestLinkValid = this.state.xcontestLinkValid
         let airtribuneLinkValid = this.state.airtribuneLinkValid
-
         switch(fieldName) {
             case 'landingplace':
             landingplaceValid = value.length > 0 && value.length <= 150 && value !== '' && (typeof value === 'string');
@@ -776,7 +775,7 @@ class FlugdatenFormContainer extends Component {
             lastUpdate: updateLastUpdateArray(this.state.lastUpdate, actualTimestamp)
         }
 
-        //if there is set an ID to update a fligt -> "Speichern" means update. Otherwise save a new flight
+        //if there is set an ID to update a fligt. Otherwise save a new flight
         if(this.state.IDtoUpdate !== ''){
             this.props.updateFlights(this.state.IDtoUpdate, obj).then(this.props.dispatch(reset('NewPost')));
         }else{
@@ -842,7 +841,10 @@ class FlugdatenFormContainer extends Component {
 
     goToPage(e){
         e.preventDefault();
-        this.props.history.push(routes.STARTPLATZ_ERFASSEN);
+        this.props.history.push({
+            pathname: routes.STARTPLATZ_ERFASSEN,
+            state: [{from: routes.FLUGDATEN_ERFASSEN}]
+        });
     }
 
     componentWillUnmount() {
@@ -950,7 +952,6 @@ class FlugdatenFormContainer extends Component {
     }
 
     render() {
-        console.log('flight '+ this.state.formValid);
         return ( 
             <main className="main">
                 <section className="centered-layout">
@@ -1107,12 +1108,7 @@ let flightform = reduxForm({
   })(FlugdatenFormContainer);
 
   flightform = connect((state, props) => {
-      let key = '';
-      if(props.match.params.id){
-         key = props.match.params.id;
-      }else{
-          key = '';
-      }
+      let key = (props.match.params.id) ? props.match.params.id : '';
     
     return {
           flight: _.find(state.flights, { id: key }),

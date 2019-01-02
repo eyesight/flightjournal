@@ -4,10 +4,11 @@ import { getRegions } from '../../actions/RegionsActions';
 import { getStartplaces } from '../../actions/StartplacesActions';
 import { getStartareas } from '../../actions/StartareasActions';
 import { getWinddirections } from '../../actions/WinddirectionActions';
+import { getPilots } from '../../actions/PilotActions';
 import BackButton from './../backButton/backButton';
 
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import  _ from 'lodash';
 import MainTitleWrapper from '../mainTitleWrapper/mainTitleWrapper';
 import * as routes from '../../constants/routes';
@@ -26,6 +27,7 @@ class StartplaceDetail extends Component {
             classNameDetailsTxt_txt: 'details__txt',
             classNameLink: 'anchor-wrapper',
             startplatz: 'Startplatz',
+            isUserAdmin: false,
 
             currentArea: {},
             allcurrentStartplaces: [],
@@ -57,6 +59,7 @@ class StartplaceDetail extends Component {
         this.props.getStartareas();
         this.props.getRegions();
         this.props.getWinddirections();
+        this.props.getPilots();
         if (this.props.user.loading === false && this.props.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
           }
@@ -82,6 +85,12 @@ class StartplaceDetail extends Component {
         if (nextProps.user.loading === false && nextProps.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
           } 
+        //if current user hase the role "admin" set state to show the edit-button
+        if(nextProps.currentPilot && nextProps.currentPilot.role === 'admin'){
+            this.setState({
+                isUserAdmin: true
+            });
+        }   
         if( nextProps.allstartplaces !== undefined && nextProps.startplace !== undefined && nextProps.allstartareas !== undefined && nextProps.regions){
             let currentRegio = {}
             let currentArea = _.find(nextProps.allstartareas, {id:nextProps.startplace.startareasId});
@@ -278,6 +287,12 @@ class StartplaceDetail extends Component {
                                     link='Startplatz ansehen'
                                 />)
                             })}
+                            {this.state.isUserAdmin ? <Link className="image-box__icon image-box__icon--right" to={routes.STARTPLATZ_ERFASSEN + "/" + this.props.match.params.id}>
+                                <svg version="1.1" className="svg-icon svg-icon--edit" x="0px" y="0px" viewBox="0 0 23.7 23.7">
+                                    <path className="svg-icon__path" d="M20.5,6.3l2.4-2.4l-3.1-3.1l-2.4,2.4"/>
+                                    <path className="svg-icon__path" d="M6.4,20.3l14.1-14l-3.1-3.1l-14.1,14l-2.5,5.5L6.4,20.3z M3.3,17.2l3.1,3.1"/>
+                                </svg> 
+                            </Link> : null}
                             </div>
                         </div>
                     </div>
@@ -295,8 +310,9 @@ function mapStateToProps(state, props) {
         regions: state.regions,
         allstartplaces: state.startplaces,
         allstartareas: state.startareas,
-        winddirections: state.winddirections
+        winddirections: state.winddirections,
+        currentPilot: _.find(state.pilots, { email: state.user.email })
     };
 } 
 
-export default withRouter(connect(mapStateToProps, { getUser, getStartplaces, getStartareas, getRegions, getWinddirections })(StartplaceDetail));
+export default withRouter(connect(mapStateToProps, { getUser, getStartplaces, getStartareas, getRegions, getWinddirections, getPilots })(StartplaceDetail));

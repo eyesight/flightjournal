@@ -38,7 +38,6 @@ class FlightTableList extends Component {
         this.deleteFunc = this.deleteFunc.bind(this);
         this.cancelFunc = this.cancelFunc.bind(this);
         this.showMessageBox = this.showMessageBox.bind(this);
-        this.updateFlight = this.updateFlight.bind(this);
         this.deletePhotos = this.deletePhotos.bind(this);
         this.copyFlight = this.copyFlight.bind(this);
         this.editCopy = this.editCopy.bind(this);
@@ -143,10 +142,12 @@ class FlightTableList extends Component {
     }
 
     editCopy(e, id){
-        //get the last added flight of the active user => this must be the copy and call function "updateFlights" with it's id
+        //get the last added flight of the active user => this must be the copy
         e.preventDefault();
         let lastFlightOfArray = _.findLastKey(this.props.flights, function(o) { return o.pilotId === id; });
-        this.updateFlight(e, lastFlightOfArray);
+        this.props.history.push({
+            pathname: routes.FLUGDATEN_ERFASSEN + "/" + lastFlightOfArray
+        });
     }
 
     cancelFunc(e, boxname){
@@ -167,12 +168,6 @@ class FlightTableList extends Component {
                 }) 
             }, 150); 
         }
-    }
-
-    updateFlight(id){        
-        this.props.history.push({
-            pathname: routes.FLUGDATEN_ERFASSEN + "/" + id
-        });
     }
     //TODO: make delete- & update-function just for active user (inside the function, not the ui)
     renderFlights(obj, pilot, startpl) {

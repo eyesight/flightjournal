@@ -29,7 +29,8 @@ class StartplacesForm extends Component {
     render() {
         const { onChange, onSubmit, goToPage, classNameAreas, areasLabel, nameAreas, valueAreas, getOptionsAreas, errorMessageAreas, valueDescription, errorMessageDesc, classNameName, labelName, typeName, nameStartplaceName, classNameAltitude, labelAltitude, typeAltitude, nameAltitude, classNamePlace, labelPlace, typePlace, namePlace, labelDescription, typeDescription, nameDescription, 
                 errorMessageImagesUrl, errorMessageimagesCount, cbClassNameWrapper, cbClassNameLabel, cbLabel, classNameCheckboxWrapper, cbOptions, cbClassNameLabelItem, cbName, cbSelectedOptions, classNameCheckbox, classNameCheckboxTxt, classNameDesc, labelImages, labelImagesCount, nameImages, nameImagesCount,
-                errorMessageName, errorMessageAltitude, errorMessagePlace, errorMessagecb, classNameImageUrl, classNameImageNumber} = this.props;
+                errorMessageName, errorMessageAltitude, errorMessagePlace, errorMessagecb, classNameImageUrl, classNameImageNumber,
+                valueName, valueAltitude, valuePlace, valueImageUrl, valueImageNumber, toEdit, editArea} = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
                 <div className={classNameAreas}>
@@ -42,6 +43,7 @@ class StartplacesForm extends Component {
                      </div> 
                 <span className='formular__validationBox'>{errorMessageAreas}</span>
                 <button className="link link--black link-with-icon" onClick={goToPage}><i className="fas fa-plus"></i> neues Fluggebiet erfassen </button>
+                {toEdit ? <button className="link link--black link-with-icon" onClick={editArea}><i className="fas fa-plus"></i> dieses Fluggebiet bearbeiten </button> : null}
                 </div>
                 <StartplacesFormPart 
                     onChange={onChange}
@@ -85,6 +87,11 @@ class StartplacesForm extends Component {
                     errorMessagecb={errorMessagecb}
                     classNameImageUrl={classNameImageUrl}
                     classNameImageNumber={classNameImageNumber}
+                    valueName={valueName}
+                    valueAltitude={valueAltitude}
+                    valuePlace={valuePlace}
+                    valueImageUrl={valueImageUrl}
+                    valueImageNumber={valueImageNumber}
                 />
                 <div className="button-group">
                     <div className="button-wrapper">

@@ -1,3 +1,12 @@
 .article-item{
   margin-top: rem-calc(50px);
+
+  &__icon-wrapper{
+    margin-top:rem-calc(25px);
+    display: flex;
+    justify-content: space-between;
+  }
+  &__icon{
+    margin-right: 10px;
+  }
 }

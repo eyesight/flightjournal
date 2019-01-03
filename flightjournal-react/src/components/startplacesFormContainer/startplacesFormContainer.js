@@ -182,7 +182,7 @@ class StartplaceFormContainer extends Component {
                 imagesCount: currentSP.imagesCount,
                 rating: currentSP.rating,
                 writeDateSP: currentSP.writeDate,
-                authorSP: (currentSP.author) ? currentSP.author : nextProps.user.email,
+                authorSP: (currentSP.author && currentSP.author !== '') ? currentSP.author : nextProps.user.email,
 
                 //set state of forminput
                 //TODO: find a better solution
@@ -223,11 +223,11 @@ class StartplaceFormContainer extends Component {
                     //if array of startareas exits, add the new Id, otherwise build a new array with first Id in it
                     return (item.startplaces) ? (
                         sparray = item.startplaces,
-                        sparray.push(...diff)
-                    ) : sparray = diff;
+                        sparray.push(...diff) 
+                    ) : (sparray = diff);
                 };
                 return sparray;
-            });
+            }); 
             let objArea = {
                 startplaces: sparray
             }
@@ -550,7 +550,7 @@ class StartplaceFormContainer extends Component {
     onSubmit(e){
         e.preventDefault();
         let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");
-        let author = this.props.user.email;
+        let author = (this.state.authorSP !== '') ? this.state.authorSP : this.props.user.email;
         if(this.state.formValid){
             this.setState({errorAlert: false})
         obj = {
@@ -574,10 +574,12 @@ class StartplaceFormContainer extends Component {
             const keysOfOldStartareas = Object.keys(this.props.startareas).map(i => this.props.startareas[i]);
             keysOfOldStartareas.map(function (item) {
                 if(item.id === that.state.oldstartareasId && item.startplaces){
+                    console.log(item.startplaces);
                     item.startplaces.splice( item.startplaces.indexOf(that.props.match.params.id), 1 );
-                    return arrayToremove = item.startplaces;
+                    arrayToremove = item.startplaces;
+                    return arrayToremove
                 }else{
-                    return arrayToremove = [];
+                    return '';
                 }
             });
             let objArea = {
@@ -630,7 +632,7 @@ class StartplaceFormContainer extends Component {
         let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");
         let webcamarr = [];
         let windstationarr = [];
-        let author = this.props.user.email;
+        let author = (this.state.authorArea !== '') ? this.state.authorArea : this.props.user.email;
         if(this.state.webcam){webcamarr.push(this.state.webcam)};
         if(this.state.webcam2){webcamarr.push(this.state.webcam2)};
         if(this.state.webcam3){webcamarr.push(this.state.webcam3)};
@@ -802,7 +804,7 @@ class StartplaceFormContainer extends Component {
             areaDescription: currentArea.description,
             lastUpdateSA: currentArea.lastUpdate,
             writeDateArea: currentArea.writeDate,
-            authorArea: (currentArea.author) ? currentArea.author : '',
+            authorArea: (currentArea.author && currentArea.author !== '') ? currentArea.author : this.props.user.email,
 
             startareanameValid: true,
             regionsIdValid: true

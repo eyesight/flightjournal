@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { getUser } from '../../actions/UserActions';
 import { getRegions } from '../../actions/RegionsActions';
-import { getStartplaces } from '../../actions/StartplacesActions';
-import { getStartareas } from '../../actions/StartareasActions';
+import { getStartplaces, deleteStartplaces } from '../../actions/StartplacesActions';
+import { getStartareas, updateStartareas } from '../../actions/StartareasActions';
 import { getWinddirections } from '../../actions/WinddirectionActions';
 import { getPilots } from '../../actions/PilotActions';
 import BackButton from './../backButton/backButton';
@@ -50,6 +50,7 @@ class StartplaceDetail extends Component {
         this.renderArray = this.renderArray.bind(this);
         this.getWinddirectionsnames = this.getWinddirectionsnames.bind(this);
         this.filterimages = this.filterimages.bind(this);
+        this.deletefunction = this.deletefunction.bind(this);
     }
 
     componentWillMount() {
@@ -156,6 +157,33 @@ class StartplaceDetail extends Component {
 
     filterimages(e, id){
         e.preventDefault();
+    }
+
+    deletefunction(id, idArea){
+        let that = this;
+        let sparray = [];
+        console.log(this.props.allstartareas);
+        const keysOfStartareas = Object.keys(that.props.allstartareas).map(i => that.props.allstartareas[i]);
+            
+        keysOfStartareas.map(function (item) {
+            if(item.id === idArea){
+                sparray = item.startplaces;
+                return sparray.splice( sparray.indexOf(id), 1 );
+            };
+            console.log(sparray);
+            return sparray;
+        }); 
+        let objArea = {
+            startplaces: sparray
+        }
+        console.log(objArea);
+        this.props.updateStartareas(idArea, objArea).then(
+            this.props.deleteStartplaces(id),
+            ).catch((err) => {
+                console.log('error when delete startplace');
+                console.log(err)
+                }
+            );
     }
 
     render() {
@@ -287,6 +315,7 @@ class StartplaceDetail extends Component {
                                     link='Startplatz ansehen'
                                     isAdmin={this.state.isUserAdmin}
                                     route={routes.STARTPLATZ_ERFASSEN + "/" + spitem.id}
+                                    deletefunction={()=>{this.deletefunction(spitem.id, spitem.startareasId)}}
                                 />)
                             })}
                             </div>
@@ -311,4 +340,4 @@ function mapStateToProps(state, props) {
     };
 } 
 
-export default withRouter(connect(mapStateToProps, { getUser, getStartplaces, getStartareas, getRegions, getWinddirections, getPilots })(StartplaceDetail));
+export default withRouter(connect(mapStateToProps, { getUser, getStartplaces, getStartareas, getRegions, getWinddirections, getPilots, deleteStartplaces, updateStartareas })(StartplaceDetail));

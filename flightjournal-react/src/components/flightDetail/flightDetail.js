@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { getUser } from '../../actions/UserActions';
 import { getFlights} from '../../actions/FlightActions';
 import { getStartplaces } from '../../actions/StartplacesActions';
-import { getStartareas } from '../../actions/StartareasActions';
-import { getPilots } from '../../actions/PilotActions';
-import { getParagliders } from '../../actions/ParaglidersActions';
 import BackButton from './../backButton/backButton';
 
 import { connect } from 'react-redux';
@@ -60,9 +57,6 @@ class FlightDetail extends Component {
         this.props.getFlights();
         this.props.getUser();
         this.props.getStartplaces();
-        this.props.getPilots();
-        this.props.getParagliders();
-        this.props.getStartareas();
         if (this.props.user.loading === false && this.props.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
           }
@@ -74,27 +68,24 @@ class FlightDetail extends Component {
           } 
           
         if( nextProps.flight !== undefined){
-            let currentArea = '';
+            let currentSP = '';
             const currentFlight = nextProps.flight;
-            const currentPilot = _.find(nextProps.pilots, {email:currentFlight.pilot});
-            const currentStartplace = _.find(nextProps.startplaces, {id:currentFlight.startplace});
-            if(currentStartplace){
-                currentArea = _.find(nextProps.startareas, {id:currentStartplace.startareasId});
+            const currentStartplace = _.find(nextProps.startplaces, {id:currentFlight.startplace.area});
+            if(currentStartplace && currentFlight){
+                currentSP = _.find(currentStartplace.startplaces, {id:currentFlight.startplace.startplace});
             }
-            const currentParaglider = _.find(nextProps.paragliders, {id:currentFlight.paraglider});
-            
-            if(currentPilot !== undefined && currentStartplace !== undefined && currentParaglider !== undefined && currentArea !== undefined){
+            if(currentStartplace !== undefined && currentSP !== undefined){
                 this.setState({
                 flighttime: currentFlight.flighttime,
                 date: currentFlight.date,
                 landeplatz: currentFlight.landingplace,
-                startplatz: currentStartplace.name,
-                startplatzAltitude: currentStartplace.altitude,
-                startplatzArea: currentArea.name,
+                startplatz: currentSP.name,
+                startplatzAltitude: currentSP.altitude,
+                startplatzArea: currentSP.name,
                 flughoehe: currentFlight.maxaltitude,
                 xcdistance: currentFlight.xcdistance,
-                pilotFirstname: currentPilot.firstname,
-                pilotLastname: currentPilot.lastname,
+                pilotFirstname: currentFlight.pilot.name,
+                pilotLastname: currentFlight.pilot.lastname,
                 description: currentFlight.description,
                 maxaltitude: currentFlight.maxaltitude,
                 heightgain: currentFlight.heightgain,
@@ -108,9 +99,9 @@ class FlightDetail extends Component {
                 weatherDescription: currentFlight.weatherDescription,
                 imagesUrl: currentFlight.imgUrl,
                 imagesName: currentFlight.imgName,
-                paraglider: currentParaglider,
-                paragliderBrand: currentParaglider.brand,
-                paragliderModel: currentParaglider.model
+                paraglider: currentFlight.paraglider.id,
+                paragliderBrand: currentFlight.paraglider.brand,
+                paragliderModel: currentFlight.paraglider.model
             });
             (currentFlight.weatherDescription !== '') ? this.setState({showWeather: true}) : this.setState({showWeather: false});
             (currentFlight.syrideLink !== '' ||
@@ -280,10 +271,7 @@ function mapStateToProps(state, props) {
         user: state.user,
         flight: _.find(state.flights, {id:key}),
         startplaces: state.startplaces,
-        startareas: state.startareas,
-        pilots: state.pilots,
-        paragliders: state.paragliders
     };
 } 
 
-export default withRouter(connect(mapStateToProps, { getUser, getFlights, getStartplaces, getPilots, getParagliders, getStartareas })(FlightDetail));
+export default withRouter(connect(mapStateToProps, { getUser, getFlights, getStartplaces })(FlightDetail));

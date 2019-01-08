@@ -30,3 +30,15 @@ export function deleteStartplaces(id) {
 export function updateStartplaces(id, updates) {
   return dispatch => startplacesdb.child(id).update(updates);
 }
+
+export function saveStartplacesRegio(post) {
+  console.log(post);
+  return dispatch => {
+    const newRef = startplacesdb.push();
+    const newItem = {
+      id: newRef.key,
+      ...post
+    };
+    return newRef.set(newItem);
+  }
+}

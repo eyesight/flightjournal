@@ -116,7 +116,8 @@ class FlugdatenFormContainer extends Component {
           //data for database
           date: '',
           description: '',
-          startplace:'',
+          startplace: {},
+          startplace2: {},
           landingplace: '',
           landingplaceLink: '',
           flighttime: '',
@@ -136,10 +137,12 @@ class FlugdatenFormContainer extends Component {
           rating: '',
           writeDate: '',
           lastUpdate: '',
-          paraglider: ''
+          paraglider: {},
+          paragliders2: {}
         };
 
-        this.getOptions = this.getOptions.bind(this);
+        this.getOptionsGlider = this.getOptionsGlider.bind(this);
+        this.getOptionsStartplace = this.getOptionsStartplace.bind(this);
         this.getOptionsTime = this.getOptionsTime.bind(this);
         this.getOptionsStartTime = this.getOptionsStartTime.bind(this);
         this.goToPage = this.goToPage.bind(this);
@@ -196,8 +199,8 @@ class FlugdatenFormContainer extends Component {
                 }) 
             }
         }
-        //if history.location.state is set (if someone likes to update a Flight), set the values of Form-Input-Field
-        if( nextProps.flight && nextProps.flight.pilotId !== undefined && nextProps.flight.pilotId === nextProps.user.uid){
+        //if history.location.state is set (if someone likes to update a Flight), set the values of Form-Input-Field       
+        if( nextProps.flight && nextProps.flight.pilot.pilotId !== undefined && nextProps.flight.pilot.pilotId === nextProps.user.uid){
             let currentFlight = nextProps.flight;
             if(currentFlight !==null || currentFlight !==undefined || currentFlight !==[]){
                 //get the hours and minutes and set into state
@@ -222,12 +225,14 @@ class FlugdatenFormContainer extends Component {
                     IDtoUpdate: nextProps.flight.id,
                     date: currentFlight.date,
                     startDate: moment(dateObject),
-                    startplace: currentFlight.startplace,
+                    startplace: _.values(currentFlight.startplace).join(' '),
+                    startplace2: currentFlight.startplace,
                     landingplace: currentFlight.landingplace,
                     flighttime: currentFlight.flighttime,
                     xcdistance: currentFlight.xcdistance,
                     description: currentFlight.description,
-                    paragliders: currentFlight.paraglider,
+                    paragliders: currentFlight.paraglider.id,
+                    paragliders2: currentFlight.paraglider,
                     maxaltitude: currentFlight.maxaltitude,
                     heightgain: currentFlight.heightgain,
                     maxclimb: currentFlight.maxclimb,
@@ -494,6 +499,25 @@ class FlugdatenFormContainer extends Component {
                 startingtime: ftimestart},
                 () => { this.validateField('startingtime', ftimestart) 
               });
+        }else if(name === 'startplace'){
+            let valuesplittet = value.split(' ');
+            let startplace = {}; //creating copy of object
+            startplace.area = valuesplittet[0];
+            startplace.startplace = valuesplittet[1];
+            this.setState({
+                startplace2: startplace},
+                () => { this.validateField('startplace', value) 
+              });
+        }else if(name === 'paragliders'){
+            let valuesplittet2 = _.find(this.props.paragliders, {id: value}); //creating copy of object
+            let newparaglider = {};
+            newparaglider.brand = valuesplittet2.brand;
+            newparaglider.id = valuesplittet2.id;
+            newparaglider.model = valuesplittet2.model;
+            this.setState({
+                paragliders2: newparaglider},
+                () => { this.validateField('paragliders', value) 
+              });
         }
      };
 
@@ -723,6 +747,12 @@ class FlugdatenFormContainer extends Component {
         let ftime = 0;
         let ftimestart = 0;
         let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");
+        //add all Infos for the pilots-object
+        let pilotObj = {};
+        pilotObj.email = this.props.user.email;
+        pilotObj.lastname = this.props.currentpilot.lastname;
+        pilotObj.name = this.props.currentpilot.firstname;
+        pilotObj.pilotId = this.props.user.uid;
 
         if(Number(this.state.valueHour) > 0){
             ftime = (Number(this.state.valueHour)*60) + Number(this.state.valueMinute);
@@ -748,10 +778,9 @@ class FlugdatenFormContainer extends Component {
         if(this.state.formValid){
          this.setState({errorAlert: false})
         obj = {
-            pilot: this.props.user.email,
-            pilotId: this.props.user.uid,
+            pilot: pilotObj,
             date: this.state.date,
-            startplace: this.state.startplace,
+            startplace: this.state.startplace2,
             landingplace: this.state.landingplace,
             landingplaceLink: this.state.landingplaceLink,
             flighttime: ftime,
@@ -763,7 +792,7 @@ class FlugdatenFormContainer extends Component {
             startingtime: ftimestart,
             distance: this.state.distance,
             description: this.state.description,
-            paraglider: this.state.paragliders,
+            paraglider: this.state.paragliders2,
             imgUrl: this.state.imgUrl,
             imgName: this.state.imgName,
             syrideLink: this.state.syrideLink,
@@ -793,14 +822,36 @@ class FlugdatenFormContainer extends Component {
     }
       
     //TODO outsorce as function/Component -> it's used in startplaces-formular as well
-    getOptions(sp, text, keyForOption, sorting, keyForOption2){
+    getOptionsGlider(sp, text, keyForOption, sorting, keyForOption2){
+        let all = [];
         let arr = [<option key={'0'} value={0}>{text}</option>];
         const startplacesData = Object.keys(sp).map(i => sp[i]);
         startplacesData.sort((a, b)=>{return compare(a, b, sorting)});
-        let all = startplacesData.map(function (item) {
-                let keyName = keyForOption2 ? (item[keyForOption2] + ' ' + item[keyForOption]) : item[keyForOption];
-                return <option key={item.id} value={item.id}>{keyName}</option>;
-            });
+        all = startplacesData.map((item)=> {
+            let keyName = keyForOption2 ? (item[keyForOption2] + ' ' + item[keyForOption]) : item[keyForOption];
+            return <option key={item.id} value={item.id}>{keyName}</option>;
+        });
+       
+        arr.push(all);
+        return arr;
+    }
+    getOptionsStartplace(sp, text, keyForOption, sorting, keyForOption2, subobject){
+        let all = [];
+        let arr = [<option key={'0'} value={0}>{text}</option>];
+        const startplacesData = Object.keys(sp).map(i => sp[i]);
+        startplacesData.sort((a, b)=>{return compare(a, b, sorting)});
+        all = startplacesData.map((item, index)=> {
+            //When the area has startplaces, return an Object, otherwise user can not choose it
+            if(item && item.startplaces){
+                let secondSpData = (startplacesData[index]) ? Object.keys(startplacesData[index][subobject]).map(i => startplacesData[index][subobject][i]) : null;
+                return secondSpData.map((seconditem)=>{
+                    let keyName = keyForOption2 ? (item[keyForOption2] + ' ' + seconditem[keyForOption]) : item[keyForOption];
+                    return <option key={item.id+seconditem.id} value={`${item.id} ${seconditem.id}`}>{keyName}</option>;
+                });
+            }else{
+                return null;
+            }
+        });
         arr.push(all);
         return arr;
     }
@@ -980,7 +1031,7 @@ class FlugdatenFormContainer extends Component {
                         nameComment={this.state.nameComment}
                         valueComment={this.state.description}
                         ani={this.state.ani} 
-                        getOptions={this.getOptions(this.props.startplaces, 'Startplatz wählen', 'name', 'name')}
+                        getOptions={this.getOptionsStartplace(this.props.startplaces, 'Startplatz wählen', 'name', 'name', 'name', 'startplaces')}
                         getOptionsHour={this.getOptionsTime(8, 'Std.', 1, '')}
                         getOptionsMinute={this.getOptionsTime(60, 'Min.', 5, '')}
                         nameSP={this.state.nameStartplace}
@@ -1050,7 +1101,7 @@ class FlugdatenFormContainer extends Component {
                         gliderLabel={'Gleitschirm-Modell'}
                         nameGlider={this.state.nameParagliders}
                         valueGlider={this.state.paragliders}
-                        getOptionsGlider={this.getOptions(this.props.paragliders, 'Gleitschirm wählen', 'model', 'brand', 'brand')}
+                        getOptionsGlider={this.getOptionsGlider(this.props.paragliders, 'Gleitschirm wählen', 'model', 'brand', 'brand')}
                         errorMessageGlider={this.state.formErrors.paragliders}
                     />}
                 </ReactTransitionGroup> 
@@ -1109,11 +1160,11 @@ let flightform = reduxForm({
 
   flightform = connect((state, props) => {
       let key = (props.match.params.id) ? props.match.params.id : '';
-    
     return {
           flight: _.find(state.flights, { id: key }),
           user: state.user,
           pilots: state.pilots,
+          currentpilot:  _.find(state.pilots, { email: state.user.email }),
           startplaces: state.startplaces,
           paragliders: state.paragliders
     };

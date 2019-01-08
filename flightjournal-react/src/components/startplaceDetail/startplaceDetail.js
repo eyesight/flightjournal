@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { getUser } from '../../actions/UserActions';
 import { getRegions } from '../../actions/RegionsActions';
 import { getStartplaces, deleteStartplaces } from '../../actions/StartplacesActions';
-import { getStartareas, updateStartareas } from '../../actions/StartareasActions';
+import { updateStartareas } from '../../actions/StartareasActions';
 import { getWinddirections } from '../../actions/WinddirectionActions';
 import { getPilots } from '../../actions/PilotActions';
 import BackButton from './../backButton/backButton';
@@ -57,7 +57,6 @@ class StartplaceDetail extends Component {
         window.scrollTo(0, 0);
         this.props.getUser();
         this.props.getStartplaces();
-        this.props.getStartareas();
         this.props.getRegions();
         this.props.getWinddirections();
         this.props.getPilots();
@@ -92,29 +91,24 @@ class StartplaceDetail extends Component {
                 isUserAdmin: true
             });
         }   
-        if( nextProps.allstartplaces !== undefined && nextProps.startplace !== undefined && nextProps.allstartareas !== undefined && nextProps.regions){
+        if( nextProps.allstartplaces !== undefined && nextProps.startplace !== nextProps.regions){
             let currentRegio = {}
-            let currentArea = _.find(nextProps.allstartareas, {id:nextProps.startplace.startareasId});
-            let allCurrentStartplaces = [];
+            let currentArea = _.find(nextProps.allstartplaces, {id:nextProps.match.params.id});
+            let allCurrentStartplaces = (currentArea) ? _.values(currentArea.startplaces) : '';
             let allWinddirections = [];
             let allimagesUrl = [];
             let allimagesNames = [];
-            allCurrentStartplaces.push(nextProps.startplace); //add the current startplace (the selected one) as first element in the array so it will be displayed as first one
             const wind = Object.keys(nextProps.winddirections).map(i => nextProps.winddirections[i]);
             if(currentArea){
                 currentRegio = _.find(nextProps.regions, {id:currentArea.regionsId});
                 //concat different values of all startplaces, which belong to the area
-                for(let i = 0; i<currentArea.startplaces.length; i++){
-                    let findstartplace = _.find(nextProps.allstartplaces, {id:currentArea.startplaces[i]});
-                    //the selected element is allready in the array; push the others in the array, don't add the selected item a second time
-                    if(currentArea.startplaces[i] !== nextProps.startplace.id){
-                        allCurrentStartplaces.push(findstartplace);
-                    };
-                    allWinddirections.push(findstartplace.winddirectionsId);
+                for(let i = 0; i<allCurrentStartplaces.length; i++){
+                    let wind = Object.keys(allCurrentStartplaces[i].winddirectionsId);
+                    allWinddirections.push(wind);
                     //Get the URl out of the images-count-variable and the images-url. 
                     //Loop the images count for each startplace and push url in variable
-                    for(let y = 0; y<findstartplace.imagesCount; y++){
-                        let urlstring = `${routes.STARTPLACESIMAGES}/${findstartplace.imagesUrl}/${y}.jpg`;
+                    for(let y = 0; y<allCurrentStartplaces[i].imagesCount; y++){
+                        let urlstring = `${routes.STARTPLACESIMAGES}/${allCurrentStartplaces[i].imagesUrl}/${y}.jpg`;
                         allimagesUrl.push(urlstring);
                         allimagesNames.push(`${y}.jpg`);
                     }
@@ -309,12 +303,12 @@ class StartplaceDetail extends Component {
                                 return (<ArticleItem key={spitem.id}
                                     themeTitle={this.state.startplatz}
                                     titleBold={`${spitem.name}, ${spitem.altitude}\u00a0m`}
-                                    titleReg={this.getWinddirectionsnames(spitem.winddirectionsId, this.state.allWind).join(', ')}
+                                    titleReg={this.getWinddirectionsnames(_.keys(spitem.winddirectionsId), this.state.allWind).join(', ')}
                                     txt={spitem.description}
                                     onclickfunction={(event)=>{this.filterimages(event, spitem.id)}}
                                     link='Startplatz ansehen'
                                     isAdmin={this.state.isUserAdmin}
-                                    route={routes.STARTPLATZ_ERFASSEN + "/" + spitem.id}
+                                    route={routes.STARTPLATZ_ERFASSEN + "/" + this.props.match.params.id + "--sp--" +spitem.id}
                                     deletefunction={()=>{this.deletefunction(spitem.id, spitem.startareasId)}}
                                 />)
                             })}
@@ -334,10 +328,9 @@ function mapStateToProps(state, props) {
         startplace: _.find(state.startplaces, {id:key}),
         regions: state.regions,
         allstartplaces: state.startplaces,
-        allstartareas: state.startareas,
         winddirections: state.winddirections,
         currentPilot: _.find(state.pilots, { email: state.user.email })
     };
 } 
 
-export default withRouter(connect(mapStateToProps, { getUser, getStartplaces, getStartareas, getRegions, getWinddirections, getPilots, deleteStartplaces, updateStartareas })(StartplaceDetail));
+export default withRouter(connect(mapStateToProps, { getUser, getStartplaces, getRegions, getWinddirections, getPilots, deleteStartplaces, updateStartareas })(StartplaceDetail));

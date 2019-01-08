@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { getStartplaces } from '../../actions/StartplacesActions';
-import { getRegions } from '../../actions/RegionsActions';
-import { getStartareas } from '../../actions/StartareasActions';
 import { getWinddirections } from '../../actions/WinddirectionActions';
 import { getPilots } from '../../actions/PilotActions';
 import { Link, withRouter } from 'react-router-dom';
@@ -39,14 +37,12 @@ class StartingPlaces extends Component {
     componentWillMount() {
         window.addEventListener('scroll', this.lazyloading);
         this.props.getStartplaces();
-        this.props.getRegions();
-        this.props.getStartareas();
         this.props.getWinddirections();
         this.props.getPilots();
     }
     componentWillReceiveProps(nextProps) {
         //if current user hase the role "admin" set state to show the edit-button
-        if(nextProps.currentPilot.role === 'admin'){
+        if(nextProps.currentPilot && nextProps.currentPilot.role === 'admin'){
             this.setState({
                 isUserAdmin: true
             });
@@ -69,86 +65,78 @@ class StartingPlaces extends Component {
         return null;
     }
 
-    renderStartplaces(startplaces, startareas, startregions, winddirection) {
+    renderStartplaces(startplaces, winddirection) {
         const places = Object.keys(startplaces).map(i => startplaces[i]);
-        const areas = Object.keys(startareas).map(i => startareas[i]);
         const wind = Object.keys(winddirection).map(i => winddirection[i]);
         return places.map((z, id)=>{
-            let windstring = '';
-            let placesname = '';
-            let webcamarray = [];
-            let url = this.state.urlImage;
-            let xc = '';
-            areas.map((x)=>{ 
+            if(z.startplaces){
+                const sp = Object.keys(z.startplaces).map(i => z.startplaces[i]);
+            return sp.map((x)=>{
+                let windstring = '';
+                let url = this.state.urlImage;
                 let windarray = [];                
-                if(z.startareasId === x.id){
-                    if(z.winddirectionsId){
-                         wind.map((ww) =>{
-                            for(let index = 0; index < z.winddirectionsId.length; index++){
-                                if(ww.id === z.winddirectionsId[index]){
+                    if(x.winddirectionsId){
+                        wind.map((ww) =>{
+                            let windofItem = Object.keys(x.winddirectionsId);
+                            for(let index = 0; index < windofItem.length; index++){
+                                if(ww.id === windofItem[index]){
                                     windarray.push(ww.name);
                                 }
                             };    
                             return windstring = windarray.join(', ');
                         });
                     }
-                    placesname = x.name;
-                    webcamarray = x.webcams;
-                    xc = x.xc;
                     //get the imageurl: when no image-url is set, take default-image
-                    url = (z.imagesUrl !== '') ? `${url}${z.imagesUrl}/0.jpg` : `${this.state.urlImageDefault}`;
-                    return x;
-                }
-                return null;
-            });
-            return (
-                <div key={id} className="image-box__item">
-                    <div className="image-box__text">
-                        <a href={`${routes.STARTPLATZOHNEID}${z.id}`} className="image-box__link anchor">
-                        {placesname}, {z.name}, {z.altitude}&nbsp;m
+                    url = (x.imagesUrl !== '') ? `${url}${x.imagesUrl}/0.jpg` : `${this.state.urlImageDefault}`;            
+                return (
+                    <div key={`${id}and${x.id}`} className="image-box__item">
+                        <div className="image-box__text">
+                            <a href={`${routes.STARTPLATZOHNEID}${z.id}`} className="image-box__link anchor">
+                            {z.name}, {x.name}, {x.altitude}&nbsp;m
+                            </a>
+                            <p className="image-box__txt">{windstring}</p>
+
+                        </div> 
+                        <a href={`${routes.STARTPLATZOHNEID}${z.id}`}>
+                            <div className="image-box__image-wrapper">
+                                <img className="image-box__image" src={this.state.urlImageDefault}
+                                        data-src={url} alt="Startplatz Uetliberg" />
+                            </div>
                         </a>
-                        <p className="image-box__txt">{windstring}</p>
-
-                    </div> 
-                    <a href={`${routes.STARTPLATZOHNEID}${z.id}`}>
-                        <div className="image-box__image-wrapper">
-                            <img className="image-box__image" src={this.state.urlImageDefault}
-                                    data-src={url} alt="Startplatz Uetliberg" />
+                        <div className="image-box__icons">
+                            {z.locationpin ? <a className="image-box__icon"rel="noopener noreferrer" target="_blank" href={z.locationpin}>
+                                <svg version="1.1" className="svg-icon svg-icon--pin" x="0px" y="0px" viewBox="0 0 25 35">
+                                    <path className="svg-icon__path" d="M12.5,0C5.6,0,0,5.6,0,12.6C0,23.9,12.5,35,12.5,35S25,23.9,25,12.6C25,5.7,19.4,0,12.5,0z"/>
+                                    <ellipse className="svg-icon__ellipse" cx="12.5" cy="12.5" rx="5.8" ry="5.8"/>
+                                </svg>
+                            </a> : null} 
+                            {this.renderWebcams(z.webcams)}
+                            {z.xc ? <a className="image-box__icon" rel="noopener noreferrer" target="_blank" href={z.xc}>
+                                <svg version="1.1" className="svg-icon svg-icon--xc" x="0px" y="0px" viewBox="0 0 36 19">
+                                    <path className="svg-icon__path" d="M17,0.3h-4.8L8.6,6.2L5,0.3H0.1L6,9.4l-5.9,9.1h4.8l3.6-5.9l3.6,5.9H17l-5.9-9.1L17,0.3z M27.1,19c5.7,0,8.1-3.9,8.7-6.4
+                                        l-3.9-1.1c-0.4,1.3-1.6,3.4-4.8,3.4c-2.7,0-5.2-2-5.2-5.4c0-3.8,2.8-5.6,5.2-5.6c3.2,0,4.4,2.1,4.7,3.4l3.8-1.2
+                                        C35,3.5,32.6,0,27.1,0c-5.1,0-9.4,3.9-9.4,9.5S21.9,19,27.1,19z"/>
+                                </svg>
+                            </a> : null} 
+                            {this.state.isUserAdmin ? <Link className="image-box__icon image-box__icon--right" to={routes.STARTPLATZ_ERFASSEN + "/" + z.id +"--sp--"+ x.id}>
+                                <svg version="1.1" className="svg-icon svg-icon--edit" x="0px" y="0px" viewBox="0 0 23.7 23.7">
+                                    <path className="svg-icon__path" d="M20.5,6.3l2.4-2.4l-3.1-3.1l-2.4,2.4"/>
+                                    <path className="svg-icon__path" d="M6.4,20.3l14.1-14l-3.1-3.1l-14.1,14l-2.5,5.5L6.4,20.3z M3.3,17.2l3.1,3.1"/>
+                                </svg> 
+                            </Link> : null}
                         </div>
-                    </a>
-                    <div className="image-box__icons">
-                        {z.locationpin ? <a className="image-box__icon"rel="noopener noreferrer" target="_blank" href={z.locationpin}>
-                            <svg version="1.1" className="svg-icon svg-icon--pin" x="0px" y="0px" viewBox="0 0 25 35">
-                                <path className="svg-icon__path" d="M12.5,0C5.6,0,0,5.6,0,12.6C0,23.9,12.5,35,12.5,35S25,23.9,25,12.6C25,5.7,19.4,0,12.5,0z"/>
-                                <ellipse className="svg-icon__ellipse" cx="12.5" cy="12.5" rx="5.8" ry="5.8"/>
-                            </svg>
-                        </a> : null} 
-                        {this.renderWebcams(webcamarray)}
-                        {xc ? <a className="image-box__icon" rel="noopener noreferrer" target="_blank" href={xc}>
-                            <svg version="1.1" className="svg-icon svg-icon--xc" x="0px" y="0px" viewBox="0 0 36 19">
-                                <path className="svg-icon__path" d="M17,0.3h-4.8L8.6,6.2L5,0.3H0.1L6,9.4l-5.9,9.1h4.8l3.6-5.9l3.6,5.9H17l-5.9-9.1L17,0.3z M27.1,19c5.7,0,8.1-3.9,8.7-6.4
-                                    l-3.9-1.1c-0.4,1.3-1.6,3.4-4.8,3.4c-2.7,0-5.2-2-5.2-5.4c0-3.8,2.8-5.6,5.2-5.6c3.2,0,4.4,2.1,4.7,3.4l3.8-1.2
-                                    C35,3.5,32.6,0,27.1,0c-5.1,0-9.4,3.9-9.4,9.5S21.9,19,27.1,19z"/>
-                            </svg>
-                        </a> : null} 
-                        {this.state.isUserAdmin ? <Link className="image-box__icon image-box__icon--right" to={routes.STARTPLATZ_ERFASSEN + "/" + z.id}>
-                            <svg version="1.1" className="svg-icon svg-icon--edit" x="0px" y="0px" viewBox="0 0 23.7 23.7">
-                                <path className="svg-icon__path" d="M20.5,6.3l2.4-2.4l-3.1-3.1l-2.4,2.4"/>
-                                <path className="svg-icon__path" d="M6.4,20.3l14.1-14l-3.1-3.1l-14.1,14l-2.5,5.5L6.4,20.3z M3.3,17.2l3.1,3.1"/>
-                            </svg> 
-                        </Link> : null}
+                        
                     </div>
-                    
-                </div>
-            );
+                );
+            });
+            }else{
+                return null;
+            }
         });
-
     }
 
     render() {
         const allstartplaces = this.props.startplaces;
-        const allstartareas = this.props.startareas;
-        const allregions = this.props.regions;
         const allwind = this.props.winddirections;
 
         return (
@@ -191,7 +179,7 @@ class StartingPlaces extends Component {
                     </div>
                 </div>
                 <div className="image-box vertical-divider">
-                    {this.renderStartplaces(allstartplaces, allstartareas, allregions, allwind)}
+                    {this.renderStartplaces(allstartplaces, allwind)}
                 </div>
             </section>
         );
@@ -201,8 +189,6 @@ class StartingPlaces extends Component {
 function mapStateToProps(state) {
     return { 
         startplaces: state.startplaces,
-        startareas: state.startareas,
-        regions: state.regions,
         winddirections: state.winddirections,
         activeUserID: state.user.email,
         pilots: state.pilots,
@@ -210,4 +196,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default withRouter(connect(mapStateToProps, {getStartplaces, getStartareas, getRegions, getWinddirections, getPilots}) (StartingPlaces));
+export default withRouter(connect(mapStateToProps, {getStartplaces, getWinddirections, getPilots}) (StartingPlaces));

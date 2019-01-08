@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { reduxForm, reset } from 'redux-form';
 import { getStartplaces, saveStartplaces, updateStartplaces, deleteStartplaces } from '../../actions/StartplacesActions';
-import { getStartareas, updateStartareas, saveStartareas } from '../../actions/StartareasActions';
+import { updateStartareas, saveStartareas } from '../../actions/StartareasActions';
 import { getRegions, updateRegions } from '../../actions/RegionsActions';
 import { getWinddirections, updateWinddirections } from '../../actions/WinddirectionActions';
 import { getPilots } from '../../actions/PilotActions';
@@ -39,6 +39,7 @@ class StartplaceFormContainer extends Component {
             oldstartareasId: '',
             oldregionsId: '',
             updateArea: false,
+            idToUpdate: '',
 
             saveAreaIds: false, 
             startplaceIds: [],
@@ -135,6 +136,7 @@ class StartplaceFormContainer extends Component {
         this.errorClass = this.errorClass.bind(this);
         this.editArea = this.editArea.bind(this);
         this.fillAreaFormToUpdate = this.fillAreaFormToUpdate.bind(this);
+        this.addId = this.addId.bind(this);
     }
     
     componentWillMount() {
@@ -142,7 +144,6 @@ class StartplaceFormContainer extends Component {
         this.props.getStartplaces();
         this.props.getUser();
         this.props.getRegions();
-        this.props.getStartareas();
         this.props.getWinddirections();
         this.props.getPilots();
         this.setState({
@@ -168,21 +169,25 @@ class StartplaceFormContainer extends Component {
         //if history.location.state is set (if someone likes to update a Startplace), set the values of Form-Input-Field
         if( nextProps.currentStartplace && nextProps.currentPilot && nextProps.currentPilot.role === 'admin'){
             let currentSP = nextProps.currentStartplace;
+            let startplaces = currentSP.startplaces;
+            let theId = nextProps.match.params.id.split("--sp--");
+            let idOfArea = theId[0];
+            let idOfStartplace = theId[1];
             this.setState({
-                oldstartareasId: currentSP.startareasId,
-                IDtoUpdateStartplace: nextProps.match.params.id,
-                startareasId: currentSP.startareasId,
-                name: currentSP.name, 
-                altitude: currentSP.altitude,
-                description: currentSP.description,
-                locationpin: currentSP.locationpin,
-                winddirection: currentSP.winddirectionsId, 
-                lastUpdateSP: currentSP.lastUpdate,
-                imagesUrl: currentSP.imagesUrl,
-                imagesCount: currentSP.imagesCount,
-                rating: currentSP.rating,
-                writeDateSP: currentSP.writeDate,
-                authorSP: (currentSP.author && currentSP.author !== '') ? currentSP.author : nextProps.user.email,
+                oldstartareasId: idOfArea,
+                IDtoUpdateStartplace: idOfStartplace,
+                startareasId: idOfArea,
+                name: startplaces[idOfStartplace].name, 
+                altitude: startplaces[idOfStartplace].altitude,
+                description: startplaces[idOfStartplace].description,
+                locationpin: startplaces[idOfStartplace].locationpin,
+                winddirection: _.keys(startplaces[idOfStartplace].winddirectionsId), 
+                lastUpdateSP: startplaces[idOfStartplace].lastUpdate,
+                imagesUrl: startplaces[idOfStartplace].imagesUrl,
+                imagesCount: startplaces[idOfStartplace].imagesCount,
+                rating: startplaces[idOfStartplace].rating,
+                writeDateSP: startplaces[idOfStartplace].writeDate,
+                authorSP: (startplaces[idOfStartplace].author && startplaces[idOfStartplace].author !== '') ? startplaces[idOfStartplace].author : nextProps.user.email,
 
                 //set state of forminput
                 //TODO: find a better solution
@@ -191,7 +196,7 @@ class StartplaceFormContainer extends Component {
                 nameValid: true,
                 altitudeValid: true,
                 winddirectionValid: true,
-                idToEditArea: currentSP.startareasId //DELETE
+                idToEditArea: idOfArea //DELETE
             })
         }
     }
@@ -204,60 +209,13 @@ class StartplaceFormContainer extends Component {
       }
     
     componentDidUpdate(){
-        //when state saveAreaId is set to true, the new Object set in function onSubmit 
-        if(this.state.startareasId && this.state.saveAreaIds){
-            let that = this;
-            let sparray = [];
-            let newarr = [];
-            const keysOfStartareas = Object.keys(this.props.startareas).map(i => this.props.startareas[i]);
-            const startplacesID = Object.keys(this.props.startplaces).map(i => this.props.startplaces[i]);
-            startplacesID.map(function (item) {
-                return newarr.push(item.id);
-            });
-            //if a flight will be updated; when something is stored in props.match.param.id, the id of the actual flight has to be added in the Startarea
-            //compare the new array of startplaces-Objects with the old one, before user clicked on "save" - so Id of new object stored in variable diff
-            let diff = (this.props.match.params.id) ? [this.props.match.params.id] : newarr.filter(y => !that.state.startplaceIds.includes(y));
-            //add all the startplaces-IDs whitch are stored in "startplaces" of Object startareas and push the new Id (stored in variable diff)
-            keysOfStartareas.map(function (item) {
-                if(item.id === that.state.startareasId){
-                    //if array of startareas exits, add the new Id, otherwise build a new array with first Id in it
-                    return (item.startplaces) ? (
-                        sparray = item.startplaces,
-                        sparray.push(...diff) 
-                    ) : (sparray = diff);
-                };
-                return sparray;
-            }); 
-            let objArea = {
-                startplaces: sparray
-            }
-            //update Startareas with the updated array of startplaces-Ids
-            this.props.updateStartareas(this.state.startareasId, objArea).then(
-                this.props.dispatch(reset('NewPost')),
-                this.setState({
-                    saveAreaIds: false
-                }),
-                //When Object is updated, return to flight-Detail-Page
-                //When new and there is nothing in state from; return to frontpage. Otherwise return to the from-state
-                (this.props.match.params.id) ? (
-                    this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.IDtoUpdateStartplace}`)
-                ) : (
-                    (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
-                )
-            ).catch((err) => {
-                console.log('error when update startareas when safe startplaces');
-                console.log(err)
-              }
-            );
-        }
-  
         //when state saveRegionIds is set to true, the new Object set in function onSubmitArea
         if(this.state.regionsId && this.state.saveRegionIds){
             let that = this;
             let regioarr = [];
             let newarrArea = [];
             const keysOfRegions = Object.keys(this.props.regions).map(i => this.props.regions[i]);
-            const regionsId = Object.keys(this.props.startareas).map(i => this.props.startareas[i]);
+            const regionsId = Object.keys(this.props.startplaces).map(i => this.props.startplaces[i]);
             regionsId.map(function (item) {
                 return newarrArea.push(item.id);
             });
@@ -524,6 +482,7 @@ class StartplaceFormContainer extends Component {
             this.setState({[name]: value}, 
                 () => { this.validateField(name, value) });
         }
+        console.log(`${name} ${value}`);
     };
 
     getOptions(sp, text, keyForOption, keyForOption2){
@@ -547,13 +506,31 @@ class StartplaceFormContainer extends Component {
         return arr;
     }
 
+    addId(obj){
+        let allSPs = _.keys(obj);
+        return allSPs.length+1;
+    }
+
     onSubmit(e){
         e.preventDefault();
         let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");
         let author = (this.state.authorSP !== '') ? this.state.authorSP : this.props.user.email;
+        let SpObject = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
+        let newIdNr = (SpObject.startplaces) ? this.addId(SpObject.startplaces) : '0';
+        console.log(newIdNr);
+        console.log(this.state.startareasId);
+        console.log(SpObject);
+        console.log(this.state.oldstartareasId !== this.state.startareasId)
+        let newId = (this.state.startareasId === '' || this.state.oldstartareasId === '' || this.state.oldstartareasId !== this.state.startareasId) ? `${this.state.startareasId}-sp0${newIdNr}` : this.state.IDtoUpdateStartplace;
+        //add the winddirections in an Object
+        let allWind = {}; 
+        this.state.winddirection.map((item, i)=>{
+            return allWind[item] = true;
+        })
         if(this.state.formValid){
             this.setState({errorAlert: false})
         obj = {
+            id: newId,
             writeDate: actualTimestamp, 
             lastUpdate: updateLastUpdateArray(this.state.lastUpdateSP, actualTimestamp),
             name: this.state.name,
@@ -561,55 +538,50 @@ class StartplaceFormContainer extends Component {
             locationpin: this.state.locationpin,
             description : this.state.description,
             startareasId: this.state.startareasId,
-            winddirectionsId: this.state.winddirection,
+            winddirectionsId: allWind,
             rating: '',
             imagesUrl: this.state.imagesUrl,
             imagesCount: this.state.imagesCount,
             author: author,
         }
+        
         //if there is set an ID to update a fligt. Otherwise save a new flight
-        if(this.state.IDtoUpdateStartplace !== ''){
-            let that = this;
-            let arrayToremove = [];
-            const keysOfOldStartareas = Object.keys(this.props.startareas).map(i => this.props.startareas[i]);
-            keysOfOldStartareas.map(function (item) {
-                if(item.id === that.state.oldstartareasId && item.startplaces){
-                    console.log(item.startplaces);
-                    item.startplaces.splice( item.startplaces.indexOf(that.props.match.params.id), 1 );
-                    arrayToremove = item.startplaces;
-                    return arrayToremove
-                }else{
-                    return '';
-                }
-            });
-            let objArea = {
-                startplaces: arrayToremove
-            }
-            this.props.updateStartareas(this.state.oldstartareasId, objArea).then(
+        if(this.state.startareasId !== '' && this.state.oldstartareasId !== '' && this.state.oldstartareasId === this.state.startareasId){
+            console.log('if');
+            let Obj = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
+            let idofSp = Obj.startplaces[this.state.IDtoUpdateStartplace].id;
+                Obj.startplaces[idofSp] = obj;
+            
+            this.props.updateStartplaces(this.state.startareasId, Obj).then(
+                //when new Object is updated, state saveAreaIds will set to true, so function in componentDidUpdate will be continued
                 this.props.dispatch(reset('NewPost')),
-                this.props.updateStartplaces(this.state.IDtoUpdateStartplace, obj).then(
-                    //when new Object is updated, state saveAreaIds will set to true, so function in componentDidUpdate will be continued
-                    this.props.dispatch(reset('NewPost')),
-                    this.setState({
-                        saveAreaIds: true
-                    })
-                ).catch((err) => {
-                    console.log('error when update startplaces');
-                    console.log(err)
-                    }
-                )
             ).catch((err) => {
-                console.log('error when update startareas when safe startplaces');
+                console.log('error when update startplaces');
                 console.log(err)
-              }
-            ); 
+                }
+            )
         }else{
+            console.log('else');
+             //TODO: find a better solution
+                if(SpObject.startplaces){
+                    SpObject.startplaces[newId] = obj;
+                }else{
+                    SpObject.startplaces = {};
+                    SpObject.startplaces = {
+                        [newId]: obj
+                    };
+                }
             //when new Object is added, state saveAreaIds will set to true, so function in componentDidUpdate will be continued
-            this.props.saveStartplaces(obj).then(
+            console.log(this.state.startareasId);
+            this.props.updateStartplaces(this.state.startareasId, SpObject).then(
                 this.props.dispatch(reset('NewPost')),
-                this.setState({
-                    saveAreaIds: true
-                })
+                console.log('updated startplaces'),
+                console.log(this.props.match.params.id),
+                (this.props.match.params.id) ? (
+                    this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.oldstartareasId}`)
+                ) : (
+                    (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
+                )
             ).catch((err) => {
                 console.log('error when safe startplaces');
                 console.log(err)
@@ -648,10 +620,10 @@ class StartplaceFormContainer extends Component {
                 weatherstations: windstationarr,
                 windstation1: '',
                 windstation2: '',
-                windstation3: ''
+                windstation3: '',
+                errorAlertArea: false
             })
         
-            this.setState({errorAlertArea: false})
             obj = {
                 description: this.state.areaDescription,
                 funicularLink: this.state.funicularLink,
@@ -675,7 +647,7 @@ class StartplaceFormContainer extends Component {
                 const keysOfOldRegions = Object.keys(this.props.regions).map(i => this.props.regions[i]);
                 keysOfOldRegions.map(function (item) {
                     if(item.id === that.state.oldregionsId){
-                        item.startareas.splice( item.startareas.indexOf(that.state.idToEditArea), 1 );
+                        item.startareas.splice( item.startareas.indexOf(item.startareas), 1 );
                         return arrayToremove = item.startareas;
                     }
                     return '';
@@ -685,12 +657,13 @@ class StartplaceFormContainer extends Component {
                 }
                 this.props.updateRegions(this.state.oldregionsId, objRegio).then(
                     this.props.dispatch(reset('NewPost')),
-                    this.props.updateStartareas(this.state.idToEditArea, obj).then(
+                    this.props.updateStartplaces(this.state.idToEditArea, obj).then(
                         //when new Object is updated, state saveAreaIds will set to true, so function in componentDidUpdate will be continued
                         this.props.dispatch(reset('NewPost')),
                         this.setState({
-                            saveRegionIds: true
-                        })
+                            saveRegionIds: true,
+                            idToUpdate: this.state.idToEditArea
+                        }),
                     ).catch((err) => {
                         console.log('error when update startareas');
                         console.log(err)
@@ -706,8 +679,10 @@ class StartplaceFormContainer extends Component {
                 this.props.saveStartareas(obj).then(
                     this.props.dispatch(reset('NewPost')),
                     this.setState({
-                        saveRegionIds: true
-                    })
+                        saveRegionIds: true,
+                        idToUpdate: this.state.idToEditArea
+                    }),
+                    console.log('saved n')
                 ).catch((err) => {
                     console.log('error when safe startareas');
                     console.log(err)
@@ -742,7 +717,7 @@ class StartplaceFormContainer extends Component {
 
     goToPage(e){
         e.preventDefault();
-        const keyStartareas = Object.keys(this.props.startareas);
+        const keyStartareas = Object.keys(this.props.startplaces);
         this.setState({
             formstartareaisvisible: true,
             formisvisible: false,
@@ -786,7 +761,7 @@ class StartplaceFormContainer extends Component {
         }
     }
     fillAreaFormToUpdate(id){
-        let currentArea = _.find(this.props.startareas, { id: id });
+        let currentArea = _.find(this.props.startplaces, { id: id });
         this.setState({
             oldregionsId: currentArea.regionsId,
             regionsId: currentArea.regionsId,
@@ -812,6 +787,7 @@ class StartplaceFormContainer extends Component {
     }
 
     render() {
+        console.log(this.state.startareasIds);
         return ( 
             <main className="main">
                 <section className="centered-layout">
@@ -836,7 +812,7 @@ class StartplaceFormContainer extends Component {
                     delayEnter={0.2}
                     delayLeave={0.2}
                 
-                    getOptionsAreas={this.getOptions(this.props.startareas, 'Fluggebiet wählen', 'name')}  
+                    getOptionsAreas={this.getOptions(this.props.startplaces, 'Fluggebiet wählen', 'name')}  
 
                     classNameAreas={`formular__input-wrapper formular__input-wrapper--fullwith ${this.errorClass(this.state.formErrors.startareasId)}`}
                     classNameName={`formular__input-wrapper ${this.errorClass(this.state.formErrors.name)}`}
@@ -966,18 +942,16 @@ let flightform = reduxForm({
   })(StartplaceFormContainer);
   
   flightform = connect((state, props) => {
-        let key = (props.match.params.id) ? props.match.params.id : '';
-        
+        let key = (props.match.params.id) ? props.match.params.id.split("--sp--")[0] : '';
           return  {
                 startplaces: state.startplaces,
                 currentStartplace: _.find(state.startplaces, { id: key }),
                 user: state.user,
                 regions: state.regions,
-                startareas: state.startareas,
                 winddirections: state.winddirections,
                 currentPilot: _.find(state.pilots, { email: state.user.email })
             };
-        }, { saveStartplaces, getStartplaces, updateStartplaces, deleteStartplaces, getUser, getStartareas, updateStartareas, saveStartareas, getRegions, updateRegions, getWinddirections, updateWinddirections, getPilots }
+        }, { saveStartplaces, getStartplaces, updateStartplaces, deleteStartplaces, getUser, updateStartareas, saveStartareas, getRegions, updateRegions, getWinddirections, updateWinddirections, getPilots }
     )(flightform);
 
 export default withRouter(flightform);

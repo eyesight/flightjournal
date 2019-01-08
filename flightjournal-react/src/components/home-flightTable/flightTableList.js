@@ -126,8 +126,12 @@ class FlightTableList extends Component {
         flightToCopyNow.lastUpdate = updateLastUpdateArray(this.state.lastUpdate, actualTimestamp);
 
         //overwrite User with active-User
-        flightToCopyNow.pilot = this.props.activeUser;
-        flightToCopyNow.pilotId = this.props.activeUserID;
+        let currentUser = {}; 
+        currentUser.email = this.props.activeUser;
+        currentUser.lastname = this.props.currentPilot.lastname;
+        currentUser.name = this.props.currentPilot.firstname;
+        currentUser.pilotId = this.props.activeUserID; 
+        flightToCopyNow.pilot = currentUser;
         
         flightToCopyNow.copyOfFlightId = id; //add key copyOfFlightId
         this.setState({
@@ -144,7 +148,7 @@ class FlightTableList extends Component {
     editCopy(e, id){
         //get the last added flight of the active user => this must be the copy
         e.preventDefault();
-        let lastFlightOfArray = _.findLastKey(this.props.flights, function(o) { return o.pilotId === id; });
+        let lastFlightOfArray = _.findLastKey(this.props.flights, function(o) { return o.pilot.pilotId === id; });
         this.props.history.push({
             pathname: routes.FLUGDATEN_ERFASSEN + "/" + lastFlightOfArray
         });
@@ -172,51 +176,46 @@ class FlightTableList extends Component {
     //TODO: make delete- & update-function just for active user (inside the function, not the ui)
     renderFlights(obj, pilot, startpl) {
         const flights = Object.keys(obj).map(i => obj[i]);
-        const users = Object.keys(pilot).map(i => pilot[i]);
         const sp = Object.keys(startpl).map(i => startpl[i]);
         return flights.slice(0, this.state.itemsToShow).map((x) => {
-            return users.map((y)=>{
-                return sp.map((z)=>{
-                    if(y.email === x.pilot){
-                        if(x.startplace === z.id){
-                            let isactiveuser = y.email === this.props.activeUser ? true : false;
-                            return (
-                                <tr key={x.id}>
-                                    <td className="table__date">{x.date}</td>
-                                    <td className="table__pilot">{y.firstname}</td>
-                                    <td className="table__start">{z.name}</td>
-                                    <td className="table__duration">{utils.timeToHourMinString(x.flighttime)}</td>
-                                    <td className="table__distance">{x.xcdistance} Kilometer</td>
-                                    <td className="table__details"><Link className="anchor table__link" to={routes.FLUG + x.id}>Flugdetails</Link></td>
-                                    <td className="table__details table__details--icons"> 
-                                    {isactiveuser ? <Link className="table__icon" to={routes.FLUGDATEN_ERFASSEN + "/" + x.id}>
-                                        <svg version="1.1" className="svg-icon svg-icon--edit" x="0px" y="0px" viewBox="0 0 23.7 23.7">
-                                            <path className="svg-icon__path" d="M20.5,6.3l2.4-2.4l-3.1-3.1l-2.4,2.4"/>
-                                            <path className="svg-icon__path" d="M6.4,20.3l14.1-14l-3.1-3.1l-14.1,14l-2.5,5.5L6.4,20.3z M3.3,17.2l3.1,3.1"/>
-                                        </svg>
-                                    </Link> : null}
-                                    <button className="table__icon" onClick={(event) => {this.copyFlight(event, x.id)}}>
-                                        <svg version="1.1" className="svg-icon svg-icon--copy" x="0px" y="0px" viewBox="0 0 23.7 23.7" >
-                                            <path className="svg-icon__path" d="M5.9,6h16.9v16.9H5.9V6z"/>
-                                            <path className="svg-icon__path" d="M5.9,17.7H0.8V0.8h16.9v5.1"/>
-                                        </svg>
-                                    </button>
-                                    {isactiveuser ? <button className="table__icon" onClick={(event) => {this.showMessageBox(event, x.id, x.imgUrl)}}>
-                                        <svg version="1.1" className="svg-icon svg-icon--delete" x="0px" y="0px" viewBox="0 0 23.7 23.7">
-                                            <path className="svg-icon__path" d="M2.2,3.7h19 M8.1,3.7V2.2c0-0.8,0.6-1.4,1.4-1.4H14c0.8,0,1.4,0.6,1.4,1.4l0,0v1.5 M19.2,3.7L18.1,21
-                                                c0,1-0.8,1.8-1.8,1.8H7.1c-1,0-1.8-0.8-1.8-1.8L4.2,3.7"/>
-                                            <path className="svg-icon__path" d="M11.7,6.7v13.2 M8.1,6.7l0.7,13.2 M15.4,6.7l-0.7,13.2"/>
-                                        </svg>
-                                       </button> : null}
-                                    </td>
-                                </tr>
-                            );
-                        }
-                    } 
-                    return null;
-               })
+            return sp.map((z)=>{
+                if(x.startplace.area === z.id){
+                    let startplaceName = _.find(z.startplaces, { id: x.startplace.startplace }).name;
+                    let isactiveuser = x.pilot.email === this.props.activeUser ? true : false;
+                    return (
+                        <tr key={x.id}>
+                            <td className="table__date">{x.date}</td>
+                            <td className="table__pilot">{x.pilot.name}</td> 
+                            <td className="table__start">{`${z.name}, ${startplaceName}`}</td>
+                            <td className="table__duration">{utils.timeToHourMinString(x.flighttime)}</td>
+                            <td className="table__distance">{x.xcdistance} Kilometer</td>
+                            <td className="table__details"><Link className="anchor table__link" to={routes.FLUG + x.id}>Flugdetails</Link></td>
+                            <td className="table__details table__details--icons"> 
+                            {isactiveuser ? <Link className="table__icon" to={routes.FLUGDATEN_ERFASSEN + "/" + x.id}>
+                                <svg version="1.1" className="svg-icon svg-icon--edit" x="0px" y="0px" viewBox="0 0 23.7 23.7">
+                                    <path className="svg-icon__path" d="M20.5,6.3l2.4-2.4l-3.1-3.1l-2.4,2.4"/>
+                                    <path className="svg-icon__path" d="M6.4,20.3l14.1-14l-3.1-3.1l-14.1,14l-2.5,5.5L6.4,20.3z M3.3,17.2l3.1,3.1"/>
+                                </svg>
+                            </Link> : null}
+                            <button className="table__icon" onClick={(event) => {this.copyFlight(event, x.id)}}>
+                                <svg version="1.1" className="svg-icon svg-icon--copy" x="0px" y="0px" viewBox="0 0 23.7 23.7" >
+                                    <path className="svg-icon__path" d="M5.9,6h16.9v16.9H5.9V6z"/>
+                                    <path className="svg-icon__path" d="M5.9,17.7H0.8V0.8h16.9v5.1"/>
+                                </svg>
+                            </button>
+                            {isactiveuser ? <button className="table__icon" onClick={(event) => {this.showMessageBox(event, x.id, x.imgUrl)}}>
+                                <svg version="1.1" className="svg-icon svg-icon--delete" x="0px" y="0px" viewBox="0 0 23.7 23.7">
+                                    <path className="svg-icon__path" d="M2.2,3.7h19 M8.1,3.7V2.2c0-0.8,0.6-1.4,1.4-1.4H14c0.8,0,1.4,0.6,1.4,1.4l0,0v1.5 M19.2,3.7L18.1,21
+                                        c0,1-0.8,1.8-1.8,1.8H7.1c-1,0-1.8-0.8-1.8-1.8L4.2,3.7"/>
+                                    <path className="svg-icon__path" d="M11.7,6.7v13.2 M8.1,6.7l0.7,13.2 M15.4,6.7l-0.7,13.2"/>
+                                </svg>
+                                </button> : null}
+                            </td>
+                        </tr>
+                    );
+                }
+                return null;
             })
-          
         }); 
     }
 
@@ -282,6 +281,7 @@ function mapStateToProps(state) {
         flights: state.flights,
         startplaces: state.startplaces,
         pilots: state.pilots,
+        currentPilot:  _.find(state.pilots, { email: state.user.email }),
         filter: state.filter,
         activeUser: state.user.email,
         activeUserID: state.user.uid,

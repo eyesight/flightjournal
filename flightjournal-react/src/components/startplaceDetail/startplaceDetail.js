@@ -92,7 +92,6 @@ class StartplaceDetail extends Component {
             });
         }   
         if( nextProps.allstartplaces !== undefined && nextProps.startplace !== nextProps.regions){
-            let currentRegio = {}
             let currentArea = _.find(nextProps.allstartplaces, {id:nextProps.match.params.id});
             let allCurrentStartplaces = (currentArea) ? _.values(currentArea.startplaces) : '';
             let allWinddirections = [];
@@ -100,7 +99,6 @@ class StartplaceDetail extends Component {
             let allimagesNames = [];
             const wind = Object.keys(nextProps.winddirections).map(i => nextProps.winddirections[i]);
             if(currentArea){
-                currentRegio = _.find(nextProps.regions, {id:currentArea.regionsId});
                 //concat different values of all startplaces, which belong to the area
                 for(let i = 0; i<allCurrentStartplaces.length; i++){
                     let wind = Object.keys(allCurrentStartplaces[i].winddirectionsId);
@@ -113,29 +111,27 @@ class StartplaceDetail extends Component {
                         allimagesNames.push(`${y}.jpg`);
                     }
                 }
-                if(currentRegio){
+                this.setState({
+                    areadesc: currentArea.description,
+                    arealocationpin: currentArea.locationpin,
+                    areatitle: currentArea.name,
+                    allWind: wind,
+                    allWinddirectionsArea: this.getWinddirectionsnames(allWinddirections, wind).join(', '),//to get the Winddirections as Strings, map throw all the Winddirections
+                    regionsname: currentArea.region.name,
+                    regionscountry: currentArea.region.country,
+                    imagesUrl: allimagesUrl,
+                    imagesName: allimagesNames,
+                    funicularLink: currentArea.funicularLink,
+                    webcams: currentArea.webcams,
+                    shvInfo: currentArea.shvInfo,
+                    weatherstations: currentArea.weatherstations,
+                    xc: currentArea.xc,
+                    allcurrentStartplaces: allCurrentStartplaces
+                });
+                if(currentArea.webcams && currentArea.webcams[0] !== ''){
                     this.setState({
-                        areadesc: currentArea.description,
-                        arealocationpin: currentArea.locationpin,
-                        areatitle: currentArea.name,
-                        allWind: wind,
-                        allWinddirectionsArea: this.getWinddirectionsnames(allWinddirections, wind).join(', '),//to get the Winddirections as Strings, map throw all the Winddirections
-                        regionsname: currentRegio.name,
-                        regionscountry: currentRegio.country,
-                        imagesUrl: allimagesUrl,
-                        imagesName: allimagesNames,
-                        funicularLink: currentArea.funicularLink,
-                        webcams: currentArea.webcams,
-                        shvInfo: currentArea.shvInfo,
-                        weatherstations: currentArea.weatherstations,
-                        xc: currentArea.xc,
-                        allcurrentStartplaces: allCurrentStartplaces
-                    });
-                    if(currentArea.webcams && currentArea.webcams[0] !== ''){
-                        this.setState({
-                            haswebcams: true
-                        })
-                    }
+                        haswebcams: true
+                    })
                 }
             }
         }   

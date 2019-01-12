@@ -200,7 +200,7 @@ class FlugdatenFormContainer extends Component {
             }
         }
         //if history.location.state is set (if someone likes to update a Flight), set the values of Form-Input-Field       
-        if( nextProps.flight && nextProps.flight.pilot.pilotId !== undefined && nextProps.flight.pilot.pilotId === nextProps.user.uid){
+        if( nextProps.flight && nextProps.flight.pilot.pilotId !== undefined && nextProps.flight.pilot.email === nextProps.user.email){
             let currentFlight = nextProps.flight;
             if(currentFlight !==null || currentFlight !==undefined || currentFlight !==[]){
                 //get the hours and minutes and set into state

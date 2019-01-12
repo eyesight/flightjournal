@@ -174,7 +174,7 @@ class FlightTableList extends Component {
         }
     }
     //TODO: make delete- & update-function just for active user (inside the function, not the ui)
-    renderFlights(obj, pilot, startpl) {
+    renderFlights(obj, startpl) {
         const flights = Object.keys(obj).map(i => obj[i]);
         const sp = Object.keys(startpl).map(i => startpl[i]);
         return flights.slice(0, this.state.itemsToShow).map((x) => {
@@ -221,7 +221,6 @@ class FlightTableList extends Component {
 
     render() {
         const allflight = this.props.filteredFlights;
-        const allPilots = this.props.pilots;
         const allStartplaces = this.props.startplaces;
 
         return (
@@ -230,7 +229,7 @@ class FlightTableList extends Component {
                 <table className="table">
                     <FlightTableSort />
                     <tbody className='table__tbody'>
-                        {this.renderFlights(allflight, allPilots, allStartplaces)}
+                        {this.renderFlights(allflight, allStartplaces)}
                     </tbody> 
                 </table>
                 {

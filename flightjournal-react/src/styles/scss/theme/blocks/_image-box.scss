@@ -1,6 +1,6 @@
 .image-box{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-flow: row wrap;
 
   margin-top: rem-calc(50px);
@@ -19,6 +19,7 @@
   &__item{
     width: 32.4%;
     padding-right: 2.4%;
+    padding-left: 2.4%;
     padding-top: rem-calc(100px);
 
     &:nth-child(-n+3){
@@ -27,17 +28,22 @@
     }
 
     &:nth-child(3n+3) {
-      width: 30%;
+      width: 32.4%;
       padding-right: 0%;
     }
 
     &:nth-child(3n+2) {
-      width: 32.4%;
+      width: 34.8%;
       border-right: 1px solid $color-gray-light;
     }
 
     &:nth-child(3n+1) {
+      padding-left: 0;
       border-right: 1px solid $color-gray-light;
+
+      @include bp(max, $ipad-ls) {
+        padding-left: 2%; 
+      }
     }
 
     @include bp(max, $ipad-ls) {

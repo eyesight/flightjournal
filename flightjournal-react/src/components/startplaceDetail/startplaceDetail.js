@@ -7,6 +7,9 @@ import { getWinddirections } from '../../actions/WinddirectionActions';
 import { getPilots } from '../../actions/PilotActions';
 import { getFlights } from '../../actions/FlightActions';
 import BackButton from './../backButton/backButton';
+import MessageBoxInfo from '../messageBoxInfo/messageBoxInfo';
+import MessageBox from '../messageBox/messageBox';
+import ReactTransitionGroup from 'react-addons-transition-group';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -30,6 +33,10 @@ class StartplaceDetail extends Component {
             startplatz: 'Startplatz',
             isUserAdmin: false,
             allstartplaces: {},
+            showMessageBoxInfo: false,
+            showMessageBoxDelete: false,
+            deleteAll: false,
+            MessageTxtDel: '',
 
             currentArea: {},
             allcurrentStartplaces: [],
@@ -47,12 +54,15 @@ class StartplaceDetail extends Component {
             haswebcams: false,
             shvInfo: '',
             weatherstations: [],
-            xc: ''
+            xc: '',
+            MessageTxt: ''
         };
         this.renderArray = this.renderArray.bind(this);
         this.getWinddirectionsnames = this.getWinddirectionsnames.bind(this);
         this.filterimages = this.filterimages.bind(this);
         this.deletefunction = this.deletefunction.bind(this);
+        this.deleteDefinitif = this.deleteDefinitif.bind(this);
+        this.cancelFunc = this.cancelFunc.bind(this);
     }
 
     componentWillMount() {
@@ -158,21 +168,61 @@ class StartplaceDetail extends Component {
         let flightsFiltered = Object.keys(this.props.flights).filter(i => {
             return this.props.flights[i].startplace.startplace === idDel
         });
+        this.setState({
+            idSP: idDel,
+            idA: idArea
+        })
         if(flightsFiltered.length > 0){
-            //TODO: Add a message to the user
-            alert('Dieser Startplatz wird verwendet. Er kann nicht gelöscht werden');
-            alert(flightsFiltered);
+            this.setState({
+                showMessageBoxInfo: true,
+                MessageTxt: 'Dieser Startplatz wird verwendet. Er kann nicht gelöscht werden'
+            })
+            console.log('this flight uses the startplace: '+flightsFiltered);
         }else{
             //TODO: Add a message to the user, if he is shure to delete it
             if(numofSP > 1){
-                this.props.deleteOneStartplace(idDel, idArea)
+                this.setState({
+                    showMessageBoxDelete: true,
+                    MessageTxtDel: 'Soll der Startplatz wirklich gelöscht werden?',
+                    deleteAll: false
+                })
             }else{
-                this.props.deleteStartplaces(idArea);
-                this.props.history.push({
-                    pathname: routes.HOME
-                });
+                this.setState({
+                    showMessageBoxDelete: true,
+                    MessageTxtDel: 'Soll der letzte Startplatz und das ganze Gebiet wirklich gelöscht werden?',
+                    deleteAll: true
+                })
             }
         }        
+    }
+    deleteDefinitif(e, idDel, idArea){
+        e.preventDefault();
+        if(!this.state.deleteAll){
+            this.props.deleteOneStartplace(idDel, idArea)
+            this.setState({
+                idSP: '',
+                idA: '',
+                showMessageBoxDelete: false
+            })
+        }else{
+            this.props.deleteStartplaces(idArea);
+            this.setState({
+                idSP: '',
+                idA: '',
+                showMessageBoxDelete: false
+            })
+            this.props.history.push({
+                pathname: routes.HOME
+            });
+        } 
+    }
+    cancelFunc(){
+        this.setState({
+            showMessageBoxDelete: false,
+            deleteAll: false,
+            idSP: '',
+            idA: ''
+        })
     }
  
     render() {
@@ -310,6 +360,33 @@ class StartplaceDetail extends Component {
                             </div>
                         </div>
                     </div>
+                    <ReactTransitionGroup component="div">
+                    {
+                        this.state.showMessageBoxInfo ?
+                            <MessageBoxInfo
+                                txt = {this.state.MessageTxt}
+                                button1Txt = 'OK'
+                                functionBtn1 = {(event) => {event.preventDefault(); this.setState({showMessageBoxInfo: false})}}
+                                button1Class = 'button'
+                            /> 
+                        : null
+                    }
+                    </ReactTransitionGroup>
+                    <ReactTransitionGroup component="div">
+                    {
+                        this.state.showMessageBoxDelete ?
+                            <MessageBox
+                                txt = {this.state.MessageTxtDel}
+                                button1Txt = 'Ja'
+                                button2Txt = 'Abbrechen'
+                                functionBtn1 = {(event) => {this.deleteDefinitif(event, this.state.idSP, this.state.idA)}}
+                                functionBtn2 = {(event) => {this.cancelFunc(event)}}
+                                button1Class = 'button'
+                                button2Class = 'button'
+                            /> 
+                        : null
+                    }
+                </ReactTransitionGroup>
                 </section>
             </main>
         );

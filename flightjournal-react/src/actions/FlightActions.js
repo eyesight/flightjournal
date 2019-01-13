@@ -11,7 +11,6 @@ export function getFlights () {
     })
   }
 }
-
 //Todo: add id and overridign ID may easier to add/have one function for both
 export function saveFlights(flight) {
   return dispatch => {

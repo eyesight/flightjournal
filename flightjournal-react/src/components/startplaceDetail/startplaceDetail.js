@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { getUser } from '../../actions/UserActions';
 import { getRegions } from '../../actions/RegionsActions';
-import { getStartplaces, deleteStartplaces } from '../../actions/StartplacesActions';
+import { getStartplaces, deleteStartplaces, deleteOneStartplace } from '../../actions/StartplacesActions';
 import { updateStartareas } from '../../actions/StartareasActions';
 import { getWinddirections } from '../../actions/WinddirectionActions';
 import { getPilots } from '../../actions/PilotActions';
+import { getFlights } from '../../actions/FlightActions';
 import BackButton from './../backButton/backButton';
 
 import { connect } from 'react-redux';
@@ -28,6 +29,7 @@ class StartplaceDetail extends Component {
             classNameLink: 'anchor-wrapper',
             startplatz: 'Startplatz',
             isUserAdmin: false,
+            allstartplaces: {},
 
             currentArea: {},
             allcurrentStartplaces: [],
@@ -60,6 +62,7 @@ class StartplaceDetail extends Component {
         this.props.getRegions();
         this.props.getWinddirections();
         this.props.getPilots();
+        this.props.getFlights();
         if (this.props.user.loading === false && this.props.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
           }
@@ -91,9 +94,9 @@ class StartplaceDetail extends Component {
                 isUserAdmin: true
             });
         }   
-        if( nextProps.allstartplaces !== undefined && nextProps.startplace !== nextProps.regions){
-            let currentArea = _.find(nextProps.allstartplaces, {id:nextProps.match.params.id});
-            let allCurrentStartplaces = (currentArea) ? _.values(currentArea.startplaces) : '';
+        if( nextProps.allstartplaces !== undefined && nextProps.startplace !== undefined){
+            let currentArea = nextProps.startplace;
+            let allCurrentStartplaces = _.values(currentArea.startplaces);
             let allWinddirections = [];
             let allimagesUrl = [];
             let allimagesNames = [];
@@ -112,6 +115,7 @@ class StartplaceDetail extends Component {
                     }
                 }
                 this.setState({
+                    allstartplaces: currentArea.startplaces,
                     areadesc: currentArea.description,
                     arealocationpin: currentArea.locationpin,
                     areatitle: currentArea.name,
@@ -149,33 +153,28 @@ class StartplaceDetail extends Component {
         e.preventDefault();
     }
 
-    deletefunction(id, idArea){
-        let that = this;
-        let sparray = [];
-        console.log(this.props.allstartareas);
-        const keysOfStartareas = Object.keys(that.props.allstartareas).map(i => that.props.allstartareas[i]);
-            
-        keysOfStartareas.map(function (item) {
-            if(item.id === idArea){
-                sparray = item.startplaces;
-                return sparray.splice( sparray.indexOf(id), 1 );
-            };
-            console.log(sparray);
-            return sparray;
-        }); 
-        let objArea = {
-            startplaces: sparray
-        }
-        console.log(objArea);
-        this.props.updateStartareas(idArea, objArea).then(
-            this.props.deleteStartplaces(id),
-            ).catch((err) => {
-                console.log('error when delete startplace');
-                console.log(err)
-                }
-            );
+    deletefunction(idDel, idArea){
+        let numofSP = Object.keys(this.state.allstartplaces).length;
+        let flightsFiltered = Object.keys(this.props.flights).filter(i => {
+            return this.props.flights[i].startplace.startplace === idDel
+        });
+        if(flightsFiltered.length > 0){
+            //TODO: Add a message to the user
+            alert('Dieser Startplatz wird verwendet. Er kann nicht gelöscht werden');
+            alert(flightsFiltered);
+        }else{
+            //TODO: Add a message to the user, if he is shure to delete it
+            if(numofSP > 1){
+                this.props.deleteOneStartplace(idDel, idArea)
+            }else{
+                this.props.deleteStartplaces(idArea);
+                this.props.history.push({
+                    pathname: routes.HOME
+                });
+            }
+        }        
     }
-
+ 
     render() {
         let textTitelBold = `${this.state.areatitle}`;
         let textTitelSmall = `${this.state.regionsname}, ${this.state.regionscountry}`;
@@ -305,7 +304,7 @@ class StartplaceDetail extends Component {
                                     link='Startplatz ansehen'
                                     isAdmin={this.state.isUserAdmin}
                                     route={routes.STARTPLATZ_ERFASSEN + "/" + this.props.match.params.id + "--sp--" +spitem.id}
-                                    deletefunction={()=>{this.deletefunction(spitem.id, spitem.startareasId)}}
+                                    deletefunction={()=>{this.deletefunction(spitem.id, this.props.match.params.id)}}
                                 />)
                             })}
                             </div>
@@ -325,8 +324,9 @@ function mapStateToProps(state, props) {
         regions: state.regions,
         allstartplaces: state.startplaces,
         winddirections: state.winddirections,
-        currentPilot: _.find(state.pilots, { email: state.user.email })
+        currentPilot: _.find(state.pilots, { email: state.user.email }),
+        flights: state.flights
     };
 } 
 
-export default withRouter(connect(mapStateToProps, { getUser, getStartplaces, getRegions, getWinddirections, getPilots, deleteStartplaces, updateStartareas })(StartplaceDetail));
+export default withRouter(connect(mapStateToProps, { getUser, getStartplaces, getRegions, getWinddirections, getPilots, deleteStartplaces, updateStartareas, deleteOneStartplace, getFlights })(StartplaceDetail));

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { reduxForm, reset } from 'redux-form';
 import { getStartplaces, saveStartplaces, updateStartplaces, deleteStartplaces } from '../../actions/StartplacesActions';
-import { updateStartareas, saveStartareas } from '../../actions/StartareasActions';
 import { getRegions, updateRegions } from '../../actions/RegionsActions';
 import { getWinddirections, updateWinddirections } from '../../actions/WinddirectionActions';
 import { getFlights, updateFlights } from '../../actions/FlightActions';
@@ -255,7 +254,7 @@ class StartplaceFormContainer extends Component {
             break;
         case 'imagesUrl':
             // eslint-disable-next-line
-            imagesValid = (/^[a-zA-Z0-9\_]*$/gi).test(this.state.imagesUrl);
+            imagesValid = (/^[a-zA-Z0-9\_-]*$/gi).test(this.state.imagesUrl);
             imagesUrlValid = value.length === 0 || (imagesValid === true && value.length <= 50 && value !== '' && (typeof value === 'string'));
             fieldValidationErrors.imagesUrl = imagesUrlValid ? '' : `${validation.valField} ${validation.specialChars} und ${validation.valLess50}.`;
             break;
@@ -917,7 +916,7 @@ let flightform = reduxForm({
                 winddirections: state.winddirections,
                 currentPilot: _.find(state.pilots, { email: state.user.email })
             };
-        }, { saveStartplaces, getStartplaces, updateStartplaces, deleteStartplaces, getUser, updateStartareas, saveStartareas, getRegions, updateRegions, getWinddirections, updateWinddirections, getPilots, getFlights, updateFlights }
+        }, { saveStartplaces, getStartplaces, updateStartplaces, deleteStartplaces, getUser, getRegions, updateRegions, getWinddirections, updateWinddirections, getPilots, getFlights, updateFlights }
     )(flightform);
 
 export default withRouter(flightform);

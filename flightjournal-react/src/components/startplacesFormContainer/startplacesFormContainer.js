@@ -60,8 +60,8 @@ class StartplaceFormContainer extends Component {
             //validation-states area
             errorAlertArea: false,
             formValidArea: false,
-            formErrorsArea:{regionsId: '', startareaname: '', funicularLink: '', locationpin: '', webcam: '', webcam2:'', webcam3:'', shvInfo: '', windstation1: '', windstation2: '', windstation3: '', xc: '', areaDescription: ''},
-            formErrorsValidArea: {regionsId: false, startareaname: false, funicularLink: true, locationpin: true, webcam: true, webcam2:true, webcam3: true, shvInfo: true, windstation1: true, windstation2: true, windstation3: true, xc: true, areaDescription: true},
+            formErrorsArea:{regionsId: '', startareaname: '', funicularLink: '', locationpin: '', webcam: '', webcam2:'', webcam3:'', shvInfo: '', windstation1: '', windstation2: '', windstation3: '', xc: '', areaDescription: '', gliderChart: ''},
+            formErrorsValidArea: {regionsId: false, startareaname: false, funicularLink: true, locationpin: true, webcam: true, webcam2:true, webcam3: true, shvInfo: true, windstation1: true, windstation2: true, windstation3: true, xc: true, areaDescription: true, gliderChart: true},
             
             startareanameValid: false,
             regionsIdValid: false,
@@ -76,6 +76,7 @@ class StartplaceFormContainer extends Component {
             windstation3Valid: true,
             xcValid: true,
             areaDescriptionValid: true,
+            gliderChartValid: true,
 
             //Values of Form Startingplaces
             name : '',
@@ -108,7 +109,8 @@ class StartplaceFormContainer extends Component {
             startplaces: [],
             lastUpdateSA: '',
             landingplaces: [],
-            authorArea: ''
+            authorArea: '',
+            gliderChart:''
         };
         this.onChange = this.onChange.bind(this);  
         this.onSubmit = this.onSubmit.bind(this);
@@ -219,6 +221,7 @@ class StartplaceFormContainer extends Component {
         let windstation3Valid = this.state.windstation3Valid;
         let xcValid = this.state.xcValid;
         let areaDescriptionValid = this.state.areaDescriptionValid;
+        let gliderChartValid = this.state.gliderChartValid;
         switch(fieldName) {
         //Startplaces
         case 'startareasId': 
@@ -311,6 +314,10 @@ class StartplaceFormContainer extends Component {
             areaDescriptionValid = (value.length === 0) || (value.length <= 3000 && (typeof value === 'string'));
             fieldValidationErrorsArea.areaDescription = areaDescriptionValid ? '' : `${validation.valField} ${validation.valLess3000}.`;
             break;
+        case 'gliderChart':
+            gliderChartValid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrorsArea.gliderChart = gliderChartValid ? '' : `${validation.valField} ${validation.valLess200}.`;
+            break;
           default:
             break;
         }
@@ -349,7 +356,8 @@ class StartplaceFormContainer extends Component {
             windstation2: windstation2Valid,
             windstation3: windstation3Valid,
             xc: xcValid,
-            areaDescription: areaDescriptionValid
+            areaDescription: areaDescriptionValid,
+            gliderChart: gliderChartValid
         },
         regionsIdValid: regionsIdValid,
         startareanameValid: startareanameValid,
@@ -363,7 +371,8 @@ class StartplaceFormContainer extends Component {
         windstation2Valid: windstation2Valid,
         windstation3Valid: windstation3Valid,
         xcValid: xcValid,
-        areaDescriptionValid: areaDescriptionValid
+        areaDescriptionValid: areaDescriptionValid,
+        gliderChartValid: gliderChartValid
         }, this.validateFormArea);
       } 
 
@@ -393,7 +402,8 @@ class StartplaceFormContainer extends Component {
                 this.state.windstation2Valid &&
                 this.state.windstation3Valid &&
                 this.state.xcValid &&
-                this.state.areaDescriptionValid
+                this.state.areaDescriptionValid && 
+                this.state.gliderChartValid
             });
       }
 
@@ -421,6 +431,7 @@ class StartplaceFormContainer extends Component {
             this.setState({[name]: value}, 
                 () => { this.validateField(name, value) });
         }
+        console.log(name);
     };
 
     getOptions(sp, text, keyForOption, keyForOption2){
@@ -634,7 +645,8 @@ class StartplaceFormContainer extends Component {
                 weatherstations: windstationarr,
                 writeDate: actualTimestamp,
                 author: author,
-                xc: this.state.xc
+                xc: this.state.xc,
+                gliderChart: this.state.gliderChart
             }
             if(this.state.updateArea){
                 this.props.updateStartplaces(this.state.startareasId, obj).then(
@@ -741,6 +753,7 @@ class StartplaceFormContainer extends Component {
             windstation2: (currentArea.weatherstations && currentArea.weatherstations[1]) ? currentArea.weatherstations[1] : '',
             windstation3: (currentArea.weatherstations && currentArea.weatherstations[2]) ? currentArea.weatherstations[2] : '',
             xc: currentArea.xc,
+            gliderChart: currentArea.gliderChart,
             areaDescription: currentArea.description,
             lastUpdateSA: currentArea.lastUpdate,
             writeDateArea: currentArea.writeDate,
@@ -862,6 +875,7 @@ class StartplaceFormContainer extends Component {
                     errorMessageWindstation3={this.state.formErrorsArea.windstation3}
                     errorMessageXc={this.state.formErrorsArea.xc}
                     errorMessageAreaDescription={this.state.formErrorsArea.areaDescription}
+                    errorMessagegliderChart={this.state.formErrorsArea.gliderChart}
 
                     getOptionsRegio={this.getOptions(this.props.regions, 'Region wählen', 'name')}
 
@@ -878,7 +892,8 @@ class StartplaceFormContainer extends Component {
                     classNameAreawindstation3={`formular__input-wrapper ${this.errorClass(this.state.formErrorsArea.windstation3)}`}
                     classNameAreaXc={`formular__input-wrapper ${this.errorClass(this.state.formErrorsArea.xc)}`}
                     classNameAreaDesc={`formular__input-wrapper formular__input--text ${this.errorClass(this.state.formErrorsArea.areaDescription)}`}
-
+                    classNameGliderChart={`formular__input-wrapper formular__input-wrapper--fullwith ${this.errorClass(this.state.formErrorsArea.gliderChart)}`}
+                    
                     valueRegio={this.state.regionsId}
                     valueAreaName={this.state.startareaname}
                     valueAreaFuniculare={this.state.funicularLink}
@@ -892,6 +907,7 @@ class StartplaceFormContainer extends Component {
                     valueAreawindstation3={this.state.windstation3}
                     valueAreaXc={this.state.xc} 
                     valueDescription={this.state.areaDescription}
+                    valuegliderChart={this.state.gliderChart}
                 /> : null}
             </ReactTransitionGroup>
             {this.state.errorAlertArea && this.state.formstartareaisvisible && <FormErrorAlert>{validation.valForm}</FormErrorAlert>}

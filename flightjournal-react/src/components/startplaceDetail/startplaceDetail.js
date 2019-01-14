@@ -140,7 +140,8 @@ class StartplaceDetail extends Component {
                     shvInfo: currentArea.shvInfo,
                     weatherstations: currentArea.weatherstations,
                     xc: currentArea.xc,
-                    allcurrentStartplaces: allCurrentStartplaces
+                    allcurrentStartplaces: allCurrentStartplaces,
+                    gliderChart: currentArea.gliderChart
                 });
                 if(currentArea.webcams && currentArea.webcams[0] !== ''){
                     this.setState({
@@ -328,6 +329,11 @@ class StartplaceDetail extends Component {
                                     linkUrl='https://www.meteoschweiz.admin.ch/home.html?tab=report'
                                     classNameLink={this.state.classNameLink}
                                 />
+                                <div className="details__item">
+                                    <p className="details__titel">Flugzogen</p>
+                                    <a className={this.state.classNameLink} rel="noopener noreferrer" target="_blank" href='https://www.skybriefing.com/portal/delegate/dabs?today'><span className={this.state.classNameDetailsTxt}>Aktueller DABS</span></a>
+                                    {this.state.gliderChart ? <a className={this.state.classNameLink} rel="noopener noreferrer" target="_blank" href={this.state.gliderChart}><span className={this.state.classNameDetailsTxt}>Segelflugkarte</span></a> : null}
+                                </div> 
                                 {this.state.xc ? (<DetailsItem 
                                     classNameDetails={this.state.classNameDetails}
                                     classNameDetailsTitel={this.state.classNameDetailsTitel}

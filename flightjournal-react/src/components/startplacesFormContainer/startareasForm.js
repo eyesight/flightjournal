@@ -32,7 +32,8 @@ class StartplacesForm extends Component {
         const { onChange, onSubmitArea, classNameRegio, regioLabel, nameRegio, valueRegio, getOptionsRegio, errorMessageRegio, valueDescription, errorMessageWindstation1, errorMessageWindstation2, errorMessageWindstation3,
             errorMessageAreaName, errorMessageFunicularLink, errorMessageSandortpin, errorMessageWebcams1, errorMessageWebcams2, errorMessageWebcams3, errorMessageShvInfo, errorMessageXc, errorMessageAreaDescription,
             classNameAreaName, classNameAreaFuniculare, classNameArealocation, classNameAreawebcam, classNameAreawebcam2, classNameAreawebcam3, classNameAreashv, classNameAreawindstation, classNameAreawindstation2, classNameAreawindstation3, classNameAreaXc, classNameAreaDesc,
-            valueAreaName, valueAreaFuniculare, valueArealocation, valueAreawebcam, valueAreawebcam2, valueAreawebcam3, valueAreashv, valueAreawindstation, valueAreawindstation2, valueAreawindstation3, valueAreaXc } = this.props;
+            valueAreaName, valueAreaFuniculare, valueArealocation, valueAreawebcam, valueAreawebcam2, valueAreawebcam3, valueAreashv, valueAreawindstation, valueAreawindstation2, valueAreawindstation3, valueAreaXc,
+            classNameGliderChart, errorMessagegliderChart, valuegliderChart } = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={onSubmitArea}>
                 <div className={classNameRegio}>
@@ -165,6 +166,17 @@ class StartplacesForm extends Component {
                     classNamesError='formular__validationBox'
                     errorMessage={errorMessageXc}
                     value={valueAreaXc}
+                />
+                <InputField 
+                    classes={classNameGliderChart}
+                    label='Segelflugkarte'
+                    inputAction={onChange}
+                    type='text'
+                    name='gliderChart'
+                    autocomp=''
+                    classNamesError='formular__validationBox'
+                    errorMessage={errorMessagegliderChart}
+                    value={valuegliderChart}
                 />
                 <div className={classNameAreaDesc}>
                     <label className="formular__label">Beschrieb</label>

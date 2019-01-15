@@ -226,7 +226,8 @@ class StartplaceDetail extends Component {
         })
     }
  
-    render() {
+    render() { 
+        console.log(this.props.history)
         let textTitelBold = `${this.state.areatitle}`;
         let textTitelSmall = `${this.state.regionsname}, ${this.state.regionscountry}`;
         return (
@@ -330,7 +331,7 @@ class StartplaceDetail extends Component {
                                     classNameLink={this.state.classNameLink}
                                 />
                                 <div className="details__item">
-                                    <p className="details__titel">Flugzogen</p>
+                                    <p className="details__titel">Flugzonen</p>
                                     <a className={this.state.classNameLink} rel="noopener noreferrer" target="_blank" href='https://www.skybriefing.com/portal/delegate/dabs?today'><span className={this.state.classNameDetailsTxt}>Aktueller DABS</span></a>
                                     {this.state.gliderChart ? <a className={this.state.classNameLink} rel="noopener noreferrer" target="_blank" href={this.state.gliderChart}><span className={this.state.classNameDetailsTxt}>Segelflugkarte</span></a> : null}
                                 </div> 

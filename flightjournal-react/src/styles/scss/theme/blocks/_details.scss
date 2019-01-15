@@ -43,6 +43,8 @@
     @include bp(max, $ipad-p){
       padding-right: 0;
       border-right: none;
+      column-count: 2;
+      margin-bottom: rem-calc(20px);
       @include grid-column(12, $grid-12);
       @include grid-push(0, $grid-12);
     }

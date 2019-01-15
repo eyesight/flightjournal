@@ -431,7 +431,6 @@ class StartplaceFormContainer extends Component {
             this.setState({[name]: value}, 
                 () => { this.validateField(name, value) });
         }
-        console.log(name);
     };
 
     getOptions(sp, text, keyForOption, keyForOption2){
@@ -691,8 +690,13 @@ class StartplaceFormContainer extends Component {
                 titleForm: (this.props.match.params.id)?'Startplatz editieren.':'Neuen Startplatz erfassen.',
             });
         }else{
-            this.props.dispatch(reset('NewPost'));
-            this.props.history.push(routes.FLUGDATEN_ERFASSEN)
+            if(this.state.toEditArea){
+                this.props.dispatch(reset('NewPost'));
+                this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.idAreaFromUrl}`)
+            }else{
+                this.props.dispatch(reset('NewPost'));
+                this.props.history.push(routes.FLUGDATEN_ERFASSEN)
+            }
         }
     }
 

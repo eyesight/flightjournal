@@ -26,6 +26,13 @@
       background-color: transparent;
       padding-top: rem-calc(20px);
     }
+
+    &--centered{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 0;
+    }
   }
 
   &__tbody{
@@ -197,5 +204,9 @@
       margin-left: 40px;
       margin-top: 5px;
     }
+  }
+
+  &__noflights{
+    text-align: center;
   }
 }

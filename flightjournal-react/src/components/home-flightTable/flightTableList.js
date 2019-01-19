@@ -38,7 +38,8 @@ class FlightTableList extends Component {
           itemsToShowStart: 0,
           hasNext: false,
           hasPrev: false,
-          numberOfFlights: 0
+          numberOfFlights: 0,
+          updatePagination: false
         };
         this.row = React.createRef();
         this.renderFlights = this.renderFlights.bind(this);
@@ -50,6 +51,8 @@ class FlightTableList extends Component {
         this.editCopy = this.editCopy.bind(this);
         this.prevfunction = this.prevfunction.bind(this);
         this.nextfunction = this.nextfunction.bind(this);
+        this.hasNext = this.hasNext.bind(this);
+        this.renderPaginationTxt = this.renderPaginationTxt.bind(this);
       }
 
     componentWillMount() {
@@ -64,9 +67,22 @@ class FlightTableList extends Component {
         this.setState({
             hasNext: (flights.length>10) ? true : false,
             numberOfFlights: filteredFlights.length,
-            countOfNextSteps: Math.floor(this.state.numberOfFlights/this.state.numberOfShowItems)-1
+            countOfNextSteps: Math.floor(this.state.numberOfFlights/this.state.numberOfShowItems)
         })
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        //if the flights will be filteret, and the pagination is set over the actual pagination, everything will resettet, so pagination and flights starts on 1
+        if (this.props.filteredFlights.length !== prevProps.filteredFlights.length && prevState.pagination > Math.floor(this.props.filteredFlights.length/prevState.numberOfShowItems)) {
+                this.setState({
+                    pagination: 0,
+                    hasNext: true,
+                    hasPrev: false,
+                    itemsToShowStart: 0,
+                    itemsToShow: 10
+                })
+        }
+      }
 
     showMessageBox(e, id, images){
         e.preventDefault();
@@ -183,10 +199,14 @@ class FlightTableList extends Component {
         }
     }
     //TODO: make delete- & update-function just for active user (inside the function, not the ui)
-    renderFlights(obj, startpl) {
+    renderFlights(obj, startpl, pagination) {
         const flights = Object.keys(obj).map(i => obj[i]);
         const sp = Object.keys(startpl).map(i => startpl[i]);
-        return flights.slice(this.state.itemsToShowStart, this.state.itemsToShow).map((x) => {
+        console.log(flights.length);
+        //if the user uses the next-button and then uses a filter, we have to reset the index-nrs. of the flight to use the slice-methode
+        let itemsToShowIndex = (pagination === 0 || pagination < (this.state.itemsToShowStart/this.state.numberOfShowItems)) ? 0 : this.state.itemsToShowStart;
+        let itemsToShowIndexMax = (pagination === 0 || pagination < (this.state.itemsToShowStart/this.state.numberOfShowItems)) ? this.state.numberOfShowItems : this.state.itemsToShow;
+        return flights.slice(itemsToShowIndex, itemsToShowIndexMax).map((x) => {
             return sp.map((z)=>{
                 if(x.startplace.area === z.id){
                     let startplaceName = _.find(z.startplaces, { id: x.startplace.startplace }).name;
@@ -228,53 +248,69 @@ class FlightTableList extends Component {
         }); 
     }
 
-    prevfunction(e){
+    prevfunction(e, countOfNextSteps){
         e.preventDefault();
         this.setState((prevState)=>({
             pagination: prevState.pagination-1,
             itemsToShowStart: prevState.itemsToShowStart - this.state.numberOfShowItems,
             itemsToShow: prevState.itemsToShow - this.state.numberOfShowItems,
             hasPrev: (prevState.pagination <= 1 ) ? false: true,
-            hasNext: ((this.state.pagination-1)<=prevState.countOfNextSteps) ? true : false
+            hasNext: ((this.state.pagination-1)<=countOfNextSteps) ? true : false
         }));
     }
-    nextfunction(e){
+    nextfunction(e, countOfNextSteps){
         e.preventDefault();
         this.setState((prevState)=>({
             pagination: prevState.pagination+1,
             itemsToShowStart: prevState.itemsToShowStart + this.state.numberOfShowItems,
             itemsToShow: prevState.itemsToShow + this.state.numberOfShowItems,
             hasPrev: (prevState.pagination >= 0 )? true: false,
-            hasNext: (prevState.pagination < prevState.countOfNextSteps) ? true : false
+            hasNext: (prevState.pagination+1 < countOfNextSteps || countOfNextSteps>this.state.pagination) ? true : false
         }));
+    }
+
+    hasNext(pagination, countOfFlights, countOfNextSteps){
+        let istrue = true;
+        if(pagination === countOfNextSteps){
+            istrue = false;
+        }else if ((countOfFlights%this.state.numberOfShowItems===0) && countOfNextSteps-1 === pagination){
+            istrue = false;
+        }else{
+            istrue = true;
+        }
+        return istrue;
+    }
+    renderPaginationTxt(countOfNextSteps, countOfFlight){
+        let pag = (countOfNextSteps === 0 || countOfNextSteps<this.state.pagination) ? 1 : this.state.itemsToShowStart+1
+        let nrTxt = (this.state.pagination<countOfNextSteps) ? this.state.itemsToShow : countOfFlight;
+        let paginationTxt = `${pag}–${nrTxt}`
+        return paginationTxt;
     }
 
     render() {
         const allflight = this.props.filteredFlights;
         const allStartplaces = this.props.startplaces;
-        //If the pagination is smaller or same of the countNextSteps (numberOfFlights to show / the number of shown flight on one page), we need to show the remains of the flights on the last page.
-        let nrTxt = (this.state.pagination<=this.state.countOfNextSteps) ? this.state.itemsToShow : this.state.numberOfFlights;
-        let paginationTxt = `${this.state.itemsToShowStart+1}–${nrTxt}`; //text in pagination
+        let countOfNextSteps = Math.floor(allflight.length/this.state.numberOfShowItems);
+        console.log();
         return (
             <div className="table-wrapper">
-                <div className="table-inner">
+                {allflight.length !== 0 ? <div className="table-inner">
                 <table className="table">
                     <FlightTableSort />
                     <tbody className='table__tbody'>
-                        {this.renderFlights(allflight, allStartplaces)}
-                    </tbody> 
-                </table>
+                        {this.renderFlights(allflight, allStartplaces, countOfNextSteps)}
+                    </tbody>
+                </table> 
                 <Pagination
-                    classNameWrapper="pagination"
                     classNamePrev="pagination__prev"
                     classNameNext="pagination__next"
-                    txt={paginationTxt}
-                    prevfunction={(event) => {this.prevfunction(event)}}
-                    nextfunction={(event) => {this.nextfunction(event)}}
-                    hasPrev={this.state.hasPrev}
-                    hasNext={this.state.hasNext}
-                />
-                </div>
+                    txt={this.renderPaginationTxt(countOfNextSteps, this.props.filteredFlights.length)}
+                    prevfunction={(event) => {this.prevfunction(event, countOfNextSteps)}}
+                    nextfunction={(event) => {this.nextfunction(event, countOfNextSteps)}}
+                    hasPrev={(countOfNextSteps>0) ? this.state.hasPrev : false}
+                    hasNext={(countOfNextSteps<this.state.pagination) ? false : this.hasNext(this.state.pagination, allflight.length, countOfNextSteps)}
+                /> 
+                </div> : <div className="table-inner table-inner--centered"><p className="table__noflights">keine Flüge vorhanden</p></div>}
                 <ReactTransitionGroup component="div">
                 {
                     this.state.showMessageBox ?

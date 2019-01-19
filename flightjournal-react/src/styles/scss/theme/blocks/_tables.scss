@@ -18,6 +18,8 @@
     flex-direction: column;
     padding-top: rem-calc(50px);
     padding-bottom: rem-calc(50px);
+    min-height: rem-calc(766px); 
+    position: relative;
 
     @include bp(max, $ipad-p) {
       display: block;
@@ -38,6 +40,7 @@
   th{
     padding: 0 10px 40px 0;
     text-align: left;
+    white-space: nowrap;
 
     @include bp(max, $ipad-p) {
       display: none;
@@ -104,6 +107,7 @@
 
   &__duration,
   &__distance{
+    white-space: nowrap;
     @include bp(max, $ipad-p) {
       font-size:23px;
       font-family: $font-family-secundary;
@@ -141,6 +145,7 @@
       display:inline-block;
       z-index:10;
       position: relative;
+      white-space: nowrap;
 
       &::after {
         @extend .help-underline-yellow;

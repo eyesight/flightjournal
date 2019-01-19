@@ -1,0 +1,38 @@
+.pagination{
+  display: flex;
+  justify-content: space-between;
+  width: 150px;
+  position: absolute;
+  bottom: rem-calc(45px);
+  left: 50%;
+  transform: translateX(-50%);
+
+  &__text{
+    font-weight: bold;
+    white-space: nowrap;
+    text-align: right;
+    width: 33%;
+  }
+
+  &__icon{
+    fill: $color-primary;
+    width: 13px;
+    height: 23px;
+  }
+
+  &__button--next,
+  &__button--prev{
+    width: 33%;
+    &:hover{
+      cursor: pointer;
+      .pagination__icon{
+        fill: $color-black;
+      }
+    }
+  }
+  &__empty{
+    width: 33%;
+    height: 0;
+    cursor: none;
+  }
+}

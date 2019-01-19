@@ -7,6 +7,7 @@ import { getFilterFlights } from '../../selectors/flightSelector';
 import { getStartplaces } from '../../actions/StartplacesActions';
 import { getPilots } from '../../actions/PilotActions';
 import { updateLastUpdateArray } from '../../utils/updateLastUpdateArray';
+import Pagination from '../pagination/pagination';
 import FlightTableSort from './flightTableSort';
 import MessageBox from '../messageBox/messageBox';
 import ReactTransitionGroup from 'react-addons-transition-group';
@@ -22,7 +23,8 @@ class FlightTableList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          itemsToShow: 3,
+          itemsToShow: 10,
+          numberOfShowItems: 10,
           expanded: false,
           showMessageBox: false,
           showMessageBoxCopy: false,
@@ -30,17 +32,24 @@ class FlightTableList extends Component {
           copyID: '',
           deleteImages: [],
           flightToCopy: [],
-          lastUpdate: ''
+          lastUpdate: '',
+          pagination: 0,
+          paginationTxt: 'test',
+          itemsToShowStart: 0,
+          hasNext: false,
+          hasPrev: false,
+          numberOfFlights: 0
         };
         this.row = React.createRef();
         this.renderFlights = this.renderFlights.bind(this);
-        this.showMore = this.showMore.bind(this);
         this.deleteFunc = this.deleteFunc.bind(this);
         this.cancelFunc = this.cancelFunc.bind(this);
         this.showMessageBox = this.showMessageBox.bind(this);
         this.deletePhotos = this.deletePhotos.bind(this);
         this.copyFlight = this.copyFlight.bind(this);
         this.editCopy = this.editCopy.bind(this);
+        this.prevfunction = this.prevfunction.bind(this);
+        this.nextfunction = this.nextfunction.bind(this);
       }
 
     componentWillMount() {
@@ -49,14 +58,14 @@ class FlightTableList extends Component {
         this.props.getStartplaces();
     }
 
-    showMore(e){
-        e.preventDefault();
-        this.state.itemsToShow === 3 ? 
-            (
-            this.setState({ itemsToShow: this.props.filteredFlights.length, expanded: true })
-            ) : (
-              this.setState({ itemsToShow: 3, expanded: false})
-            )
+    componentWillReceiveProps(){
+        const flights = Object.keys(this.props.flights).map(i => this.props.flights[i]);
+        const filteredFlights = Object.keys(this.props.filteredFlights).map(i => this.props.filteredFlights[i]);
+        this.setState({
+            hasNext: (flights.length>10) ? true : false,
+            numberOfFlights: filteredFlights.length,
+            countOfNextSteps: Math.floor(this.state.numberOfFlights/this.state.numberOfShowItems)-1
+        })
     }
 
     showMessageBox(e, id, images){
@@ -177,7 +186,7 @@ class FlightTableList extends Component {
     renderFlights(obj, startpl) {
         const flights = Object.keys(obj).map(i => obj[i]);
         const sp = Object.keys(startpl).map(i => startpl[i]);
-        return flights.slice(0, this.state.itemsToShow).map((x) => {
+        return flights.slice(this.state.itemsToShowStart, this.state.itemsToShow).map((x) => {
             return sp.map((z)=>{
                 if(x.startplace.area === z.id){
                     let startplaceName = _.find(z.startplaces, { id: x.startplace.startplace }).name;
@@ -188,7 +197,7 @@ class FlightTableList extends Component {
                             <td className="table__pilot">{x.pilot.name}</td> 
                             <td className="table__start">{`${z.name}, ${startplaceName}`}</td>
                             <td className="table__duration">{utils.timeToHourMinString(x.flighttime)}</td>
-                            <td className="table__distance">{x.xcdistance} Kilometer</td>
+                            <td className="table__distance">{x.xcdistance}&nbsp;km</td>
                             <td className="table__details"><Link className="anchor table__link" to={routes.FLUG + x.id}>Flugdetails</Link></td>
                             <td className="table__details table__details--icons"> 
                             {isactiveuser ? <Link className="table__icon" to={routes.FLUGDATEN_ERFASSEN + "/" + x.id}>
@@ -219,10 +228,33 @@ class FlightTableList extends Component {
         }); 
     }
 
+    prevfunction(e){
+        e.preventDefault();
+        this.setState((prevState)=>({
+            pagination: prevState.pagination-1,
+            itemsToShowStart: prevState.itemsToShowStart - this.state.numberOfShowItems,
+            itemsToShow: prevState.itemsToShow - this.state.numberOfShowItems,
+            hasPrev: (prevState.pagination <= 1 ) ? false: true,
+            hasNext: ((this.state.pagination-1)<=prevState.countOfNextSteps) ? true : false
+        }));
+    }
+    nextfunction(e){
+        e.preventDefault();
+        this.setState((prevState)=>({
+            pagination: prevState.pagination+1,
+            itemsToShowStart: prevState.itemsToShowStart + this.state.numberOfShowItems,
+            itemsToShow: prevState.itemsToShow + this.state.numberOfShowItems,
+            hasPrev: (prevState.pagination >= 0 )? true: false,
+            hasNext: (prevState.pagination < prevState.countOfNextSteps) ? true : false
+        }));
+    }
+
     render() {
         const allflight = this.props.filteredFlights;
         const allStartplaces = this.props.startplaces;
-
+        //If the pagination is smaller or same of the countNextSteps (numberOfFlights to show / the number of shown flight on one page), we need to show the remains of the flights on the last page.
+        let nrTxt = (this.state.pagination<=this.state.countOfNextSteps) ? this.state.itemsToShow : this.state.numberOfFlights;
+        let paginationTxt = `${this.state.itemsToShowStart+1}–${nrTxt}`; //text in pagination
         return (
             <div className="table-wrapper">
                 <div className="table-inner">
@@ -232,12 +264,16 @@ class FlightTableList extends Component {
                         {this.renderFlights(allflight, allStartplaces)}
                     </tbody> 
                 </table>
-                {
-                    allflight.length>3 ? 
-                    <div className="button-wrapper button-wrapper--top"> 
-                        <button onClick={this.showMore} className="button-without-border button-without-border--small">{this.state.expanded ? (<span>- weniger Flüge anzeigen</span>) : (<span>+ mehr Flüge anzeigen</span>)}</button>
-                    </div> : null
-                }
+                <Pagination
+                    classNameWrapper="pagination"
+                    classNamePrev="pagination__prev"
+                    classNameNext="pagination__next"
+                    txt={paginationTxt}
+                    prevfunction={(event) => {this.prevfunction(event)}}
+                    nextfunction={(event) => {this.nextfunction(event)}}
+                    hasPrev={this.state.hasPrev}
+                    hasNext={this.state.hasNext}
+                />
                 </div>
                 <ReactTransitionGroup component="div">
                 {

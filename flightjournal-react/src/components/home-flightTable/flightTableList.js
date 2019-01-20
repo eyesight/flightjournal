@@ -290,7 +290,6 @@ class FlightTableList extends Component {
         const allflight = this.props.filteredFlights;
         const allStartplaces = this.props.startplaces;
         let countOfNextSteps = Math.floor(allflight.length/this.state.numberOfShowItems);
-        console.log();
         return (
             <div className="table-wrapper">
                 {allflight.length !== 0 ? <div className="table-inner">

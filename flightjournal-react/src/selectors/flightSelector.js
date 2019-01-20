@@ -3,7 +3,7 @@ import  _ from 'lodash';
 export const getFilterFlights = (flights, { sortDirection, sortBy, startYear, text, filterSelects, filterJan, filterFeb, filterMai }) => {
   //Filter-functions
   let filteredItems =  _.pickBy(flights, flight => {
-      const pilotMatch = _.startsWith(flight.pilot, text);
+      const pilotMatch = _.startsWith(flight.pilot.email, text);
       const regexmatcher = new RegExp(startYear, "g");
       const startYearMatch = regexmatcher.test(flight.date);
       //Month-filter add monthes in a string to a regex
@@ -29,8 +29,14 @@ export const getFilterFlights = (flights, { sortDirection, sortBy, startYear, te
   //TODO: improve sorting - too many if elses
   filteredItems = flightsSort.sort((a, b) => {
     if(sortDirection === 'asc'){
-      if(sortBy === 'pilot' || sortBy === 'startplace'){
-        if(a[sortBy] > b[sortBy]){
+      if(sortBy === 'pilot'){
+        if(a[sortBy].name > b[sortBy].name){
+          return -1;
+        }else{
+          return 1;
+        }
+      }else if(sortBy === 'startplace'){
+        if(a[sortBy].areaName > b[sortBy].areaName){
           return -1;
         }else{
           return 1;
@@ -47,8 +53,14 @@ export const getFilterFlights = (flights, { sortDirection, sortBy, startYear, te
         return a[sortBy] - b[sortBy];
       }
     }else{
-      if(sortBy === 'pilot' || sortBy === 'startplace'){
-        if(a[sortBy] > b[sortBy]){
+      if(sortBy === 'pilot'){
+        if(a[sortBy].name > b[sortBy].name){
+          return 1;
+        }else{
+          return -1;
+        }
+      }else if(sortBy === 'startplace'){
+        if(a[sortBy].areaName > b[sortBy].areaName){
           return 1;
         }else{
           return -1;

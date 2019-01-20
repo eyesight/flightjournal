@@ -81,7 +81,7 @@ class FlightDetail extends Component {
                 landeplatz: currentFlight.landingplace,
                 startplatz: currentSP.name,
                 startplatzAltitude: currentSP.altitude,
-                startplatzArea: currentSP.name,
+                startplatzArea: currentStartplace.name,
                 flughoehe: currentFlight.maxaltitude,
                 xcdistance: currentFlight.xcdistance,
                 pilotFirstname: currentFlight.pilot.name,
@@ -114,7 +114,7 @@ class FlightDetail extends Component {
     render() {
         let textParagraph = `${this.state.date}, ${this.state.pilotFirstname} ${this.state.pilotLastname}`;
         let textTitelReg = this.state.xcdistance ? `${utils.timeToHourMinString(this.state.flighttime)}, ${this.state.xcdistance}\u00a0km` : `${utils.timeToHourMinString(this.state.flighttime)}`;
-        let textTitelBold = `${this.state.startplatz} – ${this.state.startplatzArea}, ${this.state.startplatzAltitude}\u00a0m`;
+        let textTitelBold = `${this.state.startplatzArea} – ${this.state.startplatz}, ${this.state.startplatzAltitude}\u00a0m`;
         let startingTimeHour = Math.floor(Number(this.state.startingtime)/60);
         startingTimeHour = (startingTimeHour<10) ? '0'+ startingTimeHour : startingTimeHour;
         let startingTimeMinute = Number(this.state.startingtime)%60;

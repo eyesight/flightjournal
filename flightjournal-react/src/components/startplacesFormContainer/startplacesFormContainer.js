@@ -38,6 +38,8 @@ class StartplaceFormContainer extends Component {
             from: (this.props.location.state) ? this.props.location.state[0].from : undefined,
             idAreaFromUrl: '', //get the id from url -> Url is a compination of id of startplace and startarea
             updateArea: false,
+            updateNameOfArea: false,
+            startareanameOld: '', //this is to set the old name, which can't be overwritten by update, to compare the flights in onSubmitArea-function, when startarea-name will be changed
 
             //validation-states
             validationTxt: '',
@@ -427,6 +429,15 @@ class StartplaceFormContainer extends Component {
             this.setState({
                 idToEditArea: value
             });
+        }else if(name === 'startareaname' && this.state.updateArea){
+            console.log('dddd');
+            //if name of Area is changed, we use the status "updateNameOfArea" in the submit-function to iterate in all flights and change all startplace.areaName there, which are linked with the updated flight
+            this.setState({[name]: value}, 
+                () => { this.validateField(name, value) 
+            });
+            this.setState({
+                updateNameOfArea: true
+            });
         }else{
             this.setState({[name]: value}, 
                 () => { this.validateField(name, value) });
@@ -648,16 +659,44 @@ class StartplaceFormContainer extends Component {
                 gliderChart: this.state.gliderChart
             }
             if(this.state.updateArea){
-                this.props.updateStartplaces(this.state.startareasId, obj).then(
-                    this.props.dispatch(reset('NewPost')),
-                    this.setState({
-                        formstartareaisvisible: false,
-                        formisvisible: true
-                    })
-                ).catch((err) => {
-                    console.log('error when safe startareas');
-                    console.log(err)
-                });
+                //if the Name of the Area is changed, we have to change all properties of the flights (startplace.areaName), which contain this area
+                if(this.state.updateNameOfArea){
+                    let allFlightWithName = Object.keys(this.props.flights).filter(i =>{
+                        if(this.props.flights[i].startplace.areaName === this.state.startareanameOld){
+                            return i;
+                        }
+                        return null;
+                    });
+                    let flightUpdateName = {
+                        startplace: {
+                            area: this.state.startareasId,
+                            areaName: this.state.startareaname,
+                            startplace: this.state.IDtoUpdateStartplace
+                        }
+                    }        
+                    this.props.updateStartplaces(this.state.startareasId, obj).then(
+                        this.props.dispatch(reset('NewPost')),
+                        this.updateAllFlights(allFlightWithName, flightUpdateName),
+                        this.setState({
+                            formstartareaisvisible: false,
+                            formisvisible: true
+                        })
+                    ).catch((err) => {
+                        console.log('error when safe startareas');
+                        console.log(err)
+                    });
+                }else{
+                    this.props.updateStartplaces(this.state.startareasId, obj).then(
+                        this.props.dispatch(reset('NewPost')),
+                        this.setState({
+                            formstartareaisvisible: false,
+                            formisvisible: true
+                        })
+                    ).catch((err) => {
+                        console.log('error when safe startareas');
+                        console.log(err)
+                    });
+                }
             }else{
                 this.props.saveStartplaces(obj).then(
                     this.props.dispatch(reset('NewPost')),
@@ -747,6 +786,7 @@ class StartplaceFormContainer extends Component {
         this.setState({
             regionsId: currentArea.region.id,
             startareaname: currentArea.name,
+            startareanameOld: currentArea.name,
             funicularLink: currentArea.funicularLink,
             arealocationpin: currentArea.locationpin,
             webcam: (currentArea.webcams && currentArea.webcams[0]) ? currentArea.webcams[0] : '',

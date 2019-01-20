@@ -28,6 +28,7 @@ class FlightTableFilter extends Component {
         e.preventDefault();
         switch (e.target.getAttribute('data-filter')) {
             case 'pilot':
+            console.log('pilot');
                     this.setState({
                         dropdownPilotTxt: e.target.getAttribute('data-name')
                     });

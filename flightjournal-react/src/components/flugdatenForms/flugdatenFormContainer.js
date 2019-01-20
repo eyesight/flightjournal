@@ -234,7 +234,7 @@ class FlugdatenFormContainer extends Component {
                     IDtoUpdate: nextProps.flight.id,
                     date: currentFlight.date,
                     startDate: moment(dateObject),
-                    startplace: _.values(currentFlight.startplace).join(' '),
+                    startplace: `${currentFlight.startplace.area} ${currentFlight.startplace.startplace}`,
                     startplace2: currentFlight.startplace,
                     landingplace: currentFlight.landingplace,
                     flighttime: currentFlight.flighttime,
@@ -509,6 +509,7 @@ class FlugdatenFormContainer extends Component {
                 () => { this.validateField('startingtime', ftimestart) 
               });
         }else if(name === 'startplace'){
+            console.log(value);
             let valuesplittet = value.split(' ');
             let startplace = {}; //creating copy of object
             startplace.area = valuesplittet[0];
@@ -764,6 +765,13 @@ class FlugdatenFormContainer extends Component {
         pilotObj.name = this.props.currentpilot.firstname;
         pilotObj.pilotId = this.props.user.uid;
 
+        //add all Infos for the startplace-obj
+        let startplaceObj ={}
+        let sp = _.find(this.props.startplaces, {id: this.state.startplace2.area});
+        startplaceObj.area = this.state.startplace2.area;
+        startplaceObj.startplace = this.state.startplace2.startplace;
+        startplaceObj.areaName = sp.name;
+
         if(Number(this.state.valueHour) > 0){
             ftime = (Number(this.state.valueHour)*60) + Number(this.state.valueMinute);
         }else{
@@ -790,7 +798,7 @@ class FlugdatenFormContainer extends Component {
         obj = {
             pilot: pilotObj,
             date: this.state.date,
-            startplace: this.state.startplace2,
+            startplace: startplaceObj,
             landingplace: this.state.landingplace,
             landingplaceLink: this.state.landingplaceLink,
             flighttime: ftime,

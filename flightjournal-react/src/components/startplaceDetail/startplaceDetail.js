@@ -227,7 +227,6 @@ class StartplaceDetail extends Component {
     }
  
     render() { 
-        console.log(this.props.history)
         let textTitelBold = `${this.state.areatitle}`;
         let textTitelSmall = `${this.state.regionsname}, ${this.state.regionscountry}`;
         return (

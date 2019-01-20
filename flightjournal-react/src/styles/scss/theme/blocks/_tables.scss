@@ -36,6 +36,7 @@
   }
 
   &__tbody{
+    overflow: hidden;
     @include bp(max, $ipad-p) {
       display: block;
     }
@@ -209,4 +210,32 @@
   &__noflights{
     text-align: center;
   }
+  
+  &__row--animated{
+    opacity: 0;
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}){
+        animation: slideInFromBottom  0.25s ease-out $i*0.05s forwards;
+      }
+    }
+  }
+  
 }
+
+@keyframes slideInFromBottom { 
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  51%{
+    opacity: 1;
+  }
+  100% { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

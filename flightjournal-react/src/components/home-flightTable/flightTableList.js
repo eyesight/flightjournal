@@ -211,7 +211,7 @@ class FlightTableList extends Component {
                     let startplaceName = _.find(z.startplaces, { id: x.startplace.startplace }).name;
                     let isactiveuser = x.pilot.email === this.props.activeUser ? true : false;
                     return (
-                        <tr key={x.id}>
+                        <tr className="table__row table__row--animated" key={x.id}>
                             <td className="table__date">{x.date}</td>
                             <td className="table__pilot">{x.pilot.name}</td> 
                             <td className="table__start">{`${z.name}, ${startplaceName}`}</td>

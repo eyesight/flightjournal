@@ -192,11 +192,20 @@ class FlugdatenFormContainer extends Component {
         }
         //set data of active pilot
         for(let i = 0; i<nextProps.pilots.length; i++){
-            if(nextProps.pilots && nextProps.user.email === nextProps.pilots[i].email){
-                this.setState({
-                    activePilot: this.props.pilots[i],
-                    paragliders: nextProps.pilots[i].paraglider
-                }) 
+            if(nextProps.pilots && nextProps.user.email === nextProps.pilots[i].email){ 
+                let valuesplittet2 = _.find(nextProps.paragliders, {id: nextProps.pilots[i].paraglider}); //creating copy of object
+                let newparaglider = {};
+                if(valuesplittet2){
+                    newparaglider.brand = valuesplittet2.brand;
+                    newparaglider.id = valuesplittet2.id;
+                    newparaglider.model = valuesplittet2.model;
+                    this.setState({
+                        activePilot: this.props.pilots[i],
+                        paragliders: nextProps.pilots[i].paraglider,
+                        paragliders2: newparaglider
+                    })
+                }
+                
             }
         }
         //if history.location.state is set (if someone likes to update a Flight), set the values of Form-Input-Field       
@@ -231,7 +240,7 @@ class FlugdatenFormContainer extends Component {
                     flighttime: currentFlight.flighttime,
                     xcdistance: currentFlight.xcdistance,
                     description: currentFlight.description,
-                    paragliders: currentFlight.paraglider.id,
+                    paragliders: (currentFlight.paraglider) ? currentFlight.paraglider.id : '',
                     paragliders2: currentFlight.paraglider,
                     maxaltitude: currentFlight.maxaltitude,
                     heightgain: currentFlight.heightgain,
@@ -509,6 +518,7 @@ class FlugdatenFormContainer extends Component {
                 () => { this.validateField('startplace', value) 
               });
         }else if(name === 'paragliders'){
+            console.log('dd');
             let valuesplittet2 = _.find(this.props.paragliders, {id: value}); //creating copy of object
             let newparaglider = {};
             newparaglider.brand = valuesplittet2.brand;

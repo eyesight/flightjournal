@@ -99,9 +99,9 @@ class FlightDetail extends Component {
                 weatherDescription: currentFlight.weatherDescription,
                 imagesUrl: currentFlight.imgUrl,
                 imagesName: currentFlight.imgName,
-                paraglider: currentFlight.paraglider.id,
-                paragliderBrand: currentFlight.paraglider.brand,
-                paragliderModel: currentFlight.paraglider.model
+                paraglider: (currentFlight.paraglider) ? currentFlight.paraglider.id : '',
+                paragliderBrand: (currentFlight.paraglider) ? currentFlight.paraglider.brand : '',
+                paragliderModel: (currentFlight.paraglider) ? currentFlight.paraglider.model : ''
             });
             (currentFlight.weatherDescription !== '') ? this.setState({showWeather: true}) : this.setState({showWeather: false});
             (currentFlight.syrideLink !== '' ||

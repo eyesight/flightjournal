@@ -202,7 +202,6 @@ class FlightTableList extends Component {
     renderFlights(obj, startpl, pagination) {
         const flights = Object.keys(obj).map(i => obj[i]);
         const sp = Object.keys(startpl).map(i => startpl[i]);
-        console.log(flights.length);
         //if the user uses the next-button and then uses a filter, we have to reset the index-nrs. of the flight to use the slice-methode
         let itemsToShowIndex = (pagination === 0 || pagination < (this.state.itemsToShowStart/this.state.numberOfShowItems)) ? 0 : this.state.itemsToShowStart;
         let itemsToShowIndexMax = (pagination === 0 || pagination < (this.state.itemsToShowStart/this.state.numberOfShowItems)) ? this.state.numberOfShowItems : this.state.itemsToShow;

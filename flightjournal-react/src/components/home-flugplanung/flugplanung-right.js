@@ -63,7 +63,6 @@ class FlugplanungRight extends Component {
             let indexNex = index;
 
             dots[i].onclick = function () {
-
                 const slides = this.parentNode.parentNode.getElementsByClassName("js-linkbox");
                 const linkboxTitle = this.parentNode.parentNode.getElementsByClassName('title-h3');
                 linkboxPrevTitle = this.parentNode.parentNode.getElementsByClassName('link-box__prev-text');
@@ -80,7 +79,7 @@ class FlugplanungRight extends Component {
                 slides[index].classList.add('slide-active');
                 setTimeout(function () {
                     slides[index].classList.add('slide-visible');
-                }, 100);
+                }, 50);
 
                 if (index >= linkboxTitle.length - 1) {
                     indexPrev = index - 1;
@@ -101,7 +100,7 @@ class FlugplanungRight extends Component {
 
     //prev/next functionality
     prevNext(){
-        const prev_next = document.querySelectorAll('.link-box__prev-next a');
+        const prev_next = document.querySelectorAll('.link-box__prev-next button');
         for (let ind = 0; ind < prev_next.length; ind++) {
             prev_next[ind].onclick = function () {
                 let current = this.parentNode.parentNode;
@@ -195,13 +194,13 @@ class FlugplanungRight extends Component {
                         curr_slide.previousElementSibling.classList.add('slide-active');
                         setTimeout(function () {
                             curr_slide.previousElementSibling.classList.add('slide-visible');
-                        }, 100);
+                        }, 50);
                         curr_dot.previousElementSibling.classList.add('dot-active');
                     } else {
                         slides[slides.length - 1].classList.add('slide-active');
                         setTimeout(function () {
                             slides[slides.length - 1].classList.add('slide-visible');
-                        }, 100);
+                        }, 50);
                         dots[slides.length - 1].classList.add('dot-active');
                     }
 

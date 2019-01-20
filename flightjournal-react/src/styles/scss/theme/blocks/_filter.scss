@@ -81,6 +81,7 @@
     border:none;
     background-color: $color-white;
     padding: 0;
+    white-space: nowrap;
 
     cursor: pointer;
 
@@ -95,8 +96,7 @@
     }
 
 
-    &:hover,
-    &:focus{
+    &.filter__dropdown-item--active{
       color: $color-primary;
       .filter__sub-dropdown{
         visibility: visible;
@@ -106,6 +106,7 @@
       }
     }
   }
+  
 
   &__sub-dropdown{
     visibility: hidden;
@@ -117,6 +118,7 @@
     text-align: center;
     width: rem-calc(155px);
     margin-left: -5px;
+    z-index: 100;
   }
 
   &__sub-dropdown-item{

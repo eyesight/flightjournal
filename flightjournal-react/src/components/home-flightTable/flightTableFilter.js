@@ -15,17 +15,22 @@ class FlightTableFilter extends Component {
           currentYearFilter: new Date().getFullYear(),
           filtermonth: [],
           dropdownPilotTxt: '',
-          dropdownYearTxt: ''
+          dropdownYearTxt: '',
+          classNameYear: 'filter__dropdown-item',
+          classNamePilot: 'filter__dropdown-item'
         };
         this.renderYearFilter = this.renderYearFilter.bind(this);
         this.renderPilotFilter = this.renderPilotFilter.bind(this);
         this.chooseFilter = this.chooseFilter.bind(this);
         this.filterMonth = this.filterMonth.bind(this);
         this.renderMonthFilter = this.renderMonthFilter.bind(this);
+        this.addClassToEl = this.addClassToEl.bind(this);
+        this.removeClassFromEl = this.removeClassFromEl.bind(this);
       }
 
     chooseFilter(e) {
         e.preventDefault();
+        console.log(e.target);
         switch (e.target.getAttribute('data-filter')) {
             case 'pilot':
             console.log('pilot');
@@ -33,16 +38,18 @@ class FlightTableFilter extends Component {
                         dropdownPilotTxt: e.target.getAttribute('data-name')
                     });
                     this.props.dispatch(filterText(e.target.getAttribute('data-value')));
+                    this.removeClassFromEl('filter__dropdown-item', 'classNamePilot'); 
                     break;
             case 'year':
                     this.setState({
                         dropdownYearTxt: e.target.getAttribute('data-name')
                     });
                     this.props.dispatch(startYear(e.target.getAttribute('data-value')));
+                    this.removeClassFromEl('filter__dropdown-item', 'classNameYear'); 
                     break;
             default:
                     return '';
-        }        
+        }       
      }
 
     renderYearFilter(filterYStart, filterYCurrent) {
@@ -100,6 +107,21 @@ class FlightTableFilter extends Component {
         return filterMonthArr;
     }
 
+    addClassToEl(e, addClassTo, stateName){
+        console.log(stateName);
+        this.setState({
+            [stateName]: addClassTo
+        });
+    }
+
+    removeClassFromEl(theClass, stateName){
+        console.log('remove');
+        console.log(stateName);
+        this.setState({
+            [stateName]: theClass
+        });
+    }
+
     render() {
         //TODO: add Dropdown Accessibility, for example: https://www.w3schools.com/bootstrap/bootstrap_dropdowns.asp
             return (
@@ -110,17 +132,29 @@ class FlightTableFilter extends Component {
                         }
                     </div>
                     <div className="filter__list-dropdown">
-                        <div className="filter__dropdown-item">{!this.state.dropdownYearTxt ? 'Jahr wählen': this.state.dropdownYearTxt} <i className="fas fa-angle-down"></i>
+                        <div className={this.state.classNameYear} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNameYear')}}>{!this.state.dropdownYearTxt ? 'Jahr wählen': this.state.dropdownYearTxt} <i className="fas fa-angle-down"></i>
                             <div className="filter__sub-dropdown filter__dropdown--short">
-                            <button data-value='' data-filter='year' onClick={this.chooseFilter} className="filter__sub-dropdown-item">alle Jahre</button>
+                                <DropDownItem
+                                    txt = 'alle Jahre'
+                                    value = ''
+                                    chooseFilter = {this.chooseFilter}
+                                    filtername = 'year'
+                                    name = 'alle Jahre'
+                                />
                                 {
                                     this.renderYearFilter(this.state.startYearFilter, this.state.currentYearFilter)
                                 }
                             </div>
                         </div>
-                        <div className="filter__dropdown-item">{!this.state.dropdownPilotTxt ? 'Pilot wählen': this.state.dropdownPilotTxt}<i className="fas fa-angle-down"></i>
+                        <div className={this.state.classNamePilot} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNamePilot')}}>{!this.state.dropdownPilotTxt ? 'Pilot wählen': this.state.dropdownPilotTxt}<i className="fas fa-angle-down"></i>
                             <div className="filter__sub-dropdown filter__dropdown--short">
-                                <button data-value='' data-filter='pilot' onClick={this.chooseFilter} className="filter__sub-dropdown-item">Jonas & Claudia</button>
+                                <DropDownItem
+                                    txt = 'alle Piloten'
+                                    value = ''
+                                    chooseFilter = {this.chooseFilter}
+                                    filtername = 'pilot'
+                                    name = 'alle Piloten'
+                                />
                                 {
                                     this.renderPilotFilter(this.props.pilots)
                                 }

@@ -35,4 +35,7 @@
     height: 0;
     cursor: none;
   }
+  @include bp(max, $ipad-p) {
+    bottom: rem-calc(-20px);
+  }
 }

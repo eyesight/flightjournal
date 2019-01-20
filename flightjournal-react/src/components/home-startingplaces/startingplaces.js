@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { getStartplaces } from '../../actions/StartplacesActions';
 import { getWinddirections } from '../../actions/WinddirectionActions';
+import { getRegions } from '../../actions/RegionsActions';
 import { getPilots } from '../../actions/PilotActions';
 import { Link, withRouter } from 'react-router-dom';
+import { getFilterStartplaces } from '../../selectors/startplaceSelector';
+import StartingplacesFilter from './startingplacesFilter';
 import { connect } from 'react-redux';
 import * as routes from '../../constants/routes';
 import  _ from 'lodash';
@@ -39,6 +42,7 @@ class StartingPlaces extends Component {
         this.props.getStartplaces();
         this.props.getWinddirections();
         this.props.getPilots();
+        this.props.getRegions();
     }
     componentWillReceiveProps(nextProps) {
         //if current user hase the role "admin" set state to show the edit-button
@@ -46,7 +50,8 @@ class StartingPlaces extends Component {
             this.setState({
                 isUserAdmin: true
             });
-        }   
+        }
+        //console.log(nextProps.filteredStartplaces);
     }
     componentWillUnmount(){
         window.addEventListener('scroll', this.lazyloading);
@@ -151,33 +156,7 @@ class StartingPlaces extends Component {
                         </svg>
                     </button>
                 </div>
-                <div className="filter">
-                    <div className="filter__list">
-                        <button className="filter__list-item active">Nord</button>
-                        <button className="filter__list-item active">Nordorst</button>
-                        <button className="filter__list-item">Ost</button>
-                        <button className="filter__list-item">Südost</button>
-                        <button className="filter__list-item">Süd</button>
-                        <button className="filter__list-item">Südwest</button>
-                        <button className="filter__list-item">West</button>
-                        <button className="filter__list-item">Nordwest</button>
-                    </div>
-                    <div className="filter__list-dropdown">
-                        <div className="filter__dropdown-item">Starthöhe <i className="fas fa-angle-down"></i>
-                            <div className="filter__sub-dropdown">
-                                <button className="filter__sub-dropdown-item">1000</button>
-                                <button className="filter__sub-dropdown-item">1500</button>
-                                <button className="filter__sub-dropdown-item">2000</button>
-                            </div>
-                        </div>
-                        <div className="filter__dropdown-item">Region <i className="fas fa-angle-down"></i>
-                            <div className="filter__sub-dropdown">
-                                <button className="filter__sub-dropdown-item">Engelberg</button>
-                                <button className="filter__sub-dropdown-item">Berner Oberland</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <StartingplacesFilter /> 
                 <div className="image-box vertical-divider">
                     {this.renderStartplaces(allstartplaces, allwind)}
                 </div>
@@ -192,8 +171,9 @@ function mapStateToProps(state) {
         winddirections: state.winddirections,
         activeUserID: state.user.email,
         pilots: state.pilots,
-        currentPilot: _.find(state.pilots, { email: state.user.email })
+        currentPilot: _.find(state.pilots, { email: state.user.email }),
+        filteredStartplaces: getFilterStartplaces(state.startplaces, state.filter)
     };
 }
 
-export default withRouter(connect(mapStateToProps, {getStartplaces, getWinddirections, getPilots}) (StartingPlaces));
+export default withRouter(connect(mapStateToProps, {getStartplaces, getWinddirections, getPilots, getRegions}) (StartingPlaces));

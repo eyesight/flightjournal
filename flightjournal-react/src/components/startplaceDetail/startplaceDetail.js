@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { getUser } from '../../actions/UserActions';
 import { getRegions } from '../../actions/RegionsActions';
 import { getStartplaces, deleteStartplaces, deleteOneStartplace } from '../../actions/StartplacesActions';
-import { updateStartareas } from '../../actions/StartareasActions';
 import { getWinddirections } from '../../actions/WinddirectionActions';
 import { getPilots } from '../../actions/PilotActions';
 import { getFlights } from '../../actions/FlightActions';
@@ -412,4 +411,4 @@ function mapStateToProps(state, props) {
     };
 } 
 
-export default withRouter(connect(mapStateToProps, { getUser, getStartplaces, getRegions, getWinddirections, getPilots, deleteStartplaces, updateStartareas, deleteOneStartplace, getFlights })(StartplaceDetail));
+export default withRouter(connect(mapStateToProps, { getUser, getStartplaces, getRegions, getWinddirections, getPilots, deleteStartplaces, deleteOneStartplace, getFlights })(StartplaceDetail));

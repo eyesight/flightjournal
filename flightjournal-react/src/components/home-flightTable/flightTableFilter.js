@@ -108,10 +108,16 @@ class FlightTableFilter extends Component {
     }
 
     addClassToEl(e, addClassTo, stateName){
-        console.log(stateName);
-        this.setState({
-            [stateName]: addClassTo
-        });
+        let allClasses = this.state[stateName].split(' ');
+        if(allClasses[1]){
+            this.setState({
+                [stateName]: allClasses[0]
+            });
+        }else{
+            this.setState({
+                [stateName]: addClassTo
+            });
+        }
     }
 
     removeClassFromEl(theClass, stateName){

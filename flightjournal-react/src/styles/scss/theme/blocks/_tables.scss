@@ -10,6 +10,9 @@
     @include bp(max, $screen-m) {
       font-size: $font-s-table-small;
     }
+    @include bp(max, $ipad-p) {
+      margin-bottom: 0;
+    }
   }
 
   &-inner{
@@ -219,7 +222,6 @@
       }
     }
   }
-  
 }
 
 @keyframes slideInFromBottom { 

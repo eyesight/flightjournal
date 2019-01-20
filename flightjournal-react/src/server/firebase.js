@@ -24,7 +24,6 @@ firebase.initializeApp(config);
 export const auth = firebase.auth();
 export const database = firebase.database().ref('flights/');
 export const startplacesdb = firebase.database().ref('startareas/');
-export const startareadb = firebase.database().ref('startareas/');
 export const regiondb = firebase.database().ref('regions/');
 export const winddirectionsdb = firebase.database().ref('winddirections/');
 export const pilotsdb = firebase.database().ref('pilots/');

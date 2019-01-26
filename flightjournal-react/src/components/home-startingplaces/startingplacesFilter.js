@@ -65,12 +65,13 @@ class StartingplacesFilter extends Component {
         let heightFilter = [];
         for (let i=filterYStart/500; i <= filterYCurrent/500; i++) { 
             let realheight = i*500;
+            let heighttxt = `${realheight-500} bis ${realheight}\u00a0m`
             heightFilter.push(<DropDownItem key = {i.toString()}
-                txt = {realheight}
+                txt = {heighttxt}
                 value = {realheight}
                 chooseFilter = {this.chooseFilter}
                 filtername = 'height'
-                name = {realheight}
+                name = {heighttxt}
              />);
         }
         return heightFilter;

@@ -22,12 +22,37 @@ export const filterSelects = (filterSelects) => ({
   type: 'SORT_FILTERSELECTS',
   filterSelects
 });
+ 
+export const filterAltitude = (filterAltitude) => ({
+  type: 'FILTER_ALTITUDE',
+  filterAltitude
+});
+
+export const filterRegion = (filterRegion) => ({
+  type: 'FILTER_REGION',
+  filterRegion
+});
+
+export const filterWinddirections = (filterWinddirections) => ({ 
+  type: 'FILTER_WINDDIRECTIONS',
+  filterWinddirections
+});
+
+export const filterCountry = (filterCountry) => ({ 
+  type: 'FILTER_COUNTRY',
+  filterCountry
+});
+
 const filtersReducerDefaultState = {
   filterText: '',
   sortBy: '',
   sortDirection: '',
   startYear: undefined,
   filterSelects: '',
+  filterAltitude: '',
+  filterRegion: '',
+  filterWinddirections: '',
+  filterCountry: ''
 };
 
 export const clear = () => ({

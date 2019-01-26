@@ -4,6 +4,10 @@ const filtersReducerDefaultState = {
   startYear: undefined,
   sortDirection: '',
   filterSelects: '',
+  filterAltitude: '',
+  filterRegion: '',
+  filterWinddirections: '',
+  filterCountry: ''
 };
 
 export default (state = filtersReducerDefaultState, action) => {
@@ -33,6 +37,27 @@ export default (state = filtersReducerDefaultState, action) => {
             ...state,
             filterSelects: action.filterSelects
         };
+     //Filter for Startplaces
+      case 'FILTER_ALTITUDE':
+        return {
+            ...state,
+            filterAltitude: action.filterAltitude
+        };
+      case 'FILTER_REGION':
+        return {
+            ...state,
+            filterRegion: action.filterRegion
+        };
+      case 'FILTER_WINDDIRECTIONS':
+        return {
+            ...state,
+            filterWinddirections: action.filterWinddirections
+        };
+      case 'FILTER_COUNTRY':
+        return {
+            ...state,
+            filterCountry: action.filterCountry
+        };
       case 'CLEAR':
           return {
               ...state,
@@ -41,6 +66,10 @@ export default (state = filtersReducerDefaultState, action) => {
               startYear: action.defaultFilter.startYear,
               sortDirection: action.defaultFilter.sortDirection,
               filterSelects: action.defaultFilter.filterSelects,
+              filterAltitude: action.defaultFilter.filterAltitude,
+              filterRegion: action.defaultFilter.filterRegion,
+              filterWinddirections: action.defaultFilter.filterWinddirections,
+              filterCountry: action.defaultFilter.filterCountry
           };
       default:
           return state;

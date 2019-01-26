@@ -30,10 +30,8 @@ class FlightTableFilter extends Component {
 
     chooseFilter(e) {
         e.preventDefault();
-        console.log(e.target);
         switch (e.target.getAttribute('data-filter')) {
             case 'pilot':
-            console.log('pilot');
                     this.setState({
                         dropdownPilotTxt: e.target.getAttribute('data-name')
                     });
@@ -121,13 +119,11 @@ class FlightTableFilter extends Component {
     }
 
     removeClassFromEl(theClass, stateName){
-        console.log('remove');
-        console.log(stateName);
         this.setState({
             [stateName]: theClass
         });
     }
-
+    //TODO add this to the dropdowns: https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
     render() {
         //TODO: add Dropdown Accessibility, for example: https://www.w3schools.com/bootstrap/bootstrap_dropdowns.asp
             return (

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { startYear, filterText, filterSelects } from '../../actions/FilterActions';
+import { filterAltitude, filterRegion, filterWinddirections, filterCountry } from '../../actions/FilterActions';
 import DropDownItem from '../dropdownItem/dropdownItem';
 import MulticheckFilter from '../multicheckFilter/multicheckFilter';
 import { removeDuplicates } from '../../utils/removeDuplicates';
+import { deleteDoublesinArray } from '../../utils/deleteDoublesinArray';
 
 let filterwindArr = [];
 
@@ -13,11 +14,13 @@ class StartingplacesFilter extends Component {
         this.state = {
           startHeightFilter: 500,
           currentHeightFilter: 4000,
-          filterwind: [],
+          filterWinddirections: [],
           dropdownRegionTxt: '',
           dropdownHeightTxt: '',
+          dropdownCountryTxt: '',
           classNameHeight: 'filter__dropdown-item',
-          classNameRegion: 'filter__dropdown-item'
+          classNameRegion: 'filter__dropdown-item',
+          classNameCountry: 'filter__dropdown-item'
         };
         this.renderHeightFilter = this.renderHeightFilter.bind(this);
         this.renderRegionFilter = this.renderRegionFilter.bind(this);
@@ -26,26 +29,32 @@ class StartingplacesFilter extends Component {
         this.renderWindFilter = this.renderWindFilter.bind(this);
         this.addClassToEl = this.addClassToEl.bind(this);
         this.removeClassFromEl = this.removeClassFromEl.bind(this);
+        this.renderCountryFilter = this.renderCountryFilter.bind(this);
       }
 
     chooseFilter(e) {
         e.preventDefault();
-        console.log(e.target);
         switch (e.target.getAttribute('data-filter')) {
             case 'region':
-            console.log('region');
                     this.setState({
                         dropdownRegionTxt: e.target.getAttribute('data-name')
                     });
-                    this.props.dispatch(filterText(e.target.getAttribute('data-value')));
+                    this.props.dispatch(filterRegion(e.target.getAttribute('data-value')));
                     this.removeClassFromEl('filter__dropdown-item', 'classNameRegion'); 
                     break;
             case 'height':
                     this.setState({
                         dropdownHeightTxt: e.target.getAttribute('data-name')
                     });
-                    this.props.dispatch(startYear(e.target.getAttribute('data-value')));
+                    this.props.dispatch(filterAltitude(e.target.getAttribute('data-value')));
                     this.removeClassFromEl('filter__dropdown-item', 'classNameHeight'); 
+                    break;
+            case 'country':
+                    this.setState({
+                        dropdownCountryTxt: e.target.getAttribute('data-name')
+                    });
+                    this.props.dispatch(filterCountry(e.target.getAttribute('data-value')));
+                    this.removeClassFromEl('filter__dropdown-item', 'classNameCountry'); 
                     break;
             default:
                     return '';
@@ -71,10 +80,29 @@ class StartingplacesFilter extends Component {
         e.preventDefault();
         filterwindArr.push(e.target.getAttribute('data-value'));
         filterwindArr = removeDuplicates(filterwindArr, e.target.getAttribute('data-value'))
-        this.setState({filterwind: filterwindArr}); 
-        this.props.dispatch(filterSelects(filterwindArr));
+        this.setState({filterWinddirections: filterwindArr}); 
+        this.props.dispatch(filterWinddirections(filterwindArr));
     }
 
+    renderCountryFilter(filterCountry) {
+        let allReg = Object.keys(filterCountry).map(i => filterCountry[i]);
+        let countryFilter = [];
+        let countries = [];
+        for (let i=0; i < allReg.length; i++) { 
+            countries.push(allReg[i].country);
+            countries = deleteDoublesinArray(countries);
+        }
+        for(let i2 = 0; i2 < countries.length; i2++){
+            countryFilter.push(<DropDownItem key = {countries[i2]}
+                txt = {countries[i2]}
+                value = {countries[i2]}
+                chooseFilter = {this.chooseFilter}
+                filtername = 'country'
+                name = {countries[i2]}
+             />);
+        }
+        return countryFilter;
+    }
     renderRegionFilter(filterRegion) {
         let allReg = Object.keys(filterRegion).map(i => filterRegion[i]);
         let regionFilter = [];
@@ -95,7 +123,7 @@ class StartingplacesFilter extends Component {
         let windArr = Object.keys(filter);
         let windArrContent = Object.keys(filter).map(i => filter[i]);
         for (let i=0; i < windArr.length; i++) { 
-            let classesM = `filter__list-item ${(this.state.filterwind.includes(windArr[i])) ? 'active' : '' }`
+            let classesM = `filter__list-item ${(this.state.filterWinddirections.includes(windArr[i])) ? 'active' : '' }`
             filterwindArr.push(<MulticheckFilter 
                 key={`k ${i.toString()}`}
                 filteraction={this.filterWind}
@@ -122,8 +150,6 @@ class StartingplacesFilter extends Component {
     }
 
     removeClassFromEl(theClass, stateName){
-        console.log('remove');
-        console.log(stateName);
         this.setState({
             [stateName]: theClass
         });
@@ -167,14 +193,27 @@ class StartingplacesFilter extends Component {
                                 }
                             </div>
                         </div>
+                        <div className={this.state.classNameCountry} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNameCountry')}}>{!this.state.dropdownCountryTxt ? 'Land': this.state.dropdownCountryTxt}<i className="fas fa-angle-down"></i>
+                            <div className="filter__sub-dropdown filter__dropdown--short">
+                                <DropDownItem
+                                    txt = 'alle Länder'
+                                    value = ''
+                                    chooseFilter = {this.chooseFilter}
+                                    filtername = 'country'
+                                    name = 'alle Länder'
+                                />
+                                {
+                                    this.renderCountryFilter(this.props.regions)
+                                }
+                            </div>
+                        </div>
                     </div> 
                 </div>
         );
     }
 }
 
-function mapStateToProps(state, props) {
-    console.log(state.regions);
+function mapStateToProps(state) {
     return {
         regions: state.regions,         
         startplaces: state.startplaces,

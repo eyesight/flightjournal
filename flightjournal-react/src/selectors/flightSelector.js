@@ -1,6 +1,6 @@
 import  _ from 'lodash';
 
-export const getFilterFlights = (flights, { sortDirection, sortBy, startYear, text, filterSelects, filterJan, filterFeb, filterMai }) => {
+export const getFilterFlights = (flights, { sortDirection, sortBy, startYear, text, filterSelects}) => {
   //Filter-functions
   let filteredItems =  _.pickBy(flights, flight => {
       const pilotMatch = _.startsWith(flight.pilot.email, text);

@@ -74,8 +74,8 @@ class StartingPlaces extends Component {
         const places = Object.keys(startplaces).map(i => startplaces[i]);
         const wind = Object.keys(winddirection).map(i => winddirection[i]);
         return places.map((z, id)=>{
-            if(z.startplaces){
-                const sp = Object.keys(z.startplaces).map(i => z.startplaces[i]);
+            if(z.filteredStartplaces){
+                const sp = Object.keys(z.filteredStartplaces).map(i => z.filteredStartplaces[i]);
             return sp.map((x)=>{
                 let windstring = '';
                 let url = this.state.urlImage;
@@ -141,10 +141,9 @@ class StartingPlaces extends Component {
     }
 
     render() {
-        const allstartplaces = this.props.startplaces;
+        const allstartplaces = this.props.filteredStartplaces;
         const allwind = this.props.winddirections;
-
-        return (
+         return (
             <section id="startplaetze" className="centered-layout">
                 <div className="centered-layout__header">
                     <h2 className="title-h2">Startplätze.<span className="title--regular"> Wo solls hin?</span></h2>

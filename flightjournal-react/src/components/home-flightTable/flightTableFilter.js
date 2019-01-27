@@ -19,6 +19,8 @@ class FlightTableFilter extends Component {
           classNameYear: 'filter__dropdown-item',
           classNamePilot: 'filter__dropdown-item'
         };
+        this.wrapperYearRef = React.createRef();
+        this.wrapperPilotRef = React.createRef();
         this.renderYearFilter = this.renderYearFilter.bind(this);
         this.renderPilotFilter = this.renderPilotFilter.bind(this);
         this.chooseFilter = this.chooseFilter.bind(this);
@@ -26,6 +28,14 @@ class FlightTableFilter extends Component {
         this.renderMonthFilter = this.renderMonthFilter.bind(this);
         this.addClassToEl = this.addClassToEl.bind(this);
         this.removeClassFromEl = this.removeClassFromEl.bind(this);
+        this.handleClickOutsideDropdown = this.handleClickOutsideDropdown.bind(this);
+      }
+      componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutsideDropdown);
+      }
+    
+      componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutsideDropdown);
       }
 
     chooseFilter(e) {
@@ -123,6 +133,27 @@ class FlightTableFilter extends Component {
             [stateName]: theClass
         });
     }
+    //To close dropdowns, when user clicks outside the dropdown. Detect, if the target is not one of the three dropdowns, then add the classes tho close them
+    handleClickOutsideDropdown(event) {
+        switch(true) {
+            case this.wrapperYearRef.current.contains(event.target):
+                this.setState({
+                    classNamePilot: 'filter__dropdown-item'
+                });
+                break;
+            case this.wrapperPilotRef.current.contains(event.target):
+                this.setState({
+                    classNameYear: 'filter__dropdown-item'
+                });
+                break;
+            default:
+                this.setState({
+                    classNameYear: 'filter__dropdown-item',
+                    classNamePilot: 'filter__dropdown-item'
+                });
+          }
+      }
+
     //TODO add this to the dropdowns: https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
     render() {
         //TODO: add Dropdown Accessibility, for example: https://www.w3schools.com/bootstrap/bootstrap_dropdowns.asp
@@ -134,7 +165,7 @@ class FlightTableFilter extends Component {
                         }
                     </div>
                     <div className="filter__list-dropdown">
-                        <div className={this.state.classNameYear} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNameYear')}}>{!this.state.dropdownYearTxt ? 'Jahr wählen': this.state.dropdownYearTxt} <i className="fas fa-angle-down"></i>
+                        <div ref={this.wrapperYearRef} className={this.state.classNameYear} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNameYear')}}>{!this.state.dropdownYearTxt ? 'Jahr wählen': this.state.dropdownYearTxt} <i className="fas fa-angle-down"></i>
                             <div className="filter__sub-dropdown filter__dropdown--short">
                                 <DropDownItem
                                     txt = 'alle Jahre'
@@ -148,7 +179,7 @@ class FlightTableFilter extends Component {
                                 }
                             </div>
                         </div>
-                        <div className={this.state.classNamePilot} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNamePilot')}}>{!this.state.dropdownPilotTxt ? 'Pilot wählen': this.state.dropdownPilotTxt}<i className="fas fa-angle-down"></i>
+                        <div ref={this.wrapperPilotRef} className={this.state.classNamePilot} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNamePilot')}}>{!this.state.dropdownPilotTxt ? 'Pilot wählen': this.state.dropdownPilotTxt}<i className="fas fa-angle-down"></i>
                             <div className="filter__sub-dropdown filter__dropdown--short">
                                 <DropDownItem
                                     txt = 'alle Piloten'
@@ -160,7 +191,7 @@ class FlightTableFilter extends Component {
                                 {
                                     this.renderPilotFilter(this.props.pilots)
                                 }
-                            </div>
+                            </div> 
                         </div>
                     </div> 
                 </div>

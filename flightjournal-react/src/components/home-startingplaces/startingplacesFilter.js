@@ -22,6 +22,9 @@ class StartingplacesFilter extends Component {
           classNameRegion: 'filter__dropdown-item',
           classNameCountry: 'filter__dropdown-item'
         };
+        this.wrapperCountryRef = React.createRef();
+        this.wrapperRegionRef = React.createRef();
+        this.wrapperHeightRef = React.createRef();
         this.renderHeightFilter = this.renderHeightFilter.bind(this);
         this.renderRegionFilter = this.renderRegionFilter.bind(this);
         this.chooseFilter = this.chooseFilter.bind(this);
@@ -30,6 +33,16 @@ class StartingplacesFilter extends Component {
         this.addClassToEl = this.addClassToEl.bind(this);
         this.removeClassFromEl = this.removeClassFromEl.bind(this);
         this.renderCountryFilter = this.renderCountryFilter.bind(this);
+        this.handleClickOutsideDropdown = this.handleClickOutsideDropdown.bind(this);
+      }
+
+
+      componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutsideDropdown);
+      }
+    
+      componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutsideDropdown);
       }
 
     chooseFilter(e) {
@@ -155,6 +168,36 @@ class StartingplacesFilter extends Component {
             [stateName]: theClass
         });
     }
+    //To close dropdowns, when user clicks outside the dropdown. Detect, if the target is not one of the three dropdowns, then add the classes tho close them
+    handleClickOutsideDropdown(event) {
+        switch(true) {
+            case this.wrapperHeightRef.current.contains(event.target):
+                this.setState({
+                    classNameCountry: 'filter__dropdown-item',
+                    classNameRegion: 'filter__dropdown-item'
+                });
+                break;
+            case this.wrapperCountryRef.current.contains(event.target):
+                this.setState({
+                    classNameRegion: 'filter__dropdown-item',
+                    classNameHeight: 'filter__dropdown-item'
+                });
+                break;
+            case this.wrapperRegionRef.current.contains(event.target):
+                this.setState({
+                    classNameCountry: 'filter__dropdown-item',
+                    classNameHeight: 'filter__dropdown-item'
+                });
+                break;
+            default:
+                this.setState({
+                    classNameCountry: 'filter__dropdown-item',
+                    classNameHeight: 'filter__dropdown-item',
+                    classNameRegion: 'filter__dropdown-item'
+                });
+          }
+      }
+  
 
     render() {
         //TODO: add Dropdown Accessibility, for example: https://www.w3schools.com/bootstrap/bootstrap_dropdowns.asp
@@ -166,21 +209,21 @@ class StartingplacesFilter extends Component {
                         }
                     </div>
                     <div className="filter__list-dropdown">
-                        <div className={this.state.classNameHeight} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNameHeight')}}>{!this.state.dropdownHeightTxt ? 'Starthöhe': this.state.dropdownHeightTxt} <i className="fas fa-angle-down"></i>
+                        <div ref={this.wrapperCountryRef} className={this.state.classNameCountry} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNameCountry')}}>{!this.state.dropdownCountryTxt ? 'Land': this.state.dropdownCountryTxt}<i className="fas fa-angle-down"></i>
                             <div className="filter__sub-dropdown filter__dropdown--short">
                                 <DropDownItem
-                                    txt = 'alle Höhen'
+                                    txt = 'alle Länder'
                                     value = ''
                                     chooseFilter = {this.chooseFilter}
-                                    filtername = 'height'
-                                    name = 'alle Höhen'
+                                    filtername = 'country'
+                                    name = 'alle Länder'
                                 />
                                 {
-                                    this.renderHeightFilter(this.state.startHeightFilter, this.state.currentHeightFilter)
+                                    this.renderCountryFilter(this.props.regions)
                                 }
                             </div>
                         </div>
-                        <div className={this.state.classNameRegion} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNameRegion')}}>{!this.state.dropdownRegionTxt ? 'Region': this.state.dropdownRegionTxt}<i className="fas fa-angle-down"></i>
+                        <div ref={this.wrapperRegionRef} className={this.state.classNameRegion} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNameRegion')}}>{!this.state.dropdownRegionTxt ? 'Region': this.state.dropdownRegionTxt}<i className="fas fa-angle-down"></i>
                             <div className="filter__sub-dropdown filter__dropdown--short">
                                 <DropDownItem
                                     txt = 'alle Regionen'
@@ -194,17 +237,17 @@ class StartingplacesFilter extends Component {
                                 }
                             </div>
                         </div>
-                        <div className={this.state.classNameCountry} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNameCountry')}}>{!this.state.dropdownCountryTxt ? 'Land': this.state.dropdownCountryTxt}<i className="fas fa-angle-down"></i>
+                        <div ref={this.wrapperHeightRef} className={this.state.classNameHeight} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNameHeight')}}>{!this.state.dropdownHeightTxt ? 'Starthöhe': this.state.dropdownHeightTxt} <i className="fas fa-angle-down"></i>
                             <div className="filter__sub-dropdown filter__dropdown--short">
                                 <DropDownItem
-                                    txt = 'alle Länder'
+                                    txt = 'alle Höhen'
                                     value = ''
                                     chooseFilter = {this.chooseFilter}
-                                    filtername = 'country'
-                                    name = 'alle Länder'
+                                    filtername = 'height'
+                                    name = 'alle Höhen'
                                 />
                                 {
-                                    this.renderCountryFilter(this.props.regions)
+                                    this.renderHeightFilter(this.state.startHeightFilter, this.state.currentHeightFilter)
                                 }
                             </div>
                         </div>

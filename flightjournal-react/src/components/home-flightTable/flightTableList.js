@@ -282,7 +282,7 @@ class FlightTableList extends Component {
     renderPaginationTxt(countOfNextSteps, countOfFlight){
         let pag = (countOfNextSteps === 0 || countOfNextSteps<this.state.pagination) ? 1 : this.state.itemsToShowStart+1
         let nrTxt = (this.state.pagination<countOfNextSteps) ? this.state.itemsToShow : countOfFlight;
-        let paginationTxt = `${pag}–${nrTxt}`
+        let paginationTxt = `${pag}–${nrTxt} von ${countOfFlight}`
         return paginationTxt;
     }
 

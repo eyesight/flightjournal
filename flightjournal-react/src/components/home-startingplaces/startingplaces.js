@@ -148,9 +148,9 @@ class StartingPlaces extends Component {
         if(result === 0){
             resultTxt = 'Keine Startplätze gefunden';
         }else if (result === 1){
-            resultTxt = 'Einen Startplatz gefunden';
+            resultTxt = '1 Startplatz gefunden';
         }else{
-            resultTxt = `${result} Startplätze gefundens`;
+            resultTxt = `${result} Startplätze gefunden`;
         }
         
          return (

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { filterAltitude, filterRegion, filterWinddirections, filterCountry } from '../../actions/FilterActions';
+import { filterAltitude, filterRegion, filterWinddirections, filterCountry, filterSearchtext } from '../../actions/FilterActions';
 import DropDownItem from '../dropdownItem/dropdownItem';
 import MulticheckFilter from '../multicheckFilter/multicheckFilter';
 import { removeDuplicates } from '../../utils/removeDuplicates';
@@ -202,56 +202,70 @@ class StartingplacesFilter extends Component {
     render() {
         //TODO: add Dropdown Accessibility, for example: https://www.w3schools.com/bootstrap/bootstrap_dropdowns.asp
             return (
-                <div className="filter">
-                    <div className="filter__list">
-                        {
-                           this.renderWindFilter(this.props.winddirections)
-                        }
+                <div className="filter-search"> 
+                    <div className="filter-search__search">
+                        <input className="filter-search__input" type='text' placeholder='Fluggebiet suchen' value={this.state.searchtext} 
+                        onChange={(e) => {
+                            this.props.dispatch(filterSearchtext(e.target.value));
+                            }}>
+                        </input> 
+                        <svg version="1.1" className="svg-icon svg-icon--zoom" x="0px" y="0px" viewBox="0 0 21 21">
+                            <path className="svg-icon__path" d="M14.5,8.9c0,3.2-2.6,5.7-5.7,5.7c-3.2,0-5.7-2.6-5.7-5.7s2.6-5.7,5.7-5.7C11.9,3.2,14.5,5.7,14.5,8.9z M21,19.4
+                                c0-0.4-0.2-0.9-0.5-1.2l-4.3-4.3c1-1.5,1.6-3.3,1.6-5c0-4.9-3.9-8.9-8.9-8.9S0,3.9,0,8.9s3.9,8.9,8.9,8.9c1.8,0,3.5-0.6,5-1.6
+                                l4.3,4.3c0.3,0.3,0.7,0.5,1.2,0.5C20.2,21,21,20.3,21,19.4z"/>
+                        </svg>
                     </div>
-                    <div className="filter__list-dropdown">
-                        <div ref={this.wrapperCountryRef} className={this.state.classNameCountry} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNameCountry')}}>{!this.state.dropdownCountryTxt ? 'Land': this.state.dropdownCountryTxt}<i className="fas fa-angle-down"></i>
-                            <div className="filter__sub-dropdown filter__dropdown--short">
-                                <DropDownItem
-                                    txt = 'alle Länder'
-                                    value = ''
-                                    chooseFilter = {this.chooseFilter}
-                                    filtername = 'country'
-                                    name = 'alle Länder'
-                                />
-                                {
-                                    this.renderCountryFilter(this.props.regions)
-                                }
-                            </div>
+                    <div className="filter">
+                        <div className="filter__list">
+                            {
+                            this.renderWindFilter(this.props.winddirections)
+                            }
                         </div>
-                        <div ref={this.wrapperRegionRef} className={this.state.classNameRegion} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNameRegion')}}>{!this.state.dropdownRegionTxt ? 'Region': this.state.dropdownRegionTxt}<i className="fas fa-angle-down"></i>
-                            <div className="filter__sub-dropdown filter__dropdown--short">
-                                <DropDownItem
-                                    txt = 'alle Regionen'
-                                    value = ''
-                                    chooseFilter = {this.chooseFilter}
-                                    filtername = 'region'
-                                    name = 'alle Regionen'
-                                />
-                                {
-                                    this.renderRegionFilter(this.props.regions)
-                                }
+                        <div className="filter__list-dropdown">
+                            <div ref={this.wrapperCountryRef} className={this.state.classNameCountry} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNameCountry')}}>{!this.state.dropdownCountryTxt ? 'Land': this.state.dropdownCountryTxt}<i className="fas fa-angle-down"></i>
+                                <div className="filter__sub-dropdown filter__dropdown--short">
+                                    <DropDownItem
+                                        txt = 'alle Länder'
+                                        value = ''
+                                        chooseFilter = {this.chooseFilter}
+                                        filtername = 'country'
+                                        name = 'alle Länder'
+                                    />
+                                    {
+                                        this.renderCountryFilter(this.props.regions)
+                                    }
+                                </div>
                             </div>
-                        </div>
-                        <div ref={this.wrapperHeightRef} className={this.state.classNameHeight} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNameHeight')}}>{!this.state.dropdownHeightTxt ? 'Starthöhe': this.state.dropdownHeightTxt} <i className="fas fa-angle-down"></i>
-                            <div className="filter__sub-dropdown filter__dropdown--short">
-                                <DropDownItem
-                                    txt = 'alle Höhen'
-                                    value = ''
-                                    chooseFilter = {this.chooseFilter}
-                                    filtername = 'height'
-                                    name = 'alle Höhen'
-                                />
-                                {
-                                    this.renderHeightFilter(this.state.startHeightFilter, this.state.currentHeightFilter)
-                                }
+                            <div ref={this.wrapperRegionRef} className={this.state.classNameRegion} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNameRegion')}}>{!this.state.dropdownRegionTxt ? 'Region': this.state.dropdownRegionTxt}<i className="fas fa-angle-down"></i>
+                                <div className="filter__sub-dropdown filter__dropdown--short">
+                                    <DropDownItem
+                                        txt = 'alle Regionen'
+                                        value = ''
+                                        chooseFilter = {this.chooseFilter}
+                                        filtername = 'region'
+                                        name = 'alle Regionen'
+                                    />
+                                    {
+                                        this.renderRegionFilter(this.props.regions)
+                                    }
+                                </div>
                             </div>
-                        </div>
-                    </div> 
+                            <div ref={this.wrapperHeightRef} className={this.state.classNameHeight} onClick={(event)=>{this.addClassToEl(event, 'filter__dropdown-item filter__dropdown-item--active', 'classNameHeight')}}>{!this.state.dropdownHeightTxt ? 'Starthöhe': this.state.dropdownHeightTxt} <i className="fas fa-angle-down"></i>
+                                <div className="filter__sub-dropdown filter__dropdown--short">
+                                    <DropDownItem
+                                        txt = 'alle Höhen'
+                                        value = ''
+                                        chooseFilter = {this.chooseFilter}
+                                        filtername = 'height'
+                                        name = 'alle Höhen'
+                                    />
+                                    {
+                                        this.renderHeightFilter(this.state.startHeightFilter, this.state.currentHeightFilter)
+                                    }
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
                 </div>
         );
     }

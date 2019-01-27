@@ -1,10 +1,13 @@
 import  _ from 'lodash';
 import { compare2Arrays } from '../utils/compare2Arrays';
 
-export const getFilterStartplaces = (startplaces, {filterRegion, filterWinddirections, filterAltitude, filterCountry}) => {
+export const getFilterStartplaces = (startplaces, {filterRegion, filterWinddirections, filterAltitude, filterCountry, filterSearchtext}) => {
   let filtered = [];
   //Filter-functions for the startarea-Object on the first level in the object. E.G Startarea.id.theFilteredThing
   let filteredItems =  _.pickBy(startplaces, startplace => {
+      //filter searchtext 
+      let textMatch = _.startsWith(startplace.name.toLowerCase(), filterSearchtext.toLowerCase());
+
       //filter the regions
       const regionMatch = _.startsWith(startplace.region.name, filterRegion);
 
@@ -33,12 +36,13 @@ export const getFilterStartplaces = (startplaces, {filterRegion, filterWinddirec
       });
       //add a new object to the startplace-Object "filteredStartplaces", and check if it has something in it
       startplace.filteredStartplaces = picketStartplaces;
-      if(!_.isEmpty(startplace.filteredStartplaces) && regionMatch === true && countryMatch === true){
+
+      if(!_.isEmpty(startplace.filteredStartplaces) && regionMatch === true && countryMatch === true && textMatch === true){
         filtered.push(startplace.filteredStartplaces);
       }
       //if the Startplaces-Object in the Area isn't empty, return the object
       let filteredSP = !_.isEmpty(startplace.filteredStartplaces);
-      return regionMatch && filteredSP && countryMatch
+      return regionMatch && filteredSP && countryMatch && textMatch
   });
 
   //We push a copie of "startplaces" in the object of startareas with the name "filteredStartplaces" in it, which contains the filtered items to grab. If we just 

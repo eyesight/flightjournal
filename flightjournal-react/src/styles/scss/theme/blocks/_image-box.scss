@@ -3,14 +3,10 @@
   justify-content: flex-start;
   flex-flow: row wrap;
 
-  margin-top: rem-calc(50px);
+  margin-top: rem-calc(20px);
 
   font-size:$font-s-image-box-text;
   line-height: 1.5;
-
-  @include bp(max, $ipad-p) {
-    margin-top:0;
-  }
 
   a{
     font-size:$font-s-image-box-text;

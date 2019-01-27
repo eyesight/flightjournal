@@ -1,5 +1,13 @@
 .text{
   font-size: $font-s-copytext-l;
   line-height: 150%;
+
+  &--green-bold{
+    color: $color-primary;
+    font-weight: bold;
+    @include bp(max, $ipad-p) {
+      padding-left: 2%;
+    }
+  }
 }
 

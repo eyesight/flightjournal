@@ -43,6 +43,11 @@ export const filterCountry = (filterCountry) => ({
   filterCountry
 });
 
+export const filterSearchtext = (filterSearchtext) => ({ 
+  type: 'FILTER_SEARCHTEXT',
+  filterSearchtext
+});
+
 const filtersReducerDefaultState = {
   filterText: '',
   sortBy: '',
@@ -52,7 +57,8 @@ const filtersReducerDefaultState = {
   filterAltitude: '',
   filterRegion: '',
   filterWinddirections: '',
-  filterCountry: ''
+  filterCountry: '',
+  filterSearchtext: ''
 };
 
 export const clear = () => ({

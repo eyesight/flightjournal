@@ -7,7 +7,8 @@ const filtersReducerDefaultState = {
   filterAltitude: '',
   filterRegion: '',
   filterWinddirections: '',
-  filterCountry: ''
+  filterCountry: '',
+  filterSearchtext: ''
 };
 
 export default (state = filtersReducerDefaultState, action) => {
@@ -58,6 +59,11 @@ export default (state = filtersReducerDefaultState, action) => {
             ...state,
             filterCountry: action.filterCountry
         };
+    case 'FILTER_SEARCHTEXT':
+        return {
+            ...state,
+            filterSearchtext: action.filterSearchtext
+        };
       case 'CLEAR':
           return {
               ...state,
@@ -69,7 +75,8 @@ export default (state = filtersReducerDefaultState, action) => {
               filterAltitude: action.defaultFilter.filterAltitude,
               filterRegion: action.defaultFilter.filterRegion,
               filterWinddirections: action.defaultFilter.filterWinddirections,
-              filterCountry: action.defaultFilter.filterCountry
+              filterCountry: action.defaultFilter.filterCountry,
+              filterSearchtext: action.defaultFilter.filterSearchtext
           };
       default:
           return state;

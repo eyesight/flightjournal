@@ -143,19 +143,23 @@ class StartingPlaces extends Component {
     render() {
         const allstartplaces = this.props.filteredStartplaces;
         const allwind = this.props.winddirections;
+        const result = allstartplaces.length;
+        let resultTxt = '';
+        if(result === 0){
+            resultTxt = 'Keine Startplätze gefunden';
+        }else if (result === 1){
+            resultTxt = 'Einen Startplatz gefunden';
+        }else{
+            resultTxt = `${result} Startplätze gefundens`;
+        }
+        
          return (
             <section id="startplaetze" className="centered-layout">
-                <div className="centered-layout__header">
+                <div className="centered-layout__header centered-layout__header--no-marginbottom">
                     <h2 className="title-h2">Startplätze.<span className="title--regular"> Wo solls hin?</span></h2>
-                    <button className="button-without-border">Fluggebiete suchen 
-                        <svg version="1.1" className="svg-icon svg-icon--zoom" x="0px" y="0px" viewBox="0 0 21 21">
-                            <path className="svg-icon__path" d="M14.5,8.9c0,3.2-2.6,5.7-5.7,5.7c-3.2,0-5.7-2.6-5.7-5.7s2.6-5.7,5.7-5.7C11.9,3.2,14.5,5.7,14.5,8.9z M21,19.4
-                                c0-0.4-0.2-0.9-0.5-1.2l-4.3-4.3c1-1.5,1.6-3.3,1.6-5c0-4.9-3.9-8.9-8.9-8.9S0,3.9,0,8.9s3.9,8.9,8.9,8.9c1.8,0,3.5-0.6,5-1.6
-                                l4.3,4.3c0.3,0.3,0.7,0.5,1.2,0.5C20.2,21,21,20.3,21,19.4z"/>
-                        </svg>
-                    </button>
                 </div>
                 <StartingplacesFilter /> 
+                <div className="text text--green-bold">{resultTxt}</div>
                 <div className="image-box vertical-divider">
                     {this.renderStartplaces(allstartplaces, allwind)}
                 </div>
@@ -170,6 +174,7 @@ function mapStateToProps(state) {
         winddirections: state.winddirections,
         activeUserID: state.user.email,
         pilots: state.pilots,
+        filter: state.filter,
         currentPilot: _.find(state.pilots, { email: state.user.email }),
         filteredStartplaces: getFilterStartplaces(state.startplaces, state.filter)
     };

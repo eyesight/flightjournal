@@ -17,13 +17,13 @@ import {
     Switch
 } from 'react-router-dom';
 import * as routes from '../constants/routes';
-
+ 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 class App extends Component {
   render() {
     return ( 
-        <Provider store={createStoreWithMiddleware(reducers)}>
+        <Provider store={createStoreWithMiddleware(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())}>
             <Router>
                 <div className="page">
                  <Header />

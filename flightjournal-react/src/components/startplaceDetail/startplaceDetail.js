@@ -228,6 +228,7 @@ class StartplaceDetail extends Component {
     render() { 
         let textTitelBold = `${this.state.areatitle}`;
         let textTitelSmall = `${this.state.regionsname}, ${this.state.regionscountry}`;
+        console.log(this.state.webcams);
         return (
             <main className="main">
                     <section className="detail-layout">
@@ -250,6 +251,10 @@ class StartplaceDetail extends Component {
                         withParagraph={true}
                         classNameParagraph='main-title-text'
                         paragraphTxt={textTitelSmall}
+                        iconpin={this.state.arealocationpin} 
+                        hasIcon={this.state.arealocationpin ? true : false}
+                        icons2={this.state.webcams}
+                        hasIcons2={this.state.webcams.length > 0 ? true : false}
                     />
                     {this.state.imagesUrl[0] !== '' ? (
                         <ImageGallerie 
@@ -350,8 +355,11 @@ class StartplaceDetail extends Component {
                                     paragraphTxt={this.state.areadesc}
                                 />
                             {this.state.allcurrentStartplaces.map((spitem)=>{
+                                console.log(spitem.locationpin);
                                 return (<ArticleItem key={spitem.id}
                                     themeTitle={this.state.startplatz}
+                                    hasIcon={spitem.locationpin ? true : false}
+                                    iconpin={spitem.locationpin}
                                     titleBold={`${spitem.name}, ${spitem.altitude}\u00a0m`}
                                     titleReg={this.getWinddirectionsnames(_.keys(spitem.winddirectionsId), this.state.allWind).join(', ')}
                                     txt={spitem.description}

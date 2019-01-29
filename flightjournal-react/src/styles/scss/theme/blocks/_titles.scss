@@ -21,6 +21,14 @@
     font-size: $font-s-h2;
     text-align: center;
 
+    .title-h2__icon{
+      display: inline-block;
+      svg{
+        margin-left: 5px;
+        margin-right: 0;
+      }
+    }
+
     @include bp(max, $phone){
       font-size: $font-s-h2-xs;
     }

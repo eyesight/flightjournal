@@ -30,6 +30,23 @@
   &-text{
     margin-top: rem-calc(35px);
   }
+
+  &__icon{
+    margin-left: 20px;
+    .svg-icon{
+      float: none;
+      display: inline-block;
+      margin: 0;
+    }
+    .svg-icon--pin{
+      height: 35px;
+      width: 25px;
+    }
+    .svg-icon--video{
+      width: 40px;
+      height: 23px;
+    }
+  }
 }
 
 .button-without-border+.main-title,

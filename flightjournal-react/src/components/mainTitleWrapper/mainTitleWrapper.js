@@ -1,5 +1,5 @@
 import React from 'react';
-import MainTitle from '../mainTitle/mainTitle';
+import MainTitleWithIcons from '../mainTitle/mainTitleWithIcons';
 import Anchor from '../anchor/anchor';
 import Paragraph from '../paragraph/paragraph';
 
@@ -16,11 +16,15 @@ const MainTitleWrapper = (props) => {
                     hrefAnchor={props.hrefAnchor}
                 /> 
             }
-            <MainTitle 
+            <MainTitleWithIcons  
                classNameH1={props.classNameH1} 
                classNameSpan={props.classNameSpan}
                txtBold={props.textBold}
                txtReg={props.textReg}
+               hasIcon={props.hasIcon}
+               iconpin={props.iconpin}
+               hasIcons2={props.hasIcons2}
+               icons2={props.icons2}
             />   
             {props.withParagraph && 
                 <Paragraph 

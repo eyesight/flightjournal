@@ -17,7 +17,7 @@ class StartingplacesFilter extends Component {
           filterWinddirections: [],
           dropdownRegionTxt: '',
           dropdownHeightTxt: '',
-          dropdownCountryTxt: '',
+          dropdownCountryTxt: 'Schweiz',
           classNameHeight: 'filter__dropdown-item',
           classNameRegion: 'filter__dropdown-item',
           classNameCountry: 'filter__dropdown-item'
@@ -39,6 +39,7 @@ class StartingplacesFilter extends Component {
 
       componentDidMount() {
         document.addEventListener('mousedown', this.handleClickOutsideDropdown);
+        this.props.dispatch(filterCountry('Schweiz'));
       }
     
       componentWillUnmount() {

@@ -228,7 +228,6 @@ class StartplaceDetail extends Component {
     render() { 
         let textTitelBold = `${this.state.areatitle}`;
         let textTitelSmall = `${this.state.regionsname}, ${this.state.regionscountry}`;
-        console.log(this.state.webcams);
         return (
             <main className="main">
                     <section className="detail-layout">
@@ -355,7 +354,6 @@ class StartplaceDetail extends Component {
                                     paragraphTxt={this.state.areadesc}
                                 />
                             {this.state.allcurrentStartplaces.map((spitem)=>{
-                                console.log(spitem.locationpin);
                                 return (<ArticleItem key={spitem.id}
                                     themeTitle={this.state.startplatz}
                                     hasIcon={spitem.locationpin ? true : false}

@@ -1,20 +1,19 @@
 import React, {Component} from 'react';
 import InputField from '../formInputfield/formInputfield';
-import Checkbox from '../checkbox/checkbox'
 
-class StartplacesFormPart extends Component {
+class LandingplacesFormPart extends Component {
     render() {
         const { 
             onChange, valueDesc, errorMessageDesc, classNameName, nameStartplaceName, typeName, labelName, nameImages, nameImagesCount, classNameDesc,
             classNameAltitude, labelAltitude, typeAltitude, nameAltitude, labelImages, labelImagesCount,
-            cbClassNameWrapper, cbClassNameLabel, cbLabel, classNameCheckboxWrapper, cbOptions, cbClassNameLabelItem, cbName, cbSelectedOptions, classNameCheckbox, classNameCheckboxTxt, errorMessageImagesUrl, errorMessageimagesCount,
+            errorMessageImagesUrl, errorMessageimagesCount,
             classNamePlace, labelPlace, typePlace, namePlace, labelDescription, nameDescription, typeDescription, classNameImageUrl, classNameImageNumber,
-            errorMessageName, errorMessageAltitude, errorMessagePlace, errorMessagecb,
+            errorMessageName, errorMessageAltitude, errorMessagePlace,
             valueName, valueAltitude, valuePlace, valueImageUrl, valueImageNumber } = this.props;
         return (
             <section className='formular__part'>
                 <div className='formular__part-title'>
-                    <p>Startplatz#1</p>
+                    <p>Landeplatz#1</p>
                 </div>
                 <InputField
                     classes={classNameName}
@@ -49,21 +48,6 @@ class StartplacesFormPart extends Component {
                     errorMessage={errorMessagePlace}
                     value={valuePlace}
                 />
-                <Checkbox 
-                    classNameWrapper={cbClassNameWrapper}
-                    classNameLabel={cbClassNameLabel}
-                    label={cbLabel}
-                    classNameCheckboxWrapper={classNameCheckboxWrapper}
-                    options={cbOptions}
-                    classNameLabelItem={cbClassNameLabelItem}
-                    name={cbName}
-                    onChange={onChange}
-                    selectedOptions={cbSelectedOptions}
-                    classNameCheckbox={classNameCheckbox}
-                    classNameCheckboxTxt={classNameCheckboxTxt}
-                    classNamesError='formular__validationBox'
-                    errorMessage={errorMessagecb}
-                />
                 <div className={classNameDesc}>
                     <label className="formular__label">{labelDescription}</label>
                     <textarea className="formular__input" type={typeDescription} name={nameDescription} value={valueDesc} onChange={onChange}></textarea>
@@ -95,4 +79,4 @@ class StartplacesFormPart extends Component {
         );
     }
 };
-export default StartplacesFormPart;
+export default LandingplacesFormPart;

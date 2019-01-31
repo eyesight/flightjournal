@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import StartplacesFormPart from './startplacesFormPart';
+import LandingplacesFormPart from './landingplacesFormPart';
 import {TweenLite} from 'gsap';
 
 class StartplacesForm extends Component {
@@ -30,7 +31,48 @@ class StartplacesForm extends Component {
         const { onChange, onSubmit, goToPage, classNameAreas, areasLabel, nameAreas, valueAreas, getOptionsAreas, errorMessageAreas, valueDescription, errorMessageDesc, classNameName, labelName, typeName, nameStartplaceName, classNameAltitude, labelAltitude, typeAltitude, nameAltitude, classNamePlace, labelPlace, typePlace, namePlace, labelDescription, typeDescription, nameDescription, 
                 errorMessageImagesUrl, errorMessageimagesCount, cbClassNameWrapper, cbClassNameLabel, cbLabel, classNameCheckboxWrapper, cbOptions, cbClassNameLabelItem, cbName, cbSelectedOptions, classNameCheckbox, classNameCheckboxTxt, classNameDesc, labelImages, labelImagesCount, nameImages, nameImagesCount,
                 errorMessageName, errorMessageAltitude, errorMessagePlace, errorMessagecb, classNameImageUrl, classNameImageNumber,
-                valueName, valueAltitude, valuePlace, valueImageUrl, valueImageNumber, toEdit, editArea} = this.props;
+                valueName, valueAltitude, valuePlace, valueImageUrl, valueImageNumber, toEdit, editArea,
+            
+                lpclassNameName,
+                lplabelName,
+                lptypeName,
+                lpnameStartplaceName,
+                lperrorMessageName,
+                lpvalueName,
+            
+                lpclassNameAltitude,
+                lplabelAltitude,
+                lptypeAltitude,
+                lpnameAltitude,
+                lperrorMessageAltitude,
+                lpvalueAltitude,
+
+                lpclassNamePlace,
+                lplabelPlace,
+                lptypePlace,
+                lpnamePlace,
+                lperrorMessagePlace,
+                lpvaluePlace,
+
+                lpclassNameDesc,
+                lplabelDescription,
+                lptypeDescription,
+                lpnameDescription,
+                lpvalueDesc,
+                lperrorMessageDesc,
+
+                lpclassNameImageUrl,
+                lplabelImages,
+                lpnameImages,
+                lperrorMessageImagesUrl,
+                lpvalueImageUrl,
+
+                lpclassNameImageNumber,
+                lplabelImagesCount,
+                lpnameImagesCount,
+                lperrorMessageimagesCount,
+                lpvalueImageNumber
+            } = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
                 <div className={classNameAreas}>
@@ -92,6 +134,48 @@ class StartplacesForm extends Component {
                     valuePlace={valuePlace}
                     valueImageUrl={valueImageUrl}
                     valueImageNumber={valueImageNumber}
+                />
+                <LandingplacesFormPart
+                    classNameName={lpclassNameName}
+                    labelName={lplabelName}
+                    onChange={onChange} 
+                    typeName={lptypeName}
+                    nameStartplaceName={lpnameStartplaceName}
+                    errorMessageName={lperrorMessageName}
+                    valueName={lpvalueName}
+
+                    classNameAltitude={lpclassNameAltitude}
+                    labelAltitude={lplabelAltitude}
+                    typeAltitude={lptypeAltitude}
+                    nameAltitude={lpnameAltitude}
+                    errorMessageAltitude={lperrorMessageAltitude}
+                    valueAltitude={lpvalueAltitude}
+
+                    classNamePlace={lpclassNamePlace}
+                    labelPlace={lplabelPlace}
+                    typePlace={lptypePlace}
+                    namePlace={lpnamePlace}
+                    errorMessagePlace={lperrorMessagePlace}
+                    valuePlace={lpvaluePlace}
+
+                    classNameDesc={lpclassNameDesc}
+                    labelDescription={lplabelDescription}
+                    typeDescription={lptypeDescription}
+                    nameDescription={lpnameDescription}
+                    valueDesc={lpvalueDesc}
+                    errorMessageDesc={lperrorMessageDesc}
+
+                    classNameImageUrl={lpclassNameImageUrl}
+                    labelImages={lplabelImages}
+                    nameImages={lpnameImages}
+                    errorMessageImagesUrl={lperrorMessageImagesUrl}
+                    valueImageUrl={lpvalueImageUrl}
+
+                    classNameImageNumber={lpclassNameImageNumber}
+                    labelImagesCount={lplabelImagesCount}
+                    nameImagesCount={lpnameImagesCount}
+                    errorMessageimagesCount={lperrorMessageimagesCount}
+                    valueImageNumber={lpvalueImageNumber}
                 />
                 <div className="button-group">
                     <div className="button-wrapper">

@@ -22,6 +22,7 @@ import moment from 'moment';
 import FormErrorAlert from '../formErrorAlert/formErrorAlert';
 
 let obj = {};
+let obj2 = {};
 //TODO: split the Form for Startplaces and Startaraes, to make it less confusing
 class StartplaceFormContainer extends Component {
     constructor(props) {
@@ -35,6 +36,7 @@ class StartplaceFormContainer extends Component {
             idToEditArea: '',
             _isMounted: false,
             IDtoUpdateStartplace: '',
+            IDtoUpdateLandingplace: '',
             from: (this.props.location.state) ? this.props.location.state[0].from : undefined,
             idAreaFromUrl: '', //get the id from url -> Url is a compination of id of startplace and startarea
             updateArea: false,
@@ -46,8 +48,8 @@ class StartplaceFormContainer extends Component {
             errorAlert: false,
             formValid: false, 
 
-            formErrors: {startareasId: '', name: '', altitude: '', locationpin: '', winddirection: '', description: '', imagesUrl: '', imagesCount:''},
-            formErrorsValid: {startareasId: false, name: false, altitude: false, locationpin:true, winddirection: false, description: true, imagesUrl: true, imagesCount: true},
+            formErrors: {startareasId: '', name: '', altitude: '', locationpin: '', winddirection: '', description: '', imagesUrl: '', imagesCount:'', landingplace: '', landingplaceAltitude:'', landingplacePin: '', landingplaceDescription: '', landingplaceImagesUrl: '', landingplaceImagesCount: ''},
+            formErrorsValid: {startareasId: false, name: false, altitude: false, locationpin:true, winddirection: false, description: true, imagesUrl: true, imagesCount: true, landingplace: true, landingplaceAltitude: true, landingplacePin: true, landingplaceDescription: true, landingplaceImagesUrl: true, landingplaceImagesCount: true},
 
             //startplaces-form
             startareasIdValid: false,
@@ -58,6 +60,11 @@ class StartplaceFormContainer extends Component {
             descriptionValid: true,
             imagesUrlValid: true,
             imagesCountValid: true,
+            //Landingplaces-form - belongs to startplaces
+            landingplaceValid: true,
+            landingplaceAltitudeValid: true,
+            landingplacePinValid: true,
+            landingplaceDescriptionValid: true,
 
             //validation-states area
             errorAlertArea: false,
@@ -112,7 +119,16 @@ class StartplaceFormContainer extends Component {
             lastUpdateSA: '',
             landingplaces: [],
             authorArea: '',
-            gliderChart:''
+            gliderChart:'',
+
+            //Values of Landingplace
+            landingplace: '',
+            landingplaceAltitude: '',
+            landingplacePin: '',
+            landingplaceDescription: '',
+            landingplaceImagesUrl: '',
+            landingplaceImagesCount: '',
+            lastUpdateLP: '',
         };
         this.onChange = this.onChange.bind(this);  
         this.onSubmit = this.onSubmit.bind(this);
@@ -207,6 +223,14 @@ class StartplaceFormContainer extends Component {
         let imagesUrlValid = this.state.imagesUrlValid;
         let imagesValid = false;
         let imagesCountValid = this.state.imagesCountValid;
+
+        let landingplaceValid = this.state.landingplaceValid;
+        let landingplaceAltitudeValid = this.state.landingplaceAltitudeValid;
+        let landingplacePinValid = this.state.landingplacePinValid;
+        let landingplaceDescriptionValid = this.state.landingplaceDescriptionValid;
+        let landingplaceImagesUrlValid = this.state.landingplaceImagesUrlValid;
+        let landingplaceImagesCountValid = this.state.landingplaceImagesCountValid;
+        let landingplaceImagesValid = false;
 
         //Startarea-Form
         let fieldValidationErrorsArea = this.state.formErrorsArea;
@@ -316,9 +340,36 @@ class StartplaceFormContainer extends Component {
             areaDescriptionValid = (value.length === 0) || (value.length <= 3000 && (typeof value === 'string'));
             fieldValidationErrorsArea.areaDescription = areaDescriptionValid ? '' : `${validation.valField} ${validation.valLess3000}.`;
             break;
+            
         case 'gliderChart':
             gliderChartValid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
             fieldValidationErrorsArea.gliderChart = gliderChartValid ? '' : `${validation.valField} ${validation.valLess200}.`;
+            break;
+        case 'landingplace': 
+            landingplaceValid = value.length === 0 || (value.length <= 150 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.landingplace = landingplaceValid ? '' : `${validation.valField} ${validation.valLess150}.`;
+            break;
+        case 'landingplaceAltitude':
+            landingplaceAltitudeValid = value.length === 0 || (!isNaN(value) && value.length <= 5);
+            fieldValidationErrors.landingplaceAltitude = landingplaceAltitudeValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
+            break; 
+        case 'landingplacePin':
+            landingplacePinValid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrors.landingplacePin = landingplacePinValid ? '' : `${validation.valField} ${validation.valLess200}.`;
+            break;
+        case 'landingplaceDescription':
+            landingplaceDescriptionValid = (value.length === 0) || (value.length <= 3000 && (typeof value === 'string'));
+            fieldValidationErrors.landingplaceDescription = landingplaceDescriptionValid ? '' : `${validation.valField} ${validation.valLess3000}.`;
+            break; 
+        case 'landingplaceImagesUrl':
+            // eslint-disable-next-line
+            landingplaceImagesValid = (/^[a-zA-Z0-9\_-]*$/gi).test(this.state.landingplaceImagesUrl);
+            landingplaceImagesUrlValid = value.length === 0 || (landingplaceImagesValid === true && value.length <= 50 && value !== '' && (typeof value === 'string'));
+            fieldValidationErrors.landingplaceImagesUrl = landingplaceImagesUrlValid ? '' : `${validation.valField} ${validation.specialChars} und ${validation.valLess50}.`;
+            break; 
+        case 'landingplaceImagesCount':
+            landingplaceImagesCountValid = value === 0 || (value.length < 2 && !isNaN(value));
+            fieldValidationErrors.landingplaceImagesCount = landingplaceImagesCountValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess1}.`;
             break;
           default:
             break;
@@ -331,7 +382,13 @@ class StartplaceFormContainer extends Component {
             winddirection: winddirectionValid,
             description: descriptionValid,
             imagesUrl: imagesUrlValid,
-            imagesCount: imagesCountValid
+            imagesCount: imagesCountValid,
+            landingplace: landingplaceValid,
+            landingplaceAltitude: landingplaceAltitudeValid,
+            landingplacePin: landingplacePinValid,
+            landingplaceDescription: landingplaceDescriptionValid,
+            landingplaceImagesUrl: landingplaceImagesUrlValid,
+            landingplaceImagesCount: landingplaceImagesCountValid
         },
         startareasIdValid: startareasIdValid,
         nameValid: nameValid,
@@ -340,7 +397,13 @@ class StartplaceFormContainer extends Component {
         winddirectionValid: winddirectionValid,
         descriptionValid: descriptionValid,
         imagesUrlValid: imagesUrlValid,
-        imagesCountValid: imagesCountValid
+        imagesCountValid: imagesCountValid,
+        landingplaceValid: landingplaceValid,
+        landingplaceAltitudeValid: landingplaceAltitudeValid,
+        landingplacePinValid: landingplacePinValid,
+        landingplaceDescriptionValid: landingplaceDescriptionValid,
+        landingplaceImagesUrlValid: landingplaceImagesUrlValid,
+        landingplaceImagesCountValid: landingplaceImagesCountValid
         }, this.validateForm, )
 
         //areas
@@ -387,7 +450,12 @@ class StartplaceFormContainer extends Component {
                 this.state.winddirectionValid &&
                 this.state.descriptionValid &&
                 this.state.imagesUrlValid &&
-                this.state.imagesCountValid
+                this.state.imagesCountValid &&
+                this.state.landingplaceValid &&
+                this.state.landingplaceAltitudeValid &&
+                this.state.landingplacePinValid &&
+                this.state.landingplaceDescriptionValid &&
+                this.state.landingplaceImagesCountValid
             });
         }
       validateFormArea() {
@@ -442,6 +510,8 @@ class StartplaceFormContainer extends Component {
             this.setState({[name]: value}, 
                 () => { this.validateField(name, value) });
         }
+        console.log('name: ' + name);
+        console.log('value: ' + value);
     };
 
     getOptions(sp, text, keyForOption, keyForOption2){
@@ -485,6 +555,7 @@ class StartplaceFormContainer extends Component {
 
     onSubmit(e){
         e.preventDefault();
+        let lpisUpdated = (this.state.landingplace !== '' || this.state.landingplaceAltitude !== '' || this.state.landingplacePin !== '' ||this.state.landingplaceDescription !== '' || this.state.landingplaceImagesUrl !== '' || this.state.landingplaceImagesCount !== '') ? true : false;
         //add the winddirections in an Object
         let allWind = {}; 
         this.state.winddirection.map((item, i)=>{
@@ -496,6 +567,7 @@ class StartplaceFormContainer extends Component {
             let SpObject = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
             let newIdNr = (SpObject.startplaces) ? this.addId(SpObject.startplaces) : '0';
             let newId = (this.state.IDtoUpdateStartplace === '') ? `${this.state.startareasId}-sp0${newIdNr}` : this.state.IDtoUpdateStartplace;
+            let newIdLP = (this.state.IDtoUpdateLandingplace === '') ? `${this.state.startareasId}-lp0${newIdNr}` : this.state.IDtoUpdateLandingplace;
             this.setState({errorAlert: false})
         obj = {
             id: newId,
@@ -505,12 +577,24 @@ class StartplaceFormContainer extends Component {
             altitude : this.state.altitude,
             locationpin: this.state.locationpin,
             description : this.state.description,
-            startareasId: this.state.startareasId,
             winddirectionsId: allWind,
             rating: '',
             imagesUrl: this.state.imagesUrl,
             imagesCount: this.state.imagesCount,
             author: author,
+        }
+
+        obj2 = {
+            id: newIdLP,
+            lastUpdate: updateLastUpdateArray(this.state.lastUpdateLP, actualTimestamp),
+            name: this.state.landingplace,
+            altitude: this.state.landingplaceAltitude,
+            locationpin: this.state.landingplacePin,
+            description: this.state.landingplaceDescription,
+            rating: '',
+            imagesUrl: this.state.landingplaceImagesUrl,
+            imagesCount: this.state.landingplaceImagesCount,
+            author: author
         }
         
         switch (true) {
@@ -576,6 +660,29 @@ class StartplaceFormContainer extends Component {
                 ) 
               break;
               default:
+              //if the startplace will be updated
+              if(lpisUpdated){
+                if(SpObject.startplaces && SpObject.landingplace){
+                    SpObject.startplaces[newId] = obj;
+                    SpObject.landingplace[newIdLP] = obj2;
+                }else if(SpObject.startplaces && !SpObject.landingplace){
+                    SpObject.startplaces[newId] = obj;
+                    SpObject.landingplace = {};
+                    SpObject.landingplace = {
+                        [newIdLP]: obj2
+                    }
+                }else{
+                    SpObject.startplaces = {};
+                    SpObject.startplaces = {
+                        [newId]: obj
+                    };
+                    SpObject.landingplace = {};
+                    SpObject.landingplace = {
+                        [newIdLP]: obj2
+                    }
+                }
+             //startplace will be updated without updating landingplace
+              }else{
                 if(SpObject.startplaces){
                     SpObject.startplaces[newId] = obj;
                 }else{
@@ -584,6 +691,9 @@ class StartplaceFormContainer extends Component {
                         [newId]: obj
                     };
                 }
+              }
+                
+                console.log(SpObject);
             this.props.updateStartplaces(this.state.startareasId, SpObject).then(
                 this.props.dispatch(reset('NewPost')),
                 (this.props.match.params.id) ? (
@@ -889,6 +999,46 @@ class StartplaceFormContainer extends Component {
                     valueImageUrl={this.state.imagesUrl}
                     valueImageNumber={this.state.imagesCount}
                     valueDescription={this.state.description}
+
+                    lpclassNameName={`formular__input-wrapper ${this.errorClass(this.state.formErrors.landingplace)}`}
+                    lplabelName='Ort'
+                    lptypeName='text'
+                    lpnameStartplaceName='landingplace'
+                    lperrorMessageName={this.state.formErrors.landingplace}
+                    lpvalueName={this.state.landingplace}
+                
+                    lpclassNameAltitude={`formular__input-wrapper formular__input-wrapper--margin-left ${this.errorClass(this.state.formErrors.landingplaceAltitude)}`}
+                    lplabelAltitude='Höhe'
+                    lptypeAltitude='text'
+                    lpnameAltitude='landingplaceAltitude'
+                    lperrorMessageAltitude={this.state.formErrors.landingplaceAltitude}
+                    lpvalueAltitude={this.state.landingplaceAltitude}
+
+                    lpclassNamePlace={`formular__input-wrapper formular__input-wrapper--fullwith ${this.errorClass(this.state.formErrors.landingplacePin)}`}
+                    lplabelPlace='Standortpin'
+                    lptypePlace='text'
+                    lpnamePlace='landingplacePin'
+                    lperrorMessagePlace={this.state.formErrors.landingplacePin}
+                    lpvaluePlace={this.state.landingplacePin}
+
+                    lpclassNameDesc={`formular__input-wrapper formular__input--text ${this.errorClass(this.state.formErrors.landingplaceDescription)}`}
+                    lplabelDescription='Beschrieb'
+                    lptypeDescription='text'
+                    lpnameDescription='landingplaceDescription'
+                    lperrorMessageDesc={this.state.formErrors.landingplaceDescription}
+                    lpvalueDesc={this.state.landingplaceDescription}
+
+                    lpclassNameImageUrl={`formular__input-wrapper ${this.errorClass(this.state.formErrors.landingplaceImagesUrl)}`}
+                    lplabelImages='Bildordner'
+                    lpnameImages='landingplaceImagesUrl'
+                    lperrorMessageImagesUrl={this.state.formErrors.landingplaceImagesUrl}
+                    lpvalueImageUrl={this.state.landingplaceImagesUrl}
+
+                    lpclassNameImageNumber={`formular__input-wrapper formular__input-wrapper--margin-left ${this.errorClass(this.state.formErrors.landingplaceImagesCount)}`}
+                    lplabelImagesCount='Anzahl Bilder'
+                    lpnameImagesCount='landingplaceImagesCount'
+                    lperrorMessageimagesCount={this.state.formErrors.landingplaceImagesCount}
+                    lpvalueImageNumber={this.state.landingplaceImagesCount}
 
                     toEdit={this.state.toEditArea}
                     editArea={(event)=>{this.editArea(event, this.state.idToEditArea)}}

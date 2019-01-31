@@ -46,8 +46,15 @@ export function deleteStartplaces(id) {
   }
 }
 
-export function updateStartplaces(id, updates) {
-  return dispatch => startplacesdb.child(id).update(updates);
+export function updateStartplaces(id, updates, updates2) {
+  console.log(updates2);
+  if(updates2){
+    return dispatch => startplacesdb.child(id).update(updates, updates2);
+  }else{
+    return dispatch => startplacesdb.child(id).update(updates);
+  }
+
+  
 }
 
 //TODO: it's somehow wrong. Rewrite it better -> it's not returning a promise

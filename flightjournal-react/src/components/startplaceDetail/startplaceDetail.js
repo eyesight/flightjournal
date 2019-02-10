@@ -253,7 +253,7 @@ class StartplaceDetail extends Component {
                         iconpin={this.state.arealocationpin} 
                         hasIcon={this.state.arealocationpin ? true : false}
                         icons2={this.state.webcams}
-                        hasIcons2={this.state.webcams.length > 0 ? true : false}
+                        hasIcons2={(this.state.webcams && this.state.webcams.length > 0) ? true : false}
                     />
                     {this.state.imagesUrl[0] !== '' ? (
                         <ImageGallerie 

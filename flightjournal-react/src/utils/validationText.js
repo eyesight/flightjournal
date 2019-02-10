@@ -4,6 +4,7 @@ export const valPWforget = 'Diese E-Mail existiert nicht. Bitte überprüfen Sie
 
 //form-validation
 export const valForm = 'Bitte lösen Sie die Fehler und versuchen es erneut';
+export const valFormLandingplace = 'Beim Gebiet gibt es noch keinen Startplatz. Bitte füllen Sie zuerst einen Startplatz aus, und dann ein Landeplatz.';
 
 //form1-validation
 export const valField = 'Dieses Feld ';

@@ -53,8 +53,6 @@ export function updateStartplaces(id, updates, updates2) {
   }else{
     return dispatch => startplacesdb.child(id).update(updates);
   }
-
-  
 }
 
 //TODO: it's somehow wrong. Rewrite it better -> it's not returning a promise

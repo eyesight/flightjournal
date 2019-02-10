@@ -48,8 +48,8 @@ class StartplaceFormContainer extends Component {
             errorAlert: false,
             formValid: false, 
 
-            formErrors: {startareasId: '', name: '', altitude: '', locationpin: '', winddirection: '', description: '', imagesUrl: '', imagesCount:'', landingplace: '', landingplaceAltitude:'', landingplacePin: '', landingplaceDescription: '', landingplaceImagesUrl: '', landingplaceImagesCount: ''},
-            formErrorsValid: {startareasId: false, name: false, altitude: false, locationpin:true, winddirection: false, description: true, imagesUrl: true, imagesCount: true, landingplace: true, landingplaceAltitude: true, landingplacePin: true, landingplaceDescription: true, landingplaceImagesUrl: true, landingplaceImagesCount: true},
+            formErrors: {startareasId: '', name: '', altitude: '', locationpin: '', winddirection: '', description: '', imagesUrl: '', imagesCount:''},
+            formErrorsValid: {startareasId: false, name: false, altitude: false, locationpin:true, winddirection: false, description: true, imagesUrl: true, imagesCount: true},
 
             //startplaces-form
             startareasIdValid: false,
@@ -60,11 +60,6 @@ class StartplaceFormContainer extends Component {
             descriptionValid: true,
             imagesUrlValid: true,
             imagesCountValid: true,
-            //Landingplaces-form - belongs to startplaces
-            landingplaceValid: true,
-            landingplaceAltitudeValid: true,
-            landingplacePinValid: true,
-            landingplaceDescriptionValid: true,
 
             //validation-states area
             errorAlertArea: false,
@@ -86,6 +81,19 @@ class StartplaceFormContainer extends Component {
             xcValid: true,
             areaDescriptionValid: true,
             gliderChartValid: true,
+
+            //validation-states landingplaces
+            errorAlertLandingplaces: false,
+            formValidLandingplaces: false,
+            formErrorsLandingplaces:{landingplace: '', landingplaceAltitude:'', landingplacePin: '', landingplaceDescription: '', landingplaceImagesUrl: '', landingplaceImagesCount: ''},
+            formErrorsValidLandingplaces: {landingplace: false, landingplaceAltitude: false, landingplacePin: true, landingplaceDescription: true, landingplaceImagesUrl: true, landingplaceImagesCount: true},
+            //Landingplaces-form - belongs to startplaces
+            landingplaceValid: false,
+            landingplaceAltitudeValid: false,
+            landingplacePinValid: true,
+            landingplaceDescriptionValid: true,
+            landingplaceImagesUrlValid: true,
+            landingplaceImagesCountValid: true,
 
             //Values of Form Startingplaces
             name : '',
@@ -140,6 +148,7 @@ class StartplaceFormContainer extends Component {
         this.validateField = this.validateField.bind(this);
         this.validateForm = this.validateForm.bind(this);
         this.validateFormArea = this.validateFormArea.bind(this);
+        this.validateFormLandingplaces = this.validateFormLandingplaces.bind(this);
         this.errorClass = this.errorClass.bind(this);
         this.editArea = this.editArea.bind(this);
         this.fillAreaFormToUpdate = this.fillAreaFormToUpdate.bind(this);
@@ -224,6 +233,7 @@ class StartplaceFormContainer extends Component {
         let imagesValid = false;
         let imagesCountValid = this.state.imagesCountValid;
 
+        let fieldValidationErrorsLandigplaces = this.state.formErrorsLandingplaces;
         let landingplaceValid = this.state.landingplaceValid;
         let landingplaceAltitudeValid = this.state.landingplaceAltitudeValid;
         let landingplacePinValid = this.state.landingplacePinValid;
@@ -346,30 +356,30 @@ class StartplaceFormContainer extends Component {
             fieldValidationErrorsArea.gliderChart = gliderChartValid ? '' : `${validation.valField} ${validation.valLess200}.`;
             break;
         case 'landingplace': 
-            landingplaceValid = value.length === 0 || (value.length <= 150 && (typeof value === 'string') && value !== '0');
-            fieldValidationErrors.landingplace = landingplaceValid ? '' : `${validation.valField} ${validation.valLess150}.`;
+            landingplaceValid = value.length > 0 && (value.length <= 150 && (typeof value === 'string') && value !== '0');
+            fieldValidationErrorsLandigplaces.landingplace = landingplaceValid ? '' : `${validation.valField} ${validation.valLess150}.`;
             break;
         case 'landingplaceAltitude':
-            landingplaceAltitudeValid = value.length === 0 || (!isNaN(value) && value.length <= 5);
-            fieldValidationErrors.landingplaceAltitude = landingplaceAltitudeValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
+            landingplaceAltitudeValid = value.length > 0 && (!isNaN(value) && value.length <= 5);
+            fieldValidationErrorsLandigplaces.landingplaceAltitude = landingplaceAltitudeValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess5}.`;
             break; 
         case 'landingplacePin':
             landingplacePinValid = value.length === 0 || (value.length <= 200 && (typeof value === 'string') && value !== '0');
-            fieldValidationErrors.landingplacePin = landingplacePinValid ? '' : `${validation.valField} ${validation.valLess200}.`;
+            fieldValidationErrorsLandigplaces.landingplacePin = landingplacePinValid ? '' : `${validation.valField} ${validation.valLess200}.`;
             break;
         case 'landingplaceDescription':
             landingplaceDescriptionValid = (value.length === 0) || (value.length <= 3000 && (typeof value === 'string'));
-            fieldValidationErrors.landingplaceDescription = landingplaceDescriptionValid ? '' : `${validation.valField} ${validation.valLess3000}.`;
+            fieldValidationErrorsLandigplaces.landingplaceDescription = landingplaceDescriptionValid ? '' : `${validation.valField} ${validation.valLess3000}.`;
             break; 
         case 'landingplaceImagesUrl':
             // eslint-disable-next-line
             landingplaceImagesValid = (/^[a-zA-Z0-9\_-]*$/gi).test(this.state.landingplaceImagesUrl);
             landingplaceImagesUrlValid = value.length === 0 || (landingplaceImagesValid === true && value.length <= 50 && value !== '' && (typeof value === 'string'));
-            fieldValidationErrors.landingplaceImagesUrl = landingplaceImagesUrlValid ? '' : `${validation.valField} ${validation.specialChars} und ${validation.valLess50}.`;
+            fieldValidationErrorsLandigplaces.landingplaceImagesUrl = landingplaceImagesUrlValid ? '' : `${validation.valField} ${validation.specialChars} und ${validation.valLess50}.`;
             break; 
         case 'landingplaceImagesCount':
             landingplaceImagesCountValid = value === 0 || (value.length < 2 && !isNaN(value));
-            fieldValidationErrors.landingplaceImagesCount = landingplaceImagesCountValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess1}.`;
+            fieldValidationErrorsLandigplaces.landingplaceImagesCount = landingplaceImagesCountValid ? '' : `${validation.valField} ${validation.valNumber} und ${validation.valLess1}.`;
             break;
           default:
             break;
@@ -382,13 +392,7 @@ class StartplaceFormContainer extends Component {
             winddirection: winddirectionValid,
             description: descriptionValid,
             imagesUrl: imagesUrlValid,
-            imagesCount: imagesCountValid,
-            landingplace: landingplaceValid,
-            landingplaceAltitude: landingplaceAltitudeValid,
-            landingplacePin: landingplacePinValid,
-            landingplaceDescription: landingplaceDescriptionValid,
-            landingplaceImagesUrl: landingplaceImagesUrlValid,
-            landingplaceImagesCount: landingplaceImagesCountValid
+            imagesCount: imagesCountValid
         },
         startareasIdValid: startareasIdValid,
         nameValid: nameValid,
@@ -397,13 +401,7 @@ class StartplaceFormContainer extends Component {
         winddirectionValid: winddirectionValid,
         descriptionValid: descriptionValid,
         imagesUrlValid: imagesUrlValid,
-        imagesCountValid: imagesCountValid,
-        landingplaceValid: landingplaceValid,
-        landingplaceAltitudeValid: landingplaceAltitudeValid,
-        landingplacePinValid: landingplacePinValid,
-        landingplaceDescriptionValid: landingplaceDescriptionValid,
-        landingplaceImagesUrlValid: landingplaceImagesUrlValid,
-        landingplaceImagesCountValid: landingplaceImagesCountValid
+        imagesCountValid: imagesCountValid
         }, this.validateForm, )
 
         //areas
@@ -439,6 +437,24 @@ class StartplaceFormContainer extends Component {
         areaDescriptionValid: areaDescriptionValid,
         gliderChartValid: gliderChartValid
         }, this.validateFormArea);
+
+        //landingplaces
+        this.setState({
+            formErrorsValidLandingplaces:{
+                landingplace: landingplaceValid,
+                landingplaceAltitude: landingplaceAltitudeValid,
+                landingplacePin: landingplacePinValid,
+                landingplaceDescription: landingplaceDescriptionValid,
+                landingplaceImagesUrl: landingplaceImagesUrlValid,
+                landingplaceImagesCount: landingplaceImagesCountValid
+            },
+            landingplaceValid: landingplaceValid,
+            landingplaceAltitudeValid: landingplaceAltitudeValid,
+            landingplacePinValid: landingplacePinValid,
+            landingplaceDescriptionValid: landingplaceDescriptionValid,
+            landingplaceImagesUrlValid: landingplaceImagesUrlValid,
+            landingplaceImagesCountValid: landingplaceImagesCountValid
+        }, this.validateFormLandingplaces)
       } 
 
       validateForm() {
@@ -450,12 +466,7 @@ class StartplaceFormContainer extends Component {
                 this.state.winddirectionValid &&
                 this.state.descriptionValid &&
                 this.state.imagesUrlValid &&
-                this.state.imagesCountValid &&
-                this.state.landingplaceValid &&
-                this.state.landingplaceAltitudeValid &&
-                this.state.landingplacePinValid &&
-                this.state.landingplaceDescriptionValid &&
-                this.state.landingplaceImagesCountValid
+                this.state.imagesCountValid
             });
         }
       validateFormArea() {
@@ -475,6 +486,16 @@ class StartplaceFormContainer extends Component {
                 this.state.areaDescriptionValid && 
                 this.state.gliderChartValid
             });
+      }
+
+      validateFormLandingplaces(){
+        this.setState({formValidLandingplaces: 
+                this.state.landingplaceValid &&
+                this.state.landingplaceAltitudeValid &&
+                this.state.landingplacePinValid &&
+                this.state.landingplaceDescriptionValid &&
+                this.state.landingplaceImagesCountValid
+        });
       }
 
       errorClass(error) {
@@ -498,7 +519,6 @@ class StartplaceFormContainer extends Component {
                 idToEditArea: value
             });
         }else if(name === 'startareaname' && this.state.updateArea){
-            console.log('dddd');
             //if name of Area is changed, we use the status "updateNameOfArea" in the submit-function to iterate in all flights and change all startplace.areaName there, which are linked with the updated flight
             this.setState({[name]: value}, 
                 () => { this.validateField(name, value) 
@@ -510,8 +530,6 @@ class StartplaceFormContainer extends Component {
             this.setState({[name]: value}, 
                 () => { this.validateField(name, value) });
         }
-        console.log('name: ' + name);
-        console.log('value: ' + value);
     };
 
     getOptions(sp, text, keyForOption, keyForOption2){
@@ -556,92 +574,58 @@ class StartplaceFormContainer extends Component {
     onSubmit(e){
         e.preventDefault();
         let lpisUpdated = (this.state.landingplace !== '' || this.state.landingplaceAltitude !== '' || this.state.landingplacePin !== '' ||this.state.landingplaceDescription !== '' || this.state.landingplaceImagesUrl !== '' || this.state.landingplaceImagesCount !== '') ? true : false;
+        let spisUpdated = (this.state.name !== '' || this.state.altitude !== '' || this.state.description !== '') ? true : false;
+
+        let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");
+        let author = (this.state.authorSP !== '') ? this.state.authorSP : this.props.user.email;
+        let SpObject = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
+
+        let newIdNr = (SpObject && SpObject.startplaces) ? this.addId(SpObject.startplaces) : '0';
+        let newIdNrLp = (SpObject && SpObject.landingplace) ? this.addId(SpObject.landingplace) : '0';
+        let newId = (this.state.IDtoUpdateStartplace === '') ? `${this.state.startareasId}-sp0${newIdNr}` : this.state.IDtoUpdateStartplace;
+        let newIdLP = (this.state.IDtoUpdateLandingplace === '') ? `${this.state.startareasId}-lp0${newIdNrLp}` : this.state.IDtoUpdateLandingplace;
         //add the winddirections in an Object
         let allWind = {}; 
-        this.state.winddirection.map((item, i)=>{
-            return allWind[item] = true;
-        })
-        if(this.state.formValid){
-            let actualTimestamp = moment().format("YYYY-MM-DD HH:mm:ss Z");
-            let author = (this.state.authorSP !== '') ? this.state.authorSP : this.props.user.email;
-            let SpObject = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
-            let newIdNr = (SpObject.startplaces) ? this.addId(SpObject.startplaces) : '0';
-            let newId = (this.state.IDtoUpdateStartplace === '') ? `${this.state.startareasId}-sp0${newIdNr}` : this.state.IDtoUpdateStartplace;
-            let newIdLP = (this.state.IDtoUpdateLandingplace === '') ? `${this.state.startareasId}-lp0${newIdNr}` : this.state.IDtoUpdateLandingplace;
-            this.setState({errorAlert: false})
-        obj = {
-            id: newId,
-            writeDate: actualTimestamp, 
-            lastUpdate: updateLastUpdateArray(this.state.lastUpdateSP, actualTimestamp),
-            name: this.state.name,
-            altitude : this.state.altitude,
-            locationpin: this.state.locationpin,
-            description : this.state.description,
-            winddirectionsId: allWind,
-            rating: '',
-            imagesUrl: this.state.imagesUrl,
-            imagesCount: this.state.imagesCount,
-            author: author,
-        }
-
-        obj2 = {
-            id: newIdLP,
-            lastUpdate: updateLastUpdateArray(this.state.lastUpdateLP, actualTimestamp),
-            name: this.state.landingplace,
-            altitude: this.state.landingplaceAltitude,
-            locationpin: this.state.landingplacePin,
-            description: this.state.landingplaceDescription,
-            rating: '',
-            imagesUrl: this.state.landingplaceImagesUrl,
-            imagesCount: this.state.landingplaceImagesCount,
-            author: author
-        }
-        
-        switch (true) {
-                //update startplace, when startarea isn't changed
-                case this.state.startareasId !== '' && this.state.idAreaFromUrl !== '' && this.state.idAreaFromUrl === this.state.startareasId:
-                let Obj = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
-                let idofSp = Obj.startplaces[this.state.IDtoUpdateStartplace].id;
-                    Obj.startplaces[idofSp] = obj;
-                this.props.updateStartplaces(this.state.startareasId, Obj).then(
-                    //when new Object is updated, state saveAreaIds will set to true, so function in componentDidUpdate will be continued
-                    this.props.dispatch(reset('NewPost')),
-                    (this.props.match.params.id) ? (
-                        this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.idAreaFromUrl}`)
-                    ) : (
-                        (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
-                    )
-                ).catch((err) => {
-                    console.log('error when update startplaces');
-                    console.log(err)
-                    });
-              break;
-            //update startplace, when someone change the area: if there is set an ID to update a fligt and the area of the startplace changed - we have to delete the startplace from the old area
-            //when this happens, we have to check all flights and update their startplaces
-            case this.state.startareasId !== '' && this.state.idAreaFromUrl !== '' && this.state.idAreaFromUrl !== this.state.startareasId:
-                let ObjNew = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
-                let ObjOld = _.find(this.props.startplaces, {id: this.state.idAreaFromUrl});//the area which should remove the startplace
-                // eslint-disable-next-line 
-                let x = (ObjNew.startplaces) ? (ObjNew.startplaces[this.state.IDtoUpdateStartplace] = obj) : (ObjNew.startplaces = {}, ObjNew.startplaces = { [this.state.IDtoUpdateStartplace]: obj});
-                delete ObjOld.startplaces[this.state.IDtoUpdateStartplace]; // delete the startplace from the "old" area
-                let allFlight = Object.keys(this.props.flights).filter(i =>{
-                    if(this.props.flights[i].startplace && this.props.flights[i].startplace.startplace === this.state.IDtoUpdateStartplace && this.props.flights[i].startplace.area === this.state.idAreaFromUrl){
-                        return i;
-                    }
-                    return null;
-                });
-                let flightUpdate = {
-                    startplace: {
-                        area: this.state.startareasId,
-                        startplace: this.state.IDtoUpdateStartplace
-                    }
-                }                
-                
-                this.props.updateStartplaces(this.state.idAreaFromUrl, ObjOld).then(
-                    this.props.dispatch(reset('NewPost')),
-                    this.updateAllFlights(allFlight, flightUpdate)
-                ).then(
-                    this.props.updateStartplaces(this.state.startareasId, ObjNew).then(
+            this.state.winddirection.map((item, i)=>{
+                return allWind[item] = true;
+            });
+            obj = {
+                id: newId,
+                writeDate: actualTimestamp, 
+                lastUpdate: updateLastUpdateArray(this.state.lastUpdateSP, actualTimestamp),
+                name: this.state.name,
+                altitude : this.state.altitude,
+                locationpin: this.state.locationpin,
+                description : this.state.description,
+                winddirectionsId: allWind,
+                rating: '',
+                imagesUrl: this.state.imagesUrl,
+                imagesCount: this.state.imagesCount,
+                author: author,
+            }
+    
+            obj2 = {
+                id: newIdLP,
+                lastUpdate: updateLastUpdateArray(this.state.lastUpdateLP, actualTimestamp),
+                name: this.state.landingplace,
+                altitude: this.state.landingplaceAltitude,
+                locationpin: this.state.landingplacePin,
+                description: this.state.landingplaceDescription,
+                rating: '',
+                imagesUrl: this.state.landingplaceImagesUrl,
+                imagesCount: this.state.landingplaceImagesCount,
+                author: author
+            }
+        if(spisUpdated && this.state.formValid && SpObject && ((lpisUpdated && this.state.formValidLandingplaces) || !lpisUpdated)){
+            this.setState({errorAlert: false});
+            switch (true) {
+                    //update startplace, when startarea isn't changed
+                    case this.state.startareasId !== '' && this.state.idAreaFromUrl !== '' && this.state.idAreaFromUrl === this.state.startareasId:
+                    let Obj = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
+                    let idofSp = Obj.startplaces[this.state.IDtoUpdateStartplace].id;
+                        Obj.startplaces[idofSp] = obj;
+                    this.props.updateStartplaces(this.state.startareasId, Obj).then(
+                        //when new Object is updated, state saveAreaIds will set to true, so function in componentDidUpdate will be continued
                         this.props.dispatch(reset('NewPost')),
                         (this.props.match.params.id) ? (
                             this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.idAreaFromUrl}`)
@@ -649,71 +633,155 @@ class StartplaceFormContainer extends Component {
                             (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
                         )
                     ).catch((err) => {
-                        console.log('error when update startplaces with new values');
+                        console.log('error when update startplaces');
+                        console.log(err)
+                        });
+                  break;
+                //update startplace, when someone change the area: if there is set an ID to update a fligt and the area of the startplace changed - we have to delete the startplace from the old area
+                //when this happens, we have to check all flights and update their startplaces
+                case this.state.startareasId !== '' && this.state.idAreaFromUrl !== '' && this.state.idAreaFromUrl !== this.state.startareasId:
+                    let ObjNew = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
+                    let ObjOld = _.find(this.props.startplaces, {id: this.state.idAreaFromUrl});//the area which should remove the startplace
+                    // eslint-disable-next-line 
+                    let x = (ObjNew.startplaces) ? (ObjNew.startplaces[this.state.IDtoUpdateStartplace] = obj) : (ObjNew.startplaces = {}, ObjNew.startplaces = { [this.state.IDtoUpdateStartplace]: obj});
+                    delete ObjOld.startplaces[this.state.IDtoUpdateStartplace]; // delete the startplace from the "old" area
+                    let allFlight = Object.keys(this.props.flights).filter(i =>{
+                        if(this.props.flights[i].startplace && this.props.flights[i].startplace.startplace === this.state.IDtoUpdateStartplace && this.props.flights[i].startplace.area === this.state.idAreaFromUrl){
+                            return i;
+                        }
+                        return null;
+                    });
+                    let flightUpdate = {
+                        startplace: {
+                            area: this.state.startareasId,
+                            startplace: this.state.IDtoUpdateStartplace
+                        }
+                    }                
+                    
+                    this.props.updateStartplaces(this.state.idAreaFromUrl, ObjOld).then(
+                        this.props.dispatch(reset('NewPost')),
+                        this.updateAllFlights(allFlight, flightUpdate)
+                    ).then(
+                        this.props.updateStartplaces(this.state.startareasId, ObjNew).then(
+                            this.props.dispatch(reset('NewPost')),
+                            (this.props.match.params.id) ? (
+                                this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.idAreaFromUrl}`)
+                            ) : (
+                                (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
+                            )
+                        ).catch((err) => {
+                            console.log('error when update startplaces with new values');
+                            console.log(err)
+                            }
+                        )
+                    ).catch((err) => {
+                        console.log('error when update startplaces by deleting the old one')
                         console.log(err)
                         }
+                    ) 
+                  break;
+                  default:
+                  //if the startplace will be updated
+                  if(lpisUpdated){
+                    if(SpObject.startplaces && SpObject.landingplace){
+                        SpObject.startplaces[newId] = obj;
+                        SpObject.landingplace[newIdLP] = obj2;
+                    }else if(SpObject.startplaces && !SpObject.landingplace){
+                        SpObject.startplaces[newId] = obj;
+                        SpObject.landingplace = {};
+                        SpObject.landingplace = {
+                            [newIdLP]: obj2
+                        }
+                    }else{
+                        SpObject.startplaces = {};
+                        SpObject.startplaces = {
+                            [newId]: obj
+                        };
+                        SpObject.landingplace = {};
+                        SpObject.landingplace = {
+                            [newIdLP]: obj2
+                        }
+                    }
+                 //startplace will be updated without updating landingplace
+                  }else{
+                    if(SpObject.startplaces){
+                        SpObject.startplaces[newId] = obj;
+                    }else{
+                        SpObject.startplaces = {};
+                        SpObject.startplaces = {
+                            [newId]: obj
+                        };
+                    }
+                  }
+                    
+                this.props.updateStartplaces(this.state.startareasId, SpObject).then(
+                    this.props.dispatch(reset('NewPost')),
+                    (this.props.match.params.id) ? (
+                        this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.idAreaFromUrl}`)
+                    ) : (
+                        (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
                     )
                 ).catch((err) => {
-                    console.log('error when update startplaces by deleting the old one')
+                    console.log('error when safe startplaces');
                     console.log(err)
-                    }
-                ) 
-              break;
-              default:
-              //if the startplace will be updated
-              if(lpisUpdated){
-                if(SpObject.startplaces && SpObject.landingplace){
-                    SpObject.startplaces[newId] = obj;
-                    SpObject.landingplace[newIdLP] = obj2;
-                }else if(SpObject.startplaces && !SpObject.landingplace){
-                    SpObject.startplaces[newId] = obj;
-                    SpObject.landingplace = {};
-                    SpObject.landingplace = {
-                        [newIdLP]: obj2
-                    }
-                }else{
-                    SpObject.startplaces = {};
-                    SpObject.startplaces = {
-                        [newId]: obj
-                    };
-                    SpObject.landingplace = {};
-                    SpObject.landingplace = {
-                        [newIdLP]: obj2
-                    }
-                }
-             //startplace will be updated without updating landingplace
-              }else{
-                if(SpObject.startplaces){
-                    SpObject.startplaces[newId] = obj;
-                }else{
-                    SpObject.startplaces = {};
-                    SpObject.startplaces = {
-                        [newId]: obj
-                    };
-                }
+                  });
               }
-                
-                console.log(SpObject);
-            this.props.updateStartplaces(this.state.startareasId, SpObject).then(
-                this.props.dispatch(reset('NewPost')),
-                (this.props.match.params.id) ? (
-                    this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.idAreaFromUrl}`)
-                ) : (
-                    (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
-                )
-            ).catch((err) => {
-                console.log('error when safe startplaces');
-                console.log(err)
-              });
-          }
-                    
-     }else{
-        this.setState({errorAlert: true})
-        Object.keys(this.state.formErrorsValid).map((fieldName, i) => {
-               this.errorClass(this.state.formErrors[fieldName]);
-               this.validateField(fieldName, this.state[fieldName]);
-               return '';
-         });
+         //if Landingplace will be updated, without startingplace               
+         }else if(!spisUpdated && lpisUpdated && this.state.formValidLandingplaces && SpObject){
+            this.setState({errorAlert: false})
+             //if Area has a Startplace, we can update landingplace, otherwise inform user about empty startingplace
+             if(SpObject.startplaces && SpObject.startplaces.length !== 0){
+                if(SpObject.landingplace){
+                    SpObject.landingplace[newIdLP] = obj2;
+                }else{
+                    SpObject.landingplace = {};
+                    SpObject.landingplace = {
+                        [newIdLP]: obj2
+                    }
+                }
+                this.props.updateStartplaces(this.state.startareasId, SpObject).then(
+                    this.props.dispatch(reset('NewPost')),
+                    (this.props.match.params.id) ? (
+                        this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.idAreaFromUrl}`)
+                    ) : (
+                        (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
+                    )
+                ).catch((err) => {
+                    console.log('error when safe startplaces');
+                    console.log(err)
+                  });
+             }else{
+                this.setState({errorAlertLandingplaces: true});
+             }
+         }else{
+             //set error-message on true, check if form of Startplace or Landingplace or both are filled out. If yes - set the error-states on true of the fields
+            this.setState({errorAlert: true})
+            if(spisUpdated && lpisUpdated){
+                Object.keys(this.state.formErrorsValid).map((fieldName, i) => {
+                    this.errorClass(this.state.formErrors[fieldName]);
+                    this.validateField(fieldName, this.state[fieldName]);
+                    return '';
+                });
+                Object.keys(this.state.formErrorsValidLandingplaces).map((fieldName, i) => {
+                    this.errorClass(this.state.formErrorsLandingplaces[fieldName]);
+                    this.validateField(fieldName, this.state[fieldName]);
+                    return '';
+                });
+            }else if(lpisUpdated){
+                this.errorClass(this.state.formErrors.startareasId);
+                this.validateField('startareasId', this.state.startareasId);
+                Object.keys(this.state.formErrorsValidLandingplaces).map((fieldName, i) => {
+                    this.errorClass(this.state.formErrorsLandingplaces[fieldName]);
+                    this.validateField(fieldName, this.state[fieldName]);
+                    return '';
+                });
+            }else{
+                Object.keys(this.state.formErrorsValid).map((fieldName, i) => {
+                    this.errorClass(this.state.formErrors[fieldName]);
+                    this.validateField(fieldName, this.state[fieldName]);
+                    return '';
+                });
+            }
         } 
     }
 
@@ -1000,44 +1068,44 @@ class StartplaceFormContainer extends Component {
                     valueImageNumber={this.state.imagesCount}
                     valueDescription={this.state.description}
 
-                    lpclassNameName={`formular__input-wrapper ${this.errorClass(this.state.formErrors.landingplace)}`}
+                    lpclassNameName={`formular__input-wrapper ${this.errorClass(this.state.formErrorsLandingplaces.landingplace)}`}
                     lplabelName='Ort'
                     lptypeName='text'
                     lpnameStartplaceName='landingplace'
-                    lperrorMessageName={this.state.formErrors.landingplace}
+                    lperrorMessageName={this.state.formErrorsLandingplaces.landingplace}
                     lpvalueName={this.state.landingplace}
                 
-                    lpclassNameAltitude={`formular__input-wrapper formular__input-wrapper--margin-left ${this.errorClass(this.state.formErrors.landingplaceAltitude)}`}
+                    lpclassNameAltitude={`formular__input-wrapper formular__input-wrapper--margin-left ${this.errorClass(this.state.formErrorsLandingplaces.landingplaceAltitude)}`}
                     lplabelAltitude='Höhe'
                     lptypeAltitude='text'
                     lpnameAltitude='landingplaceAltitude'
-                    lperrorMessageAltitude={this.state.formErrors.landingplaceAltitude}
+                    lperrorMessageAltitude={this.state.formErrorsLandingplaces.landingplaceAltitude}
                     lpvalueAltitude={this.state.landingplaceAltitude}
 
-                    lpclassNamePlace={`formular__input-wrapper formular__input-wrapper--fullwith ${this.errorClass(this.state.formErrors.landingplacePin)}`}
+                    lpclassNamePlace={`formular__input-wrapper formular__input-wrapper--fullwith ${this.errorClass(this.state.formErrorsLandingplaces.landingplacePin)}`}
                     lplabelPlace='Standortpin'
                     lptypePlace='text'
                     lpnamePlace='landingplacePin'
-                    lperrorMessagePlace={this.state.formErrors.landingplacePin}
+                    lperrorMessagePlace={this.state.formErrorsLandingplaces.landingplacePin}
                     lpvaluePlace={this.state.landingplacePin}
 
-                    lpclassNameDesc={`formular__input-wrapper formular__input--text ${this.errorClass(this.state.formErrors.landingplaceDescription)}`}
+                    lpclassNameDesc={`formular__input-wrapper formular__input--text ${this.errorClass(this.state.formErrorsLandingplaces.landingplaceDescription)}`}
                     lplabelDescription='Beschrieb'
                     lptypeDescription='text'
                     lpnameDescription='landingplaceDescription'
-                    lperrorMessageDesc={this.state.formErrors.landingplaceDescription}
+                    lperrorMessageDesc={this.state.formErrorsLandingplaces.landingplaceDescription}
                     lpvalueDesc={this.state.landingplaceDescription}
 
-                    lpclassNameImageUrl={`formular__input-wrapper ${this.errorClass(this.state.formErrors.landingplaceImagesUrl)}`}
+                    lpclassNameImageUrl={`formular__input-wrapper ${this.errorClass(this.state.formErrorsLandingplaces.landingplaceImagesUrl)}`}
                     lplabelImages='Bildordner'
                     lpnameImages='landingplaceImagesUrl'
-                    lperrorMessageImagesUrl={this.state.formErrors.landingplaceImagesUrl}
+                    lperrorMessageImagesUrl={this.state.formErrorsLandingplaces.landingplaceImagesUrl}
                     lpvalueImageUrl={this.state.landingplaceImagesUrl}
 
-                    lpclassNameImageNumber={`formular__input-wrapper formular__input-wrapper--margin-left ${this.errorClass(this.state.formErrors.landingplaceImagesCount)}`}
+                    lpclassNameImageNumber={`formular__input-wrapper formular__input-wrapper--margin-left ${this.errorClass(this.state.formErrorsLandingplaces.landingplaceImagesCount)}`}
                     lplabelImagesCount='Anzahl Bilder'
                     lpnameImagesCount='landingplaceImagesCount'
-                    lperrorMessageimagesCount={this.state.formErrors.landingplaceImagesCount}
+                    lperrorMessageimagesCount={this.state.formErrorsLandingplaces.landingplaceImagesCount}
                     lpvalueImageNumber={this.state.landingplaceImagesCount}
 
                     toEdit={this.state.toEditArea}
@@ -1045,6 +1113,7 @@ class StartplaceFormContainer extends Component {
                 /> : null}
             </ReactTransitionGroup>
             {this.state.errorAlert && !this.state.formstartareaisvisible && <FormErrorAlert>{validation.valForm}</FormErrorAlert>}
+            {this.state.errorAlertLandingplaces && !this.state.formstartareaisvisible && <FormErrorAlert>{validation.valFormLandingplace}</FormErrorAlert>}
             <ReactTransitionGroup component="div" className="formular-wrapper">
             {this.state.formstartareaisvisible ? 
                 <StartareasForm 

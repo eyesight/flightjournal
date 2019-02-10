@@ -28,6 +28,8 @@ class StartplaceFormContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            showStartpalce: true,
+            showLandingplace: true,
             ani:'',
             formisvisible: true,
             formstartareaisvisible: false, //To check if we are on the area-part (true) or not (false).
@@ -185,6 +187,8 @@ class StartplaceFormContainer extends Component {
             let idOfArea = theId[0];
             let idOfStartplace = theId[1];
             this.setState({
+                showStartpalce: true,
+                showLandingplace: false,
                 idAreaFromUrl: idOfArea,
                 IDtoUpdateStartplace: idOfStartplace,
                 startareasId: idOfArea,
@@ -1005,6 +1009,8 @@ class StartplaceFormContainer extends Component {
             <ReactTransitionGroup component="div" className="formular-wrapper">
             {this.state.formisvisible ? 
                 <StartplacesForm 
+                    showStartpalce={this.state.showStartpalce}
+                    showLandingplace={this.state.showLandingplace}
                     onChange={this.onChange}
                     onSubmit={this.onSubmit}
                     goToPage={this.goToPage}

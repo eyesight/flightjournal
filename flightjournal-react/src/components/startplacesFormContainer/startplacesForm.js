@@ -71,7 +71,10 @@ class StartplacesForm extends Component {
                 lplabelImagesCount,
                 lpnameImagesCount,
                 lperrorMessageimagesCount,
-                lpvalueImageNumber
+                lpvalueImageNumber,
+
+                showStartpalce,
+                showLandingplace
             } = this.props;
         return (
             <form ref={this.formular1} className="formular" onSubmit={onSubmit}>
@@ -87,7 +90,7 @@ class StartplacesForm extends Component {
                 <button className="link link--black link-with-icon" onClick={goToPage}><i className="fas fa-plus"></i> neues Fluggebiet erfassen </button>
                 {toEdit ? <button className="link link--black link-with-icon" onClick={editArea}><i className="fas fa-plus"></i> dieses Fluggebiet bearbeiten </button> : null}
                 </div>
-                <StartplacesFormPart 
+                {showStartpalce ? <StartplacesFormPart 
                     onChange={onChange}
                     valueDesc={valueDescription}
                     errorMessageDesc={errorMessageDesc}
@@ -134,8 +137,8 @@ class StartplacesForm extends Component {
                     valuePlace={valuePlace}
                     valueImageUrl={valueImageUrl}
                     valueImageNumber={valueImageNumber}
-                />
-                <LandingplacesFormPart
+                /> : null}
+                {showLandingplace ? <LandingplacesFormPart
                     classNameName={lpclassNameName}
                     labelName={lplabelName}
                     onChange={onChange} 
@@ -176,7 +179,7 @@ class StartplacesForm extends Component {
                     nameImagesCount={lpnameImagesCount}
                     errorMessageimagesCount={lperrorMessageimagesCount}
                     valueImageNumber={lpvalueImageNumber}
-                />
+                /> : null}
                 <div className="button-group">
                     <div className="button-wrapper">
                         <button type="submit" className="button button--large-white">Speichern und zurück</button>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getUser } from '../../actions/UserActions';
 import { getRegions } from '../../actions/RegionsActions';
-import { getStartplaces, deleteStartplaces, deleteOneStartplace } from '../../actions/StartplacesActions';
+import { getStartplaces, deleteStartplaces, deleteOneStartplace, deleteOneLandingplace } from '../../actions/StartplacesActions';
 import { getWinddirections } from '../../actions/WinddirectionActions';
 import { getPilots } from '../../actions/PilotActions';
 import { getFlights } from '../../actions/FlightActions';
@@ -30,15 +30,19 @@ class StartplaceDetail extends Component {
             classNameDetailsTxt_txt: 'details__txt',
             classNameLink: 'anchor-wrapper',
             startplatz: 'Startplatz',
+            landeplatz: 'Landeplatz',
             isUserAdmin: false,
             allstartplaces: {},
             showMessageBoxInfo: false,
             showMessageBoxDelete: false,
+            showMessageBoxDeleteLP: false,
             deleteAll: false,
             MessageTxtDel: '',
+            MessageTxtDelLP: '',
 
             currentArea: {},
             allcurrentStartplaces: [],
+            allCurrentLandingplaces: [],
             allWind: [],
             areadesc: '',
             areatitle: '',
@@ -60,7 +64,9 @@ class StartplaceDetail extends Component {
         this.getWinddirectionsnames = this.getWinddirectionsnames.bind(this);
         this.filterimages = this.filterimages.bind(this);
         this.deletefunction = this.deletefunction.bind(this);
+        this.deletefunctionLP = this.deletefunctionLP.bind(this);
         this.deleteDefinitif = this.deleteDefinitif.bind(this);
+        this.deleteDefinitifLP = this.deleteDefinitifLP.bind(this);
         this.cancelFunc = this.cancelFunc.bind(this);
     }
 
@@ -106,6 +112,7 @@ class StartplaceDetail extends Component {
         if( nextProps.allstartplaces !== undefined && nextProps.startplace !== undefined){
             let currentArea = nextProps.startplace;
             let allCurrentStartplaces = _.values(currentArea.startplaces);
+            let allCurrentLandingplaces = _.values(currentArea.landingplaces);
             let allWinddirections = [];
             let allimagesUrl = [];
             let allimagesNames = [];
@@ -119,6 +126,15 @@ class StartplaceDetail extends Component {
                     //Loop the images count for each startplace and push url in variable
                     for(let y = 0; y<allCurrentStartplaces[i].imagesCount; y++){
                         let urlstring = `${routes.STARTPLACESIMAGES}/${allCurrentStartplaces[i].imagesUrl}/${y}.jpg`;
+                        allimagesUrl.push(urlstring);
+                        allimagesNames.push(`${y}.jpg`);
+                    }
+                }
+                for(let i = 0; i<allCurrentLandingplaces.length; i++){
+                    //Get the URl out of the images-count-variable and the images-url. 
+                    //Loop the images count for each startplace and push url in variable
+                    for(let y = 0; y<allCurrentLandingplaces[i].imagesCount; y++){
+                        let urlstring = `${routes.STARTPLACESIMAGES}/${allCurrentLandingplaces[i].imagesUrl}/${y}.jpg`;
                         allimagesUrl.push(urlstring);
                         allimagesNames.push(`${y}.jpg`);
                     }
@@ -140,6 +156,7 @@ class StartplaceDetail extends Component {
                     weatherstations: currentArea.weatherstations,
                     xc: currentArea.xc,
                     allcurrentStartplaces: allCurrentStartplaces,
+                    allCurrentLandingplaces: allCurrentLandingplaces,
                     gliderChart: currentArea.gliderChart
                 });
                 if(currentArea.webcams && currentArea.webcams[0] !== ''){
@@ -177,7 +194,6 @@ class StartplaceDetail extends Component {
                 showMessageBoxInfo: true,
                 MessageTxt: 'Dieser Startplatz wird verwendet. Er kann nicht gelöscht werden'
             })
-            console.log('this flight uses the startplace: '+flightsFiltered);
         }else{
             //TODO: Add a message to the user, if he is shure to delete it
             if(numofSP > 1){
@@ -195,6 +211,17 @@ class StartplaceDetail extends Component {
             }
         }        
     }
+    deletefunctionLP(idDel, idArea){
+        this.setState({
+            idLP: idDel,
+            idA: idArea
+        })
+        this.setState({
+            showMessageBoxDeleteLP: true,
+            MessageTxtDelLP: 'Soll der Landeplatz wirklich gelöscht werden?',
+            deleteAll: false
+        })
+    }
     deleteDefinitif(e, idDel, idArea){
         e.preventDefault();
         if(!this.state.deleteAll){
@@ -202,7 +229,8 @@ class StartplaceDetail extends Component {
             this.setState({
                 idSP: '',
                 idA: '',
-                showMessageBoxDelete: false
+                showMessageBoxDelete: false,
+                showMessageBoxDeleteLP: false
             })
         }else{
             this.props.deleteStartplaces(idArea);
@@ -216,11 +244,23 @@ class StartplaceDetail extends Component {
             });
         } 
     }
+    deleteDefinitifLP(e, idDel, idArea){
+        e.preventDefault();
+        this.setState({
+            idLP: '',
+            idA: '',
+            showMessageBoxDelete: false,
+            showMessageBoxDeleteLP: false
+        });
+        this.props.deleteOneLandingplace(idDel, idArea)
+    }
     cancelFunc(){
         this.setState({
             showMessageBoxDelete: false,
+            showMessageBoxDeleteLP: false,
             deleteAll: false,
             idSP: '',
+            idLP: '',
             idA: ''
         })
     }
@@ -349,26 +389,40 @@ class StartplaceDetail extends Component {
                                 />) : null}
                             </div>
                             <div className="details details--1column-large">
-                            <Paragraph 
-                                    classNameParagraph='text'
-                                    paragraphTxt={this.state.areadesc}
-                                />
-                            {this.state.allcurrentStartplaces.map((spitem)=>{
-                                return (<ArticleItem key={spitem.id}
-                                    themeTitle={this.state.startplatz}
-                                    hasIcon={spitem.locationpin ? true : false}
-                                    iconpin={spitem.locationpin}
-                                    titleBold={`${spitem.name}, ${spitem.altitude}\u00a0m`}
-                                    titleReg={this.getWinddirectionsnames(_.keys(spitem.winddirectionsId), this.state.allWind).join(', ')}
-                                    txt={spitem.description}
-                                    onclickfunction={(event)=>{this.filterimages(event, spitem.id)}}
-                                    link='Startplatz ansehen'
-                                    isAdmin={this.state.isUserAdmin}
-                                    route={routes.STARTPLATZ_ERFASSEN + "/" + this.props.match.params.id + "--sp--" +spitem.id}
-                                    deletefunction={()=>{this.deletefunction(spitem.id, this.props.match.params.id)}}
-                                />)
-                            })}
-                            </div>
+                                <Paragraph 
+                                        classNameParagraph='text'
+                                        paragraphTxt={this.state.areadesc}
+                                    />
+                                {this.state.allcurrentStartplaces.map((spitem)=>{
+                                    return (<ArticleItem key={spitem.id}
+                                        themeTitle={this.state.startplatz}
+                                        hasIcon={spitem.locationpin ? true : false}
+                                        iconpin={spitem.locationpin}
+                                        titleBold={`${spitem.name}, ${spitem.altitude}\u00a0m`}
+                                        titleReg={this.getWinddirectionsnames(_.keys(spitem.winddirectionsId), this.state.allWind).join(', ')}
+                                        txt={spitem.description}
+                                        onclickfunction={(event)=>{this.filterimages(event, spitem.id)}}
+                                        link='Startplatz ansehen'
+                                        isAdmin={this.state.isUserAdmin}
+                                        route={routes.STARTPLATZ_ERFASSEN + "/" + this.props.match.params.id + "--sp--" +spitem.id}
+                                        deletefunction={()=>{this.deletefunction(spitem.id, this.props.match.params.id)}}
+                                    />)
+                                })}
+                                {this.state.allCurrentLandingplaces.map((lpitem)=>{
+                                    return (<ArticleItem key={lpitem.id}
+                                        themeTitle={this.state.landeplatz}
+                                        hasIcon={lpitem.locationpin ? true : false}
+                                        iconpin={lpitem.locationpin}
+                                        titleBold={`${lpitem.name}, ${lpitem.altitude}\u00a0m`}
+                                        txt={lpitem.description}
+                                        onclickfunction={(event)=>{this.filterimages(event, lpitem.id)}}
+                                        link='Landeplatz ansehen'
+                                        isAdmin={this.state.isUserAdmin}
+                                        route={routes.STARTPLATZ_ERFASSEN + "/" + this.props.match.params.id + "--lp--" +lpitem.id}
+                                        deletefunction={()=>{this.deletefunctionLP(lpitem.id, this.props.match.params.id)}}
+                                    />)
+                                })}
+                            </div> 
                         </div>
                     </div>
                     <ReactTransitionGroup component="div">
@@ -398,6 +452,21 @@ class StartplaceDetail extends Component {
                         : null
                     }
                 </ReactTransitionGroup>
+                <ReactTransitionGroup component="div">
+                    {
+                        this.state.showMessageBoxDeleteLP ?
+                            <MessageBox
+                                txt = {this.state.MessageTxtDelLP}
+                                button1Txt = 'Ja'
+                                button2Txt = 'Abbrechen'
+                                functionBtn1 = {(event) => {this.deleteDefinitifLP(event, this.state.idLP, this.state.idA)}}
+                                functionBtn2 = {(event) => {this.cancelFunc(event)}}
+                                button1Class = 'button'
+                                button2Class = 'button'
+                            /> 
+                        : null
+                    }
+                </ReactTransitionGroup>
                 </section>
             </main>
         );
@@ -417,4 +486,4 @@ function mapStateToProps(state, props) {
     };
 } 
 
-export default withRouter(connect(mapStateToProps, { getUser, getStartplaces, getRegions, getWinddirections, getPilots, deleteStartplaces, deleteOneStartplace, getFlights })(StartplaceDetail));
+export default withRouter(connect(mapStateToProps, { getUser, getStartplaces, getRegions, getWinddirections, getPilots, deleteStartplaces, deleteOneStartplace, deleteOneLandingplace, getFlights })(StartplaceDetail));

@@ -585,7 +585,7 @@ class StartplaceFormContainer extends Component {
         let SpObject = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
 
         let newIdNr = (SpObject && SpObject.startplaces) ? this.addId(SpObject.startplaces) : '0';
-        let newIdNrLp = (SpObject && SpObject.landingplace) ? this.addId(SpObject.landingplace) : '0';
+        let newIdNrLp = (SpObject && SpObject.landingplaces) ? this.addId(SpObject.landingplaces) : '0';
         let newId = (this.state.IDtoUpdateStartplace === '') ? `${this.state.startareasId}-sp0${newIdNr}` : this.state.IDtoUpdateStartplace;
         let newIdLP = (this.state.IDtoUpdateLandingplace === '') ? `${this.state.startareasId}-lp0${newIdNrLp}` : this.state.IDtoUpdateLandingplace;
         //add the winddirections in an Object
@@ -687,13 +687,13 @@ class StartplaceFormContainer extends Component {
                   default:
                   //if the startplace will be updated
                   if(lpisUpdated){
-                    if(SpObject.startplaces && SpObject.landingplace){
+                    if(SpObject.startplaces && SpObject.landingplaces){
                         SpObject.startplaces[newId] = obj;
-                        SpObject.landingplace[newIdLP] = obj2;
-                    }else if(SpObject.startplaces && !SpObject.landingplace){
+                        SpObject.landingplaces[newIdLP] = obj2;
+                    }else if(SpObject.startplaces && !SpObject.landingplaces){
                         SpObject.startplaces[newId] = obj;
-                        SpObject.landingplace = {};
-                        SpObject.landingplace = {
+                        SpObject.landingplaces = {};
+                        SpObject.landingplaces = {
                             [newIdLP]: obj2
                         }
                     }else{
@@ -701,8 +701,8 @@ class StartplaceFormContainer extends Component {
                         SpObject.startplaces = {
                             [newId]: obj
                         };
-                        SpObject.landingplace = {};
-                        SpObject.landingplace = {
+                        SpObject.landingplaces = {};
+                        SpObject.landingplaces = {
                             [newIdLP]: obj2
                         }
                     }
@@ -735,11 +735,11 @@ class StartplaceFormContainer extends Component {
             this.setState({errorAlert: false})
              //if Area has a Startplace, we can update landingplace, otherwise inform user about empty startingplace
              if(SpObject.startplaces && SpObject.startplaces.length !== 0){
-                if(SpObject.landingplace){
-                    SpObject.landingplace[newIdLP] = obj2;
+                if(SpObject.landingplaces){
+                    SpObject.landingplaces[newIdLP] = obj2;
                 }else{
-                    SpObject.landingplace = {};
-                    SpObject.landingplace = {
+                    SpObject.landingplaces = {};
+                    SpObject.landingplaces = {
                         [newIdLP]: obj2
                     }
                 }

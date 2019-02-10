@@ -47,7 +47,6 @@ export function deleteStartplaces(id) {
 }
 
 export function updateStartplaces(id, updates, updates2) {
-  console.log(updates2);
   if(updates2){
     return dispatch => startplacesdb.child(id).update(updates, updates2);
   }else{
@@ -72,6 +71,16 @@ export function deleteOneStartplace(idSP, idArea) {
           return ref.child(idSP).remove();
         }
       });
+    });
+  }
+}
+
+export function deleteOneLandingplace(idLP, idArea) {
+  return dispatch => {
+    //check in the flights, if this startplace is used. If it is, don't delete it
+    let ref = firebase.database().ref(`startareas/${idArea}/landingplaces`);
+    return ref.once('value', snapshot =>{
+          return ref.child(idLP).remove();
     });
   }
 }

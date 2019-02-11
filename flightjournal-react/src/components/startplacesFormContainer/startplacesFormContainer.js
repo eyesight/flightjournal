@@ -984,6 +984,7 @@ class StartplaceFormContainer extends Component {
             lastUpdateSA: currentArea.lastUpdate,
             writeDateArea: currentArea.writeDate,
             authorArea: (currentArea.author && currentArea.author !== '') ? currentArea.author : this.props.user.email,
+            landingplaces: currentArea.landingplaces,
 
             startareanameValid: true,
             regionsIdValid: true

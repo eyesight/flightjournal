@@ -25,6 +25,7 @@ export const LANDINGPAGEIMAGES = 'assets/img/';
 export const SUBPAGESIMAGES = '../assets/img/';
 export const LANDINGPAGESTARTPLACESIMAGES = './assets/img/startplaetze/';
 export const STARTPLACESIMAGES = '../assets/img/startplaetze';
+export const LANDINGPLACESIMAGES = '../assets/img/landeplaetze';
 
 
 

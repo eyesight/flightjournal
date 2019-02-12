@@ -134,7 +134,7 @@ class StartplaceDetail extends Component {
                     //Get the URl out of the images-count-variable and the images-url. 
                     //Loop the images count for each startplace and push url in variable
                     for(let y = 0; y<allCurrentLandingplaces[i].imagesCount; y++){
-                        let urlstring = `${routes.STARTPLACESIMAGES}/${allCurrentLandingplaces[i].imagesUrl}/${y}.jpg`;
+                        let urlstring = `${routes.LANDINGPLACESIMAGES}/${allCurrentLandingplaces[i].imagesUrl}/${y}.jpg`;
                         allimagesUrl.push(urlstring);
                         allimagesNames.push(`${y}.jpg`);
                     }

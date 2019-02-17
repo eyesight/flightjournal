@@ -1,10 +1,10 @@
 .pagination{
   display: flex;
   justify-content: space-between;
-  width: 150px;
-  position: absolute;
-  bottom: rem-calc(45px);
+  width: 220px;
+  position: relative;
   left: 50%;
+  margin-top: rem-calc(30px);
   transform: translateX(-50%);
 
   &__text{
@@ -12,6 +12,9 @@
     white-space: nowrap;
     text-align: right;
     padding: 0 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   &__icon{
@@ -22,13 +25,19 @@
 
   &__button--next,
   &__button--prev{
-    width: 33%;
+    position: absolute;
     &:hover{
       cursor: pointer;
       .pagination__icon{
         fill: $color-black;
       }
     }
+  } 
+  &__button--next{
+    right: 0;
+  }
+  &__button--prev{
+    left: 0;
   }
   &__empty{
     width: 33%;

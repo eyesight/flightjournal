@@ -178,8 +178,6 @@ class StartplaceFormContainer extends Component {
         if (nextProps.user.loading === false && nextProps.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
           }
-        console.log(nextProps.currentLandingplace);
-        console.log(nextProps.currentStartplace);
         //if history.location.state is set (if someone likes to update a Startplace), set the values of Form-Input-Field
         if( (nextProps.currentStartplace || nextProps.currentLandingplace) && nextProps.currentPilot && nextProps.currentPilot.role === 'admin'){
             let currentSPOrLP = (nextProps.currentStartplace) ? nextProps.currentStartplace : nextProps.currentLandingplace;
@@ -818,7 +816,6 @@ class StartplaceFormContainer extends Component {
               }
          //if Landingplace will be updated, without startingplace               
          }else if(!spisUpdated && lpisUpdated && this.state.formValidLandingplaces && SpObject){
-             console.log('if Landingplace will be updated, without startingplace');
             this.setState({errorAlert: false})
              //if Area has a Startplace, we can update landingplace, otherwise inform user about empty startingplace
              if(SpObject.startplaces && SpObject.startplaces.length !== 0){
@@ -845,7 +842,6 @@ class StartplaceFormContainer extends Component {
                 this.setState({errorAlertLandingplaces: true});
              }
          }else{
-            console.log('error');
              //set error-message on true, check if form of Startplace or Landingplace or both are filled out. If yes - set the error-states on true of the fields
             this.setState({errorAlert: true})
             if(spisUpdated && lpisUpdated){
@@ -1080,9 +1076,6 @@ class StartplaceFormContainer extends Component {
     }
 
     render() {
-        console.log('startplace '+this.state.showStartplace);
-        console.log('landingplace '+this.state.showLandingplace);
-        console.log(this.state.IDtoUpdateLandingplace);
         return ( 
             <main className="main">
                 <section className="centered-layout">
@@ -1285,8 +1278,6 @@ let flightform = reduxForm({
   flightform = connect((state, props) => {
         let key = (props.match.params.id) ? props.match.params.id.split("--sp--")[0] : '';
         let keylp = (props.match.params.id) ? props.match.params.id.split("--lp--")[0] : '';
-        console.log(keylp);
-        console.log(state);
           return  {
                 flights: state.flights,
                 startplaces: state.startplaces,

@@ -2,9 +2,9 @@
   display: flex;
   justify-content: space-between;
   width: 220px;
-  position: relative;
+  position: absolute;
+  bottom: rem-calc(70px);
   left: 50%;
-  margin-top: rem-calc(30px);
   transform: translateX(-50%);
 
   &__text{

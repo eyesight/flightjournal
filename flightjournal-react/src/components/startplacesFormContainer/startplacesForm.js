@@ -73,7 +73,7 @@ class StartplacesForm extends Component {
                 lperrorMessageimagesCount,
                 lpvalueImageNumber,
 
-                showStartpalce,
+                showStartplace,
                 showLandingplace
             } = this.props;
         return (
@@ -90,7 +90,7 @@ class StartplacesForm extends Component {
                 <button className="link link--black link-with-icon" onClick={goToPage}><i className="fas fa-plus"></i> neues Fluggebiet erfassen </button>
                 {toEdit ? <button className="link link--black link-with-icon" onClick={editArea}><i className="fas fa-plus"></i> dieses Fluggebiet bearbeiten </button> : null}
                 </div>
-                {showStartpalce ? <StartplacesFormPart 
+                {showStartplace ? <StartplacesFormPart 
                     onChange={onChange}
                     valueDesc={valueDescription}
                     errorMessageDesc={errorMessageDesc}

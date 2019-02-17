@@ -28,7 +28,7 @@ class StartplaceFormContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showStartpalce: true,
+            showStartplace: true,
             showLandingplace: true,
             ani:'',
             formisvisible: true,
@@ -39,7 +39,7 @@ class StartplaceFormContainer extends Component {
             _isMounted: false,
             IDtoUpdateStartplace: '',
             IDtoUpdateLandingplace: '',
-            from: (this.props.location.state) ? this.props.location.state[0].from : undefined,
+            from: (this.props.location.state) ? this.props.location.state[0].from : undefined, //to turn back to the place in the state, when updated startplace
             idAreaFromUrl: '', //get the id from url -> Url is a compination of id of startplace and startarea
             updateArea: false,
             updateNameOfArea: false,
@@ -138,7 +138,7 @@ class StartplaceFormContainer extends Component {
             landingplaceDescription: '',
             landingplaceImagesUrl: '',
             landingplaceImagesCount: '',
-            lastUpdateLP: '',
+            lastUpdateLP: ''
         };
         this.onChange = this.onChange.bind(this);  
         this.onSubmit = this.onSubmit.bind(this);
@@ -178,40 +178,66 @@ class StartplaceFormContainer extends Component {
         if (nextProps.user.loading === false && nextProps.user.email === undefined) {
             this.props.history.replace(routes.LANDING);
           }
-        
+        console.log(nextProps.currentLandingplace);
+        console.log(nextProps.currentStartplace);
         //if history.location.state is set (if someone likes to update a Startplace), set the values of Form-Input-Field
-        if( nextProps.currentStartplace && nextProps.currentPilot && nextProps.currentPilot.role === 'admin'){
-            let currentSP = nextProps.currentStartplace;
-            let startplaces = currentSP.startplaces;
-            let theId = nextProps.match.params.id.split("--sp--");
+        if( (nextProps.currentStartplace || nextProps.currentLandingplace) && nextProps.currentPilot && nextProps.currentPilot.role === 'admin'){
+            let currentSPOrLP = (nextProps.currentStartplace) ? nextProps.currentStartplace : nextProps.currentLandingplace;
+            let startOrLandingplaces = (nextProps.currentStartplace) ? currentSPOrLP.startplaces : currentSPOrLP.landingplaces;
+            let theId = (nextProps.currentStartplace) ? nextProps.match.params.id.split("--sp--") : nextProps.match.params.id.split("--lp--");
             let idOfArea = theId[0];
             let idOfStartplace = theId[1];
-            this.setState({
-                showStartpalce: true,
-                showLandingplace: false,
+            //set the elements, when startplace will be updated
+            if(nextProps.currentStartplace ){
+                this.setState({
+                    showStartplace: true,
+                    showLandingplace: false,
+                    name: startOrLandingplaces[idOfStartplace].name,  
+                    altitude: startOrLandingplaces[idOfStartplace].altitude,
+                    winddirection: _.keys(startOrLandingplaces[idOfStartplace].winddirectionsId), 
+                    description: startOrLandingplaces[idOfStartplace].description,
+                    locationpin: startOrLandingplaces[idOfStartplace].locationpin,
+                    imagesUrl: startOrLandingplaces[idOfStartplace].imagesUrl,
+                    imagesCount: startOrLandingplaces[idOfStartplace].imagesCount,
+                    lastUpdateSP: startOrLandingplaces[idOfStartplace].lastUpdate,
+                    //set the elements for validation to true
+                    formValid: true,
+                    nameValid: true,
+                    altitudeValid: true,
+                    winddirectionValid: true,    
+                    IDtoUpdateStartplace: idOfStartplace
+                });
+            //Set elements, when landingplaces will be updated
+            }else{
+                this.setState({
+                    showStartplace: false,
+                    showLandingplace: true,
+                    landingplace: startOrLandingplaces[idOfStartplace].name, 
+                    landingplaceAltitude: startOrLandingplaces[idOfStartplace].altitude,
+                    landingplaceDescription: startOrLandingplaces[idOfStartplace].description,
+                    landingplacePin: startOrLandingplaces[idOfStartplace].locationpin,
+                    landingplaceImagesUrl: startOrLandingplaces[idOfStartplace].imagesUrl,
+                    landingplaceImagesCount: startOrLandingplaces[idOfStartplace].imagesCount,
+                    lastUpdateLP: startOrLandingplaces[idOfStartplace].lastUpdate,
+                    formValidLandingplaces: true,
+                    landingplaceValid: true,
+                    landingplaceAltitudeValid: true,
+                    IDtoUpdateLandingplace: idOfStartplace
+                })
+            }
+            //these elements can be used for both
+            this.setState({         
                 idAreaFromUrl: idOfArea,
-                IDtoUpdateStartplace: idOfStartplace,
-                startareasId: idOfArea,
-                name: startplaces[idOfStartplace].name, 
-                altitude: startplaces[idOfStartplace].altitude,
-                description: startplaces[idOfStartplace].description,
-                locationpin: startplaces[idOfStartplace].locationpin,
-                winddirection: _.keys(startplaces[idOfStartplace].winddirectionsId), 
-                lastUpdateSP: startplaces[idOfStartplace].lastUpdate,
-                imagesUrl: startplaces[idOfStartplace].imagesUrl,
-                imagesCount: startplaces[idOfStartplace].imagesCount,
-                rating: startplaces[idOfStartplace].rating,
-                writeDateSP: startplaces[idOfStartplace].writeDate,
-                authorSP: (startplaces[idOfStartplace].author && startplaces[idOfStartplace].author !== '') ? startplaces[idOfStartplace].author : nextProps.user.email,
+                startareasId: idOfArea,        
+                
+                rating: startOrLandingplaces[idOfStartplace].rating,
+                writeDateSP: startOrLandingplaces[idOfStartplace].writeDate,
+                authorSP: (startOrLandingplaces[idOfStartplace].author && startOrLandingplaces[idOfStartplace].author !== '') ? startOrLandingplaces[idOfStartplace].author : nextProps.user.email,
 
                 //set state of forminput
                 //TODO: find a better solution
-                formValid: true,
                 startareasIdValid: true,
-                nameValid: true,
-                altitudeValid: true,
-                winddirectionValid: true,
-                idToEditArea: idOfArea //DELETE
+                idToEditArea: idOfArea
             })
         }
     }
@@ -620,11 +646,17 @@ class StartplaceFormContainer extends Component {
                 imagesCount: this.state.landingplaceImagesCount,
                 author: author
             }
-        if(spisUpdated && this.state.formValid && SpObject && ((lpisUpdated && this.state.formValidLandingplaces) || !lpisUpdated)){
+        console.log(spisUpdated || lpisUpdated);
+        console.log(SpObject);
+        console.log((lpisUpdated && this.state.formValidLandingplaces) || !lpisUpdated);
+        console.log((spisUpdated && this.state.formValid) || !spisUpdated);
+        if((spisUpdated || lpisUpdated) && SpObject && ((lpisUpdated && this.state.formValidLandingplaces) || !lpisUpdated) && ((spisUpdated && this.state.formValid) || !spisUpdated)){
+            console.log('something');
             this.setState({errorAlert: false});
             switch (true) {
                     //update startplace, when startarea isn't changed
-                    case this.state.startareasId !== '' && this.state.idAreaFromUrl !== '' && this.state.idAreaFromUrl === this.state.startareasId:
+                    case this.state.startareasId !== '' && this.state.idAreaFromUrl !== '' && this.state.idAreaFromUrl === this.state.startareasId && this.state.showStartplace:
+                    console.log('update startplace, when startarea isnt changed');
                     let Obj = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
                     let idofSp = Obj.startplaces[this.state.IDtoUpdateStartplace].id;
                         Obj.startplaces[idofSp] = obj;
@@ -641,9 +673,32 @@ class StartplaceFormContainer extends Component {
                         console.log(err)
                         });
                   break;
+
+                  //update landingplace, when startarea isn't changed
+                  case this.state.startareasId !== '' && this.state.idAreaFromUrl !== '' && this.state.idAreaFromUrl === this.state.startareasId && this.state.showLandingplace:
+                  console.log('update landingplace, when startarea isnt changed');
+                  let ObjLandingplace = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
+                  let idofLp = ObjLandingplace.landingplaces[this.state.IDtoUpdateLandingplace].id; 
+                  console.log(idofLp);
+
+                  ObjLandingplace.landingplaces[idofLp] = obj2;
+                  this.props.updateStartplaces(this.state.startareasId, ObjLandingplace).then(
+                      //when new Object is updated, state saveAreaIds will set to true, so function in componentDidUpdate will be continued
+                      this.props.dispatch(reset('NewPost')),
+                      (this.props.match.params.id) ? (
+                          this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.idAreaFromUrl}`)
+                      ) : (
+                          (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
+                      )
+                  ).catch((err) => {
+                      console.log('error when update startplaces');
+                      console.log(err)
+                      });
+                break;
                 //update startplace, when someone change the area: if there is set an ID to update a fligt and the area of the startplace changed - we have to delete the startplace from the old area
                 //when this happens, we have to check all flights and update their startplaces
-                case this.state.startareasId !== '' && this.state.idAreaFromUrl !== '' && this.state.idAreaFromUrl !== this.state.startareasId:
+                case this.state.startareasId !== '' && this.state.idAreaFromUrl !== '' && this.state.idAreaFromUrl !== this.state.startareasId && this.state.showStartplace:
+                    console.log('update startplace, when someone change the area');
                     let ObjNew = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
                     let ObjOld = _.find(this.props.startplaces, {id: this.state.idAreaFromUrl});//the area which should remove the startplace
                     // eslint-disable-next-line 
@@ -684,6 +739,37 @@ class StartplaceFormContainer extends Component {
                         }
                     ) 
                   break;
+                  //update landingplace, when someone change the area: if there is set an ID to update a fligt and the area of the landingplace changed - we have to delete the landingplace from the old area
+                //when this happens, we have to check all flights and update their landingplaces
+                case this.state.startareasId !== '' && this.state.idAreaFromUrl !== '' && this.state.idAreaFromUrl !== this.state.startareasId && this.state.showLandingplace:
+                    console.log('update landingplace, when someone change the area');
+                    let ObjNewLP = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
+                    let ObjOldLP = _.find(this.props.startplaces, {id: this.state.idAreaFromUrl});//the area which should remove the startplace
+                    // eslint-disable-next-line 
+                    let setObjectNew = (ObjNewLP.landingplaces) ? (ObjNewLP.landingplaces[this.state.IDtoUpdateLandingplace] = obj2) : (ObjNewLP.landingplaces = {}, ObjNewLP.landingplaces = { [this.state.IDtoUpdateLandingplace]: obj2});
+                    delete ObjOldLP.landingplaces[this.state.IDtoUpdateLandingplace]; // delete the landingplace from the "old" area
+
+                    this.props.updateStartplaces(this.state.idAreaFromUrl, ObjOldLP).then(
+                        this.props.dispatch(reset('NewPost')),
+                    ).then(
+                        this.props.updateStartplaces(this.state.startareasId, ObjNewLP).then(
+                            this.props.dispatch(reset('NewPost')),
+                            (this.props.match.params.id) ? (
+                                this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.idAreaFromUrl}`)
+                            ) : (
+                                (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
+                            )
+                        ).catch((err) => {
+                            console.log('error when update landingplaces with new values');
+                            console.log(err)
+                            }
+                        )
+                    ).catch((err) => {
+                        console.log('error when update landingplaces by deleting the old one')
+                        console.log(err)
+                        }
+                    ) 
+                    break;
                   default:
                   //if the startplace will be updated
                   if(lpisUpdated){
@@ -732,6 +818,7 @@ class StartplaceFormContainer extends Component {
               }
          //if Landingplace will be updated, without startingplace               
          }else if(!spisUpdated && lpisUpdated && this.state.formValidLandingplaces && SpObject){
+             console.log('if Landingplace will be updated, without startingplace');
             this.setState({errorAlert: false})
              //if Area has a Startplace, we can update landingplace, otherwise inform user about empty startingplace
              if(SpObject.startplaces && SpObject.startplaces.length !== 0){
@@ -758,6 +845,7 @@ class StartplaceFormContainer extends Component {
                 this.setState({errorAlertLandingplaces: true});
              }
          }else{
+            console.log('error');
              //set error-message on true, check if form of Startplace or Landingplace or both are filled out. If yes - set the error-states on true of the fields
             this.setState({errorAlert: true})
             if(spisUpdated && lpisUpdated){
@@ -992,6 +1080,9 @@ class StartplaceFormContainer extends Component {
     }
 
     render() {
+        console.log('startplace '+this.state.showStartplace);
+        console.log('landingplace '+this.state.showLandingplace);
+        console.log(this.state.IDtoUpdateLandingplace);
         return ( 
             <main className="main">
                 <section className="centered-layout">
@@ -1010,7 +1101,7 @@ class StartplaceFormContainer extends Component {
             <ReactTransitionGroup component="div" className="formular-wrapper">
             {this.state.formisvisible ? 
                 <StartplacesForm 
-                    showStartpalce={this.state.showStartpalce}
+                    showStartplace={this.state.showStartplace}
                     showLandingplace={this.state.showLandingplace}
                     onChange={this.onChange}
                     onSubmit={this.onSubmit}
@@ -1193,10 +1284,14 @@ let flightform = reduxForm({
   
   flightform = connect((state, props) => {
         let key = (props.match.params.id) ? props.match.params.id.split("--sp--")[0] : '';
+        let keylp = (props.match.params.id) ? props.match.params.id.split("--lp--")[0] : '';
+        console.log(keylp);
+        console.log(state);
           return  {
                 flights: state.flights,
                 startplaces: state.startplaces,
                 currentStartplace: _.find(state.startplaces, { id: key }),
+                currentLandingplace: _.find(state.startplaces, {id: keylp}),
                 user: state.user,
                 regions: state.regions,
                 winddirections: state.winddirections,

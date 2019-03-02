@@ -644,17 +644,11 @@ class StartplaceFormContainer extends Component {
                 imagesCount: this.state.landingplaceImagesCount,
                 author: author
             }
-        console.log(spisUpdated || lpisUpdated);
-        console.log(SpObject);
-        console.log((lpisUpdated && this.state.formValidLandingplaces) || !lpisUpdated);
-        console.log((spisUpdated && this.state.formValid) || !spisUpdated);
-        if((spisUpdated || lpisUpdated) && SpObject && ((lpisUpdated && this.state.formValidLandingplaces) || !lpisUpdated) && ((spisUpdated && this.state.formValid) || !spisUpdated)){
-            console.log('something');
+        if(spisUpdated && SpObject && ((lpisUpdated && this.state.formValidLandingplaces) || !lpisUpdated) && ((spisUpdated && this.state.formValid) || !spisUpdated)){
             this.setState({errorAlert: false});
             switch (true) {
                     //update startplace, when startarea isn't changed
                     case this.state.startareasId !== '' && this.state.idAreaFromUrl !== '' && this.state.idAreaFromUrl === this.state.startareasId && this.state.showStartplace:
-                    console.log('update startplace, when startarea isnt changed');
                     let Obj = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
                     let idofSp = Obj.startplaces[this.state.IDtoUpdateStartplace].id;
                         Obj.startplaces[idofSp] = obj;
@@ -674,10 +668,8 @@ class StartplaceFormContainer extends Component {
 
                   //update landingplace, when startarea isn't changed
                   case this.state.startareasId !== '' && this.state.idAreaFromUrl !== '' && this.state.idAreaFromUrl === this.state.startareasId && this.state.showLandingplace:
-                  console.log('update landingplace, when startarea isnt changed');
                   let ObjLandingplace = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
                   let idofLp = ObjLandingplace.landingplaces[this.state.IDtoUpdateLandingplace].id; 
-                  console.log(idofLp);
 
                   ObjLandingplace.landingplaces[idofLp] = obj2;
                   this.props.updateStartplaces(this.state.startareasId, ObjLandingplace).then(
@@ -696,7 +688,6 @@ class StartplaceFormContainer extends Component {
                 //update startplace, when someone change the area: if there is set an ID to update a fligt and the area of the startplace changed - we have to delete the startplace from the old area
                 //when this happens, we have to check all flights and update their startplaces
                 case this.state.startareasId !== '' && this.state.idAreaFromUrl !== '' && this.state.idAreaFromUrl !== this.state.startareasId && this.state.showStartplace:
-                    console.log('update startplace, when someone change the area');
                     let ObjNew = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
                     let ObjOld = _.find(this.props.startplaces, {id: this.state.idAreaFromUrl});//the area which should remove the startplace
                     // eslint-disable-next-line 
@@ -740,7 +731,6 @@ class StartplaceFormContainer extends Component {
                   //update landingplace, when someone change the area: if there is set an ID to update a fligt and the area of the landingplace changed - we have to delete the landingplace from the old area
                 //when this happens, we have to check all flights and update their landingplaces
                 case this.state.startareasId !== '' && this.state.idAreaFromUrl !== '' && this.state.idAreaFromUrl !== this.state.startareasId && this.state.showLandingplace:
-                    console.log('update landingplace, when someone change the area');
                     let ObjNewLP = _.find(this.props.startplaces, {id: this.state.startareasId});//Get the Area, which should be updated
                     let ObjOldLP = _.find(this.props.startplaces, {id: this.state.idAreaFromUrl});//the area which should remove the startplace
                     // eslint-disable-next-line 
@@ -801,7 +791,6 @@ class StartplaceFormContainer extends Component {
                         };
                     }
                   }
-                    
                 this.props.updateStartplaces(this.state.startareasId, SpObject).then(
                     this.props.dispatch(reset('NewPost')),
                     (this.props.match.params.id) ? (
@@ -835,7 +824,7 @@ class StartplaceFormContainer extends Component {
                         (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
                     )
                 ).catch((err) => {
-                    console.log('error when safe startplaces');
+                    console.log('error when safe landingplace');
                     console.log(err)
                   });
              }else{
@@ -909,7 +898,6 @@ class StartplaceFormContainer extends Component {
             obj = {
                 description: this.state.areaDescription,
                 funicularLink: this.state.funicularLink,
-                landingplaces: this.state.landingplaces,
                 lastUpdate: updateLastUpdateArray(this.state.lastUpdateSA, actualTimestamp),
                 locationpin: this.state.arealocationpin,
                 name: this.state.startareaname,
@@ -924,6 +912,11 @@ class StartplaceFormContainer extends Component {
                 xc: this.state.xc,
                 gliderChart: this.state.gliderChart
             }
+            //if landingplace exists
+            if(this.state.landingplaces){
+                obj.landingplaces = this.state.landingplaces;
+            }
+
             if(this.state.updateArea){
                 //if the Name of the Area is changed, we have to change all properties of the flights (startplace.areaName), which contain this area
                 if(this.state.updateNameOfArea){

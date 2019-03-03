@@ -912,7 +912,7 @@ class FlugdatenFormContainer extends Component {
         e.preventDefault();
         this.props.history.push({
             pathname: routes.STARTPLATZ_ERFASSEN,
-            state: [{from: routes.FLUGDATEN_ERFASSEN}]
+            state: [{from: routes.FLUGDATEN_ERFASSEN, idOfFlight: this.state.IDtoUpdate}]
         });
     }
 
@@ -1021,6 +1021,7 @@ class FlugdatenFormContainer extends Component {
     }
 
     render() {
+        console.log(this.state.IDtoUpdate);
         return ( 
             <main className="main">
                 <section className="centered-layout">

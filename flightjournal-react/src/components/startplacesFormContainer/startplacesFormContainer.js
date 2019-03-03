@@ -40,6 +40,7 @@ class StartplaceFormContainer extends Component {
             IDtoUpdateStartplace: '',
             IDtoUpdateLandingplace: '',
             from: (this.props.location.state) ? this.props.location.state[0].from : undefined, //to turn back to the place in the state, when updated startplace
+            idOfFlightToUpdate: (this.props.location.state) ? this.props.location.state[0].idOfFlight : undefined,
             idAreaFromUrl: '', //get the id from url -> Url is a compination of id of startplace and startarea
             updateArea: false,
             updateNameOfArea: false,
@@ -156,6 +157,7 @@ class StartplaceFormContainer extends Component {
         this.fillAreaFormToUpdate = this.fillAreaFormToUpdate.bind(this);
         this.addId = this.addId.bind(this);
         this.updateAllFlights = this.updateAllFlights.bind(this);
+        this.turnBackTo = this.turnBackTo.bind(this);
     }
     
     componentWillMount() {
@@ -599,6 +601,18 @@ class StartplaceFormContainer extends Component {
         }
     }
 
+    turnBackTo(){
+        let turnback = '';
+        if (this.state.from && !this.state.idOfFlightToUpdate) {
+            turnback = this.state.from;
+        }else if(this.state.from && this.state.idOfFlightToUpdate){
+            turnback = this.state.from + "/" + this.state.idOfFlightToUpdate;
+        }else {
+            turnback = routes.HOME;
+        }
+        return turnback;
+    }
+
     onSubmit(e){
         e.preventDefault();
         let lpisUpdated = (this.state.landingplace !== '' || this.state.landingplaceAltitude !== '' || this.state.landingplacePin !== '' ||this.state.landingplaceDescription !== '' || this.state.landingplaceImagesUrl !== '' || this.state.landingplaceImagesCount !== '') ? true : false;
@@ -658,7 +672,7 @@ class StartplaceFormContainer extends Component {
                         (this.props.match.params.id) ? (
                             this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.idAreaFromUrl}`)
                         ) : (
-                            (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
+                            this.props.history.push(this.turnBackTo())
                         )
                     ).catch((err) => {
                         console.log('error when update startplaces');
@@ -678,7 +692,7 @@ class StartplaceFormContainer extends Component {
                       (this.props.match.params.id) ? (
                           this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.idAreaFromUrl}`)
                       ) : (
-                          (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
+                        this.props.history.push(this.turnBackTo())
                       )
                   ).catch((err) => {
                       console.log('error when update startplaces');
@@ -715,7 +729,7 @@ class StartplaceFormContainer extends Component {
                             (this.props.match.params.id) ? (
                                 this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.idAreaFromUrl}`)
                             ) : (
-                                (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
+                                this.props.history.push(this.turnBackTo())
                             )
                         ).catch((err) => {
                             console.log('error when update startplaces with new values');
@@ -745,7 +759,7 @@ class StartplaceFormContainer extends Component {
                             (this.props.match.params.id) ? (
                                 this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.idAreaFromUrl}`)
                             ) : (
-                                (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
+                                this.props.history.push(this.turnBackTo())
                             )
                         ).catch((err) => {
                             console.log('error when update landingplaces with new values');
@@ -796,7 +810,7 @@ class StartplaceFormContainer extends Component {
                     (this.props.match.params.id) ? (
                         this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.idAreaFromUrl}`)
                     ) : (
-                        (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
+                        this.props.history.push(this.turnBackTo())
                     )
                 ).catch((err) => {
                     console.log('error when safe startplaces');
@@ -821,7 +835,7 @@ class StartplaceFormContainer extends Component {
                     (this.props.match.params.id) ? (
                         this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.idAreaFromUrl}`)
                     ) : (
-                        (this.state.from) ? this.props.history.push(this.state.from) : this.props.history.push(routes.HOME)
+                        this.props.history.push(this.turnBackTo())
                     )
                 ).catch((err) => {
                     console.log('error when safe landingplace');
@@ -991,6 +1005,9 @@ class StartplaceFormContainer extends Component {
             if(this.state.toEditArea){
                 this.props.dispatch(reset('NewPost'));
                 this.props.history.push(`${routes.STARTPLATZOHNEID}${this.state.idAreaFromUrl}`)
+            }else if(this.state.idOfFlightToUpdate){
+                this.props.dispatch(reset('NewPost'));
+                this.props.history.push(routes.FLUGDATEN_ERFASSEN + '/' + this.state.idOfFlightToUpdate)
             }else{
                 this.props.dispatch(reset('NewPost'));
                 this.props.history.push(routes.FLUGDATEN_ERFASSEN)

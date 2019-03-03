@@ -45,7 +45,6 @@
         }
 
         &:hover,
-        &:focus,
         &.active{
           color: $color-black;
           transition: color .5s ease 0s;

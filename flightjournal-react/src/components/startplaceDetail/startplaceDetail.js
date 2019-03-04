@@ -301,7 +301,7 @@ class StartplaceDetail extends Component {
                             name={this.state.imagesName}
                             classnamesWrapper='detail-layout__left detail-layout__left--small image-galerie'
                     />) : null}
-                    <div className="detail-layout__right">
+                    <div className="detail-layout__right detail-layout__right--large">
                         <div className="detail-layout__grid12">
                             <div className="details details--1column-small">
                             {this.state.arealocationpin ? (

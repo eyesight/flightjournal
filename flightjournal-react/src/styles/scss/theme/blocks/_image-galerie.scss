@@ -1,5 +1,6 @@
 .image-galerie{
   position: relative;
+  animation: fadeIn 1s 1s;
 
   &__image{
     width: 100%;
@@ -83,6 +84,27 @@
     }
     @include bp(max, $phone){
       height: 350px; 
+    }
+  }
+  &--animated .image-galerie__wrapper{ 
+    > .image-galerie__image {
+      opacity: 0;
+      @for $i from 1 through 20 {
+        &:nth-child(#{$i}){
+          animation: slideInFromBottomImg  0.5s ease-out $i*0.25s forwards;
+        }
+      }
+    }
+  }
+
+  &--newanimated .image-galerie__wrapper{ 
+    > .image-galerie__image {
+      opacity: 0;
+      @for $i from 1 through 20 {
+        &:nth-child(#{$i}){
+          animation: slideInFromBottomImg2  0.5s ease-out $i*0.25s forwards;
+        }
+      }
     }
   }
 }

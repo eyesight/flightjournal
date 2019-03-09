@@ -2,7 +2,7 @@ import React from 'react';
 
 const ArticleItem = (props) => {
     return (
-        <div className="article-item">
+        <div className={props.classNameWrapper}>
             <p className="theme-title">{props.themeTitle}</p>
             <h2 className="title-h2">{props.titleBold}
                 {props.hasIcon ? <a className="title-h2__icon" rel="noopener noreferrer" target="_blank" href={props.iconpin}>

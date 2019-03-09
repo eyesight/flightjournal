@@ -210,7 +210,7 @@
     }
   }
 
-  &__noflights{
+  &__noflights{ 
     text-align: center;
   }
   
@@ -221,23 +221,6 @@
         animation: slideInFromBottom  0.25s ease-out $i*0.05s forwards;
       }
     }
-  }
-}
-
-@keyframes slideInFromBottom { 
-  0% {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  50% {
-    opacity: 0;
-  }
-  51%{
-    opacity: 1;
-  }
-  100% { 
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 

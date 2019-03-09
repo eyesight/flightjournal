@@ -20,6 +20,8 @@ import ImageGallerie from '../imageGallerie/imageGallerie';
 import ArticleItem from '../articleItem/articleItem'
 import DetailsItem from '../detailsItem/detailsItem';
 
+let oldImage = '';
+
 class StartplaceDetail extends Component {
     constructor(props) {
         super(props);
@@ -58,7 +60,10 @@ class StartplaceDetail extends Component {
             shvInfo: '',
             weatherstations: [],
             xc: '',
-            MessageTxt: ''
+            MessageTxt: '',
+
+            activeId: '',
+            classnamesWrapper: 'detail-layout__left detail-layout__left--small image-galerie'
         };
         this.renderArray = this.renderArray.bind(this);
         this.getWinddirectionsnames = this.getWinddirectionsnames.bind(this);
@@ -150,6 +155,8 @@ class StartplaceDetail extends Component {
                     regionscountry: currentArea.region.country,
                     imagesUrl: allimagesUrl,
                     imagesName: allimagesNames,
+                    allimagesUrl: allimagesUrl,
+                    allimagesNames: allimagesNames,
                     funicularLink: currentArea.funicularLink,
                     webcams: currentArea.webcams,
                     shvInfo: currentArea.shvInfo,
@@ -178,6 +185,52 @@ class StartplaceDetail extends Component {
 
     filterimages(e, id){
         e.preventDefault();
+        let thestartplace = _.find(this.state.allcurrentStartplaces, { id: id });
+        let thelandingplace = _.find(this.state.allCurrentLandingplaces, { id: id });
+        let imagesurlarr = [];
+        let imagesnamearr = [];
+        let actualImage = id;
+
+        if(this.state.classnamesWrapper === 'detail-layout__left detail-layout__left--small image-galerie'){
+            this.setState({
+                classnamesWrapper: 'detail-layout__left detail-layout__left--small image-galerie image-galerie--animated'
+            })
+        }else if(this.state.classnamesWrapper === 'detail-layout__left detail-layout__left--small image-galerie image-galerie--animated'){
+            this.setState({
+                classnamesWrapper: 'detail-layout__left detail-layout__left--small image-galerie image-galerie--newanimated'
+            })
+        }else{
+            this.setState({
+                classnamesWrapper: 'detail-layout__left detail-layout__left--small image-galerie image-galerie--animated'
+            })
+        }
+
+        if(actualImage === oldImage && this.state.activeId !== ''){
+            imagesurlarr = this.state.allimagesUrl;
+            imagesnamearr = this.state.allimagesNames;
+            this.setState({activeId: ''})
+        }else{
+            this.setState({activeId: id})
+            if(thestartplace && thestartplace.length !== 0){
+                for(let y = 0; y<thestartplace.imagesCount; y++){
+                    let urlstring = `${routes.STARTPLACESIMAGES}/${thestartplace.imagesUrl}/${y}.jpg`;
+                    imagesurlarr.push(urlstring);
+                    imagesnamearr.push(`${y}.jpg`);
+                }
+            }else if(thelandingplace && thelandingplace.length !== 0){
+                for(let y = 0; y<thelandingplace.imagesCount; y++){
+                    let urlstring = `${routes.LANDINGPLACESIMAGES }/${thelandingplace.imagesUrl}/${y}.jpg`;
+                    imagesurlarr.push(urlstring);
+                    imagesnamearr.push(`${y}.jpg`);
+                }
+            }
+        }
+
+        this.setState({
+            imagesUrl: imagesurlarr,
+            imagesName: imagesnamearr,
+        })
+        oldImage = id;
     }
 
     deletefunction(idDel, idArea){
@@ -299,7 +352,7 @@ class StartplaceDetail extends Component {
                         <ImageGallerie 
                             url={this.state.imagesUrl}
                             name={this.state.imagesName}
-                            classnamesWrapper='detail-layout__left detail-layout__left--small image-galerie'
+                            classnamesWrapper={this.state.classnamesWrapper}
                     />) : null}
                     <div className="detail-layout__right detail-layout__right--large">
                         <div className="detail-layout__grid12">
@@ -393,7 +446,7 @@ class StartplaceDetail extends Component {
                                         classNameParagraph='text'
                                         paragraphTxt={this.state.areadesc}
                                     />
-                                {this.state.allcurrentStartplaces.map((spitem)=>{
+                                {this.state.allcurrentStartplaces.map((spitem, index)=>{
                                     return (<ArticleItem key={spitem.id}
                                         themeTitle={this.state.startplatz}
                                         hasIcon={spitem.locationpin ? true : false}
@@ -402,10 +455,11 @@ class StartplaceDetail extends Component {
                                         titleReg={this.getWinddirectionsnames(_.keys(spitem.winddirectionsId), this.state.allWind).join(', ')}
                                         txt={spitem.description}
                                         onclickfunction={(event)=>{this.filterimages(event, spitem.id)}}
-                                        link='Startplatz ansehen'
+                                        link={spitem.id === this.state.activeId ? 'alle Bilder ansehen' : 'Startplatz ansehen'}
                                         isAdmin={this.state.isUserAdmin}
                                         route={routes.STARTPLATZ_ERFASSEN + "/" + this.props.match.params.id + "--sp--" +spitem.id}
                                         deletefunction={()=>{this.deletefunction(spitem.id, this.props.match.params.id)}}
+                                        classNameWrapper={spitem.id === this.state.activeId ? "article-item active" : 'article-item'}
                                     />)
                                 })}
                                 {this.state.allCurrentLandingplaces.map((lpitem)=>{
@@ -416,10 +470,11 @@ class StartplaceDetail extends Component {
                                         titleBold={`${lpitem.name}, ${lpitem.altitude}\u00a0m`}
                                         txt={lpitem.description}
                                         onclickfunction={(event)=>{this.filterimages(event, lpitem.id)}}
-                                        link='Landeplatz ansehen'
+                                        link={lpitem.id === this.state.activeId ? 'alle Bilder ansehen' : 'Landeplatz ansehen'}
                                         isAdmin={this.state.isUserAdmin}
                                         route={routes.STARTPLATZ_ERFASSEN + "/" + this.props.match.params.id + "--lp--" +lpitem.id}
                                         deletefunction={()=>{this.deletefunctionLP(lpitem.id, this.props.match.params.id)}}
+                                        classNameWrapper={lpitem.id === this.state.activeId ? "article-item active" : 'article-item'}
                                     />)
                                 })}
                             </div> 

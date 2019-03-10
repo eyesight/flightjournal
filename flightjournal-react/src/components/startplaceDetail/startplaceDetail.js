@@ -321,6 +321,7 @@ class StartplaceDetail extends Component {
     render() { 
         let textTitelBold = `${this.state.areatitle}`;
         let textTitelSmall = `${this.state.regionsname}, ${this.state.regionscountry}`;
+        console.log(this.state.imagesUrl.length);
         return (
             <main className="main">
                     <section className="detail-layout">
@@ -353,7 +354,7 @@ class StartplaceDetail extends Component {
                             url={this.state.imagesUrl}
                             name={this.state.imagesName}
                             classnamesWrapper={this.state.classnamesWrapper}
-                    />) : null}
+                    />) : <p>keine Bilder vorhanden</p>}
                     <div className="detail-layout__right detail-layout__right--large">
                         <div className="detail-layout__grid12">
                             <div className="details details--1column-small">
@@ -456,6 +457,7 @@ class StartplaceDetail extends Component {
                                         txt={spitem.description}
                                         onclickfunction={(event)=>{this.filterimages(event, spitem.id)}}
                                         link={spitem.id === this.state.activeId ? 'alle Bilder ansehen' : 'Startplatz ansehen'}
+                                        hasImages={spitem.imagesCount !== 0}
                                         isAdmin={this.state.isUserAdmin}
                                         route={routes.STARTPLATZ_ERFASSEN + "/" + this.props.match.params.id + "--sp--" +spitem.id}
                                         deletefunction={()=>{this.deletefunction(spitem.id, this.props.match.params.id)}}
@@ -471,6 +473,7 @@ class StartplaceDetail extends Component {
                                         txt={lpitem.description}
                                         onclickfunction={(event)=>{this.filterimages(event, lpitem.id)}}
                                         link={lpitem.id === this.state.activeId ? 'alle Bilder ansehen' : 'Landeplatz ansehen'}
+                                        hasImages={lpitem.imagesCount !== 0}
                                         isAdmin={this.state.isUserAdmin}
                                         route={routes.STARTPLATZ_ERFASSEN + "/" + this.props.match.params.id + "--lp--" +lpitem.id}
                                         deletefunction={()=>{this.deletefunctionLP(lpitem.id, this.props.match.params.id)}}

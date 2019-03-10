@@ -13,7 +13,7 @@ const ArticleItem = (props) => {
                                  </a> : null}
             <br/><span className="title--regular">{props.titleReg}</span></h2>
             <p className="text">{props.txt}</p>
-            <button className="anchor-wrapper anchor-wrapper--margin-top" onClick={props.onclickfunction}><span className="anchor">{props.link}</span></button>
+            {props.hasImages ? <button className="anchor-wrapper anchor-wrapper--margin-top" onClick={props.onclickfunction}><span className="anchor">{props.link}</span></button> : null}
             {props.isAdmin ? <div className="article-item__icon-wrapper">
                                 <a className="article-item__icon" href={props.route}>
                                     <svg version="1.1" className="svg-icon svg-icon--edit" x="0px" y="0px" viewBox="0 0 23.7 23.7">

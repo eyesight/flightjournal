@@ -44,8 +44,8 @@
       width: 48%;
       padding-right: 2%; 
 
-      &:nth-child(-n+3){
-        padding-top: rem-calc(100px);
+      &:nth-child(-n+4){
+        padding-top: 0;
       }
 
       &:nth-child(3n+3) {

@@ -41,6 +41,41 @@
         padding-left: 2%; 
       }
     }
+    @include bp(min, $screen-ml){
+       width: 26.2%;
+       border-right: 1px solid $color-gray-light;
+
+       &:nth-child(-n+3){
+        width: 26.2%;
+      }
+      &:nth-child(-n+4){
+        width: 26.2%;
+      }
+      &:nth-child(3n+3) {
+        width: 26.2%;
+        padding-right: 2.4%;
+        border-right: 1px solid $color-gray-light;
+      }
+      div &:nth-child(4n+4) {
+        width: 23.8%;
+        padding-right: 0;
+        border-right: none;
+      }
+  
+      &:nth-child(3n+2) {
+        width: 26.2%;
+      }
+  
+      &:nth-child(3n+1) {
+        padding-left: 2.4%;
+      }
+      &:nth-child(4n+1) {
+        padding-left: 0;
+        padding-right: 2.4%;
+        width: 23.8%;
+      }
+
+    }
 
     @include bp(max, $ipad-ls) {
       width: 48%;

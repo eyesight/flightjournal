@@ -47,6 +47,9 @@
 
   td{
     padding: 10px 10px 10px 0;
+    @include bp(max, $ipad-p) {
+      padding: 5px 10px 0 0;
+    }
   }
   th{
     padding: 0 10px 40px 0;
@@ -135,6 +138,17 @@
     @include bp(max, 450px){
       flex: none;
     }
+    @include bp(max, $ipad-p) {
+      width: 110px;
+      max-width: 110px
+    }
+  }
+
+  &__details--icons{
+    @include bp(max, $ipad-p) {
+      width: 150px;
+      max-width: 150px;
+    }
   }
 
   &__date,
@@ -143,6 +157,17 @@
       @include bp(max, $ipad-p) {
         content:',';
       }
+    }
+  }
+
+  &__distance{
+    @include bp(max, $ipad-p) {
+      width: 75%;
+      min-width: 75%;
+    }
+    @include bp(max, $phone){
+      width: 50%;
+      min-width: 50%;
     }
   }
 
@@ -201,11 +226,11 @@
     }
     &:first-of-type{
     @include bp(max, $phone){
-        margin-left: 40px;
+        margin-left: 25px;
       }
     }
     @include bp(max, $ipad-p){
-      margin-left: 40px;
+      margin-left: 25px;
       margin-top: 5px;
     }
   }

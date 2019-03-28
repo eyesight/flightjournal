@@ -17,6 +17,14 @@ class Logo extends Component {
         this.tropfen2 = React.createRef();
         this.tropfen3 = React.createRef();
         this.tropfen4 = React.createRef();
+        this.sonnenStrahl1 = React.createRef();
+        this.sonnenStrahl2 = React.createRef();
+        this.sonnenStrahl3 = React.createRef();
+        this.sonnenStrahl4 = React.createRef();
+        this.sonnenStrahl5 = React.createRef();
+        this.sonnenStrahl6 = React.createRef();
+        this.sonnenStrahl7 = React.createRef();
+        this.sonnenStrahl8 = React.createRef();
         this.regen = React.createRef();
         this.schrift = React.createRef();
         this.flug = React.createRef();
@@ -239,6 +247,22 @@ class Logo extends Component {
         .fromTo(sonnemond, 1, {opacity:0, y:'200px'}, {opacity:1, y:'0px'});
     }
 
+    sunOnHover = () => {
+        const weatherData = weather();
+        let isItDaytime = (weatherData) ? this.isDay(weatherData.sys.sunrise, weatherData.sys.sunset) : true;
+        let sonnemond = isItDaytime ? this.sonne.current : this.mond.current;
+        
+        return new TimelineLite()
+        .staggerTo(this.sonnenStrahlen, 0.0015, {scaleX: 0.7, scaleY: 0.7}, -0.15)
+        .staggerTo(this.sonnenStrahlen2, 0.015, {scaleX: 0.7, scaleY: 0.7}, -0.35)
+        .staggerTo(this.sonnenStrahlen, 0.0015, {scaleX: 1, scaleY: 1}, -0.25)
+        .staggerTo(this.sonnenStrahlen2, 0.015, {scaleX: 1, scaleY: 1}, -0.35)
+        .staggerTo(this.sonnenStrahlen, 0.0015, {scaleX: 0.5, scaleY: 0.5}, -0.35)
+        .staggerTo(this.sonnenStrahlen2, 0.015, {scaleX: 0.5, scaleY: 0.5}, -0.45)
+        .staggerTo(this.sonnenStrahlen, 0.0015, {scaleX: 1, scaleY: 1.1}, -0.45)
+        .staggerTo(this.sonnenStrahlen2, 0.015, {scaleX: 1, scaleY: 1.1}, -0.55);
+    }
+
     //animation for rain
     rain = () => {
         let r = new TimelineLite();
@@ -270,11 +294,11 @@ class Logo extends Component {
     }
     cloudOnHover = (cloud = this.wolke.current) => {
         return new TimelineLite()
-        .to(cloud, 0.75,{x:'16px'})
-        .to(cloud, 0.75,{x:'10px'})
-        .to(cloud, 0.75,{x:'16px'})
-        .to(cloud, 0.75,{x:'10px'})
-        .to(cloud, 0.75,{x:'18px'})
+        .to(cloud, 1.25,{x:'16px'})
+        .to(cloud, 2,{x:'10px'})
+        .to(cloud, 1.5,{x:'16px'})
+        .to(cloud, 2.3,{x:'10px'})
+        .to(cloud, 1.75,{x:'18px'})
         .to(cloud, 0.75,{x:'14px'})
     }
 
@@ -285,13 +309,15 @@ class Logo extends Component {
         let isItDaytime = (weatherData) ? this.isDay(weatherData.sys.sunrise, weatherData.sys.sunset) : true;
 
         this.tropfen = [this.tropfen1.current, this.tropfen2.current, this.tropfen3.current, this.tropfen4.current];
+        this.sonnenStrahlen = [this.sonnenStrahl1.current, this.sonnenStrahl3.current, this.sonnenStrahl5.current, this.sonnenStrahl7.current];
+        this.sonnenStrahlen2 = [this.sonnenStrahl2.current, this.sonnenStrahl4.current, this.sonnenStrahl6.current, this.sonnenStrahl8.current];
         
         const tl2 = new TimelineLite({paused:true});
             
         let ycloud = isItDaytime ? 17 : 16; //variable to set y-data for animation sun with cloud or moon with cloud
 
         switch(weatherid){
-           case 200:
+           case 200: 
            case 201:
            case 202:
            case 210:
@@ -326,7 +352,7 @@ class Logo extends Component {
            case 800:
                 //animation Sun/moon
                 if(ishover){
-                    tl2.add(this.sun());
+                    tl2.add(this.sunOnHover());
                     tl2.play();
                 }else{
                     tl2.add(this.sun());
@@ -432,7 +458,6 @@ class Logo extends Component {
     componentWillAppear (callback) {
         const weatherData = weather();
         const tl = new TimelineLite({paused:true});
-        console.log(weatherData.cod);
 
         //start-animation 
         tl.delay(1).play();
@@ -482,14 +507,14 @@ class Logo extends Component {
                         <g ref={this.sonne} className="sonne"> 
                             <g> 
                                 <circle className="st2" cx="68.6" cy="18.5" r="9"/> 
-                                <line className="st2" x1="68.5" y1="5.3" x2="68.5" y2="1.5"/>
-                                <line className="st2" x1="68.5" y1="31.8" x2="68.5" y2="35.6"/>
-                                <line className="st2" x1="59.2" y1="27.9" x2="56.5" y2="30.6"/>
-                                <line className="st2" x1="78" y1="9.1" x2="80.6" y2="6.5"/>
-                                <line className="st2" x1="85.6" y1="18.5" x2="81.9" y2="18.5"/>
-                                <line className="st2" x1="55.4" y1="18.5" x2="51.5" y2="18.5"/>
-                                <line className="st2" x1="80.6" y1="30.6" x2="78" y2="27.9"/>
-                                <line className="st2" x1="56.5" y1="6.5" x2="59.2" y2="9.2"/>
+                                <line ref={this.sonnenStrahl1} className="st2 sonnenstrahl" x1="68.5" y1="5.3" x2="68.5" y2="1.5"/>
+                                <line ref={this.sonnenStrahl2} className="st2 sonnenstrahl" x1="68.5" y1="31.8" x2="68.5" y2="35.6"/>
+                                <line ref={this.sonnenStrahl3} className="st2 sonnenstrahl" x1="59.2" y1="27.9" x2="56.5" y2="30.6"/>
+                                <line ref={this.sonnenStrahl4} className="st2 sonnenstrahl" x1="78" y1="9.1" x2="80.6" y2="6.5"/>
+                                <line ref={this.sonnenStrahl5} className="st2 sonnenstrahl" x1="85.6" y1="18.5" x2="81.9" y2="18.5"/>
+                                <line ref={this.sonnenStrahl6} className="st2 sonnenstrahl" x1="55.4" y1="18.5" x2="51.5" y2="18.5"/>
+                                <line ref={this.sonnenStrahl7} className="st2 sonnenstrahl" x1="80.6" y1="30.6" x2="78" y2="27.9"/>
+                                <line ref={this.sonnenStrahl8} className="st2 sonnenstrahl" x1="56.5" y1="6.5" x2="59.2" y2="9.2"/>
                             </g>
                         </g>
                         <g ref={this.schnee} className="schnee">

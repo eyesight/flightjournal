@@ -19,15 +19,16 @@
     background-color: $color-primary-06;
     display: flex;
     flex-direction: column;
-    padding-top: rem-calc(50px);
-    padding-bottom: rem-calc(50px);
+    padding-top: rem-calc(125px);
+    padding-bottom: rem-calc(110px);
     min-height: rem-calc(766px); 
     position: relative;
 
     @include bp(max, $ipad-p) {
       display: block;
       background-color: transparent;
-      padding-top: rem-calc(20px);
+      padding-top: rem-calc(50px);
+      padding-bottom: rem-calc(20px);
     }
 
     &--centered{
@@ -166,8 +167,8 @@
       min-width: 75%;
     }
     @include bp(max, $phone){
-      width: 50%;
-      min-width: 50%;
+      width: 60%;
+      min-width: 60%;
     }
   }
 

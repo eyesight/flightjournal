@@ -293,15 +293,20 @@ class FlightTableList extends Component {
         return (
             <div className="table-wrapper">
                 {allflight.length !== 0 ? <div className="table-inner">
+                <Pagination
+                    txt={this.renderPaginationTxt(countOfNextSteps, this.props.filteredFlights.length)}
+                    prevfunction={(event) => {this.prevfunction(event, countOfNextSteps)}}
+                    nextfunction={(event) => {this.nextfunction(event, countOfNextSteps)}}
+                    hasPrev={(countOfNextSteps>0) ? this.state.hasPrev : false}
+                    hasNext={(countOfNextSteps<this.state.pagination) ? false : this.hasNext(this.state.pagination, allflight.length, countOfNextSteps)}
+                /> 
                 <table className="table">
-                    <FlightTableSort />
+                    <FlightTableSort /> 
                     <tbody className='table__tbody'>
                         {this.renderFlights(allflight, allStartplaces, countOfNextSteps)}
                     </tbody>
                 </table> 
                 <Pagination
-                    classNamePrev="pagination__prev"
-                    classNameNext="pagination__next"
                     txt={this.renderPaginationTxt(countOfNextSteps, this.props.filteredFlights.length)}
                     prevfunction={(event) => {this.prevfunction(event, countOfNextSteps)}}
                     nextfunction={(event) => {this.nextfunction(event, countOfNextSteps)}}

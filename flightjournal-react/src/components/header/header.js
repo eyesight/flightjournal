@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import Logo from './logo';
 import NavigationContainer from './navigationContainer';
-import ReactTransitionGroup from 'react-addons-transition-group'
 
 class Header extends Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = { 
             direction:'',
             lastScrollPos:0
         };
@@ -36,9 +34,6 @@ class Header extends Component {
     render() {
         return (
             <header className={"header "+ this.state.direction}>
-                <ReactTransitionGroup component="div" className="header__logo">
-                        <Logo />
-                </ReactTransitionGroup>
                 <NavigationContainer />
             </header>
         );

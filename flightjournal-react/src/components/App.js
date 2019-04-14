@@ -11,10 +11,13 @@ import { applyMiddleware, createStore } from 'redux';
 import reducers from '../reducers/index';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import Logo from './header/logo'; 
+import ReactTransitionGroup from 'react-addons-transition-group'
+
 import {
     BrowserRouter as Router,
     Route,
-    Switch
+    Switch 
 } from 'react-router-dom';
 import * as routes from '../constants/routes';
  
@@ -26,6 +29,9 @@ class App extends Component {
         <Provider store={createStoreWithMiddleware(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())}>
             <Router>
                 <div className="page">
+                <ReactTransitionGroup component="div" className="logo">
+                        <Logo />
+                </ReactTransitionGroup>
                  <Header />
                  <Switch>
                     <Route path={routes.STARTPLATZ} component={() => <StartplaceDetail />} />

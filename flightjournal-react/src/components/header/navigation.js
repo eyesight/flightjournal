@@ -39,7 +39,7 @@ class Navigation extends Component {
     render() {
         //if Landingpage is home and the user is authorised show the hole navigation, else just show logout/login
         let isHome = (this.props.location.pathname === '/' || this.props.location.pathname === routes.HOME) ? true : false;
-        let navi;
+        let navi; 
 
         if(!this.state.authUser && isHome){
             navi = <ul className="main-nav__wrapper main-nav__wrapper--single">
@@ -66,11 +66,11 @@ class Navigation extends Component {
             navi = null
         }
         return (
-            <div className="header__menu">
+            <div className="header__menu"> 
                 <nav className="main-nav">
                     {navi}
                 </nav>
-             </div>
+            </div>
         );
     }
 }

@@ -1,19 +1,12 @@
 .header{
   position: fixed;
-  z-index:10;
+  z-index: 100;
   width: 100vw;
   transition: top 1s ease;
   top: 0;
+  background-color: $color-white;
   @include grid-container;
 
-  &__logo-wrapper{
-    width: 200px;
-    @include bp(max, $phone) {
-      width: 220px;
-    }
-  }
-
-  &__logo,
   &__menu{
     padding-bottom: rem-calc(40px);
     font-size: $font-s-logo;
@@ -25,48 +18,12 @@
     }
   }
 
-  &__logo{
-    @include grid-column(11, $grid-24);
-    @include grid-shift(1, $grid-24);
-    margin-top: -20px;
-    padding-top: 0;
-    z-index:100;
-    color: $color-black;
-    position: fixed;
-    top: 27px;
-
-    .header__anchor{
-      color: $color-black;
-
-      &:hover{
-        color: $color-black;
-
-        @include bp(max, $ipad-ls) {
-          color: $color-black;
-        }
-      }
-
-      @include bp(max, $ipad-ls) {
-        color: $color-black;
-      }
-    }
-
-    @include bp(max, $ipad-ls) {
-      color: $color-black;
-      top: 20px;
-    }
-    @include bp(max, $ipad-p) {
-      margin-top: -20px; 
-      margin-left: 2%;
-    }
-  }
-
   &__menu{
-    @include grid-column(10, $grid-24);
+    @include grid-column(11, $grid-24);
     @include grid-shift(12, $grid-24);
-    @include grid-push(1, $grid-24);
     background-color: $color-white;
     padding-top: rem-calc(40px);
+    padding-left: 4%;
 
     @include bp(max, $ipad-ls) {
       background-color: transparent;
@@ -74,21 +31,10 @@
   }
 
   &.js-header--hide{
-    top:-150px;
-    @include bp(max, $ipad-ls) {
-      top:0px;
-    }
-
-    .header__logo{
-      position: fixed;
-    }
+    top:-150px; 
   }
-  &.js-header--positive{
+  &.js-header--positive{ 
     background-color: $color-white;
-
-    @include bp(max, $ipad-ls) {
-      background-color: transparent;
-    }
 
     .header__anchor{
       color: $color-black;
@@ -103,6 +49,10 @@
     .header__anchor{
       color: $color-black;
     }
+  }
+
+  @include bp(max, $ipad-ls){
+    padding-bottom: 10px;
   }
 }
 

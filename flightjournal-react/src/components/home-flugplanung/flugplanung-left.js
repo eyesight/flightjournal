@@ -42,13 +42,6 @@ class FlugplanungLeft extends Component {
                     imagebox.style.position = 'fixed';
                     imagebox.style.top = '0px';
                 }
-
-                //add/remove class of header to show logo positive
-                if (bottom <= headerheight) {
-                    header.classList.add('js-header--positive');
-                } else {
-                    header.classList.remove('js-header--positive');
-                }
             } else {
                 imagebox.style.position = 'relative';
                 imagebox.style.top = '0px';
@@ -103,7 +96,7 @@ class FlugplanungLeft extends Component {
         this.changeImages(routes.LANDINGPAGEIMAGES, 6, 5, 6, 2);
     }
 
-    render() {
+    render() { 
         return (
             <div className="start__left">
                 <div className="start__image-wrapper">

@@ -12,10 +12,6 @@ class FlugplanungLeft extends Component {
     }
 
     leftscroll(){
-        const header = document.querySelector('.header');
-        let elheader = header.getBoundingClientRect();
-        let headerheight = elheader.height;
-
         const intViewportHeight = window.innerHeight;
         const linkbox = document.querySelector('.start__right');
 

@@ -9,9 +9,6 @@
 
     &--single{
       justify-content: flex-end;
-      @include bp(max, $ipad-ls) {
-        display: flex;
-      }
     }
   }
 

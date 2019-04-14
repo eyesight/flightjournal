@@ -8,6 +8,11 @@
   @include grid-container;
 
   &__menu{
+    @include grid-column(11, $grid-24);
+    @include grid-shift(12, $grid-24);
+    background-color: $color-white;
+    padding-top: rem-calc(40px);
+    padding-left: 4%;
     padding-bottom: rem-calc(40px);
     font-size: $font-s-logo;
     z-index:100;
@@ -15,17 +20,6 @@
     @include bp(max, $ipad-ls) {
       padding-top: rem-calc(20px);
       padding-bottom: rem-calc(40px);
-    }
-  }
-
-  &__menu{
-    @include grid-column(11, $grid-24);
-    @include grid-shift(12, $grid-24);
-    background-color: $color-white;
-    padding-top: rem-calc(40px);
-    padding-left: 4%;
-
-    @include bp(max, $ipad-ls) {
       background-color: transparent;
     }
   }
@@ -52,7 +46,7 @@
   }
 
   @include bp(max, $ipad-ls){
-    padding-bottom: 10px;
+    padding-bottom: 30px;
   }
 }
 

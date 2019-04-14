@@ -87,3 +87,90 @@
       opacity: 1;
     }
   }
+
+  @keyframes menuclose1 { 
+    0% { 
+      top: 0px;
+      transform: rotate(0deg);
+    }
+    75%{
+      top: 10px;
+      transform: rotate(0deg);
+    }
+    100% { 
+      top: 10px;
+      transform: rotate(45deg);
+    }
+  }
+    @keyframes menuopen1 { 
+      0% { 
+        top: 10px;
+        transform: rotate(45deg)
+      }
+      75%{
+        top: 10px;
+        transform: rotate(0deg);
+      }
+      100% { 
+        top: 0px;
+        transform: rotate(0deg);;
+      }
+  }
+
+  @keyframes menuclose2 { 
+    0% { 
+      opacity: 1;
+    }
+    75%{
+      opacity: 1;
+    }
+    76%{
+      opacity: 0;
+    }
+    100% { 
+      opacity: 0;
+    }
+  }
+    @keyframes menuopen2 { 
+      0% { 
+        opacity: 0;
+      }
+      75%{
+        opacity: 0;
+      }
+      76%{
+        opacity: 1;
+      }
+      100% { 
+        opacity: 1;
+      }
+  }
+
+  @keyframes menuclose3 { 
+    0% { 
+      top: 20px;
+      transform: rotate(0deg);
+    }
+    75%{
+      top: 10px;
+      transform: rotate(0deg);
+    }
+    100% { 
+      top: 10px;
+      transform: rotate(-45deg);
+    }
+  }
+    @keyframes menuopen3{ 
+      0% { 
+        top: 10px;
+        transform: rotate(-45deg);
+      }
+      75%{
+        top: 10px;
+        transform: rotate(0deg);
+      }
+      100% { 
+        top: 20px;
+        transform: rotate(0deg);;
+      }
+  }

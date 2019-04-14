@@ -33,15 +33,11 @@
     position: absolute;
 
     &:first-child{
-      transition: all 0.5s;
       position: absolute;
-      top: 0;
-      transform: rotate(0deg);
     }
 
     &:nth-child(2){
       opacity: 1;
-      transition: opacity 0.5s;
       position: absolute;
       top: 10px;
     }
@@ -50,13 +46,30 @@
       transform:rotate(0deg);
       position:absolute;
       top:20px;
-      transition: all 0.5s;
     }
   }
 
   @include bp(max, $ipad-ls) {
     display:block;
   }
+}
+
+.mobile-toggle.js-mobile-toggle--notactive{
+   span{
+     &:first-child{
+       position: absolute;
+       animation: menuopen1 0.5s forwards;
+     }
+
+     &:nth-child(2){
+      animation: menuopen2 0.5s forwards;
+     }
+
+     &:nth-child(3){
+      position:absolute;
+      animation: menuopen3 0.5s forwards;
+     }
+    }
 }
 
 .mobile-toggle.js-mobile-toggle--active{
@@ -68,21 +81,15 @@
   }
    span{
      &:first-child{
-       transform:rotate(45deg);
-       position:absolute;
-       top: 10px;
-       transition: transform 0.5s;
+       animation: menuclose1 0.5s forwards;
      }
 
      &:nth-child(2){
-       opacity: 0;
+      animation: menuclose2 0.5s forwards;
      }
 
      &:nth-child(3){
-       transform:rotate(-45deg);
-       position:absolute;
-       top: 10px;
-       transition: transform 0.5s;
+       animation: menuclose3 0.5s forwards;
      }
     }
 }

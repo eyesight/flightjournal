@@ -13,9 +13,11 @@ class NavigationMobile extends Component {
             if (navigation.classList.contains('js-mobile-nav--visible')) {
                 navigation.classList.remove('js-mobile-nav--visible');
                 burger.classList.remove('js-mobile-toggle--active'); 
+                burger.classList.add('js-mobile-toggle--notactive'); 
             } else {
                 navigation.classList.add('js-mobile-nav--visible');
                 burger.classList.add('js-mobile-toggle--active');
+                burger.classList.remove('js-mobile-toggle--notactive'); 
             }
 
             if (logo.classList.contains('js-mobile-logo--visible')) {

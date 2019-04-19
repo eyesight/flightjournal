@@ -4,6 +4,7 @@ import FlightTable from './home-flightTable/flightTable';
 import StartingPlaces from './home-startingplaces/startingplaces';
 import { getUser } from '../actions/UserActions';
 import { connect } from 'react-redux';
+import { configureAnchors } from 'react-scrollable-anchor';
 
 class StartMainContainer extends Component {
     constructor(props) {
@@ -12,7 +13,9 @@ class StartMainContainer extends Component {
             authUser: false
         };
     }
-    componentWillMount() {
+
+    componentWillMount() { 
+        configureAnchors({offset: -100, scrollDuration:600})
         this.props.getUser();
     }
 

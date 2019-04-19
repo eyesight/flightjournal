@@ -126,6 +126,7 @@ class FlightDetail extends Component {
                     <BackButton 
                         backto = {true}
                         text = 'Zurück zur Übersicht'
+                        href= {routes.HOME_ANCHOR_FLIGHTS}
                     />
                     <MainTitleWrapper 
                         classNameWrapper='detail-layout__header'

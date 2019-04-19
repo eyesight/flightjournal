@@ -608,7 +608,7 @@ class StartplaceFormContainer extends Component {
         }else if(this.state.from && this.state.idOfFlightToUpdate){
             turnback = this.state.from + "/" + this.state.idOfFlightToUpdate;
         }else {
-            turnback = routes.HOME;
+            turnback = routes.HOME_ANCHOR_STARTPLACE;
         }
         return turnback;
     }

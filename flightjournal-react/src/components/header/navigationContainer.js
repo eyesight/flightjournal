@@ -7,7 +7,7 @@ import * as routes from '../../constants/routes';
 class NavigationContainer extends Component {
     render() {
         //if Landingpage is home and the user is authorised show the hole navigation, else just show logout/login
-        let isHome = (this.props.location.pathname === '/' || this.props.location.pathname === routes.HOME) ? true : false;
+        let isHome = (this.props.location.pathname === '/' || this.props.location.pathname === routes.LANDING) ? true : false;
         return (
             <div className="header__nav-container"> 
                 {isHome ? <NavigationMobile /> : null}

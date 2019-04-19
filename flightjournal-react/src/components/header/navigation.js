@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Scrollchor from 'react-scrollchor';
 import {Link, withRouter} from 'react-router-dom';
 import * as routes from '../../constants/routes';
 import { getUser, logout } from '../../actions/UserActions';
@@ -38,7 +37,7 @@ class Navigation extends Component {
 
     render() {
         //if Landingpage is home and the user is authorised show the hole navigation, else just show logout/login
-        let isHome = (this.props.location.pathname === '/' || this.props.location.pathname === routes.HOME) ? true : false;
+        let isHome = (this.props.location.pathname === '/' || this.props.location.pathname === routes.LANDING) ? true : false;
         let navi; 
 
         if(!this.state.authUser && isHome){
@@ -50,13 +49,13 @@ class Navigation extends Component {
         }else if(this.state.authUser && isHome){
             navi = <ul className="main-nav__wrapper">
                         <li className="main-nav__link">
-                            <Scrollchor to="flugplanung">Flugplanung</Scrollchor>
+                            <a href='#flugplanung'>Flugplanung</a>
                         </li>
                         <li className="main-nav__link">
-                            <Scrollchor to="fluege">Flüge</Scrollchor>
+                            <a href='#fluege'>Flüge</a>
                         </li>
                         <li className="main-nav__link">
-                            <Scrollchor to="startplaetze">Startplätze</Scrollchor>
+                            <a href='#startplaetze'>Startplätze</a>
                         </li>
                         <li className="main-nav__link">
                             <Link onClick={() => {this.doLogOut();}} to={routes.LANDING}>Logout</Link>

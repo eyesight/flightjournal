@@ -5,15 +5,20 @@ import { connect } from 'react-redux';
 import { getUser } from '../../actions/UserActions';
 import FlightTableFilter from './flightTableFilter';
 import FlightTableList from './flightTableList';
+import ScrollableAnchor from 'react-scrollable-anchor';
+
 
 
 class FlightTable extends Component {
+    
     render() {
         return (
-            <section id="fluege" className="centered-layout">
+            <section className="centered-layout">
                 <div className="centered-layout__header">
-                    <h2 className="title-h2">Flugtagebuch.<br /><span className="title--regular">Unsere Flüge im Überblick.</span>
-                    </h2>
+                    <ScrollableAnchor id={'fluege'}>
+                        <h2 className="title-h2">Flugtagebuch.<br /><span className="title--regular">Unsere Flüge im Überblick.</span>
+                        </h2>
+                    </ScrollableAnchor>
                     <Link className="button-without-border button-without-border--with-icon" to={routes.FLUGDATEN_ERFASSEN}>
                     <svg version="1.1" className="svg-icon svg-icon--plus" x="0px" y="0px" viewBox="0 0 32 32">
                         <g>
@@ -23,7 +28,7 @@ class FlightTable extends Component {
                     </svg>
                     Flug hinzufügen
                     </Link>
-                </div>
+                </div> 
                 <FlightTableFilter />
                 <FlightTableList />
             </section>

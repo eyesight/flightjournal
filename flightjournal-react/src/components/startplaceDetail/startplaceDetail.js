@@ -293,7 +293,7 @@ class StartplaceDetail extends Component {
                 showMessageBoxDelete: false
             })
             this.props.history.push({
-                pathname: routes.HOME
+                pathname: routes.HOME_ANCHOR_STARTPLACE
             });
         } 
     }
@@ -328,6 +328,7 @@ class StartplaceDetail extends Component {
                     <BackButton 
                         backto = {true}
                         text = 'Zurück zur Übersicht'
+                        href = {routes.HOME_ANCHOR_STARTPLACE}
                     />
                     <MainTitleWrapper 
                         classNameWrapper='detail-layout__header'

@@ -51,6 +51,7 @@ class LoginFormContainer extends Component {
                     <BackButton 
                         backto = {true}
                         text = 'Zurück zur Übersicht'
+                        href = {routes.LANDING}
                     />
                     <FormTitle 
                         children = {<FormAnimation

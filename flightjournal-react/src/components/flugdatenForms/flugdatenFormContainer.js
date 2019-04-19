@@ -828,7 +828,7 @@ class FlugdatenFormContainer extends Component {
         }else{
             this.props.saveFlights(obj).then(this.props.dispatch(reset('NewPost')));
         }
-        this.props.history.push(routes.LANDING);
+        this.props.history.push(routes.HOME_ANCHOR_FLIGHTS);
     }else{
         this.setState({errorAlert: true})
         Object.keys(this.state.formErrorsValid).map((fieldName, i) => {
@@ -1017,7 +1017,7 @@ class FlugdatenFormContainer extends Component {
 
     abort(e){
         e.preventDefault();
-        this.props.history.push(routes.LANDING);
+        this.props.history.push(routes.HOME_ANCHOR_FLIGHTS);
     }
 
     render() {

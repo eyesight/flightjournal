@@ -9,6 +9,7 @@ import StartingplacesFilter from './startingplacesFilter';
 import { connect } from 'react-redux';
 import * as routes from '../../constants/routes';
 import  _ from 'lodash';
+import ScrollableAnchor from 'react-scrollable-anchor';
 
 class StartingPlaces extends Component {
     constructor(props) {
@@ -154,10 +155,12 @@ class StartingPlaces extends Component {
         }
         
          return (
-            <section id="startplaetze" className="centered-layout">
-                <div className="centered-layout__header centered-layout__header--no-marginbottom">
-                    <h2 className="title-h2">Startplätze.<span className="title--regular"> Wo solls hin?</span></h2>
-                </div>
+             <section className="centered-layout">
+                    <div className="centered-layout__header centered-layout__header--no-marginbottom">
+                        <ScrollableAnchor id={'startplaetze'}>
+                            <h2 className="title-h2">Startplätze.<span className="title--regular"> Wo solls hin?</span></h2>
+                        </ScrollableAnchor>
+                    </div>
                 <StartingplacesFilter /> 
                 <div className="text text--green-bold">{resultTxt}</div>
                 <div className="image-box vertical-divider">

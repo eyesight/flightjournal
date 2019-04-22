@@ -21,7 +21,6 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.2",
     "react-scrollable-anchor": "^0.6.1",
-    "react-scrollchor": "^5.1.0",
     "react-transition-group": "^2.5.2",
     "redux": "^4.0.1",
     "redux-form": "^7.4.2",

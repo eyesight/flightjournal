@@ -2,7 +2,6 @@
   padding-bottom: rem-calc(40px);
     font-size: $font-s-logo;
     z-index:100;
-    @include grid-column(11, $grid-24);
     @include grid-shift(1, $grid-24);
     margin-top: -20px;
     padding-top: 0;

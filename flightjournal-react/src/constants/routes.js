@@ -4,6 +4,7 @@ export const SIGN_UP = '/signup';
 export const LOGIN = '/login';
 export const PASSWORD_FORGET = '/pw-forget';
 export const HOME_ANCHOR_FLIGHTS = '/#fluege';
+export const HOME_ANCHOR_FLUGPLANUNG = '/#flugplanung';
 export const HOME_ANCHOR_STARTPLACE = '/#startplace';
 export const ACCOUNT = '/account';
 export const FLUGDATEN_ERFASSEN = '/enter-flight-data';

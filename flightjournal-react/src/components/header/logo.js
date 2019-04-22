@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {TimelineLite} from 'gsap';
 import CSSPlugin from 'gsap/CSSPlugin';
 import {weather} from '../../utils/_weatherData';
-import {Link} from 'react-router-dom';
 import * as routes from '../../constants/routes';
 // eslint-disable-next-line
 const C = CSSPlugin; 
@@ -479,7 +478,7 @@ class Logo extends Component {
     render() {
         return (
             <div className="logo__wrapper"> 
-                <Link className="logo__anchor" to={routes.LANDING} onMouseEnter={()=>this.handleMouseEnter(this.state.weather)}>
+                <a className="logo__anchor" href={routes.HOME_ANCHOR_FLUGPLANUNG} onMouseEnter={()=>this.handleMouseEnter(this.state.weather)}>
                     <svg viewBox="0 -10 130.5 55.17" preserveAspectRatio="xMidYMin slice" width="100%">
                         <g ref={this.mondWolke} className="mondWolke">
                             <path className="st4" d="M67.5,8.8c-0.4-3.7-3.4-6.4-7.1-6.4H60C61.1,5,60,8,57.4,9.1c-1.3,0.6-2.8,0.6-4.2,0v0.4c0,3.3,2.2,6.2,5.4,7"/>
@@ -615,7 +614,7 @@ class Logo extends Component {
                             </g>
                         </g>
                     </svg>
-                </Link>
+                </a>
             </div> 
         ); 
     }

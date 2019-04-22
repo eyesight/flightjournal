@@ -1021,7 +1021,6 @@ class FlugdatenFormContainer extends Component {
     }
 
     render() {
-        console.log(this.state.IDtoUpdate);
         return ( 
             <main className="main">
                 <section className="centered-layout">

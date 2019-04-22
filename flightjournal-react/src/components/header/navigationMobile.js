@@ -2,44 +2,35 @@ import React, { Component } from 'react';
 
 class NavigationMobile extends Component {
 
-    componentDidMount() {
-        const burger = document.querySelector('.mobile-toggle');
-        const navigation = document.querySelector('.main-nav');
-        const logo = document.querySelector('.logo');
-        let navlinks = document.querySelectorAll('.main-nav__link');
+    constructor(props) {
+        super(props);
+        this.state = {
+            isshowBurger: this.props.testBurgerState
+        }
 
-        burger.addEventListener('click', function (event){
-            event.preventDefault();
-            if (navigation.classList.contains('js-mobile-nav--visible')) {
-                navigation.classList.remove('js-mobile-nav--visible');
-                burger.classList.remove('js-mobile-toggle--active'); 
-                burger.classList.add('js-mobile-toggle--notactive'); 
-            } else {
-                navigation.classList.add('js-mobile-nav--visible');
-                burger.classList.add('js-mobile-toggle--active');
-                burger.classList.remove('js-mobile-toggle--notactive'); 
-            }
+        this.showBurger.bind(this);
+    }
+    
+    showBurger = (event) => {
+        event.preventDefault(); 
+        
+        if (this.props.testBurgerState === true) {
+            this.setState({
+                isshowBurger: false
+            })
+            this.props.sendMobileBurgerState(false);
+        } else {
+            this.setState({
+                isshowBurger: true
+            })
+            this.props.sendMobileBurgerState(true);
+        }
 
-            if (logo.classList.contains('js-mobile-logo--visible')) {
-                logo.classList.remove('js-mobile-logo--visible');
-            } else {
-                logo.classList.add('js-mobile-logo--visible');
-            }
-        });
-        navlinks = [].slice.call(navlinks);
-        navlinks.forEach(function (e) {
-            e.addEventListener('click', function (e) {
-                if (navigation.classList.contains('js-mobile-nav--visible') && logo.classList.contains('js-mobile-logo--visible')) {
-                    navigation.classList.remove('js-mobile-nav--visible');
-                    logo.classList.remove('js-mobile-logo--visible');
-                }
-            });
-        });
     }
 
     render() {
         return (
-            <div className="mobile-toggle">
+            <div className="mobile-toggle" onClick={(event) => this.showBurger(event)}>
                 <div className="mobile-toggle__burger">
                     <span></span>
                     <span></span>

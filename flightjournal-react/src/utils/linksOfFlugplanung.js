@@ -1,7 +1,7 @@
 //Wetter-Links
 export const allLinks = {
     Wetter:{
-        subtitle: 'Wo blästs?',
+        subtitle: 'Allgemeine Prognosen.',
         links:[
             {
                 title:'Textprognose', 
@@ -12,88 +12,76 @@ export const allLinks = {
                 link:'http://www.meteoschweiz.admin.ch/home/wetter/prognosen/allgemeine-lage.html'
             },
             {
-                title:'kk7', 
-                link:'https://wetter.kk7.ch/'
+                title:'Meteoblue', 
+                link:'https://www.meteoblue.com/de'
             },
             {
-                title:'Meteocentrale', 
-                link:'http://www.meteocentrale.ch/de/wetter/wetterstationen.html'
+                title:'SHV-Meteo', 
+                link:'https://www.meteo-shv.ch/system/login.html'
             },
             {
                 title:'Burnair-Prognose', 
                 link:'https://www.burnair.ch/MeteoService/'
             },
-            {
-                title:'Gleitschirmmeteo', 
-                link:'http://gleitschirmmeteo.ch/'
-            },
         ]
     },
 
     Thermik:{
-        subtitle: 'Wo steigts?',
+        subtitle: 'Wo steigts am besten?',
         links:[
+            {
+                title:'Regtherm/kk7', 
+                link:'https://wetter.kk7.ch/#regtherm'
+            },
             {
                 title:'Soaringmeteo', 
                 link:'https://soaringmeteo.org/soarWRF2K0612Z.html'
             },
             {
-                title:'Regtherm', 
-                link:'https://wetter.kk7.ch/#regtherm'
-            },
-            {
-                title:'Hotspots', 
-                link:'https://thermal.kk7.ch/'
+                title:'Meteo-Parapente', 
+                link:'https://meteo-parapente.com'
             },
             {
                 title:'SHV-Meteo', 
                 link:'https://www.meteo-shv.ch/home/allgemein/segelflugwetterbericht.html'
             },
             {
-                title:'Interlaken-Visp', 
-                link:'https://www.meteo-shv.ch/home/thermik/previtemps-72-std-interlaken-visp.html'
+                title:'Hotspots', 
+                link:'https://thermal.kk7.ch/'
             },
-            {
-                title:'Interlaken-Visp', 
-                link:'https://www.meteo-shv.ch/home/thermik/previtemps-72-std-interlaken-visp.html'
-            },
-            {
-                title:'Buochs-Locarno', 
-                link:'https://www.meteo-shv.ch/home/thermik/previtemps-72-std-interlaken-visp.html'
-            },
-            {
-                title:'Visp-Illanz', 
-                link:'https://www.meteo-shv.ch/home/thermik/previtemps-72-std-visp-illanz.html'
-            },
-            {
-                title:'Ilanz-Samedan', 
-                link:'https://www.meteo-shv.ch/home/thermik/previtemps-72-std-illanz-samedan.html'
-            }
         ]
     },
         
     Wind:{
-        subtitle: 'Wo blästs?',
+        subtitle: 'Was macht der Wind?',
         links:[
             {
                 title:'Föhndiagramm', 
                 link:'http://www.meteocentrale.ch/de/wetter/foehn-und-bise/foehn.html'
             },
             {
-                title:'Bisendiagramm', 
-                link:'http://www.meteocentrale.ch/de/wetter/foehn-und-bise/bise.html'
+                title:'KK7/Meteoswiss', 
+                link:'https://wetter.kk7.ch'
+            },
+            {
+                title:'Meteo-Parapente', 
+                link:'https://meteo-parapente.com'
+            },
+            {
+                title:'Aktuelle Winde Burnair', 
+                link:'https://www.burnair.ch/windmap/'
+            },
+            {
+                title:'Aktuelle Winde Mobi', 
+                link:'https://winds.mobi/stations/map'
             },
             {
                 title:'Meteocentrale', 
                 link:'http://wetterstationen.meteomedia.ch/?map=Schweiz'
             },
             {
-                title:'Live-Wind-Karte', 
-                link:'https://www.burnair.ch/windmap/'
-            },
-            {
                 title:'Weissenstein', 
-                link:'https://www.dcweissenstein.ch/portfolio_page/wetterstation-weissenstein/'
+                link:'https://www.dcweissenstein.ch/portfolio_page/wetterstation-weissenstein'
             },
             {
                 title:'Uetliberg', 
@@ -104,25 +92,21 @@ export const allLinks = {
                 link:'http://wetterstationen.meteomedia.ch/?map=Schweiz&station=066561'
             },
             {
-                title:'Weissenstein – Röti', 
-                link:'https://www.dcweissenstein.ch/portfolio_page/wetterstation-roeti/'
+                title:'Röti', 
+                link:'https://www.dcweissenstein.ch/portfolio_page/wetterstation-roeti'
             }
         ]
     },
 
     Webcams:{
-        subtitle: 'Wie siehts aus?',
+        subtitle: 'Wie siehts vor Ort aus?',
         links:[
             {
                 title:'Engelbergerthal', 
                 link:'https://www.flugsau.ch/main_bigware_30.php?pages_id=21&language=de'
             },
             {
-                title:'Brunni-Engelberg', 
-                link:'http://www.brunni.ch/aktuelle-info/webcams'
-            },
-            {
-                title:'Eggberge', 
+                title:'Eggberge',
                 link:'http://www.eggberge.ch/aktuell/webcam'
             },
             {
@@ -131,7 +115,7 @@ export const allLinks = {
             },
             {
                 title:'Cimetta', 
-                link:'https://www.bergfex.ch/locarno-orselina-cardada/webcams/c7865/'
+                link:'https://www.bergfex.ch/locarno-orselina-cardada/webcams/c7865'
             },
             {
                 title:'Niederbauen', 
@@ -142,12 +126,44 @@ export const allLinks = {
                 link:'https://laax.roundshot.com/crap-sogn-gion-park'
             },
             {
-                title:'Grindelwald', 
-                link:'https://panocam.skiline.cc/firstbahn#'
+                title:'Bonistock', 
+                link:'https://bonistock.roundshot.com'
             },
             {
-                title:'Fiesch – Landeplatz', 
-                link:'http://flug-taxi.ch/webcam/landeplatz_fiesch.jpg'
+                title:'Ebenalp', 
+                link:'https://ebenalp.roundshot.com'
+            },
+            {
+                title:'Fürenalp', 
+                link:'https://fuerenalp.roundshot.com'
+            },
+            {
+                title:'Obergoms', 
+                link:'https://obergoms.roundshot.com/oberwald'
+            },
+            {
+                title:'Pilatus', 
+                link:'https://pilatus.roundshot.com'
+            },
+            {
+                title:'Schilthorn', 
+                link:'https://schilthorn.roundshot.com/birg'
+            },
+            {
+                title:'Wildspitz', 
+                link:'https://wildspitz.roundshot.com'
+            },
+            {
+                title:'Melchsee Frutt', 
+                link:'https://melchseefrutt.roundshot.com'
+            },
+            {
+                title:'Grenchenberg', 
+                link:'https://fliegen.roundshot.com'
+            },
+            {
+                title:'Grindelwald', 
+                link:'https://panocam.skiline.cc/firstbahn#'
             }
         ]
     },
@@ -182,13 +198,21 @@ export const allLinks = {
             {
                 title:'XC-Planer', 
                 link:'https://xcplanner.appspot.com'
+            },
+            {
+                title:'TMA Locarno', 
+                link:'https://www.facebook.com/TMA-Locarno-1037676889614177'
             }
         ]
     },
 
     Diverse:{
-        subtitle: 'Weitere nützliche Klicks',
+        subtitle: 'Weitere nützliche Links.',
         links:[
+            {
+                title:'XContest', 
+                link:'https://www.xcontest.org/world/en/flights/daily-score-pg/#filter[date]=2018-02-11@filter[country]=CH'
+            },
             {
                 title:'SHV Lufträume', 
                 link:'https://www.shv-fsvl.ch/sicherheit/luftraum'
@@ -196,10 +220,6 @@ export const allLinks = {
             {
                 title:'SHV Fluggebiete', 
                 link:'https://www.shv-fsvl.ch/sicherheit/fluggebiete'
-            },
-            {
-                title:'XContest', 
-                link:'https://www.xcontest.org/world/en/flights/daily-score-pg/#filter[date]=2018-02-11@filter[country]=CH'
             },
             {
                 title:'Manövervideos', 
@@ -216,6 +236,22 @@ export const allLinks = {
             {
                 title:'Lokale Abmachungen', 
                 link:'http://www.5steps.ch/meteo/lokaleAbmachungen.htm'
+            },
+            {
+                title:'Flybubble', 
+                link:'https://www.youtube.com/user/FlybubbleParagliding'
+            },
+            {
+                title:'Paragliding Reiseblog', 
+                link:'https://fbc.ch'
+            },
+            {
+                title:'Bandarra', 
+                link:'https://www.youtube.com/channel/UCzYf1cmKwDMSiII9SSp6IJw'
+            },
+            {
+                title:'Cloudbase Mayhem', 
+                link:'https://www.cloudbasemayhem.com'
             }
         ]
     }

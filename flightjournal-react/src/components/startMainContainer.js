@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
-import Flugplanung from './home-flugplanung/flugplanung';
 import FlightTable from './home-flightTable/flightTable';
 import StartingPlaces from './home-startingplaces/startingplaces';
 import { getUser } from '../actions/UserActions';
 import { connect } from 'react-redux';
 import { configureAnchors } from 'react-scrollable-anchor';
+import Flugplanung from './home-flugplanung/flugplanung';
 
 class StartMainContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            authUser: false
+            authUser: false,
+            heightOfFirstEl: 0,
+            heightOfSecondEl: 0,
+            heightOfThirdEl: 0
         };
     }
 
     componentWillMount() { 
-        configureAnchors({offset: -100, scrollDuration:600})
+        configureAnchors({offset: -100, scrollDuration: 600});
         this.props.getUser();
     }
 
@@ -39,9 +42,9 @@ class StartMainContainer extends Component {
                     <FlightTable />
                     <StartingPlaces />
                   </div> :
-                    <div className="start-container--logged-out">
-                        <Flugplanung/>
-                    </div>
+                  <div className="start-container--logged-out">
+                     <Flugplanung />
+                  </div>
                 }
 
             </main>

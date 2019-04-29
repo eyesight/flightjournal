@@ -4,6 +4,7 @@ import {Link, withRouter} from 'react-router-dom';
 import * as routes from '../../constants/routes';
 import { getUser, logout } from '../../actions/UserActions';
 import { connect } from 'react-redux';
+import Scrollspy from 'react-scrollspy';
 
 class Navigation extends Component {
     
@@ -11,6 +12,10 @@ class Navigation extends Component {
         super(props);
         this.state = {
             authUser: false,
+            isActiveNavi: 'section-flugplanung',
+            classnameFlugplanung: 'main-nav__link section-flugplanung',
+            classnameFluege: 'main-nav__link section-fluege',
+            classnameStartplaetze: 'main-nav__link section-startplaetze'
         };
         this.doLogOut = this.doLogOut.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -25,7 +30,7 @@ class Navigation extends Component {
         const node = ReactDOM.findDOMNode(this);
         this.setState({
             navlinks: [...node.querySelectorAll('li')],
-            navigation: node.querySelector('.main-nav'),
+            navigation: node.querySelector('.main-nav')
         });
     }
 
@@ -68,20 +73,20 @@ class Navigation extends Component {
                        </li>
                     </ul>
         }else if(this.state.authUser && isHome){
-            navi = <ul className="main-nav__wrapper">
-                        <li onClick={this.handleClick} className="main-nav__link">
+            navi = <Scrollspy className="main-nav__wrapper" items={ ['section-1', 'section-2', 'section-3'] } currentClassName="active">
+                        <li onClick={this.handleClick} className={this.state.classnameFlugplanung}>
                             <a href='#flugplanung'>Flugplanung</a>
                         </li>
-                        <li onClick={this.handleClick} className="main-nav__link">
+                        <li onClick={this.handleClick} className={this.state.classnameFluege}>
                             <a href='#fluege'>Flüge</a>
                         </li>
-                        <li onClick={this.handleClick} className="main-nav__link">
+                        <li onClick={this.handleClick} className={this.state.classnameStartplaetze}>
                             <a href='#startplaetze'>Startplätze</a>
                         </li>
                         <li onClick={this.handleClick} className="main-nav__link">
                             <Link onClick={() => {this.doLogOut();}} to={routes.LANDING}>Logout</Link>
                         </li>
-                    </ul>;
+                    </Scrollspy>;
         }else{
             navi = null
         }

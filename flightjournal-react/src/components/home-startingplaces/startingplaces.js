@@ -155,7 +155,7 @@ class StartingPlaces extends Component {
         }
         
          return (
-             <section className="centered-layout">
+             <section id="section-3" className="centered-layout section-startplaetze"> 
                     <div className="centered-layout__header centered-layout__header--no-marginbottom">
                         <ScrollableAnchor id={'startplaetze'}>
                             <h2 className="title-h2">Startplätze.<span className="title--regular"> Wo solls hin?</span></h2>

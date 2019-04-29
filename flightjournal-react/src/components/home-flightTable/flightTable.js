@@ -13,7 +13,7 @@ class FlightTable extends Component {
     
     render() {
         return (
-            <section className="centered-layout">
+            <section id="section-2" className="centered-layout section-fluege">
                 <div className="centered-layout__header">
                     <ScrollableAnchor id={'fluege'}>
                         <h2 className="title-h2">Flugtagebuch.<br /><span className="title--regular">Unsere Flüge im Überblick.</span>

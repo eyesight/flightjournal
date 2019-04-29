@@ -87,6 +87,7 @@ class FlugplanungLeft extends Component {
         window.addEventListener('scroll', this.leftscroll);
         this.changeImages(routes.LANDINGPAGEIMAGES, 6, 5, 6, 2);
     }
+
     componentWillUnmount(){
         window.removeEventListener('scroll', this.leftscroll);
         this.changeImages(routes.LANDINGPAGEIMAGES, 6, 5, 6, 2);

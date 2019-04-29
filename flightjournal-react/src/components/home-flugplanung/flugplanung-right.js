@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MainTitleWrapper from '../mainTitleWrapper/mainTitleWrapper';
 import Linkbox from '../linkbox/linkbox';
+import ScrollableAnchor from 'react-scrollable-anchor';
 
 class FlugplanungRight extends Component {
     constructor(props) {
@@ -221,19 +222,21 @@ class FlugplanungRight extends Component {
 
     render() {
         return (
-        <div className="start__right">
-            <MainTitleWrapper 
-                classNameWrapper='start__lead-wrapper'
-                withAnchor={false}
-                withIcon={false} 
-                classNameH1='main-title main-title--mobile-large'
-                classNameSpan='main-title--bold'
-                textBold='(R)auf und davon.'
-                textReg='Mit dem Gleitschirm unterwegs.'
-                withParagraph={false}
-            />
-                <Linkbox />            
-            </div>
+            <ScrollableAnchor id={'flugplanung'}>
+                <div id={'section-1'} className="start__right">
+                    <MainTitleWrapper 
+                        classNameWrapper='start__lead-wrapper'
+                        withAnchor={false}
+                        withIcon={false} 
+                        classNameH1='main-title main-title--mobile-large'
+                        classNameSpan='main-title--bold'
+                        textBold='(R)auf und davon.'
+                        textReg='Mit dem Gleitschirm unterwegs.'
+                        withParagraph={false}
+                    />
+                    <Linkbox />            
+                </div>
+            </ScrollableAnchor>
         );
     }
 }

@@ -20,9 +20,21 @@
       @include bp(max, $screen-m) {
         font-size: $font-s-main-nav-small;
       }
+      @include bp(max, $ipad-ls){
+        height: 100%; 
+        width: 100%;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
     &:first-child{
       margin-left:0;
+    }
+
+    &.active a{
+      color: $color-primary;
     }
   }
 

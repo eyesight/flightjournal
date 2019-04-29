@@ -12,34 +12,36 @@ class NavigationContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShowBurger: false
+            isShowBurger: false,
+            burger: ''
         }
+        this.burger = React.createRef();
     }
 
     componentDidMount() {
         const node = ReactDOM.findDOMNode(this);
         this.setState({
-            burger: node.querySelector('.mobile-toggle'),
+            burger: node,
             navigation: node.querySelector('.main-nav')
         });    
     }
 
     getMobileBurgerState = (burgerstate) => {      
+        let burgerli = this.state.burger.querySelector('.mobile-toggle');
         this.setState({
             isShowBurger: burgerstate
         });
-
-        if (burgerstate === false) {
+        if (burgerstate === false && this.state.burger) {
             this.state.navigation.classList.remove('js-mobile-nav--visible');
-            this.state.burger.classList.remove('js-mobile-toggle--active'); 
-            this.state.burger.classList.add('js-mobile-toggle--notactive'); 
+            burgerli.classList.remove('js-mobile-toggle--active'); 
+            burgerli.classList.add('js-mobile-toggle--notactive'); 
             this.setState({
                 isshowBurger: false
             })
         } else {
             this.state.navigation.classList.add('js-mobile-nav--visible');
-            this.state.burger.classList.add('js-mobile-toggle--active');
-            this.state.burger.classList.remove('js-mobile-toggle--notactive'); 
+            burgerli.classList.add('js-mobile-toggle--active');
+            burgerli.classList.remove('js-mobile-toggle--notactive'); 
             this.setState({
                 isshowBurger: true
             })

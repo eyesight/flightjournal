@@ -321,7 +321,6 @@ class StartplaceDetail extends Component {
     render() { 
         let textTitelBold = `${this.state.areatitle}`;
         let textTitelSmall = `${this.state.regionsname}, ${this.state.regionscountry}`;
-        console.log(this.state.imagesUrl.length);
         return (
             <main className="main">
                     <section className="detail-layout">

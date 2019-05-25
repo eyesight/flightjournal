@@ -27,7 +27,7 @@ export const allLinks = {
     },
 
     Thermik:{
-        subtitle: 'Wo steigts am besten?',
+        subtitle: 'Wo steigt es am besten?',
         links:[
             {
                 title:'Regtherm/kk7', 
@@ -53,7 +53,7 @@ export const allLinks = {
     },
         
     Wind:{
-        subtitle: 'Was macht der Wind?',
+        subtitle: 'Was machen die Luftströmungen?',
         links:[
             {
                 title:'Föhndiagramm', 
@@ -103,7 +103,7 @@ export const allLinks = {
         links:[
             {
                 title:'Engelbergerthal', 
-                link:'https://www.flugsau.ch/main_bigware_30.php?pages_id=21&language=de'
+                link:'http://www.flugsau.ch/webcams'
             },
             {
                 title:'Eggberge',
@@ -115,7 +115,7 @@ export const allLinks = {
             },
             {
                 title:'Cimetta', 
-                link:'https://www.bergfex.ch/locarno-orselina-cardada/webcams/c7865'
+                link:'https://www.bergfex.ch/locarno-orselina-cardada/webcams/c7865/'
             },
             {
                 title:'Niederbauen', 
@@ -126,7 +126,7 @@ export const allLinks = {
                 link:'https://laax.roundshot.com/crap-sogn-gion-park'
             },
             {
-                title:'Bonistock', 
+                title:'Melchsee-Frutt', 
                 link:'https://bonistock.roundshot.com'
             },
             {
@@ -152,10 +152,6 @@ export const allLinks = {
             {
                 title:'Wildspitz', 
                 link:'https://wildspitz.roundshot.com'
-            },
-            {
-                title:'Melchsee Frutt', 
-                link:'https://melchseefrutt.roundshot.com'
             },
             {
                 title:'Grenchenberg', 
@@ -207,7 +203,7 @@ export const allLinks = {
     },
 
     Diverse:{
-        subtitle: 'Weitere nützliche Links.',
+        subtitle: 'Weitere nützliche Seiten.',
         links:[
             {
                 title:'XContest', 
@@ -222,12 +218,16 @@ export const allLinks = {
                 link:'https://www.shv-fsvl.ch/sicherheit/fluggebiete'
             },
             {
-                title:'Manövervideos', 
-                link:'https://www.youtube.com/user/glidezeit/videos?shelf_id=1&view=0&sort=dd'
-            },
-            {
                 title:'Leg. Segelflugkarte', 
                 link:'http://api3.geo.admin.ch/static/images/legends/ch.bazl.segelflugkarte_de_big.pdf'
+            },
+            {
+                title:'Paragliding Reiseblog', 
+                link:'https://fbc.ch'
+            },
+            {
+                title:'Manövervideos', 
+                link:'https://www.youtube.com/user/glidezeit/videos?shelf_id=1&view=0&sort=dd'
             },
             {
                 title:'Luftraum News', 
@@ -240,10 +240,6 @@ export const allLinks = {
             {
                 title:'Flybubble', 
                 link:'https://www.youtube.com/user/FlybubbleParagliding'
-            },
-            {
-                title:'Paragliding Reiseblog', 
-                link:'https://fbc.ch'
             },
             {
                 title:'Bandarra', 

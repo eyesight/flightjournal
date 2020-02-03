@@ -30,10 +30,6 @@ export const allLinks = {
         subtitle: 'Wo steigt es am besten?',
         links:[
             {
-                title:'Regtherm/kk7', 
-                link:'https://wetter.kk7.ch/#regtherm'
-            },
-            {
                 title:'Soaringmeteo', 
                 link:'https://soaringmeteo.org/soarWRF2K0612Z.html'
             },
@@ -47,7 +43,7 @@ export const allLinks = {
             },
             {
                 title:'Hotspots', 
-                link:'https://thermal.kk7.ch/'
+                link:'https://thermal.kk7.ch'
             },
         ]
     },
@@ -60,41 +56,21 @@ export const allLinks = {
                 link:'http://www.meteocentrale.ch/de/wetter/foehn-und-bise/foehn.html'
             },
             {
-                title:'KK7/Meteoswiss', 
-                link:'https://wetter.kk7.ch'
+                title:'Prognose Windy ', 
+                link:'https://www.windy.com/?46.804,8.463,8'
             },
             {
-                title:'Meteo-Parapente', 
-                link:'https://meteo-parapente.com'
-            },
-            {
-                title:'Aktuelle Winde Burnair', 
-                link:'https://www.burnair.ch/windmap/'
-            },
-            {
-                title:'Aktuelle Winde Mobi', 
+                title:'Messstationen Übersicht', 
                 link:'https://winds.mobi/stations/map'
             },
             {
-                title:'Meteocentrale', 
+                title:'Prognose Meteocentrale ', 
                 link:'http://wetterstationen.meteomedia.ch/?map=Schweiz'
             },
             {
-                title:'Weissenstein', 
-                link:'https://www.dcweissenstein.ch/portfolio_page/wetterstation-weissenstein'
-            },
-            {
-                title:'Uetliberg', 
+                title:'Uetliberg Prognose', 
                 link:'http://www.meteocentrale.ch/de/europa/schweiz/wetter-uetliberg-turm/details/S066770/#2017-04-03'
             },
-            {
-                title:'Rigi-Kulm', 
-                link:'http://wetterstationen.meteomedia.ch/?map=Schweiz&station=066561'
-            },
-            {
-                title:'Röti', 
-                link:'https://www.dcweissenstein.ch/portfolio_page/wetterstation-roeti'
-            }
         ]
     },
 
@@ -111,7 +87,7 @@ export const allLinks = {
             },
             {
                 title:'Rotenflue', 
-                link:'http://www.mythenregion.ch/winter/info/webcams'
+                link:'https://kachelmannwetter.roundshot.co/rotenflue/'
             },
             {
                 title:'Cimetta', 

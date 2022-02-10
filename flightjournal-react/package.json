@@ -48,7 +48,7 @@
     "browser-sync": "^2.26.3",
     "del": "^3.0.0",
     "imagesloaded": "^4.1.4",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "normalize.scss": "^0.1.0",
     "redux-devtools-extension": "^2.13.7",
     "run-sequence": "^2.2.1"
